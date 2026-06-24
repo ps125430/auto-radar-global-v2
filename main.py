@@ -33,10 +33,10 @@ BASE_BRIEF = {
     "strategy": "可進攻，但因 CPI 事件風險，總持股上限壓制到 50%，禁止追高。",
 }
 
-BASE_THEMES = [
+THEME_BASKETS = [
     {
         "theme": "散熱水冷",
-        "score": 84,
+        "base_score": 84,
         "stage": "Stage 4",
         "status": "法人主升段",
         "allocation": 30,
@@ -44,12 +44,15 @@ BASE_THEMES = [
         "take_profit": "+10% 先出一半，+20% 再出一半",
         "stop_loss": "-7%",
         "risk": "高檔量縮，禁止開高追價",
-        "symbol": "3324",
-        "market": "TPEX",
+        "leaders": [
+            {"symbol": "3324", "name": "雙鴻", "market": "TPEX"},
+            {"symbol": "3017", "name": "奇鋐", "market": "TWSE"},
+            {"symbol": "3653", "name": "健策", "market": "TWSE"},
+        ],
     },
     {
         "theme": "CPO / 矽光子",
-        "score": 72,
+        "base_score": 72,
         "stage": "Stage 2 → 3",
         "status": "接棒候選",
         "allocation": 15,
@@ -57,12 +60,15 @@ BASE_THEMES = [
         "take_profit": "+10% 先出一半，+20% 啟動移動停利",
         "stop_loss": "-7%",
         "risk": "波動高，假突破率高",
-        "symbol": "3163",
-        "market": "TPEX",
+        "leaders": [
+            {"symbol": "3163", "name": "波若威", "market": "TPEX"},
+            {"symbol": "3450", "name": "聯鈞", "market": "TWSE"},
+            {"symbol": "4908", "name": "前鼎", "market": "TPEX"},
+        ],
     },
     {
         "theme": "BBU / 伺服器備用電池",
-        "score": 38,
+        "base_score": 38,
         "stage": "Stage 5",
         "status": "禁止碰",
         "allocation": 0,
@@ -70,8 +76,11 @@ BASE_THEMES = [
         "take_profit": "已有部位逢高減碼",
         "stop_loss": "跌破 5 日線先退出",
         "risk": "融資暴增、法人轉賣、當沖率過高",
-        "symbol": "3617",
-        "market": "TWSE",
+        "leaders": [
+            {"symbol": "3617", "name": "碩天", "market": "TWSE"},
+            {"symbol": "6121", "name": "新普", "market": "TPEX"},
+            {"symbol": "3323", "name": "加百裕", "market": "TPEX"},
+        ],
     },
 ]
 
@@ -81,7 +90,7 @@ BASE_CONFIDENCE = {
     "risk_confidence": {"target": "BBU Stage 4 → 5", "score": 92, "meaning": "散戶過熱與高檔出貨風險極高"},
 }
 
-WATCHLIST = {"market": "^TWII", "themes": BASE_THEMES}
+WATCHLIST = {"market": "^TWII", "themes": THEME_BASKETS}
 scheduler = BackgroundScheduler(timezone="Asia/Taipei")
 _market_cache: Dict[str, Any] = {}
 
@@ -244,37 +253,79 @@ def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str
     return fallback
 
 
-def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[str, Any]:
-    theme = dict(base_theme)
-    theme["market_data"] = snapshot
-    if not snapshot.get("ok"):
-        theme["data_status"] = "fallback"
-        return theme
-    change_pct = safe_float(snapshot.get("change_pct"), 0)
-    volume_ratio = safe_float(snapshot.get("volume_ratio_5d"), 0)
-    momentum_delta = 6 if change_pct >= 3 else 3 if change_pct >= 1 else -8 if change_pct <= -3 else -4 if change_pct <= -1 else 0
-    volume_delta = 5 if volume_ratio >= 1.5 else 2 if volume_ratio >= 1.1 else -8 if 0 < volume_ratio < 0.7 else 0
-    stage = str(theme.get("stage", ""))
+def stock_momentum_delta(change_pct: float, volume_ratio: float) -> int:
+    momentum = 6 if change_pct >= 3 else 3 if change_pct >= 1 else -8 if change_pct <= -3 else -4 if change_pct <= -1 else 0
+    volume = 5 if volume_ratio >= 1.5 else 2 if volume_ratio >= 1.1 else -8 if 0 < volume_ratio < 0.7 else 0
+    return momentum + volume
+
+
+def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
+    leaders = []
+    live_changes = []
+    live_volume_ratios = []
+    live_deltas = []
+
+    for leader in basket["leaders"]:
+        snapshot = fetch_symbol_snapshot(leader["symbol"], leader.get("market"))
+        item = dict(leader)
+        item["market_data"] = snapshot
+        leaders.append(item)
+        if snapshot.get("ok"):
+            change_pct = safe_float(snapshot.get("change_pct"), 0)
+            volume_ratio = safe_float(snapshot.get("volume_ratio_5d"), 0)
+            live_changes.append(change_pct)
+            live_volume_ratios.append(volume_ratio)
+            live_deltas.append(stock_momentum_delta(change_pct, volume_ratio))
+
+    live_count = len(live_deltas)
+    total_count = len(leaders)
+    live_coverage = round(live_count / total_count, 2) if total_count else 0
+    avg_change = sum(live_changes) / live_count if live_count else 0
+    avg_volume_ratio = sum(live_volume_ratios) / live_count if live_count else 0
+    avg_delta = sum(live_deltas) / live_count if live_count else 0
+
+    theme = {
+        "theme": basket["theme"],
+        "score": clamp(safe_float(basket["base_score"], 0) + avg_delta),
+        "base_score": basket["base_score"],
+        "stage": basket["stage"],
+        "status": basket["status"],
+        "allocation": basket["allocation"],
+        "entry": basket["entry"],
+        "take_profit": basket["take_profit"],
+        "stop_loss": basket["stop_loss"],
+        "risk": basket["risk"],
+        "leaders": leaders,
+        "theme_strength": clamp(50 + avg_change * 5 + avg_volume_ratio * 5),
+        "theme_momentum": round(avg_change, 2),
+        "avg_volume_ratio": round(avg_volume_ratio, 2),
+        "live_coverage": live_coverage,
+        "data_status": "live" if live_count else "fallback",
+    }
+
     risk_notes = []
+    stage = str(theme["stage"])
     if stage.startswith("Stage 5"):
         theme["allocation"] = 0
         risk_notes.append("Pipeline: Stage 5 禁止追逐")
-    elif stage.startswith("Stage 6") or (0 < volume_ratio < 0.7):
+    elif live_count and avg_volume_ratio < 0.7:
         theme["allocation"] = 0
-        risk_notes.append("Pipeline: 量能低於 5 日均量 0.7 倍，啟動風控")
-    else:
-        theme["allocation"] = clamp(safe_float(theme.get("allocation"), 0) + max(0, momentum_delta // 2), 0, 50)
+        risk_notes.append("Pipeline: 題材均量比低於 0.7，啟動風控")
+    elif live_count:
+        theme["allocation"] = clamp(theme["allocation"] + max(0, int(avg_delta // 3)), 0, 50)
+
+    if live_coverage < 0.5:
+        risk_notes.append("Pipeline: 題材資料覆蓋率不足 50%")
     if risk_notes:
         theme["risk"] = f"{theme['risk']}｜{'｜'.join(risk_notes)}"
-    theme["score"] = clamp(safe_float(theme.get("score"), 0) + momentum_delta + volume_delta)
-    theme["data_status"] = "live"
     return theme
 
 
 def build_daily_brief() -> Dict[str, Any]:
     _market_cache.clear()
     market_snapshot = fetch_symbol_snapshot(WATCHLIST["market"])
-    themes = [score_theme(theme, fetch_symbol_snapshot(theme["symbol"], theme.get("market"))) for theme in WATCHLIST["themes"]]
+    themes = [build_theme_from_basket(theme) for theme in WATCHLIST["themes"]]
+
     live_scores = [safe_float(theme.get("score"), 0) for theme in themes if theme.get("data_status") == "live"]
     avg_theme_score = sum(live_scores) / len(live_scores) if live_scores else safe_float(BASE_BRIEF["attack_score"], 82)
     attack_score = clamp(avg_theme_score + safe_float(market_snapshot.get("change_pct"), 0) * 2)
@@ -282,8 +333,20 @@ def build_daily_brief() -> Dict[str, Any]:
     ranked = sorted(themes, key=lambda item: safe_float(item.get("score"), 0), reverse=True)
     avoid_candidates = [item for item in themes if item.get("allocation", 0) == 0 or "Stage 5" in item.get("stage", "") or "Stage 6" in item.get("stage", "")]
     brief = dict(BASE_BRIEF)
-    brief.update({"date": datetime.now().strftime("%Y-%m-%d"), "market_mode": market_mode, "attack_score": attack_score, "recommended_exposure": 50 if attack_score >= 75 else 30 if attack_score >= 55 else 10, "top_theme": ranked[0]["theme"], "next_theme": ranked[1]["theme"] if len(ranked) > 1 else ranked[0]["theme"], "avoid_theme": avoid_candidates[0]["theme"] if avoid_candidates else ranked[-1]["theme"], "strategy": "Dashboard 已接 Pipeline v1：台股會自動交叉檢查 TWSE / TPEx / yfinance .TW / .TWO；Stage 5 / Stage 6 仍優先風控。", "data_status": "live" if any(t.get("data_status") == "live" for t in themes) else "fallback", "market_snapshot": market_snapshot, "updated_at": datetime.now().isoformat(timespec="seconds")})
-    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.2C Cross-Market Fallback", "source": "TWSE OpenAPI / TPEx OpenAPI / yfinance .TW / .TWO", "fallback": "BASE_BRIEF / BASE_THEMES / BASE_CONFIDENCE / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
+    brief.update({
+        "date": datetime.now().strftime("%Y-%m-%d"),
+        "market_mode": market_mode,
+        "attack_score": attack_score,
+        "recommended_exposure": 50 if attack_score >= 75 else 30 if attack_score >= 55 else 10,
+        "top_theme": ranked[0]["theme"],
+        "next_theme": ranked[1]["theme"] if len(ranked) > 1 else ranked[0]["theme"],
+        "avoid_theme": avoid_candidates[0]["theme"] if avoid_candidates else ranked[-1]["theme"],
+        "strategy": "Dashboard 已接 Theme Engine v1：題材分數由 leader 籃子計算，並保留 TWSE / TPEx / yfinance 多來源備援；Stage 5 / Stage 6 仍優先風控。",
+        "data_status": "live" if any(t.get("data_status") == "live" for t in themes) else "fallback",
+        "market_snapshot": market_snapshot,
+        "updated_at": datetime.now().isoformat(timespec="seconds"),
+    })
+    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.3 Theme Engine v1", "source": "Theme baskets + TWSE / TPEx / yfinance", "fallback": "BASE_BRIEF / THEME_BASKETS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
 
 
 def save_daily_brief(payload: Dict[str, Any]) -> None:
@@ -364,18 +427,22 @@ def dashboard():
     confidence_data = payload.get("confidence", BASE_CONFIDENCE)
     theme_cards = ""
     for t in themes:
-        md = t.get("market_data", {})
-        if md.get("ok"):
-            market_line = f"來源：{md.get('source')}｜收盤：{md.get('close')}｜漲跌：{md.get('change_pct')}%｜量比：{md.get('volume_ratio_5d')}x"
-        else:
-            market_line = f"資料來源：fallback｜{md.get('error', 'no error detail')}"
+        leaders_html = ""
+        for leader in t.get("leaders", []):
+            md = leader.get("market_data", {})
+            if md.get("ok"):
+                leader_line = f"{leader.get('symbol')} {leader.get('name')}｜{md.get('source')}｜{md.get('change_pct')}%｜量比 {md.get('volume_ratio_5d')}x"
+            else:
+                leader_line = f"{leader.get('symbol')} {leader.get('name')}｜fallback｜{md.get('error', '')}"
+            leaders_html += f"<li>{leader_line}</li>"
         theme_cards += f"""
         <div class="card">
             <h2>{t['theme']}</h2>
-            <p><b>分數：</b>{t['score']} / 100</p>
+            <p><b>分數：</b>{t['score']} / 100｜<b>基準：</b>{t.get('base_score')}</p>
+            <p><b>題材強度：</b>{t.get('theme_strength')}｜<b>題材動能：</b>{t.get('theme_momentum')}%｜<b>覆蓋率：</b>{int(t.get('live_coverage', 0) * 100)}%</p>
             <p><b>階段：</b>{t['stage']}｜{t['status']}</p>
             <p><b>建議配置：</b>{t['allocation']}%</p>
-            <p><b>Pipeline：</b>{market_line}</p>
+            <p><b>Leaders：</b></p><ul>{leaders_html}</ul>
             <p><b>進場條件：</b>{t['entry']}</p>
             <p><b>停利：</b>{t['take_profit']}</p>
             <p><b>停損：</b>{t['stop_loss']}</p>
@@ -393,12 +460,13 @@ def dashboard():
             body {{ font-family: Arial, "Microsoft JhengHei", sans-serif; background: #f5f5f5; margin: 0; padding: 24px; color: #111; }}
             .container {{ max-width: 960px; margin: auto; }}
             .hero {{ background: #111; color: white; border-radius: 18px; padding: 24px; margin-bottom: 20px; }}
-            .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }}
+            .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }}
             .card {{ background: white; border-radius: 16px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }}
             .tag {{ display: inline-block; color: #ffffff; padding: 7px 12px; border-radius: 999px; margin-right: 8px; font-weight: bold; }}
             .tag.green {{ background: #16a34a; }} .tag.blue {{ background: #2563eb; }} .tag.orange {{ background: #f59e0b; }}
             .warn {{ background: #fff3cd; color: #92400e; font-weight: 800; padding: 14px; border-radius: 12px; margin-top: 12px; }}
             .meta {{ opacity: .8; font-size: 14px; }} h1, h2 {{ margin-top: 0; }}
+            ul {{ padding-left: 18px; }} li {{ margin-bottom: 5px; }}
             .actions {{ margin: 18px 0; display: flex; gap: 10px; }}
             button {{ border: 0; border-radius: 999px; padding: 10px 14px; font-weight: 800; cursor: pointer; background: #111; color: white; }}
         </style>
@@ -416,10 +484,7 @@ def dashboard():
             <div class="grid">{theme_cards}</div>
             <div class="card" style="margin-top:20px;"><h2>小G 信心分數</h2><p><b>輪動信心：</b>{confidence_data['rotation_confidence']['score']}%｜{confidence_data['rotation_confidence']['target']}</p><p><b>升級信心：</b>{confidence_data['transition_confidence']['score']}%｜{confidence_data['transition_confidence']['target']}</p><p><b>風險信心：</b>{confidence_data['risk_confidence']['score']}%｜{confidence_data['risk_confidence']['target']}</p></div>
         </div>
-        <div class="container actions">
-            <button onclick="downloadShot()">📥 下載截圖</button>
-            <button onclick="copyShot()">📸 複製截圖</button>
-        </div>
+        <div class="container actions"><button onclick="downloadShot()">📥 下載截圖</button><button onclick="copyShot()">📸 複製截圖</button></div>
         <script>
             async function makeCanvas() {{ return await html2canvas(document.getElementById('radar-capture'), {{backgroundColor: '#f5f5f5', scale: 2}}); }}
             async function downloadShot() {{ const canvas = await makeCanvas(); const a = document.createElement('a'); a.download = 'auto-radar-daily.png'; a.href = canvas.toDataURL('image/png'); a.click(); }}
