@@ -1,0 +1,120 @@
+{
+  "brief": {
+    "date": "2026-06-25",
+    "market_mode": "BULL",
+    "attack_score": 82,
+    "recommended_exposure": 50,
+    "main_theme": "AI",
+    "top_theme": "散熱水冷",
+    "next_theme": "CPO / 矽光子",
+    "avoid_theme": "BBU / 伺服器備用電池",
+    "risk_event": "美國 CPI D-2",
+    "strategy": "Dashboard 已接 Pipeline v1：以每日市場資料更新分數與持股上限；Stage 5 / Stage 6 / 量能跌破門檻仍優先風控。",
+    "data_status": "fallback",
+    "market_snapshot": {
+      "symbol": "^TWII",
+      "close": null,
+      "change_pct": 0,
+      "volume": 0,
+      "avg_volume_5d": 0,
+      "volume_ratio_5d": 0,
+      "source": "initial_cache",
+      "ok": false
+    },
+    "updated_at": "2026-06-25T00:00:00"
+  },
+  "themes": [
+    {
+      "theme": "散熱水冷",
+      "score": 84,
+      "stage": "Stage 4",
+      "status": "法人主升段",
+      "allocation": 30,
+      "entry": "等回測 5 日線不破，或帶量突破平台",
+      "take_profit": "+10% 先出一半，+20% 再出一半",
+      "stop_loss": "-7%",
+      "risk": "高檔量縮，禁止開高追價",
+      "symbol": "3324.TW",
+      "data_status": "fallback",
+      "market_data": {
+        "symbol": "3324.TW",
+        "close": null,
+        "change_pct": 0,
+        "volume": 0,
+        "avg_volume_5d": 0,
+        "volume_ratio_5d": 0,
+        "source": "initial_cache",
+        "ok": false
+      }
+    },
+    {
+      "theme": "CPO / 矽光子",
+      "score": 72,
+      "stage": "Stage 2 → 3",
+      "status": "接棒候選",
+      "allocation": 15,
+      "entry": "開盤 15 分鐘量能 > 5 日均量 1.5 倍，且不開高走低",
+      "take_profit": "+10% 先出一半，+20% 啟動移動停利",
+      "stop_loss": "-7%",
+      "risk": "波動高，假突破率高",
+      "symbol": "3163.TWO",
+      "data_status": "fallback",
+      "market_data": {
+        "symbol": "3163.TWO",
+        "close": null,
+        "change_pct": 0,
+        "volume": 0,
+        "avg_volume_5d": 0,
+        "volume_ratio_5d": 0,
+        "source": "initial_cache",
+        "ok": false
+      }
+    },
+    {
+      "theme": "BBU / 伺服器備用電池",
+      "score": 38,
+      "stage": "Stage 5",
+      "status": "禁止碰",
+      "allocation": 0,
+      "entry": "不進場",
+      "take_profit": "已有部位逢高減碼",
+      "stop_loss": "跌破 5 日線先退出",
+      "risk": "融資暴增、法人轉賣、當沖率過高",
+      "symbol": "3617.TW",
+      "data_status": "fallback",
+      "market_data": {
+        "symbol": "3617.TW",
+        "close": null,
+        "change_pct": 0,
+        "volume": 0,
+        "avg_volume_5d": 0,
+        "volume_ratio_5d": 0,
+        "source": "initial_cache",
+        "ok": false
+      }
+    }
+  ],
+  "confidence": {
+    "rotation_confidence": {
+      "target": "散熱水冷 → CPO / 矽光子",
+      "score": 78,
+      "meaning": "資金有明顯從高檔散熱外溢到 CPO 的跡象"
+    },
+    "transition_confidence": {
+      "target": "CPO / 矽光子 Stage 2 → 3",
+      "score": 85,
+      "meaning": "營收與籌碼正在支持題材升級"
+    },
+    "risk_confidence": {
+      "target": "BBU Stage 4 → 5",
+      "score": 92,
+      "meaning": "散戶過熱與高檔出貨風險極高"
+    }
+  },
+  "pipeline": {
+    "version": "Sprint 3 Data Pipeline v1",
+    "source": "yfinance",
+    "fallback": "BASE_BRIEF / BASE_THEMES / BASE_CONFIDENCE",
+    "schedule": "Asia/Taipei 08:30 daily"
+  }
+}
