@@ -19,6 +19,7 @@ BRIEF_PATH = DATA_DIR / "auto_radar_daily_brief.json"
 TWSE_STOCK_DAY_ALL_URL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
 TPEX_MAINBOARD_QUOTES_URL = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes"
 HTTP_TIMEOUT = 8
+UP_THRESHOLD_PCT = 0.5
 
 BASE_BRIEF = {
     "date": "2026-06-24",
@@ -115,6 +116,10 @@ def safe_int(value: Any, default: int = 0) -> int:
 
 def clamp(value: Any, low: int = 0, high: int = 100) -> int:
     return max(low, min(high, int(round(safe_float(value, float(low))))))
+
+
+def clamp_float(value: Any, low: float = 0.0, high: float = 100.0) -> float:
+    return max(low, min(high, safe_float(value, low)))
 
 
 def normalize_symbol(symbol: str) -> str:
@@ -253,10 +258,48 @@ def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str
     return fallback
 
 
+def normalize_price_score(avg_change_pct: float) -> int:
+    return clamp(((avg_change_pct + 5) / 10) * 100)
+
+
+def normalize_volume_score(avg_volume_ratio: float) -> int:
+    return clamp((avg_volume_ratio - 0.5) / 1.5 * 100)
+
+
+def map_auto_stage(stage_score: float) -> str:
+    if stage_score < 20:
+        return "Stage 6"
+    if stage_score < 40:
+        return "Stage 1"
+    if stage_score < 55:
+        return "Stage 2"
+    if stage_score < 70:
+        return "Stage 3"
+    if stage_score < 85:
+        return "Stage 4"
+    return "Stage 5"
+
+
+def map_auto_stage_label(stage_score: float) -> str:
+    labels = {
+        "Stage 6": "Stage 6 嚴重超賣 / 築底期",
+        "Stage 1": "Stage 1 初步復甦 / 懷疑期",
+        "Stage 2": "Stage 2 溫和上漲 / 成長期",
+        "Stage 3": "Stage 3 主升段 / 熱絡期",
+        "Stage 4": "Stage 4 末升段 / 瘋狂期",
+        "Stage 5": "Stage 5 高檔震盪 / 出貨反轉期",
+    }
+    return labels[map_auto_stage(stage_score)]
+
+
 def stock_momentum_delta(change_pct: float, volume_ratio: float) -> int:
     momentum = 6 if change_pct >= 3 else 3 if change_pct >= 1 else -8 if change_pct <= -3 else -4 if change_pct <= -1 else 0
     volume = 5 if volume_ratio >= 1.5 else 2 if volume_ratio >= 1.1 else -8 if 0 < volume_ratio < 0.7 else 0
     return momentum + volume
+
+
+def stage_confidence(data_coverage: float, leader_consistency: float, breadth_score: float) -> int:
+    return clamp(data_coverage * 0.4 + leader_consistency * 0.3 + breadth_score * 0.3)
 
 
 def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
@@ -264,6 +307,7 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
     live_changes = []
     live_volume_ratios = []
     live_deltas = []
+    positive_count = 0
 
     for leader in basket["leaders"]:
         snapshot = fetch_symbol_snapshot(leader["symbol"], leader.get("market"))
@@ -276,19 +320,47 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
             live_changes.append(change_pct)
             live_volume_ratios.append(volume_ratio)
             live_deltas.append(stock_momentum_delta(change_pct, volume_ratio))
+            if change_pct >= UP_THRESHOLD_PCT:
+                positive_count += 1
 
     live_count = len(live_deltas)
     total_count = len(leaders)
-    live_coverage = round(live_count / total_count, 2) if total_count else 0
+    live_coverage_ratio = live_count / total_count if total_count else 0
+    data_coverage = round(live_coverage_ratio * 100, 1)
     avg_change = sum(live_changes) / live_count if live_count else 0
     avg_volume_ratio = sum(live_volume_ratios) / live_count if live_count else 0
     avg_delta = sum(live_deltas) / live_count if live_count else 0
+
+    breadth_score = round((positive_count / live_count) * 100, 1) if live_count else 0
+    price_score = normalize_price_score(avg_change)
+    volume_score = normalize_volume_score(avg_volume_ratio)
+    stage_score = round(price_score * 0.4 + volume_score * 0.3 + breadth_score * 0.3, 1)
+    auto_stage = map_auto_stage(stage_score)
+    auto_stage_label = map_auto_stage_label(stage_score)
+
+    if not live_changes:
+        leader_consistency = 0
+    else:
+        up_ratio = positive_count / live_count
+        down_ratio = 1 - up_ratio
+        leader_consistency = round(max(up_ratio, down_ratio) * 100, 1)
+
+    confidence = stage_confidence(data_coverage, leader_consistency, breadth_score)
 
     theme = {
         "theme": basket["theme"],
         "score": clamp(safe_float(basket["base_score"], 0) + avg_delta),
         "base_score": basket["base_score"],
         "stage": basket["stage"],
+        "auto_stage": auto_stage,
+        "auto_stage_label": auto_stage_label,
+        "stage_score": stage_score,
+        "stage_confidence": confidence,
+        "breadth_score": breadth_score,
+        "price_score": price_score,
+        "volume_score": volume_score,
+        "data_coverage": data_coverage,
+        "leader_consistency": leader_consistency,
         "status": basket["status"],
         "allocation": basket["allocation"],
         "entry": basket["entry"],
@@ -299,22 +371,26 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         "theme_strength": clamp(50 + avg_change * 5 + avg_volume_ratio * 5),
         "theme_momentum": round(avg_change, 2),
         "avg_volume_ratio": round(avg_volume_ratio, 2),
-        "live_coverage": live_coverage,
+        "live_coverage": round(live_coverage_ratio, 2),
         "data_status": "live" if live_count else "fallback",
     }
 
     risk_notes = []
-    stage = str(theme["stage"])
-    if stage.startswith("Stage 5"):
+    if auto_stage == "Stage 5":
+        risk_notes.append("Stage Engine: 自動判定高檔震盪 / 出貨風險")
+    if auto_stage == "Stage 6":
         theme["allocation"] = 0
-        risk_notes.append("Pipeline: Stage 5 禁止追逐")
+        risk_notes.append("Stage Engine: 自動判定退潮 / 築底，禁止進攻")
+    elif str(basket.get("stage", "")).startswith("Stage 5"):
+        theme["allocation"] = 0
+        risk_notes.append("Pipeline: 原始研究 Stage 5 禁止追逐")
     elif live_count and avg_volume_ratio < 0.7:
         theme["allocation"] = 0
         risk_notes.append("Pipeline: 題材均量比低於 0.7，啟動風控")
     elif live_count:
         theme["allocation"] = clamp(theme["allocation"] + max(0, int(avg_delta // 3)), 0, 50)
 
-    if live_coverage < 0.5:
+    if live_coverage_ratio < 0.5:
         risk_notes.append("Pipeline: 題材資料覆蓋率不足 50%")
     if risk_notes:
         theme["risk"] = f"{theme['risk']}｜{'｜'.join(risk_notes)}"
@@ -331,7 +407,7 @@ def build_daily_brief() -> Dict[str, Any]:
     attack_score = clamp(avg_theme_score + safe_float(market_snapshot.get("change_pct"), 0) * 2)
     market_mode = "BULL" if attack_score >= 75 else "NEUTRAL" if attack_score >= 55 else "DEFENSIVE"
     ranked = sorted(themes, key=lambda item: safe_float(item.get("score"), 0), reverse=True)
-    avoid_candidates = [item for item in themes if item.get("allocation", 0) == 0 or "Stage 5" in item.get("stage", "") or "Stage 6" in item.get("stage", "")]
+    avoid_candidates = [item for item in themes if item.get("allocation", 0) == 0 or item.get("auto_stage") in {"Stage 5", "Stage 6"} or "Stage 5" in item.get("stage", "")]
     brief = dict(BASE_BRIEF)
     brief.update({
         "date": datetime.now().strftime("%Y-%m-%d"),
@@ -341,12 +417,12 @@ def build_daily_brief() -> Dict[str, Any]:
         "top_theme": ranked[0]["theme"],
         "next_theme": ranked[1]["theme"] if len(ranked) > 1 else ranked[0]["theme"],
         "avoid_theme": avoid_candidates[0]["theme"] if avoid_candidates else ranked[-1]["theme"],
-        "strategy": "Dashboard 已接 Theme Engine v1：題材分數由 leader 籃子計算，並保留 TWSE / TPEx / yfinance 多來源備援；Stage 5 / Stage 6 仍優先風控。",
+        "strategy": "Dashboard 已接 Stage Engine v1：Stage Score = Price 40% + Volume 30% + Breadth 30%；Daily Brief 結構維持不變。",
         "data_status": "live" if any(t.get("data_status") == "live" for t in themes) else "fallback",
         "market_snapshot": market_snapshot,
         "updated_at": datetime.now().isoformat(timespec="seconds"),
     })
-    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.3 Theme Engine v1", "source": "Theme baskets + TWSE / TPEx / yfinance", "fallback": "BASE_BRIEF / THEME_BASKETS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
+    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.5 Stage Engine v1", "source": "Theme Engine v1 + Stage Engine v1", "fallback": "BASE_BRIEF / THEME_BASKETS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
 
 
 def save_daily_brief(payload: Dict[str, Any]) -> None:
@@ -440,7 +516,9 @@ def dashboard():
             <h2>{t['theme']}</h2>
             <p><b>分數：</b>{t['score']} / 100｜<b>基準：</b>{t.get('base_score')}</p>
             <p><b>題材強度：</b>{t.get('theme_strength')}｜<b>題材動能：</b>{t.get('theme_momentum')}%｜<b>覆蓋率：</b>{int(t.get('live_coverage', 0) * 100)}%</p>
-            <p><b>階段：</b>{t['stage']}｜{t['status']}</p>
+            <p><b>Breadth：</b>{t.get('breadth_score')}｜<b>Price：</b>{t.get('price_score')}｜<b>Volume：</b>{t.get('volume_score')}</p>
+            <p><b>Stage Score：</b>{t.get('stage_score')}｜<b>Auto Stage：</b>{t.get('auto_stage_label')}｜<b>Confidence：</b>{t.get('stage_confidence')}</p>
+            <p><b>原始階段：</b>{t['stage']}｜{t['status']}</p>
             <p><b>建議配置：</b>{t['allocation']}%</p>
             <p><b>Leaders：</b></p><ul>{leaders_html}</ul>
             <p><b>進場條件：</b>{t['entry']}</p>
