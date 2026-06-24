@@ -1,4 +1,5 @@
 import json
+import math
 import os
 from datetime import datetime
 from pathlib import Path
@@ -92,46 +93,70 @@ WATCHLIST = {
 scheduler = BackgroundScheduler(timezone="Asia/Taipei")
 
 
-def clamp(value: float, low: int = 0, high: int = 100) -> int:
-    return max(low, min(high, int(round(value))))
+def safe_float(value: Any, default: float = 0.0) -> float:
+    try:
+        number = float(value)
+        if math.isnan(number) or math.isinf(number):
+            return default
+        return number
+    except (TypeError, ValueError):
+        return default
+
+
+def safe_int(value: Any, default: int = 0) -> int:
+    number = safe_float(value, float(default))
+    return int(round(number))
+
+
+def clamp(value: Any, low: int = 0, high: int = 100) -> int:
+    number = safe_float(value, float(low))
+    return max(low, min(high, int(round(number))))
+
+
+def fallback_snapshot(symbol: str, error: str = "no usable market data") -> Dict[str, Any]:
+    return {
+        "symbol": symbol,
+        "close": None,
+        "change_pct": 0,
+        "volume": 0,
+        "avg_volume_5d": 0,
+        "volume_ratio_5d": 0,
+        "source": "fallback",
+        "ok": False,
+        "error": error,
+    }
 
 
 def fetch_symbol_snapshot(symbol: str) -> Dict[str, Any]:
-    """Fetch a compact daily market snapshot. The pipeline fails soft on free infra."""
+    """Fetch a compact daily market snapshot. Any bad value returns fallback instead of killing startup."""
     try:
         history = yf.Ticker(symbol).history(period="10d", interval="1d", auto_adjust=False)
-        if history.empty:
-            raise ValueError("empty history")
+        if history.empty or "Close" not in history:
+            return fallback_snapshot(symbol, "empty history")
 
-        close = float(history["Close"].iloc[-1])
-        prev_close = float(history["Close"].iloc[-2]) if len(history) > 1 else close
-        volume = float(history["Volume"].iloc[-1]) if "Volume" in history else 0
-        avg_volume_5d = float(history["Volume"].tail(5).mean()) if "Volume" in history else 0
+        close = safe_float(history["Close"].iloc[-1], math.nan)
+        prev_close = safe_float(history["Close"].iloc[-2] if len(history) > 1 else close, math.nan)
+        volume = safe_float(history["Volume"].iloc[-1] if "Volume" in history else 0, 0)
+        avg_volume_5d = safe_float(history["Volume"].tail(5).mean() if "Volume" in history else 0, 0)
+
+        if math.isnan(close) or math.isnan(prev_close) or prev_close == 0:
+            return fallback_snapshot(symbol, "invalid close price")
+
         change_pct = ((close - prev_close) / prev_close * 100) if prev_close else 0
         volume_ratio = (volume / avg_volume_5d) if avg_volume_5d else 0
 
         return {
             "symbol": symbol,
             "close": round(close, 2),
-            "change_pct": round(change_pct, 2),
-            "volume": int(volume),
-            "avg_volume_5d": int(avg_volume_5d),
-            "volume_ratio_5d": round(volume_ratio, 2),
+            "change_pct": round(safe_float(change_pct), 2),
+            "volume": safe_int(volume),
+            "avg_volume_5d": safe_int(avg_volume_5d),
+            "volume_ratio_5d": round(safe_float(volume_ratio), 2),
             "source": "yfinance",
             "ok": True,
         }
     except Exception as exc:  # noqa: BLE001
-        return {
-            "symbol": symbol,
-            "close": None,
-            "change_pct": 0,
-            "volume": 0,
-            "avg_volume_5d": 0,
-            "volume_ratio_5d": 0,
-            "source": "fallback",
-            "ok": False,
-            "error": str(exc),
-        }
+        return fallback_snapshot(symbol, str(exc))
 
 
 def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[str, Any]:
@@ -143,8 +168,8 @@ def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[st
         theme["data_status"] = "fallback"
         return theme
 
-    change_pct = float(snapshot.get("change_pct") or 0)
-    volume_ratio = float(snapshot.get("volume_ratio_5d") or 0)
+    change_pct = safe_float(snapshot.get("change_pct"), 0)
+    volume_ratio = safe_float(snapshot.get("volume_ratio_5d"), 0)
 
     momentum_delta = 0
     if change_pct >= 3:
@@ -173,12 +198,12 @@ def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[st
         theme["allocation"] = 0
         risk_notes.append("Pipeline: 量能低於 5 日均量 0.7 倍，啟動風控")
     else:
-        theme["allocation"] = clamp(theme["allocation"] + max(0, momentum_delta // 2), 0, 50)
+        theme["allocation"] = clamp(safe_float(theme.get("allocation"), 0) + max(0, momentum_delta // 2), 0, 50)
 
     if risk_notes:
         theme["risk"] = f"{theme['risk']}｜{'｜'.join(risk_notes)}"
 
-    theme["score"] = clamp(theme["score"] + momentum_delta + volume_delta)
+    theme["score"] = clamp(safe_float(theme.get("score"), 0) + momentum_delta + volume_delta)
     theme["data_status"] = "live"
     return theme
 
@@ -187,9 +212,9 @@ def build_daily_brief() -> Dict[str, Any]:
     market_snapshot = fetch_symbol_snapshot(WATCHLIST["market"])
     themes = [score_theme(theme, fetch_symbol_snapshot(theme["symbol"])) for theme in WATCHLIST["themes"]]
 
-    live_scores = [theme["score"] for theme in themes if theme.get("data_status") == "live"]
-    avg_theme_score = sum(live_scores) / len(live_scores) if live_scores else BASE_BRIEF["attack_score"]
-    market_change = float(market_snapshot.get("change_pct") or 0)
+    live_scores = [safe_float(theme.get("score"), 0) for theme in themes if theme.get("data_status") == "live"]
+    avg_theme_score = sum(live_scores) / len(live_scores) if live_scores else safe_float(BASE_BRIEF["attack_score"], 82)
+    market_change = safe_float(market_snapshot.get("change_pct"), 0)
     attack_score = clamp(avg_theme_score + market_change * 2)
 
     if attack_score >= 75:
@@ -199,7 +224,7 @@ def build_daily_brief() -> Dict[str, Any]:
     else:
         market_mode = "DEFENSIVE"
 
-    ranked = sorted(themes, key=lambda item: item["score"], reverse=True)
+    ranked = sorted(themes, key=lambda item: safe_float(item.get("score"), 0), reverse=True)
     avoid_candidates = [
         item for item in themes
         if item.get("allocation", 0) == 0 or "Stage 5" in item.get("stage", "") or "Stage 6" in item.get("stage", "")
@@ -260,7 +285,11 @@ def run_pipeline() -> Dict[str, Any]:
 
 @app.on_event("startup")
 def startup_event() -> None:
-    run_pipeline()
+    try:
+        run_pipeline()
+    except Exception as exc:  # noqa: BLE001
+        print(f"Pipeline startup fallback: {exc}")
+
     if not scheduler.running:
         scheduler.add_job(run_pipeline, "cron", hour=8, minute=30, id="daily_pipeline", replace_existing=True)
         scheduler.start()
