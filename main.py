@@ -3,8 +3,9 @@ import math
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
+import requests
 import yfinance as yf
 from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI
@@ -14,6 +15,10 @@ app = FastAPI(title="Auto Radar Global v2")
 
 DATA_DIR = Path(os.getenv("AUTO_RADAR_DATA_DIR", "data"))
 BRIEF_PATH = DATA_DIR / "auto_radar_daily_brief.json"
+
+TWSE_STOCK_DAY_ALL_URL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
+TPEX_MAINBOARD_QUOTES_URL = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes"
+HTTP_TIMEOUT = 8
 
 BASE_BRIEF = {
     "date": "2026-06-24",
@@ -39,7 +44,8 @@ BASE_THEMES = [
         "take_profit": "+10% 先出一半，+20% 再出一半",
         "stop_loss": "-7%",
         "risk": "高檔量縮，禁止開高追價",
-        "symbol": "3324.TW",
+        "symbol": "3324",
+        "market": "TWSE",
     },
     {
         "theme": "CPO / 矽光子",
@@ -51,7 +57,8 @@ BASE_THEMES = [
         "take_profit": "+10% 先出一半，+20% 啟動移動停利",
         "stop_loss": "-7%",
         "risk": "波動高，假突破率高",
-        "symbol": "3163.TWO",
+        "symbol": "3163",
+        "market": "TPEX",
     },
     {
         "theme": "BBU / 伺服器備用電池",
@@ -63,7 +70,8 @@ BASE_THEMES = [
         "take_profit": "已有部位逢高減碼",
         "stop_loss": "跌破 5 日線先退出",
         "risk": "融資暴增、法人轉賣、當沖率過高",
-        "symbol": "3617.TW",
+        "symbol": "3617",
+        "market": "TWSE",
     },
 ]
 
@@ -91,10 +99,15 @@ WATCHLIST = {
 }
 
 scheduler = BackgroundScheduler(timezone="Asia/Taipei")
+_market_cache: Dict[str, Any] = {}
 
 
 def safe_float(value: Any, default: float = 0.0) -> float:
     try:
+        if isinstance(value, str):
+            value = value.replace(",", "").replace("+", "").strip()
+            if value in {"", "--", "-", "X", "除權息"}:
+                return default
         number = float(value)
         if math.isnan(number) or math.isinf(number):
             return default
@@ -113,7 +126,11 @@ def clamp(value: Any, low: int = 0, high: int = 100) -> int:
     return max(low, min(high, int(round(number))))
 
 
-def fallback_snapshot(symbol: str, error: str = "no usable market data") -> Dict[str, Any]:
+def normalize_symbol(symbol: str) -> str:
+    return str(symbol).replace(".TW", "").replace(".TWO", "").strip()
+
+
+def fallback_snapshot(symbol: str, error: str = "no usable market data", source: str = "fallback") -> Dict[str, Any]:
     return {
         "symbol": symbol,
         "close": None,
@@ -121,18 +138,102 @@ def fallback_snapshot(symbol: str, error: str = "no usable market data") -> Dict
         "volume": 0,
         "avg_volume_5d": 0,
         "volume_ratio_5d": 0,
-        "source": "fallback",
+        "source": source,
         "ok": False,
         "error": error,
     }
 
 
-def fetch_symbol_snapshot(symbol: str) -> Dict[str, Any]:
-    """Fetch a compact daily market snapshot. Any bad value returns fallback instead of killing startup."""
+def get_json(url: str, cache_key: str) -> Any:
+    if cache_key in _market_cache:
+        return _market_cache[cache_key]
+
+    response = requests.get(
+        url,
+        timeout=HTTP_TIMEOUT,
+        headers={"User-Agent": "AutoRadarGlobal/2.1"},
+    )
+    response.raise_for_status()
+    payload = response.json()
+    _market_cache[cache_key] = payload
+    return payload
+
+
+def get_first(row: Dict[str, Any], keys: List[str], default: Any = None) -> Any:
+    for key in keys:
+        if key in row and row[key] not in (None, ""):
+            return row[key]
+    return default
+
+
+def snapshot_from_quote(symbol: str, quote: Dict[str, Any], source: str) -> Dict[str, Any]:
+    close = safe_float(
+        get_first(quote, ["ClosingPrice", "Close", "close", "收盤價", "ClosePrice", "LatestPrice", "最新成交價"]),
+        math.nan,
+    )
+    change = safe_float(
+        get_first(quote, ["Change", "ChangePrice", "漲跌價差", "漲跌", "PriceChange", "ChangeAmount"]),
+        0,
+    )
+    volume = safe_int(
+        get_first(quote, ["TradeVolume", "Volume", "成交股數", "成交股數合計", "TradingShares", "成交量"]),
+        0,
+    )
+
+    if math.isnan(close) or close <= 0:
+        return fallback_snapshot(symbol, "invalid official quote", source)
+
+    prev_close = close - change if change else 0
+    change_pct = (change / prev_close * 100) if prev_close else 0
+
+    return {
+        "symbol": symbol,
+        "close": round(close, 2),
+        "change_pct": round(safe_float(change_pct), 2),
+        "volume": volume,
+        "avg_volume_5d": 0,
+        "volume_ratio_5d": 1 if volume else 0,
+        "source": source,
+        "ok": True,
+    }
+
+
+def fetch_twse_snapshot(symbol: str) -> Dict[str, Any]:
+    code = normalize_symbol(symbol)
     try:
-        history = yf.Ticker(symbol).history(period="10d", interval="1d", auto_adjust=False)
+        payload = get_json(TWSE_STOCK_DAY_ALL_URL, "twse_stock_day_all")
+        for row in payload:
+            row_code = str(get_first(row, ["Code", "證券代號", "code"], "")).strip()
+            if row_code == code:
+                return snapshot_from_quote(code, row, "twse_openapi")
+        return fallback_snapshot(code, "symbol not found in TWSE", "twse_openapi")
+    except Exception as exc:  # noqa: BLE001
+        return fallback_snapshot(code, str(exc), "twse_openapi")
+
+
+def fetch_tpex_snapshot(symbol: str) -> Dict[str, Any]:
+    code = normalize_symbol(symbol)
+    try:
+        payload = get_json(TPEX_MAINBOARD_QUOTES_URL, "tpex_mainboard_quotes")
+        for row in payload:
+            row_code = str(get_first(row, ["SecuritiesCompanyCode", "Code", "代號", "有價證券代號"], "")).strip()
+            if row_code == code:
+                return snapshot_from_quote(code, row, "tpex_openapi")
+        return fallback_snapshot(code, "symbol not found in TPEx", "tpex_openapi")
+    except Exception as exc:  # noqa: BLE001
+        return fallback_snapshot(code, str(exc), "tpex_openapi")
+
+
+def fetch_yfinance_snapshot(symbol: str) -> Dict[str, Any]:
+    try:
+        yf_symbol = symbol
+        code = normalize_symbol(symbol)
+        if code.isdigit() and "." not in symbol:
+            yf_symbol = f"{code}.TW"
+
+        history = yf.Ticker(yf_symbol).history(period="10d", interval="1d", auto_adjust=False)
         if history.empty or "Close" not in history:
-            return fallback_snapshot(symbol, "empty history")
+            return fallback_snapshot(symbol, "empty yfinance history", "yfinance")
 
         close = safe_float(history["Close"].iloc[-1], math.nan)
         prev_close = safe_float(history["Close"].iloc[-2] if len(history) > 1 else close, math.nan)
@@ -140,7 +241,7 @@ def fetch_symbol_snapshot(symbol: str) -> Dict[str, Any]:
         avg_volume_5d = safe_float(history["Volume"].tail(5).mean() if "Volume" in history else 0, 0)
 
         if math.isnan(close) or math.isnan(prev_close) or prev_close == 0:
-            return fallback_snapshot(symbol, "invalid close price")
+            return fallback_snapshot(symbol, "invalid yfinance close price", "yfinance")
 
         change_pct = ((close - prev_close) / prev_close * 100) if prev_close else 0
         volume_ratio = (volume / avg_volume_5d) if avg_volume_5d else 0
@@ -156,7 +257,34 @@ def fetch_symbol_snapshot(symbol: str) -> Dict[str, Any]:
             "ok": True,
         }
     except Exception as exc:  # noqa: BLE001
-        return fallback_snapshot(symbol, str(exc))
+        return fallback_snapshot(symbol, str(exc), "yfinance")
+
+
+def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str, Any]:
+    """Fetch market data with official Taiwan APIs first, then yfinance, then fallback."""
+    normalized_market = (market or "").upper()
+    code = normalize_symbol(symbol)
+    attempts: List[Dict[str, Any]] = []
+
+    if normalized_market == "TWSE":
+        attempts.append(fetch_twse_snapshot(code))
+    elif normalized_market == "TPEX":
+        attempts.append(fetch_tpex_snapshot(code))
+    elif code.isdigit():
+        attempts.append(fetch_twse_snapshot(code))
+        attempts.append(fetch_tpex_snapshot(code))
+
+    attempts.append(fetch_yfinance_snapshot(symbol))
+
+    for result in attempts:
+        if result.get("ok"):
+            result["attempted_sources"] = [item.get("source") for item in attempts]
+            return result
+
+    fallback = fallback_snapshot(symbol, "all data sources failed", "multi_source")
+    fallback["attempted_sources"] = [item.get("source") for item in attempts]
+    fallback["errors"] = [item.get("error") for item in attempts if item.get("error")]
+    return fallback
 
 
 def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[str, Any]:
@@ -209,8 +337,12 @@ def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[st
 
 
 def build_daily_brief() -> Dict[str, Any]:
+    _market_cache.clear()
     market_snapshot = fetch_symbol_snapshot(WATCHLIST["market"])
-    themes = [score_theme(theme, fetch_symbol_snapshot(theme["symbol"])) for theme in WATCHLIST["themes"]]
+    themes = [
+        score_theme(theme, fetch_symbol_snapshot(theme["symbol"], theme.get("market")))
+        for theme in WATCHLIST["themes"]
+    ]
 
     live_scores = [safe_float(theme.get("score"), 0) for theme in themes if theme.get("data_status") == "live"]
     avg_theme_score = sum(live_scores) / len(live_scores) if live_scores else safe_float(BASE_BRIEF["attack_score"], 82)
@@ -240,7 +372,7 @@ def build_daily_brief() -> Dict[str, Any]:
             "top_theme": ranked[0]["theme"],
             "next_theme": ranked[1]["theme"] if len(ranked) > 1 else ranked[0]["theme"],
             "avoid_theme": avoid_candidates[0]["theme"] if avoid_candidates else ranked[-1]["theme"],
-            "strategy": "Dashboard 已接 Pipeline v1：以每日市場資料更新分數與持股上限；Stage 5 / Stage 6 / 量能跌破門檻仍優先風控。",
+            "strategy": "Dashboard 已接 Pipeline v1：台股優先使用 TWSE / TPEx 官方資料，失敗才切 yfinance 與 fallback；Stage 5 / Stage 6 仍優先風控。",
             "data_status": "live" if any(t.get("data_status") == "live" for t in themes) else "fallback",
             "market_snapshot": market_snapshot,
             "updated_at": datetime.now().isoformat(timespec="seconds"),
@@ -252,9 +384,9 @@ def build_daily_brief() -> Dict[str, Any]:
         "themes": themes,
         "confidence": BASE_CONFIDENCE,
         "pipeline": {
-            "version": "Sprint 3 Data Pipeline v1",
-            "source": "yfinance",
-            "fallback": "BASE_BRIEF / BASE_THEMES / BASE_CONFIDENCE",
+            "version": "Sprint 3.2 Taiwan Market Data Adapter v1",
+            "source": "TWSE OpenAPI / TPEx OpenAPI / yfinance",
+            "fallback": "BASE_BRIEF / BASE_THEMES / BASE_CONFIDENCE / cached JSON",
             "schedule": "Asia/Taipei 08:30 daily",
         },
     }
@@ -343,7 +475,7 @@ def dashboard():
         market_line = "資料來源：fallback"
         if md.get("ok"):
             market_line = (
-                f"收盤：{md.get('close')}｜漲跌：{md.get('change_pct')}%｜"
+                f"來源：{md.get('source')}｜收盤：{md.get('close')}｜漲跌：{md.get('change_pct')}%｜"
                 f"量比：{md.get('volume_ratio_5d')}x"
             )
 
