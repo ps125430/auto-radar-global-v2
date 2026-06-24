@@ -152,36 +152,35 @@ def dashboard():
                 padding: 18px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             }}
-            .tag {
+           .tag {{
     display: inline-block;
     color: #ffffff;
     padding: 7px 12px;
     border-radius: 999px;
     margin-right: 8px;
     font-weight: bold;
-}
+}}
 
-.tag.green {
+.tag.green {{
     background: #16a34a;
-}
+}}
 
-.tag.blue {
+.tag.blue {{
     background: #2563eb;
-}
+}}
 
-.tag.orange {
+.tag.orange {{
     background: #f59e0b;
-}
+}}
 
-.warn {
+.warn {{
     background: #fff3cd;
     color: #92400e;
     font-weight: 800;
     padding: 14px;
     border-radius: 12px;
     margin-top: 12px;
-}
-            }}
+}}
             h1, h2 {{
                 margin-top: 0;
             }}
