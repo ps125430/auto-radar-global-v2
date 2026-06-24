@@ -152,19 +152,35 @@ def dashboard():
                 padding: 18px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             }}
-            .tag {{
-                display: inline-block;
-                background: #e8f5e9;
-                padding: 6px 10px;
-                border-radius: 999px;
-                margin-right: 8px;
-                font-weight: bold;
-            }}
-            .warn {{
-                background: #fff3cd;
-                padding: 12px;
-                border-radius: 12px;
-                margin-top: 12px;
+            .tag {
+    display: inline-block;
+    color: #ffffff;
+    padding: 7px 12px;
+    border-radius: 999px;
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.tag.green {
+    background: #16a34a;
+}
+
+.tag.blue {
+    background: #2563eb;
+}
+
+.tag.orange {
+    background: #f59e0b;
+}
+
+.warn {
+    background: #fff3cd;
+    color: #92400e;
+    font-weight: 800;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 12px;
+}
             }}
             h1, h2 {{
                 margin-top: 0;
@@ -177,9 +193,9 @@ def dashboard():
                 <h1>Auto Radar Daily</h1>
                 <p>日期：{BRIEF['date']}</p>
                 <p>
-                    <span class="tag">市場模式：{BRIEF['market_mode']}</span>
-                    <span class="tag">進攻指數：{BRIEF['attack_score']}/100</span>
-                    <span class="tag">建議持股：{BRIEF['recommended_exposure']}%</span>
+                    <span class="tag green">市場模式：{BRIEF['market_mode']}</span>
+<span class="tag blue">進攻指數：{BRIEF['attack_score']}/100</span>
+<span class="tag orange">建議持股：{BRIEF['recommended_exposure']}%</span>
                 </p>
                 <p><b>主線：</b>{BRIEF['main_theme']}</p>
                 <p><b>目前主題：</b>{BRIEF['top_theme']}</p>
