@@ -105,8 +105,8 @@ _market_cache: Dict[str, Any] = {}
 def safe_float(value: Any, default: float = 0.0) -> float:
     try:
         if isinstance(value, str):
-            value = value.replace(",", "").replace("+", "").strip()
-            if value in {"", "--", "-", "X", "除權息"}:
+            value = value.replace(",", "").replace("+", "").replace("%", "").strip()
+            if value in {"", "--", "-", "X", "除權息", "除息", "除權"}:
                 return default
         number = float(value)
         if math.isnan(number) or math.isinf(number):
@@ -148,11 +148,7 @@ def get_json(url: str, cache_key: str) -> Any:
     if cache_key in _market_cache:
         return _market_cache[cache_key]
 
-    response = requests.get(
-        url,
-        timeout=HTTP_TIMEOUT,
-        headers={"User-Agent": "AutoRadarGlobal/2.1"},
-    )
+    response = requests.get(url, timeout=HTTP_TIMEOUT, headers={"User-Agent": "AutoRadarGlobal/2.1"})
     response.raise_for_status()
     payload = response.json()
     _market_cache[cache_key] = payload
@@ -166,25 +162,85 @@ def get_first(row: Dict[str, Any], keys: List[str], default: Any = None) -> Any:
     return default
 
 
+def get_fuzzy(row: Dict[str, Any], exact_keys: List[str], contains_keys: List[str], default: Any = None) -> Any:
+    value = get_first(row, exact_keys, None)
+    if value not in (None, ""):
+        return value
+
+    for key, val in row.items():
+        key_text = str(key).lower()
+        if val not in (None, "") and any(token.lower() in key_text for token in contains_keys):
+            return val
+    return default
+
+
+def row_code_matches(row: Dict[str, Any], code: str) -> bool:
+    code_keys = [
+        "Code",
+        "code",
+        "證券代號",
+        "有價證券代號",
+        "公司代號",
+        "SecuritiesCompanyCode",
+        "SecuritiesCode",
+        "StockNo",
+        "StockCode",
+        "股票代號",
+        "代號",
+    ]
+    candidate = str(get_first(row, code_keys, "")).strip()
+    if candidate == code:
+        return True
+
+    for key, val in row.items():
+        key_text = str(key).lower()
+        if any(token in key_text for token in ["code", "代號", "stockno", "symbol"]):
+            if str(val).strip() == code:
+                return True
+    return False
+
+
 def snapshot_from_quote(symbol: str, quote: Dict[str, Any], source: str) -> Dict[str, Any]:
     close = safe_float(
-        get_first(quote, ["ClosingPrice", "Close", "close", "收盤價", "ClosePrice", "LatestPrice", "最新成交價"]),
+        get_fuzzy(
+            quote,
+            ["ClosingPrice", "Close", "close", "收盤價", "ClosePrice", "LatestPrice", "最新成交價"],
+            ["closing", "close", "收盤", "最新成交", "latest"],
+        ),
         math.nan,
     )
     change = safe_float(
-        get_first(quote, ["Change", "ChangePrice", "漲跌價差", "漲跌", "PriceChange", "ChangeAmount"]),
+        get_fuzzy(
+            quote,
+            ["Change", "ChangePrice", "漲跌價差", "漲跌", "PriceChange", "ChangeAmount", "UpDown"],
+            ["change", "漲跌"],
+        ),
         0,
     )
+    change_pct_from_api = safe_float(
+        get_fuzzy(
+            quote,
+            ["ChangePercent", "漲跌百分比", "漲跌幅", "PercentChange"],
+            ["percent", "百分比", "漲跌幅"],
+        ),
+        math.nan,
+    )
     volume = safe_int(
-        get_first(quote, ["TradeVolume", "Volume", "成交股數", "成交股數合計", "TradingShares", "成交量"]),
+        get_fuzzy(
+            quote,
+            ["TradeVolume", "Volume", "成交股數", "成交股數合計", "TradingShares", "成交量"],
+            ["volume", "成交股", "成交量", "trading"],
+        ),
         0,
     )
 
     if math.isnan(close) or close <= 0:
-        return fallback_snapshot(symbol, "invalid official quote", source)
+        keys_preview = list(quote.keys())[:20]
+        return fallback_snapshot(symbol, f"invalid official quote keys={keys_preview}", source)
 
     prev_close = close - change if change else 0
-    change_pct = (change / prev_close * 100) if prev_close else 0
+    calculated_pct = (change / prev_close * 100) if prev_close else 0
+    change_pct = change_pct_from_api if not math.isnan(change_pct_from_api) else calculated_pct
 
     return {
         "symbol": symbol,
@@ -203,11 +259,11 @@ def fetch_twse_snapshot(symbol: str) -> Dict[str, Any]:
     try:
         payload = get_json(TWSE_STOCK_DAY_ALL_URL, "twse_stock_day_all")
         for row in payload:
-            row_code = str(get_first(row, ["Code", "證券代號", "code"], "")).strip()
-            if row_code == code:
+            if row_code_matches(row, code):
                 return snapshot_from_quote(code, row, "twse_openapi")
-        return fallback_snapshot(code, "symbol not found in TWSE", "twse_openapi")
-    except Exception as exc:  # noqa: BLE001
+        sample_keys = list(payload[0].keys())[:20] if payload else []
+        return fallback_snapshot(code, f"symbol not found in TWSE sample_keys={sample_keys}", "twse_openapi")
+    except Exception as exc:
         return fallback_snapshot(code, str(exc), "twse_openapi")
 
 
@@ -216,24 +272,24 @@ def fetch_tpex_snapshot(symbol: str) -> Dict[str, Any]:
     try:
         payload = get_json(TPEX_MAINBOARD_QUOTES_URL, "tpex_mainboard_quotes")
         for row in payload:
-            row_code = str(get_first(row, ["SecuritiesCompanyCode", "Code", "代號", "有價證券代號"], "")).strip()
-            if row_code == code:
+            if row_code_matches(row, code):
                 return snapshot_from_quote(code, row, "tpex_openapi")
-        return fallback_snapshot(code, "symbol not found in TPEx", "tpex_openapi")
-    except Exception as exc:  # noqa: BLE001
+        sample_keys = list(payload[0].keys())[:20] if payload else []
+        return fallback_snapshot(code, f"symbol not found in TPEx sample_keys={sample_keys}", "tpex_openapi")
+    except Exception as exc:
         return fallback_snapshot(code, str(exc), "tpex_openapi")
 
 
-def fetch_yfinance_snapshot(symbol: str) -> Dict[str, Any]:
+def fetch_yfinance_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str, Any]:
     try:
         yf_symbol = symbol
         code = normalize_symbol(symbol)
         if code.isdigit() and "." not in symbol:
-            yf_symbol = f"{code}.TW"
+            yf_symbol = f"{code}.TWO" if (market or "").upper() == "TPEX" else f"{code}.TW"
 
         history = yf.Ticker(yf_symbol).history(period="10d", interval="1d", auto_adjust=False)
         if history.empty or "Close" not in history:
-            return fallback_snapshot(symbol, "empty yfinance history", "yfinance")
+            return fallback_snapshot(symbol, f"empty yfinance history for {yf_symbol}", "yfinance")
 
         close = safe_float(history["Close"].iloc[-1], math.nan)
         prev_close = safe_float(history["Close"].iloc[-2] if len(history) > 1 else close, math.nan)
@@ -256,12 +312,11 @@ def fetch_yfinance_snapshot(symbol: str) -> Dict[str, Any]:
             "source": "yfinance",
             "ok": True,
         }
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         return fallback_snapshot(symbol, str(exc), "yfinance")
 
 
 def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str, Any]:
-    """Fetch market data with official Taiwan APIs first, then yfinance, then fallback."""
     normalized_market = (market or "").upper()
     code = normalize_symbol(symbol)
     attempts: List[Dict[str, Any]] = []
@@ -274,7 +329,7 @@ def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str
         attempts.append(fetch_twse_snapshot(code))
         attempts.append(fetch_tpex_snapshot(code))
 
-    attempts.append(fetch_yfinance_snapshot(symbol))
+    attempts.append(fetch_yfinance_snapshot(symbol, normalized_market))
 
     for result in attempts:
         if result.get("ok"):
@@ -288,7 +343,6 @@ def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str
 
 
 def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[str, Any]:
-    """Apply Sprint 3 pipeline adjustment without changing 小G's research stage definitions."""
     theme = dict(base_theme)
     theme["market_data"] = snapshot
 
@@ -339,10 +393,7 @@ def score_theme(base_theme: Dict[str, Any], snapshot: Dict[str, Any]) -> Dict[st
 def build_daily_brief() -> Dict[str, Any]:
     _market_cache.clear()
     market_snapshot = fetch_symbol_snapshot(WATCHLIST["market"])
-    themes = [
-        score_theme(theme, fetch_symbol_snapshot(theme["symbol"], theme.get("market")))
-        for theme in WATCHLIST["themes"]
-    ]
+    themes = [score_theme(theme, fetch_symbol_snapshot(theme["symbol"], theme.get("market"))) for theme in WATCHLIST["themes"]]
 
     live_scores = [safe_float(theme.get("score"), 0) for theme in themes if theme.get("data_status") == "live"]
     avg_theme_score = sum(live_scores) / len(live_scores) if live_scores else safe_float(BASE_BRIEF["attack_score"], 82)
@@ -384,7 +435,7 @@ def build_daily_brief() -> Dict[str, Any]:
         "themes": themes,
         "confidence": BASE_CONFIDENCE,
         "pipeline": {
-            "version": "Sprint 3.2 Taiwan Market Data Adapter v1",
+            "version": "Sprint 3.2B Market Adapter Fix",
             "source": "TWSE OpenAPI / TPEx OpenAPI / yfinance",
             "fallback": "BASE_BRIEF / BASE_THEMES / BASE_CONFIDENCE / cached JSON",
             "schedule": "Asia/Taipei 08:30 daily",
@@ -403,7 +454,6 @@ def load_daily_brief() -> Dict[str, Any]:
             return json.loads(BRIEF_PATH.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             pass
-
     payload = build_daily_brief()
     save_daily_brief(payload)
     return payload
@@ -419,9 +469,8 @@ def run_pipeline() -> Dict[str, Any]:
 def startup_event() -> None:
     try:
         run_pipeline()
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         print(f"Pipeline startup fallback: {exc}")
-
     if not scheduler.running:
         scheduler.add_job(run_pipeline, "cron", hour=8, minute=30, id="daily_pipeline", replace_existing=True)
         scheduler.start()
@@ -429,11 +478,7 @@ def startup_event() -> None:
 
 @app.get("/")
 def home():
-    return {
-        "project": "Auto Radar Global v2",
-        "status": "running",
-        "routes": ["/healthz", "/brief", "/confidence", "/dashboard", "/pipeline/run", "/data/current"],
-    }
+    return {"project": "Auto Radar Global v2", "status": "running", "routes": ["/healthz", "/brief", "/confidence", "/dashboard", "/pipeline/run", "/data/current", "/debug/market/{symbol}"]}
 
 
 @app.get("/healthz")
@@ -457,6 +502,12 @@ def data_current():
     return load_daily_brief()
 
 
+@app.get("/debug/market/{symbol}")
+def debug_market(symbol: str, market: Optional[str] = None):
+    _market_cache.clear()
+    return fetch_symbol_snapshot(symbol, market)
+
+
 @app.post("/pipeline/run")
 def pipeline_run():
     return run_pipeline()
@@ -474,10 +525,9 @@ def dashboard():
         md = t.get("market_data", {})
         market_line = "資料來源：fallback"
         if md.get("ok"):
-            market_line = (
-                f"來源：{md.get('source')}｜收盤：{md.get('close')}｜漲跌：{md.get('change_pct')}%｜"
-                f"量比：{md.get('volume_ratio_5d')}x"
-            )
+            market_line = f"來源：{md.get('source')}｜收盤：{md.get('close')}｜漲跌：{md.get('change_pct')}%｜量比：{md.get('volume_ratio_5d')}x"
+        else:
+            market_line = f"資料來源：fallback｜{md.get('error', 'no error detail')}"
 
         theme_cards += f"""
         <div class="card">
@@ -500,24 +550,15 @@ def dashboard():
         <meta charset="UTF-8">
         <title>Auto Radar Global v2</title>
         <style>
-            body {{
-                font-family: Arial, "Microsoft JhengHei", sans-serif;
-                background: #f5f5f5;
-                margin: 0;
-                padding: 24px;
-                color: #111;
-            }}
+            body {{ font-family: Arial, "Microsoft JhengHei", sans-serif; background: #f5f5f5; margin: 0; padding: 24px; color: #111; }}
             .container {{ max-width: 960px; margin: auto; }}
             .hero {{ background: #111; color: white; border-radius: 18px; padding: 24px; margin-bottom: 20px; }}
             .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }}
             .card {{ background: white; border-radius: 16px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }}
             .tag {{ display: inline-block; color: #ffffff; padding: 7px 12px; border-radius: 999px; margin-right: 8px; font-weight: bold; }}
-            .tag.green {{ background: #16a34a; }}
-            .tag.blue {{ background: #2563eb; }}
-            .tag.orange {{ background: #f59e0b; }}
+            .tag.green {{ background: #16a34a; }} .tag.blue {{ background: #2563eb; }} .tag.orange {{ background: #f59e0b; }}
             .warn {{ background: #fff3cd; color: #92400e; font-weight: 800; padding: 14px; border-radius: 12px; margin-top: 12px; }}
-            .meta {{ opacity: .8; font-size: 14px; }}
-            h1, h2 {{ margin-top: 0; }}
+            .meta {{ opacity: .8; font-size: 14px; }} h1, h2 {{ margin-top: 0; }}
         </style>
     </head>
     <body>
@@ -537,11 +578,7 @@ def dashboard():
                 <p><b>禁止碰：</b>{brief_data['avoid_theme']}</p>
                 <div class="warn"><b>風險事件：</b>{brief_data['risk_event']}｜{brief_data['strategy']}</div>
             </div>
-
-            <div class="grid">
-                {theme_cards}
-            </div>
-
+            <div class="grid">{theme_cards}</div>
             <div class="card" style="margin-top:20px;">
                 <h2>小G 信心分數</h2>
                 <p><b>輪動信心：</b>{confidence_data['rotation_confidence']['score']}%｜{confidence_data['rotation_confidence']['target']}</p>
