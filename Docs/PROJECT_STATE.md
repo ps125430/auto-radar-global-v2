@@ -65,3 +65,16 @@ Data Pipeline v1
 3. Telegram Bot
 4. PostgreSQL
 5. 自動排程
+
+## Core Documents
+
+必讀文件：
+
+* Docs/PROJECT_STATE.md
+* Docs/CONSTITUTION.md
+* Docs/TEAM_OPERATING_MODEL.md
+* Docs/ROLE_MATRIX.md
+
+以上四份文件為 Auto Radar 長期記憶來源。
+
+任何 AI、工程師或新聊天室接手時，必須先閱讀以上文件。
