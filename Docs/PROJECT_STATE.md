@@ -1,22 +1,22 @@
-# Auto Radar Global v2
+# Auto Radar Global v2 - Project State
 
-## Current Version
+## Project Version
 
 v2.0
 
-## Current Sprint
+## Current Phase
 
-Sprint 2
+Phase 1: Data Pipeline and Project Management Core
 
-## Status
+Current sprint:
 
-Dashboard Prototype Online
+Sprint 3 - Data Pipeline v1 / Project Management Core
 
 ## Current URL
 
 https://auto-radar-global-v2.onrender.com/dashboard
 
-## Completed Modules
+## Completed
 
 * Theme Tree Engine
 * Lifecycle Engine
@@ -26,55 +26,40 @@ https://auto-radar-global-v2.onrender.com/dashboard
 * Confidence Framework
 * Daily Brief Engine
 * Dashboard Prototype
+* Auto Radar command set
+* Team Operating Model
+* Role Matrix
+* Project Management Core documents
 
-## Current Features
+## In Progress
 
-* 市場模式
-* 進攻指數
-* 建議持股比例
-* 主線題材
-* 下一個接棒題材
-* 禁碰題材
-* 進場條件
-* 停損條件
-* 停利條件
-* 信心分數
+* Data Pipeline v1
+* Dashboard migration from static sample data to structured daily brief data
+* Decision learning framework documentation
+* Knowledge Core structure
 
-## Known Issues
+## Blockers
 
-* Render Free 休眠較慢
-* Dashboard 目前為靜態資料
-* 尚未接資料庫
-* 尚未接 Telegram
-* 尚未接自動排程
+* Dashboard still depends on limited local JSON data.
+* PostgreSQL integration is not implemented.
+* Telegram Bot integration is not implemented.
+* Automated scheduler requires production validation.
+* Market Learning reports are not yet stored in a structured Knowledge Core.
 
-## Next Sprint
+## Next Action
 
-Sprint 3
-
-Data Pipeline v1
-
-目標：
-
-將 Dashboard 從假資料改成真資料。
-
-## Next Priority
-
-1. Daily Brief JSON
-2. Data Pipeline
-3. Telegram Bot
-4. PostgreSQL
-5. 自動排程
+Implement and validate Data Pipeline v1 so Dashboard output is generated from structured source data and can later be connected to PostgreSQL, Telegram, and automated scheduling.
 
 ## Core Documents
 
-必讀文件：
+Required long-term memory files:
 
 * Docs/PROJECT_STATE.md
+* Docs/ROADMAP.md
+* Docs/CHANGELOG.md
+* Docs/KNOWLEDGE_CORE.md
 * Docs/CONSTITUTION.md
 * Docs/TEAM_OPERATING_MODEL.md
 * Docs/ROLE_MATRIX.md
 
-以上四份文件為 Auto Radar 長期記憶來源。
-
-任何 AI、工程師或新聊天室接手時，必須先閱讀以上文件。
+Every new AI session or development handoff must read these documents before changing project logic or code.
