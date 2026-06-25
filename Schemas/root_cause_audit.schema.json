@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/root_cause_audit.schema.json",
+  "title": "Root Cause Audit",
+  "description": "Audits why a Decision Lab case succeeded, failed, or remained inconclusive.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "decision_result",
+    "root_causes",
+    "lesson",
+    "weight_update_candidate",
+    "next_validation_required"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "decision_result": {
+      "type": "string",
+      "enum": [
+        "success",
+        "partial_success",
+        "failure",
+        "inconclusive"
+      ]
+    },
+    "root_causes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "severity",
+          "description",
+          "evidence",
+          "model_change_candidate"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "expectation_blindness",
+              "memory_depletion",
+              "saturation_explosion",
+              "graph_disconnection",
+              "ai_resonance_overload",
+              "other"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "description": { "type": "string" },
+          "evidence": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "model_change_candidate": { "type": "string" }
+        }
+      }
+    },
+    "lesson": { "type": "string" },
+    "weight_update_candidate": { "type": "object" },
+    "next_validation_required": { "type": "boolean" }
+  }
+}
