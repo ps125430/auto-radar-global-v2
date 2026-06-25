@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/outcome_tracker.schema.json",
+  "title": "Outcome Tracker",
+  "description": "Tracks market outcomes across validation windows after a major event.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "windows",
+    "price_reaction",
+    "volume_reaction",
+    "leader_reaction",
+    "theme_breadth_reaction",
+    "graph_propagation_result",
+    "result_summary"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "windows": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "t_plus_10m",
+        "t_plus_24h",
+        "t_plus_5d"
+      ],
+      "properties": {
+        "t_plus_10m": { "type": "object" },
+        "t_plus_24h": { "type": "object" },
+        "t_plus_5d": { "type": "object" }
+      }
+    },
+    "price_reaction": { "type": "object" },
+    "volume_reaction": { "type": "object" },
+    "leader_reaction": { "type": "object" },
+    "theme_breadth_reaction": { "type": "object" },
+    "graph_propagation_result": { "type": "object" },
+    "result_summary": { "type": "string" }
+  }
+}
