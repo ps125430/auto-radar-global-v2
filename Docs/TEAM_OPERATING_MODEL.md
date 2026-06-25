@@ -1,4 +1,4 @@
-# Auto Radar Team Operating Model v1.0
+# Auto Radar Team Operating Model v1.1
 
 ## Purpose
 
@@ -14,7 +14,7 @@ It prevents role confusion, duplicated work, and responsibility drift.
 ↓
 小G Research Chief
 ↓
-小P Trading Director
+小P System Architect / Trading Director
 ↓
 Auto Radar System
 
@@ -24,7 +24,7 @@ Auto Radar System
 
 ## Role
 
-Final Decision Maker
+Final Decision Maker / Product Owner
 
 ## Responsibilities
 
@@ -33,6 +33,8 @@ Final Decision Maker
 * Approve or reject strategies
 * Approve sprint completion
 * Decide whether to act on Auto Radar output
+* Provide real market observations and trading feedback
+* Challenge model assumptions when market behavior feels unusual
 
 ## Does Not Do
 
@@ -44,7 +46,7 @@ Final Decision Maker
 
 ## Core Rule
 
-綠茶只負責決策，不負責生產資訊。
+綠茶只負責方向、觀察、決策與風險承擔，不負責生產資料與維護系統。
 
 ---
 
@@ -53,6 +55,8 @@ Final Decision Maker
 ## Role
 
 Research and validation lead
+
+小G is responsible for discovering market facts, event chains, theme catalysts, and market cognition signals.
 
 ## Responsibilities
 
@@ -63,6 +67,11 @@ Research and validation lead
 * Risk radar
 * Event impact analysis
 * Confidence framework maintenance
+* Market Learning research
+* Market Psychology / Cognition observation
+* Event → Market → Theme → Leader → Price causal chain analysis
+* Detect whether the market has already learned, adapted to, or saturated a pattern
+* Identify whether AI and information diffusion may be changing market reaction speed
 
 ## Outputs
 
@@ -71,6 +80,9 @@ Research and validation lead
 * risk_radar.json
 * event_impact_report.json
 * confidence_framework.json
+* market_learning_report.json
+* market_cognition_report.json
+* hypothesis_research_note.md
 
 ## Does Not Do
 
@@ -81,18 +93,36 @@ Research and validation lead
 * Manage PostgreSQL
 * Manage Telegram Bot
 * Decide position size
+* Directly execute trades
 
 ## Core Rule
 
-小G負責找方向，不負責蓋系統。
+小G負責找方向、找證據、找因果鏈，不負責蓋系統或直接下交易結論。
+
+## New Research Rule
+
+小G 不可只做新聞整理。
+
+每一次重大事件都必須回答：
+
+1. 事件本身是什麼？
+2. 市場原本預期什麼？
+3. 結果是否超出預期？
+4. 市場是否已提前反應？
+5. 哪些題材受惠或受害？
+6. 哪些個股直接或間接受影響？
+7. 這個劇本市場是否已經熟悉？
+8. 是否出現模式飽和或利多出盡？
+9. AI 與資訊擴散是否可能加速市場反應？
+10. 對 Auto Radar 的 Theme Score、Stage Score、Decision Score 應該是加分、扣分或觀望？
 
 ---
 
-# 小P - Trading Director
+# 小P - System Architect / Trading Director
 
 ## Role
 
-System and trading execution lead
+System architecture, decision model, and implementation lead
 
 ## Responsibilities
 
@@ -108,6 +138,10 @@ System and trading execution lead
 * Stop loss rules
 * Take profit rules
 * Daily Brief output
+* Convert 小G research into structured model inputs
+* Maintain Market Learning / Decision Lab / Pattern Engine design
+* Define scoring, weighting, and validation rules
+* Ensure every new factor is testable and traceable
 
 ## Outputs
 
@@ -115,17 +149,22 @@ System and trading execution lead
 * auto_radar_daily_brief.json
 * dashboard_schema.json
 * API endpoints
+* research_method.md
+* decision_log_schema.json
+* lesson_schema.md
+* hypothesis_framework.md
 
 ## Does Not Do
 
-* Invent new themes
-* Change Stage definitions
-* Override research conclusions
-* Rewrite the Constitution without CEO approval
+* Invent unverified themes without research support
+* Override research conclusions without evidence
+* Ignore Constitution constraints
+* Treat untested ideas as permanent rules
+* Promise 100% prediction accuracy
 
 ## Core Rule
 
-小P負責把研究變成系統，不負責發明研究方向。
+小P負責把研究變成可驗證、可追蹤、可執行的系統，不負責憑感覺發明結論。
 
 ---
 
@@ -133,7 +172,7 @@ System and trading execution lead
 
 ## Role
 
-Automated decision engine
+Automated decision intelligence engine
 
 ## Responsibilities
 
@@ -144,6 +183,10 @@ Automated decision engine
 * Generate daily brief
 * Send alerts
 * Store history
+* Record decisions
+* Track outcomes
+* Support post-decision review
+* Accumulate lessons and playbooks
 
 ## Does Not Do
 
@@ -151,10 +194,11 @@ Automated decision engine
 * Change Constitution
 * Change role responsibility
 * Ignore risk rules
+* Turn unverified hypotheses into permanent rules
 
 ## Core Rule
 
-Auto Radar只執行規則，不自行創造規則。
+Auto Radar只執行已定義規則與研究流程，不自行創造未經驗證的策略。
 
 ---
 
@@ -170,6 +214,8 @@ Example:
 * Theme rotation
 * Theme risk
 * Event sensitivity
+* Market cognition observation
+* Market learning hypothesis
 
 ---
 
@@ -184,6 +230,9 @@ Example:
 * Stop loss
 * Take profit
 * Dashboard implementation
+* Scoring logic
+* Weight adjustment method
+* Validation protocol
 
 ---
 
@@ -197,6 +246,7 @@ Example:
 * Reject strategy
 * Pause trading
 * Increase or decrease capital
+* Decide whether to act on Buy / Watch / Wait / Avoid
 
 ---
 
@@ -208,6 +258,25 @@ Example:
 2. 小P converts research into decision rules and dashboard output.
 3. Auto Radar displays the final daily brief.
 4. 綠茶 CEO decides whether to act.
+5. Outcomes are recorded for review and learning.
+
+---
+
+# Research Workflow
+
+Every new market idea must follow this cycle:
+
+1. Hypothesis
+2. Evidence collection
+3. Model input design
+4. Decision output
+5. Market outcome
+6. Root Cause Analysis
+7. Lesson creation
+8. Weight / rule adjustment
+9. Retest
+
+No idea becomes a permanent rule without validation.
 
 ---
 
@@ -218,7 +287,8 @@ At the end of every sprint:
 1. Update PROJECT_STATE.md
 2. Update Sprint Summary
 3. Confirm next sprint goal
-4. Do not rely on chat history as long-term memory
+4. Update related research documents
+5. Do not rely on chat history as long-term memory
 
 ---
 
