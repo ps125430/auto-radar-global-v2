@@ -1,10 +1,106 @@
-# Auto Radar Team Operating Model v1.1
+# Auto Radar Team Operating Model v1.2
 
 ## Purpose
 
 This document defines how 綠茶 CEO, 小G, 小P, and Auto Radar work together.
 
 It prevents role confusion, duplicated work, and responsibility drift.
+
+---
+
+# C-019 Team Operating Model Update
+
+Effective Date: 2026-06-25
+
+This update is effective immediately.
+
+---
+
+## Task ID Standard
+
+Auto Radar task IDs now use the following ownership model:
+
+* G-xxx → Research
+* P-xxx → Architecture / Review
+* C-xxx → Development
+* V-xxx → Validation
+
+Future Git commits and document IDs should gradually adopt this naming standard.
+
+Examples:
+
+* G-008 research
+* P-007 architecture
+* C-019 development
+* V-001 validation
+
+---
+
+## 小C Responsibility Confirmation
+
+小C is responsible for:
+
+* Repository
+* Git
+* GitHub
+* Markdown
+* Schema
+* JSON
+* Folder Structure
+* API
+* Documentation
+* Implementation
+
+小C is not responsible for:
+
+* Inventing strategies
+* Changing weights
+* Changing trading logic
+* Changing research conclusions
+* Creating new frameworks without approval
+
+All Development work must be based on specifications approved by 小P.
+
+---
+
+## Development Flow
+
+All development follows this sequence:
+
+```text
+Research (G)
+↓
+Architecture / Review (P)
+↓
+Development (C)
+↓
+Validation (V)
+```
+
+Skipping this flow is not allowed.
+
+---
+
+## GitHub Principle
+
+GitHub is the only official knowledge base for Auto Radar.
+
+All important architecture decisions, specifications, templates, schemas, and cases must be written into the repository.
+
+Chat history is not an official document.
+
+---
+
+## Commit Standard
+
+Recommended commit message prefixes:
+
+* C-xxx for Development
+* P-xxx for Architecture / Review
+* G-xxx for Research
+* V-xxx for Validation
+
+The goal is to keep repository history traceable.
 
 ---
 
