@@ -1,0 +1,53 @@
+{
+  "document_id": "AR-EVIDENCE-TIERS-2026-06-25",
+  "version": "1.0",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "purpose": "Define evidence quality tiers for research and validation review.",
+  "tiers": [
+    {
+      "tier": "tier_1_primary",
+      "label": "Primary verified evidence",
+      "description": "Direct official or source-level evidence such as company filings, official guidance, central bank statements, government data, or confirmed exchange disclosures.",
+      "default_reliability": 95,
+      "usage": "Can anchor case validation when timestamp and context are clear."
+    },
+    {
+      "tier": "tier_2_verified_secondary",
+      "label": "Verified secondary evidence",
+      "description": "Reliable reporting, analyst transcripts, reputable data vendors, or cross-checked market summaries.",
+      "default_reliability": 80,
+      "usage": "Can support interpretation but should be checked against primary evidence when possible."
+    },
+    {
+      "tier": "tier_3_market_signal",
+      "label": "Market signal evidence",
+      "description": "Price action, volume, breadth, volatility, leader reaction, rates, currency, or cross-asset confirmation.",
+      "default_reliability": 70,
+      "usage": "Useful for reaction validation but must be interpreted with timing and context."
+    },
+    {
+      "tier": "tier_4_narrative_signal",
+      "label": "Narrative and attention evidence",
+      "description": "Market commentary, social attention, repeated storylines, media framing, or AI-amplified summaries.",
+      "default_reliability": 55,
+      "usage": "Useful for Narrative Intelligence but not sufficient alone for production scoring."
+    },
+    {
+      "tier": "tier_5_unverified",
+      "label": "Unverified evidence",
+      "description": "Rumors, uncited claims, single-source speculation, or incomplete reports.",
+      "default_reliability": 25,
+      "usage": "Can be logged as context but must not drive decisions without confirmation."
+    }
+  ],
+  "rules": [
+    "Evidence tier is for validation and review only.",
+    "Evidence tier must not directly change Theme Score, Stage Score, or Decision Score.",
+    "Lower-tier evidence requires higher confirmation before use in lessons or playbooks.",
+    "Single-source unverified evidence must not create a Buy decision."
+  ]
+}
