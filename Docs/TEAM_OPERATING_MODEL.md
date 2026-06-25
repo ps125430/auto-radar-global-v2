@@ -104,6 +104,54 @@ The goal is to keep repository history traceable.
 
 ---
 
+## Task ID Convention
+
+G-xxx
+
+Research
+
+---
+
+P-xxx
+
+Architecture
+
+---
+
+C-xxx
+
+Development
+
+---
+
+V-xxx
+
+Validation
+
+---
+
+## Task Flow
+
+```text
+Idea
+↓
+Research (G)
+↓
+Architecture (P)
+↓
+Development (C)
+↓
+Validation (V)
+↓
+Learning
+↓
+Production (only if qualified)
+```
+
+No task may skip the required ownership flow.
+
+---
+
 # Team Structure
 
 綠茶 CEO

@@ -9,7 +9,7 @@ Branch:
 main
 
 Latest Commit:
-bc78376
+c5382ee
 
 Working Tree:
 Clean
@@ -34,6 +34,7 @@ Focus:
 - Decision Lab
 - Case Library
 - Evidence Layer
+- Project Sync Protocol
 
 ---
 
@@ -61,6 +62,16 @@ Focus:
 
 ✅ CASE-001 Micron Earnings
 (Status: Decision Lab Candidate)
+
+✅ Daily Review Templates
+
+✅ Prediction Snapshot Templates
+
+✅ Daily Decision Lifecycle Schemas
+
+✅ Market Flow Framework
+
+✅ Team Operating Model Update
 
 ---
 
@@ -122,7 +133,7 @@ CASE-001 Lesson
 
 P0
 
-PROJECT_STATUS
+Project Sync Protocol
 
 P1
 
