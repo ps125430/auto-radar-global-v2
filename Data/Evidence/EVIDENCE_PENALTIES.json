@@ -1,0 +1,60 @@
+{
+  "document_id": "AR-EVIDENCE-PENALTIES-2026-06-25",
+  "version": "1.0",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "purpose": "Define evidence quality penalty candidates for research review and Decision Lab validation.",
+  "penalties": [
+    {
+      "id": "P001",
+      "name": "stale_information",
+      "description": "Evidence is old relative to the market reaction window.",
+      "default_penalty": 15
+    },
+    {
+      "id": "P002",
+      "name": "single_source",
+      "description": "Evidence depends on only one source and lacks confirmation.",
+      "default_penalty": 20
+    },
+    {
+      "id": "P003",
+      "name": "rumor_or_unverified",
+      "description": "Evidence is rumor-based, uncited, or not independently verified.",
+      "default_penalty": 35
+    },
+    {
+      "id": "P004",
+      "name": "conflicting_evidence",
+      "description": "Important evidence contradicts the current interpretation.",
+      "default_penalty": 25
+    },
+    {
+      "id": "P005",
+      "name": "narrative_overfit",
+      "description": "Evidence mainly supports a popular story but lacks factual confirmation.",
+      "default_penalty": 25
+    },
+    {
+      "id": "P006",
+      "name": "late_confirmation",
+      "description": "Evidence appeared only after the market had already moved.",
+      "default_penalty": 20
+    },
+    {
+      "id": "P007",
+      "name": "source_bias",
+      "description": "Source may have incentive, positioning, or framing bias.",
+      "default_penalty": 15
+    }
+  ],
+  "rules": [
+    "Penalties are review candidates only.",
+    "Penalties must not directly change production scoring.",
+    "Penalty usage should be recorded in Decision Lab cases when evidence quality affects the outcome.",
+    "Any production use requires 小P review and a separate 小C implementation task."
+  ]
+}
