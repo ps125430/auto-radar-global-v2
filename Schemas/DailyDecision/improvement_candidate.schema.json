@@ -1,0 +1,37 @@
+{
+  "document_id": "AR-DD-IMPROVEMENT-CANDIDATE-SCHEMA-2026-06-25",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "schema_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Daily Decision Improvement Candidate Schema",
+  "description": "Schema skeleton for recording possible improvements that require Decision Lab validation before production use.",
+  "schema": {
+    "candidate_id": "string",
+    "source_review_id": "string",
+    "source_case_id": "string",
+    "created_at": "string",
+    "candidate_type": "schema / playbook / weight_update / evidence_rule / knowledge_graph_update",
+    "candidate_statement": "當一線科技巨頭開出歷史級 Expectation Gap 利多，且 Pattern Saturation <= 50，系統可建立 BUY / WATCH 升級候選，但必須經過 Decision Lab 多案例驗證。",
+    "supporting_cases": [
+      "string"
+    ],
+    "required_validation": [
+      "more_comparable_cases",
+      "false_positive_review",
+      "false_negative_review",
+      "t_plus_5_sustainability_review",
+      "小P_architecture_review"
+    ],
+    "status": "candidate_only",
+    "production_rule_status": "Not Production Rule",
+    "model_change_approved": false,
+    "notes": "string"
+  },
+  "validation_notes": [
+    "This file must not use production-rule language.",
+    "Improvement candidates require multi-case Decision Lab validation.",
+    "No candidate directly changes Theme Score, Stage Score, or Decision Score."
+  ]
+}

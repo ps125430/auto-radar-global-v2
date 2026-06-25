@@ -1,0 +1,54 @@
+{
+  "document_id": "AR-DD-PREDICTION-SNAPSHOT-SCHEMA-2026-06-25",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "schema_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Daily Decision Prediction Snapshot Schema",
+  "description": "Schema skeleton for freezing Auto Radar state before a daily decision or major event outcome is known.",
+  "schema": {
+    "snapshot_id": "string",
+    "decision_id": "string",
+    "case_id": "string",
+    "created_at": "string",
+    "market_date": "string",
+    "event_name": "string",
+    "event_type": "string",
+    "related_themes": [
+      "string"
+    ],
+    "related_narratives": [
+      "string"
+    ],
+    "core_leaders": [
+      "string"
+    ],
+    "market_expectation": {
+      "consensus_view": "string",
+      "expectation_gap": 0,
+      "expectation_gap_notes": "string"
+    },
+    "pre_event_signals": {
+      "theme_score_snapshot": {},
+      "stage_score_snapshot": {},
+      "decision_score_snapshot": {},
+      "pattern_saturation": 0,
+      "ai_leader_signal": "string",
+      "cross_evidence_quality": "string"
+    },
+    "decision_before_event": "Buy / Watch / Wait / Avoid",
+    "decision_reason": [
+      "string"
+    ],
+    "evidence_ids": [
+      "string"
+    ],
+    "notes": "string"
+  },
+  "validation_notes": [
+    "This schema is for snapshot structure only.",
+    "It must not directly change production scoring.",
+    "All decisions remain subject to Decision Lab validation."
+  ]
+}

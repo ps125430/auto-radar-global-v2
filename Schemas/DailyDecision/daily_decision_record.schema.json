@@ -1,0 +1,55 @@
+{
+  "document_id": "AR-DD-DAILY-DECISION-RECORD-SCHEMA-2026-06-25",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "schema_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Daily Decision Record Schema",
+  "description": "Schema skeleton for recording the daily Auto Radar decision and the reasoning behind it.",
+  "schema": {
+    "decision_id": "string",
+    "market_date": "string",
+    "created_at": "string",
+    "market_mode": "string",
+    "decision": "Buy / Watch / Wait / Avoid",
+    "main_theme": "string",
+    "next_theme": "string",
+    "avoid_themes": [
+      "string"
+    ],
+    "core_leaders": [
+      "string"
+    ],
+    "suggested_exposure": "string",
+    "entry_condition": "string",
+    "stop_loss_condition": "string",
+    "take_profit_condition": "string",
+    "decision_confidence": {
+      "level": "low / medium / high",
+      "score": 0,
+      "confidence_drivers": [
+        "string"
+      ],
+      "confidence_reducers": [
+        "string"
+      ]
+    },
+    "evidence_quality": {
+      "rating": "low / medium / high",
+      "evidence_ids": [
+        "string"
+      ],
+      "missing_evidence": [
+        "string"
+      ]
+    },
+    "linked_prediction_snapshot": "string",
+    "notes": "string"
+  },
+  "validation_notes": [
+    "This schema records decisions but does not execute trades.",
+    "Decision language must remain Buy / Watch / Wait / Avoid.",
+    "No production scoring changes are created by this schema."
+  ]
+}

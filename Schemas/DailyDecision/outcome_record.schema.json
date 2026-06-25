@@ -1,0 +1,46 @@
+{
+  "document_id": "AR-DD-OUTCOME-RECORD-SCHEMA-2026-06-25",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "schema_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Daily Decision Outcome Record Schema",
+  "description": "Schema skeleton for recording the market outcome after a daily decision or event snapshot.",
+  "schema": {
+    "outcome_id": "string",
+    "decision_id": "string",
+    "snapshot_id": "string",
+    "case_id": "string",
+    "market_date": "string",
+    "recorded_at": "string",
+    "outcome_windows": {
+      "t_plus_10m": {
+        "price_reaction": "string",
+        "leader_reaction": "string",
+        "ai_influence_notes": "string"
+      },
+      "t_plus_24h": {
+        "price_reaction": "string",
+        "theme_reaction": "string",
+        "reality_vs_narrative_notes": "string"
+      },
+      "t_plus_5d": {
+        "theme_propagation": "string",
+        "leader_follow_through": "string",
+        "knowledge_graph_notes": "string"
+      }
+    },
+    "maximum_favorable_move": "string",
+    "maximum_adverse_move": "string",
+    "theme_breadth_reaction": {},
+    "volume_reaction": {},
+    "outcome_classification": "success / partial_success / failure / inconclusive",
+    "result_summary": "string"
+  },
+  "validation_notes": [
+    "Outcome records are validation artifacts only.",
+    "They must be reviewed before becoming lessons or candidates.",
+    "They must not directly modify scoring."
+  ]
+}
