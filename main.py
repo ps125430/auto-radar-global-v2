@@ -30,8 +30,8 @@ BASE_BRIEF = {
     "top_theme": "散熱水冷",
     "next_theme": "CPO / 矽光子",
     "avoid_theme": "BBU / 伺服器備用電池",
-    "risk_event": "美國 CPI D-2",
-    "strategy": "可進攻，但因 CPI 事件風險，總持股上限壓制到 50%，禁止追高。",
+    "risk_event": "Micron 財報事件",
+    "strategy": "Event Overlay v1 已接入：小G事件研究只作為事件權重輸入，不取代市場資料與Stage Engine。",
 }
 
 THEME_BASKETS = [
@@ -83,6 +83,39 @@ THEME_BASKETS = [
             {"symbol": "3323", "name": "加百裕", "market": "TPEX", "weight": 0.3},
         ],
     },
+    {
+        "theme": "記憶體 / HBM / NAND",
+        "base_score": 55,
+        "stage": "Stage 1",
+        "status": "事件啟動候選",
+        "allocation": 10,
+        "entry": "事件發酵後等待開盤量能確認，避免一字開高追價",
+        "take_profit": "+10% 先出一半，事件延續再看 +20%",
+        "stop_loss": "-7%",
+        "risk": "事件行情波動大，須防利多開高出貨",
+        "leaders": [
+            {"symbol": "2408", "name": "南亞科", "market": "TWSE", "weight": 0.4},
+            {"symbol": "2344", "name": "華邦電", "market": "TWSE", "weight": 0.35},
+            {"symbol": "8299", "name": "群聯", "market": "TPEX", "weight": 0.25},
+        ],
+    },
+]
+
+EVENT_SIGNALS = [
+    {
+        "id": "micron_fy2026_q3_memory_boom",
+        "title": "Micron FY2026 Q3 財報超預期",
+        "source_agent": "小G Event Intelligence Engine",
+        "confidence": 92,
+        "risk_mode": "Risk On",
+        "summary": "Micron 財報與指引強化 AI 記憶體、HBM、eSSD 與資料中心需求，對記憶體、AI伺服器、先進封裝、散熱與CPO形成事件利多。",
+        "theme_impacts": {
+            "記憶體 / HBM / NAND": {"score_delta": 25, "stage_delta": 12, "reason": "HBM / DRAM / NAND 供需緊張與長約能見度提升"},
+            "散熱水冷": {"score_delta": 8, "stage_delta": 4, "reason": "AI Server 拉貨信心回升，散熱鏈間接受惠"},
+            "CPO / 矽光子": {"score_delta": 6, "stage_delta": 3, "reason": "高頻寬傳輸需求隨資料中心擴建增加"},
+            "BBU / 伺服器備用電池": {"score_delta": 2, "stage_delta": 1, "reason": "AI基建情緒正向，但原始題材過熱風控仍在"},
+        },
+    }
 ]
 
 BASE_CONFIDENCE = {
@@ -263,18 +296,15 @@ def sigmoid_score(value: float, slope: float = 0.8, midpoint: float = 0.0) -> in
 
 
 def normalize_price_score(avg_change_pct: float) -> int:
-    # Non-linear: 0% -> 50, +3% -> ~92, -3% -> ~8. Prevents one extreme move from dominating too linearly.
     return sigmoid_score(avg_change_pct, slope=0.85, midpoint=0.0)
 
 
 def normalize_volume_score(avg_volume_ratio: float) -> int:
-    # Log scale: 0.5x -> 0, 1.0x -> 50, 2.0x -> 100. Large volume spikes saturate instead of exploding.
     ratio = max(0.01, safe_float(avg_volume_ratio, 0))
     return clamp(50 + math.log2(ratio) * 50)
 
 
 def leader_participation_score(change_pct: float) -> float:
-    # Weighted breadth contribution: <-2% counts weak, 0% neutral, +2% strong, instead of binary up/down only.
     return clamp_float((safe_float(change_pct) + 2) / 4 * 100)
 
 
@@ -293,14 +323,7 @@ def map_auto_stage(stage_score: float) -> str:
 
 
 def map_auto_stage_label(stage_score: float) -> str:
-    labels = {
-        "Stage 6": "Stage 6 嚴重超賣 / 築底期",
-        "Stage 1": "Stage 1 初步復甦 / 懷疑期",
-        "Stage 2": "Stage 2 溫和上漲 / 成長期",
-        "Stage 3": "Stage 3 主升段 / 熱絡期",
-        "Stage 4": "Stage 4 末升段 / 瘋狂期",
-        "Stage 5": "Stage 5 高檔震盪 / 出貨反轉期",
-    }
+    labels = {"Stage 6": "Stage 6 嚴重超賣 / 築底期", "Stage 1": "Stage 1 初步復甦 / 懷疑期", "Stage 2": "Stage 2 溫和上漲 / 成長期", "Stage 3": "Stage 3 主升段 / 熱絡期", "Stage 4": "Stage 4 末升段 / 瘋狂期", "Stage 5": "Stage 5 高檔震盪 / 出貨反轉期"}
     return labels[map_auto_stage(stage_score)]
 
 
@@ -312,6 +335,21 @@ def stock_momentum_delta(change_pct: float, volume_ratio: float) -> int:
 
 def stage_confidence(data_coverage: float, leader_consistency: float, breadth_score: float) -> int:
     return clamp(data_coverage * 0.4 + leader_consistency * 0.3 + breadth_score * 0.3)
+
+
+def event_overlay_for_theme(theme_name: str) -> Dict[str, Any]:
+    overlays = []
+    score_delta = 0
+    stage_delta = 0
+    confidence_values = []
+    for event in EVENT_SIGNALS:
+        impact = event.get("theme_impacts", {}).get(theme_name)
+        if impact:
+            overlays.append({"event_id": event["id"], "title": event["title"], "score_delta": impact.get("score_delta", 0), "stage_delta": impact.get("stage_delta", 0), "reason": impact.get("reason", ""), "confidence": event.get("confidence", 0)})
+            score_delta += safe_float(impact.get("score_delta", 0), 0)
+            stage_delta += safe_float(impact.get("stage_delta", 0), 0)
+            confidence_values.append(safe_float(event.get("confidence", 0), 0))
+    return {"events": overlays, "score_delta": clamp(score_delta, -30, 30), "stage_delta": clamp(stage_delta, -20, 20), "confidence": clamp(sum(confidence_values) / len(confidence_values)) if confidence_values else 0}
 
 
 def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
@@ -351,8 +389,12 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
     price_score = normalize_price_score(avg_change)
     volume_score = normalize_volume_score(avg_volume_ratio)
     stage_score = round(price_score * 0.4 + volume_score * 0.3 + breadth_score * 0.3, 1)
-    auto_stage = map_auto_stage(stage_score)
-    auto_stage_label = map_auto_stage_label(stage_score)
+
+    event_overlay = event_overlay_for_theme(basket["theme"])
+    adjusted_stage_score = round(clamp_float(stage_score + event_overlay["stage_delta"]), 1)
+    score_after_event = clamp(safe_float(basket["base_score"], 0) + avg_delta + event_overlay["score_delta"])
+    auto_stage = map_auto_stage(adjusted_stage_score)
+    auto_stage_label = map_auto_stage_label(adjusted_stage_score)
 
     if not live_weight_sum:
         leader_consistency = 0
@@ -362,15 +404,18 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         leader_consistency = round(max(up_ratio, down_ratio) * 100, 1)
 
     confidence = stage_confidence(data_coverage, leader_consistency, breadth_score)
+    if event_overlay["confidence"]:
+        confidence = clamp(confidence * 0.8 + event_overlay["confidence"] * 0.2)
 
     theme = {
         "theme": basket["theme"],
-        "score": clamp(safe_float(basket["base_score"], 0) + avg_delta),
+        "score": score_after_event,
         "base_score": basket["base_score"],
         "stage": basket["stage"],
         "auto_stage": auto_stage,
         "auto_stage_label": auto_stage_label,
-        "stage_score": stage_score,
+        "stage_score": adjusted_stage_score,
+        "raw_stage_score": stage_score,
         "stage_confidence": confidence,
         "breadth_score": breadth_score,
         "raw_breadth_ratio": raw_breadth_ratio,
@@ -378,6 +423,7 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         "volume_score": volume_score,
         "data_coverage": data_coverage,
         "leader_consistency": leader_consistency,
+        "event_overlay": event_overlay,
         "status": basket["status"],
         "allocation": basket["allocation"],
         "entry": basket["entry"],
@@ -385,7 +431,7 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         "stop_loss": basket["stop_loss"],
         "risk": basket["risk"],
         "leaders": leaders,
-        "theme_strength": clamp(50 + avg_change * 5 + avg_volume_ratio * 5),
+        "theme_strength": clamp(50 + avg_change * 5 + avg_volume_ratio * 5 + event_overlay["score_delta"] * 0.4),
         "theme_momentum": round(avg_change, 2),
         "avg_volume_ratio": round(avg_volume_ratio, 2),
         "live_coverage": round(data_coverage / 100, 2),
@@ -393,6 +439,8 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
     }
 
     risk_notes = []
+    if event_overlay["events"]:
+        risk_notes.append(f"Event Overlay: {event_overlay['events'][0]['title']} +{event_overlay['score_delta']}")
     if auto_stage == "Stage 5":
         risk_notes.append("Stage Engine: 自動判定高檔震盪 / 出貨風險")
     if auto_stage == "Stage 6":
@@ -405,7 +453,7 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         theme["allocation"] = 0
         risk_notes.append("Pipeline: 題材均量比低於 0.7，啟動風控")
     elif live_weight_sum:
-        theme["allocation"] = clamp(theme["allocation"] + max(0, int(avg_delta // 3)), 0, 50)
+        theme["allocation"] = clamp(theme["allocation"] + max(0, int((avg_delta + event_overlay["score_delta"] * 0.2) // 3)), 0, 50)
 
     if data_coverage < 50:
         risk_notes.append("Pipeline: 題材資料覆蓋率不足 50%")
@@ -425,6 +473,7 @@ def build_daily_brief() -> Dict[str, Any]:
     market_mode = "BULL" if attack_score >= 75 else "NEUTRAL" if attack_score >= 55 else "DEFENSIVE"
     ranked = sorted(themes, key=lambda item: safe_float(item.get("score"), 0), reverse=True)
     avoid_candidates = [item for item in themes if item.get("allocation", 0) == 0 or item.get("auto_stage") in {"Stage 5", "Stage 6"} or "Stage 5" in item.get("stage", "")]
+    active_events = [event["title"] for event in EVENT_SIGNALS]
     brief = dict(BASE_BRIEF)
     brief.update({
         "date": datetime.now().strftime("%Y-%m-%d"),
@@ -434,12 +483,13 @@ def build_daily_brief() -> Dict[str, Any]:
         "top_theme": ranked[0]["theme"],
         "next_theme": ranked[1]["theme"] if len(ranked) > 1 else ranked[0]["theme"],
         "avoid_theme": avoid_candidates[0]["theme"] if avoid_candidates else ranked[-1]["theme"],
-        "strategy": "Dashboard 已接 Stage Engine v1.1：Price 使用 Sigmoid、Volume 使用 Log、Breadth 使用 leader 權重加權。",
+        "risk_event": " / ".join(active_events) if active_events else BASE_BRIEF["risk_event"],
+        "strategy": "Dashboard 已接 Event Overlay v1：小G事件研究會轉成 Theme Score Delta / Stage Delta，但不覆蓋市場資料。",
         "data_status": "live" if any(t.get("data_status") == "live" for t in themes) else "fallback",
         "market_snapshot": market_snapshot,
         "updated_at": datetime.now().isoformat(timespec="seconds"),
     })
-    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.5.1 Scoring Function Upgrade", "source": "Weighted Theme Engine + Nonlinear Stage Engine", "fallback": "BASE_BRIEF / THEME_BASKETS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
+    return {"brief": brief, "themes": themes, "events": EVENT_SIGNALS, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 4.0 Event Overlay v1", "source": "小G Event Intelligence + Weighted Theme Engine + Stage Engine", "fallback": "BASE_BRIEF / THEME_BASKETS / EVENT_SIGNALS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
 
 
 def save_daily_brief(payload: Dict[str, Any]) -> None:
@@ -518,6 +568,11 @@ def dashboard():
     brief_data = payload["brief"]
     themes = payload["themes"]
     confidence_data = payload.get("confidence", BASE_CONFIDENCE)
+    events = payload.get("events", [])
+    event_html = ""
+    for event in events:
+        event_html += f"<p><b>{event.get('title')}</b>｜{event.get('risk_mode')}｜信心 {event.get('confidence')}%<br>{event.get('summary')}</p>"
+
     theme_cards = ""
     for t in themes:
         leaders_html = ""
@@ -529,13 +584,18 @@ def dashboard():
             else:
                 leader_line = f"{leader.get('symbol')} {leader.get('name')}｜權重 {weight}%｜fallback｜{md.get('error', '')}"
             leaders_html += f"<li>{leader_line}</li>"
+        overlay = t.get("event_overlay", {})
+        event_line = "無"
+        if overlay.get("events"):
+            event_line = "；".join([f"{e.get('title')}：分數+{e.get('score_delta')} / Stage+{e.get('stage_delta')}" for e in overlay.get("events", [])])
         theme_cards += f"""
         <div class="card">
             <h2>{t['theme']}</h2>
             <p><b>分數：</b>{t['score']} / 100｜<b>基準：</b>{t.get('base_score')}</p>
+            <p><b>事件影響：</b>{event_line}</p>
             <p><b>題材強度：</b>{t.get('theme_strength')}｜<b>題材動能：</b>{t.get('theme_momentum')}%｜<b>覆蓋率：</b>{int(t.get('live_coverage', 0) * 100)}%</p>
             <p><b>Breadth：</b>{t.get('breadth_score')}｜<b>Raw Up：</b>{t.get('raw_breadth_ratio')}｜<b>Price：</b>{t.get('price_score')}｜<b>Volume：</b>{t.get('volume_score')}</p>
-            <p><b>Stage Score：</b>{t.get('stage_score')}｜<b>Auto Stage：</b>{t.get('auto_stage_label')}｜<b>Confidence：</b>{t.get('stage_confidence')}</p>
+            <p><b>Stage Score：</b>{t.get('stage_score')}｜<b>Raw：</b>{t.get('raw_stage_score')}｜<b>Auto Stage：</b>{t.get('auto_stage_label')}｜<b>Confidence：</b>{t.get('stage_confidence')}</p>
             <p><b>原始階段：</b>{t['stage']}｜{t['status']}</p>
             <p><b>建議配置：</b>{t['allocation']}%</p>
             <p><b>Leaders：</b></p><ul>{leaders_html}</ul>
@@ -577,6 +637,7 @@ def dashboard():
                 <p><b>主線：</b>{brief_data['main_theme']}</p><p><b>目前主題：</b>{brief_data['top_theme']}</p><p><b>下一個接棒：</b>{brief_data['next_theme']}</p><p><b>禁止碰：</b>{brief_data['avoid_theme']}</p>
                 <div class="warn"><b>風險事件：</b>{brief_data['risk_event']}｜{brief_data['strategy']}</div>
             </div>
+            <div class="card" style="margin-bottom:20px;"><h2>Overnight Event Intelligence</h2>{event_html or '<p>目前無事件訊號。</p>'}</div>
             <div class="grid">{theme_cards}</div>
             <div class="card" style="margin-top:20px;"><h2>小G 信心分數</h2><p><b>輪動信心：</b>{confidence_data['rotation_confidence']['score']}%｜{confidence_data['rotation_confidence']['target']}</p><p><b>升級信心：</b>{confidence_data['transition_confidence']['score']}%｜{confidence_data['transition_confidence']['target']}</p><p><b>風險信心：</b>{confidence_data['risk_confidence']['score']}%｜{confidence_data['risk_confidence']['target']}</p></div>
         </div>
