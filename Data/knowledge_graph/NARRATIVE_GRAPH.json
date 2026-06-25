@@ -1,0 +1,72 @@
+{
+  "document_id": "AR-GRAPH-SCHEMA-2026-06-25",
+  "version": "1.0",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "description": "Schema-only placeholder for future Narrative Knowledge Graph data. This file does not contain real graph nodes or edges yet.",
+  "graph_type": "narrative_knowledge_graph",
+  "data_status": "empty_schema_only",
+  "schema": {
+    "node_types": [
+      "narrative",
+      "theme",
+      "event",
+      "leader",
+      "sector",
+      "trigger",
+      "risk",
+      "playbook",
+      "hypothesis"
+    ],
+    "edge_types": [
+      "drives",
+      "benefits",
+      "rotates_to",
+      "depends_on",
+      "confirms",
+      "weakens",
+      "rebirth_triggered_by",
+      "risk_to",
+      "derived_from",
+      "validated_by"
+    ],
+    "node_schema": {
+      "id": "string",
+      "type": "string",
+      "name": "string",
+      "name_zh": "string",
+      "status": "string",
+      "metadata": "object"
+    },
+    "edge_schema": {
+      "id": "string",
+      "source": "string",
+      "target": "string",
+      "type": "string",
+      "weight": "number_0_to_100",
+      "confidence": "number_0_to_100",
+      "evidence": "array",
+      "metadata": "object"
+    },
+    "status_values": [
+      "genesis",
+      "contagion",
+      "mutation",
+      "extinction",
+      "rebirth",
+      "unknown"
+    ],
+    "validation_rules": [
+      "nodes must use unique ids",
+      "edges must reference existing source and target node ids",
+      "edge weight must be a number from 0 to 100",
+      "edge confidence must be a number from 0 to 100",
+      "production scoring must not read this file until a separate integration task is approved"
+    ]
+  },
+  "nodes": [],
+  "edges": []
+}
