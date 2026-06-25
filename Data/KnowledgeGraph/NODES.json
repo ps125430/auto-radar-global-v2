@@ -1,0 +1,18 @@
+{
+  "document_id": "AR-KG-NODES-2026-06-25",
+  "version": "1.0",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "schema": {
+    "id": "",
+    "name": "",
+    "category": "",
+    "status": "",
+    "strength": 0,
+    "confidence": 0,
+    "saturation": 0,
+    "last_updated": ""
+  },
+  "nodes": []
+}
