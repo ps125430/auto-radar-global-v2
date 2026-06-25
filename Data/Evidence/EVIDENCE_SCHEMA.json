@@ -1,0 +1,48 @@
+{
+  "document_id": "AR-EVIDENCE-SCHEMA-2026-06-25",
+  "version": "1.0",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "purpose": "Define the standard evidence record structure for Auto Radar research, Decision Lab cases, and Knowledge Core entries.",
+  "schema": {
+    "evidence_id": "string",
+    "case_id": "string",
+    "related_event": "string",
+    "related_theme": "string",
+    "related_narrative": "string",
+    "source_type": "string",
+    "source_name": "string",
+    "source_url": "string",
+    "published_at": "string",
+    "observed_at": "string",
+    "evidence_tier": "string",
+    "claim": "string",
+    "summary": "string",
+    "supports": [
+      "string"
+    ],
+    "contradicts": [
+      "string"
+    ],
+    "confidence": 0,
+    "reliability": 0,
+    "freshness": 0,
+    "penalties": [
+      "string"
+    ],
+    "notes": "string",
+    "last_validated": "string"
+  },
+  "field_rules": {
+    "confidence": "number_0_to_100",
+    "reliability": "number_0_to_100",
+    "freshness": "number_0_to_100",
+    "published_at": "ISO_date_or_datetime_string",
+    "observed_at": "ISO_date_or_datetime_string",
+    "last_validated": "ISO_date_or_datetime_string"
+  },
+  "records": []
+}
