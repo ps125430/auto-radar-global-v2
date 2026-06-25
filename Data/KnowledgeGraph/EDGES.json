@@ -1,0 +1,17 @@
+{
+  "document_id": "AR-KG-EDGES-2026-06-25",
+  "version": "1.0",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "schema": {
+    "source": "",
+    "target": "",
+    "weight": 0.0,
+    "lag_days": 0,
+    "confidence": 0,
+    "edge_type": "",
+    "last_validated": ""
+  },
+  "edges": []
+}
