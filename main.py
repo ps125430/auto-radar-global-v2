@@ -46,9 +46,9 @@ THEME_BASKETS = [
         "stop_loss": "-7%",
         "risk": "高檔量縮，禁止開高追價",
         "leaders": [
-            {"symbol": "3324", "name": "雙鴻", "market": "TPEX"},
-            {"symbol": "3017", "name": "奇鋐", "market": "TWSE"},
-            {"symbol": "3653", "name": "健策", "market": "TWSE"},
+            {"symbol": "3324", "name": "雙鴻", "market": "TPEX", "weight": 0.4},
+            {"symbol": "3017", "name": "奇鋐", "market": "TWSE", "weight": 0.4},
+            {"symbol": "3653", "name": "健策", "market": "TWSE", "weight": 0.2},
         ],
     },
     {
@@ -62,9 +62,9 @@ THEME_BASKETS = [
         "stop_loss": "-7%",
         "risk": "波動高，假突破率高",
         "leaders": [
-            {"symbol": "3163", "name": "波若威", "market": "TPEX"},
-            {"symbol": "3450", "name": "聯鈞", "market": "TWSE"},
-            {"symbol": "4908", "name": "前鼎", "market": "TPEX"},
+            {"symbol": "3163", "name": "波若威", "market": "TPEX", "weight": 0.4},
+            {"symbol": "3450", "name": "聯鈞", "market": "TWSE", "weight": 0.3},
+            {"symbol": "4908", "name": "前鼎", "market": "TPEX", "weight": 0.3},
         ],
     },
     {
@@ -78,9 +78,9 @@ THEME_BASKETS = [
         "stop_loss": "跌破 5 日線先退出",
         "risk": "融資暴增、法人轉賣、當沖率過高",
         "leaders": [
-            {"symbol": "3617", "name": "碩天", "market": "TWSE"},
-            {"symbol": "6121", "name": "新普", "market": "TPEX"},
-            {"symbol": "3323", "name": "加百裕", "market": "TPEX"},
+            {"symbol": "3617", "name": "碩天", "market": "TWSE", "weight": 0.4},
+            {"symbol": "6121", "name": "新普", "market": "TPEX", "weight": 0.3},
+            {"symbol": "3323", "name": "加百裕", "market": "TPEX", "weight": 0.3},
         ],
     },
 ]
@@ -258,12 +258,24 @@ def fetch_symbol_snapshot(symbol: str, market: Optional[str] = None) -> Dict[str
     return fallback
 
 
+def sigmoid_score(value: float, slope: float = 0.8, midpoint: float = 0.0) -> int:
+    return clamp(100 / (1 + math.exp(-slope * (value - midpoint))))
+
+
 def normalize_price_score(avg_change_pct: float) -> int:
-    return clamp(((avg_change_pct + 5) / 10) * 100)
+    # Non-linear: 0% -> 50, +3% -> ~92, -3% -> ~8. Prevents one extreme move from dominating too linearly.
+    return sigmoid_score(avg_change_pct, slope=0.85, midpoint=0.0)
 
 
 def normalize_volume_score(avg_volume_ratio: float) -> int:
-    return clamp((avg_volume_ratio - 0.5) / 1.5 * 100)
+    # Log scale: 0.5x -> 0, 1.0x -> 50, 2.0x -> 100. Large volume spikes saturate instead of exploding.
+    ratio = max(0.01, safe_float(avg_volume_ratio, 0))
+    return clamp(50 + math.log2(ratio) * 50)
+
+
+def leader_participation_score(change_pct: float) -> float:
+    # Weighted breadth contribution: <-2% counts weak, 0% neutral, +2% strong, instead of binary up/down only.
+    return clamp_float((safe_float(change_pct) + 2) / 4 * 100)
 
 
 def map_auto_stage(stage_score: float) -> str:
@@ -293,9 +305,9 @@ def map_auto_stage_label(stage_score: float) -> str:
 
 
 def stock_momentum_delta(change_pct: float, volume_ratio: float) -> int:
-    momentum = 6 if change_pct >= 3 else 3 if change_pct >= 1 else -8 if change_pct <= -3 else -4 if change_pct <= -1 else 0
-    volume = 5 if volume_ratio >= 1.5 else 2 if volume_ratio >= 1.1 else -8 if 0 < volume_ratio < 0.7 else 0
-    return momentum + volume
+    price_score = normalize_price_score(change_pct)
+    volume_score = normalize_volume_score(volume_ratio)
+    return int(round(((price_score - 50) * 0.12) + ((volume_score - 50) * 0.08)))
 
 
 def stage_confidence(data_coverage: float, leader_consistency: float, breadth_score: float) -> int:
@@ -304,10 +316,12 @@ def stage_confidence(data_coverage: float, leader_consistency: float, breadth_sc
 
 def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
     leaders = []
-    live_changes = []
-    live_volume_ratios = []
+    weighted_change_sum = 0.0
+    weighted_volume_sum = 0.0
+    weighted_participation_sum = 0.0
+    live_weight_sum = 0.0
     live_deltas = []
-    positive_count = 0
+    positive_weight = 0.0
 
     for leader in basket["leaders"]:
         snapshot = fetch_symbol_snapshot(leader["symbol"], leader.get("market"))
@@ -315,33 +329,35 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         item["market_data"] = snapshot
         leaders.append(item)
         if snapshot.get("ok"):
+            weight = safe_float(leader.get("weight", 1), 1)
             change_pct = safe_float(snapshot.get("change_pct"), 0)
             volume_ratio = safe_float(snapshot.get("volume_ratio_5d"), 0)
-            live_changes.append(change_pct)
-            live_volume_ratios.append(volume_ratio)
-            live_deltas.append(stock_momentum_delta(change_pct, volume_ratio))
+            weighted_change_sum += change_pct * weight
+            weighted_volume_sum += volume_ratio * weight
+            weighted_participation_sum += leader_participation_score(change_pct) * weight
+            live_weight_sum += weight
+            live_deltas.append(stock_momentum_delta(change_pct, volume_ratio) * weight)
             if change_pct >= UP_THRESHOLD_PCT:
-                positive_count += 1
+                positive_weight += weight
 
-    live_count = len(live_deltas)
-    total_count = len(leaders)
-    live_coverage_ratio = live_count / total_count if total_count else 0
-    data_coverage = round(live_coverage_ratio * 100, 1)
-    avg_change = sum(live_changes) / live_count if live_count else 0
-    avg_volume_ratio = sum(live_volume_ratios) / live_count if live_count else 0
-    avg_delta = sum(live_deltas) / live_count if live_count else 0
+    total_weight = sum(safe_float(leader.get("weight", 1), 1) for leader in basket["leaders"])
+    data_coverage = round((live_weight_sum / total_weight) * 100, 1) if total_weight else 0
+    avg_change = weighted_change_sum / live_weight_sum if live_weight_sum else 0
+    avg_volume_ratio = weighted_volume_sum / live_weight_sum if live_weight_sum else 0
+    avg_delta = sum(live_deltas) / live_weight_sum if live_weight_sum else 0
 
-    breadth_score = round((positive_count / live_count) * 100, 1) if live_count else 0
+    breadth_score = round(weighted_participation_sum / live_weight_sum, 1) if live_weight_sum else 0
+    raw_breadth_ratio = round((positive_weight / live_weight_sum) * 100, 1) if live_weight_sum else 0
     price_score = normalize_price_score(avg_change)
     volume_score = normalize_volume_score(avg_volume_ratio)
     stage_score = round(price_score * 0.4 + volume_score * 0.3 + breadth_score * 0.3, 1)
     auto_stage = map_auto_stage(stage_score)
     auto_stage_label = map_auto_stage_label(stage_score)
 
-    if not live_changes:
+    if not live_weight_sum:
         leader_consistency = 0
     else:
-        up_ratio = positive_count / live_count
+        up_ratio = positive_weight / live_weight_sum
         down_ratio = 1 - up_ratio
         leader_consistency = round(max(up_ratio, down_ratio) * 100, 1)
 
@@ -357,6 +373,7 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         "stage_score": stage_score,
         "stage_confidence": confidence,
         "breadth_score": breadth_score,
+        "raw_breadth_ratio": raw_breadth_ratio,
         "price_score": price_score,
         "volume_score": volume_score,
         "data_coverage": data_coverage,
@@ -371,8 +388,8 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
         "theme_strength": clamp(50 + avg_change * 5 + avg_volume_ratio * 5),
         "theme_momentum": round(avg_change, 2),
         "avg_volume_ratio": round(avg_volume_ratio, 2),
-        "live_coverage": round(live_coverage_ratio, 2),
-        "data_status": "live" if live_count else "fallback",
+        "live_coverage": round(data_coverage / 100, 2),
+        "data_status": "live" if live_weight_sum else "fallback",
     }
 
     risk_notes = []
@@ -384,13 +401,13 @@ def build_theme_from_basket(basket: Dict[str, Any]) -> Dict[str, Any]:
     elif str(basket.get("stage", "")).startswith("Stage 5"):
         theme["allocation"] = 0
         risk_notes.append("Pipeline: 原始研究 Stage 5 禁止追逐")
-    elif live_count and avg_volume_ratio < 0.7:
+    elif live_weight_sum and avg_volume_ratio < 0.7:
         theme["allocation"] = 0
         risk_notes.append("Pipeline: 題材均量比低於 0.7，啟動風控")
-    elif live_count:
+    elif live_weight_sum:
         theme["allocation"] = clamp(theme["allocation"] + max(0, int(avg_delta // 3)), 0, 50)
 
-    if live_coverage_ratio < 0.5:
+    if data_coverage < 50:
         risk_notes.append("Pipeline: 題材資料覆蓋率不足 50%")
     if risk_notes:
         theme["risk"] = f"{theme['risk']}｜{'｜'.join(risk_notes)}"
@@ -417,12 +434,12 @@ def build_daily_brief() -> Dict[str, Any]:
         "top_theme": ranked[0]["theme"],
         "next_theme": ranked[1]["theme"] if len(ranked) > 1 else ranked[0]["theme"],
         "avoid_theme": avoid_candidates[0]["theme"] if avoid_candidates else ranked[-1]["theme"],
-        "strategy": "Dashboard 已接 Stage Engine v1：Stage Score = Price 40% + Volume 30% + Breadth 30%；Daily Brief 結構維持不變。",
+        "strategy": "Dashboard 已接 Stage Engine v1.1：Price 使用 Sigmoid、Volume 使用 Log、Breadth 使用 leader 權重加權。",
         "data_status": "live" if any(t.get("data_status") == "live" for t in themes) else "fallback",
         "market_snapshot": market_snapshot,
         "updated_at": datetime.now().isoformat(timespec="seconds"),
     })
-    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.5 Stage Engine v1", "source": "Theme Engine v1 + Stage Engine v1", "fallback": "BASE_BRIEF / THEME_BASKETS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
+    return {"brief": brief, "themes": themes, "confidence": BASE_CONFIDENCE, "pipeline": {"version": "Sprint 3.5.1 Scoring Function Upgrade", "source": "Weighted Theme Engine + Nonlinear Stage Engine", "fallback": "BASE_BRIEF / THEME_BASKETS / cached JSON", "schedule": "Asia/Taipei 08:30 daily"}}
 
 
 def save_daily_brief(payload: Dict[str, Any]) -> None:
@@ -506,17 +523,18 @@ def dashboard():
         leaders_html = ""
         for leader in t.get("leaders", []):
             md = leader.get("market_data", {})
+            weight = int(safe_float(leader.get("weight", 0), 0) * 100)
             if md.get("ok"):
-                leader_line = f"{leader.get('symbol')} {leader.get('name')}｜{md.get('source')}｜{md.get('change_pct')}%｜量比 {md.get('volume_ratio_5d')}x"
+                leader_line = f"{leader.get('symbol')} {leader.get('name')}｜權重 {weight}%｜{md.get('source')}｜{md.get('change_pct')}%｜量比 {md.get('volume_ratio_5d')}x"
             else:
-                leader_line = f"{leader.get('symbol')} {leader.get('name')}｜fallback｜{md.get('error', '')}"
+                leader_line = f"{leader.get('symbol')} {leader.get('name')}｜權重 {weight}%｜fallback｜{md.get('error', '')}"
             leaders_html += f"<li>{leader_line}</li>"
         theme_cards += f"""
         <div class="card">
             <h2>{t['theme']}</h2>
             <p><b>分數：</b>{t['score']} / 100｜<b>基準：</b>{t.get('base_score')}</p>
             <p><b>題材強度：</b>{t.get('theme_strength')}｜<b>題材動能：</b>{t.get('theme_momentum')}%｜<b>覆蓋率：</b>{int(t.get('live_coverage', 0) * 100)}%</p>
-            <p><b>Breadth：</b>{t.get('breadth_score')}｜<b>Price：</b>{t.get('price_score')}｜<b>Volume：</b>{t.get('volume_score')}</p>
+            <p><b>Breadth：</b>{t.get('breadth_score')}｜<b>Raw Up：</b>{t.get('raw_breadth_ratio')}｜<b>Price：</b>{t.get('price_score')}｜<b>Volume：</b>{t.get('volume_score')}</p>
             <p><b>Stage Score：</b>{t.get('stage_score')}｜<b>Auto Stage：</b>{t.get('auto_stage_label')}｜<b>Confidence：</b>{t.get('stage_confidence')}</p>
             <p><b>原始階段：</b>{t['stage']}｜{t['status']}</p>
             <p><b>建議配置：</b>{t['allocation']}%</p>
