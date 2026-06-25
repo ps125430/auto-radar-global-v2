@@ -1,0 +1,451 @@
+{
+  "document_id": "AR-LIBRARY-2026-06-25",
+  "version": "1.0",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "status": "hypothesis_ready",
+  "model_impact": "research_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "narratives": [
+    {
+      "id": "N001",
+      "category": "AI & Tech Infrastructure",
+      "name": "CoWoS advanced packaging capacity shortage",
+      "name_zh": "CoWoS 先進封裝產能供不應求",
+      "status": "contagion",
+      "strength": 92,
+      "confidence": 95,
+      "saturation": 75,
+      "core_thesis": "晶片出貨的終極瓶頸，市場高度買單。",
+      "rotation_targets": [
+        "特用化學",
+        "設備零組件",
+        "高階探針卡",
+        "檢測實驗室"
+      ],
+      "rebirth_triggers": [
+        "台積電法說再度宣布大幅上修明年 CoWoS 資本支出",
+        "宣布突破全新封裝物理極限"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N002",
+      "category": "AI & Memory",
+      "name": "HBM capacity crowding and specification upgrade",
+      "name_zh": "HBM 產能排擠與規格升級",
+      "status": "contagion",
+      "strength": 90,
+      "confidence": 92,
+      "saturation": 72,
+      "core_thesis": "AI 加速器升級推動 HBM 需求與規格同步上行，供應鏈受惠但需觀察庫存與報價循環。",
+      "rotation_targets": [
+        "DRAM 供應鏈",
+        "記憶體封測",
+        "材料供應商",
+        "測試設備"
+      ],
+      "rebirth_triggers": [
+        "雲端大廠上修 AI GPU 與 HBM 採購量",
+        "HBM 新世代規格導入帶動報價與產能重新緊張"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N003",
+      "category": "AI & Thermal",
+      "name": "AI server thermal revolution",
+      "name_zh": "AI Server 散熱革命",
+      "status": "contagion",
+      "strength": 88,
+      "confidence": 90,
+      "saturation": 68,
+      "core_thesis": "AI Server 功耗上升使液冷、散熱模組與機櫃設計成為資料中心擴張的關鍵瓶頸。",
+      "rotation_targets": [
+        "液冷系統",
+        "散熱模組",
+        "機櫃供應鏈",
+        "熱管理材料"
+      ],
+      "rebirth_triggers": [
+        "新一代 AI 晶片功耗再度上修",
+        "大型資料中心明確採用液冷或浸沒式散熱方案"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N004",
+      "category": "AI & Networking",
+      "name": "CPO and silicon photonics high-speed transmission",
+      "name_zh": "CPO 與矽光子高速傳輸",
+      "status": "genesis",
+      "strength": 84,
+      "confidence": 82,
+      "saturation": 55,
+      "core_thesis": "AI 叢集規模擴張提升高速傳輸需求，CPO 與矽光子可能成為下一代網路升級主線。",
+      "rotation_targets": [
+        "光通訊模組",
+        "矽光子元件",
+        "高速交換器",
+        "檢測設備"
+      ],
+      "rebirth_triggers": [
+        "CPO 被大型雲端客戶正式導入量產",
+        "AI 網路頻寬規格明顯升級"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N005",
+      "category": "AI & Custom Silicon",
+      "name": "ASIC replacement wave",
+      "name_zh": "ASIC 替代浪潮",
+      "status": "contagion",
+      "strength": 86,
+      "confidence": 84,
+      "saturation": 62,
+      "core_thesis": "雲端大廠為降低成本與提升效率，持續推動自研 ASIC，帶動設計服務與特定供應鏈機會。",
+      "rotation_targets": [
+        "IC 設計服務",
+        "高速介面 IP",
+        "先進封裝",
+        "測試服務"
+      ],
+      "rebirth_triggers": [
+        "大型 CSP 宣布新一代自研 AI ASIC",
+        "ASIC 出貨量或滲透率明顯超預期"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N006",
+      "category": "AI & Accelerator Platforms",
+      "name": "GB family and next-generation AI superchip mass shipment",
+      "name_zh": "GB 家族 / 下一代 AI 超級晶片量產出貨",
+      "status": "contagion",
+      "strength": 94,
+      "confidence": 92,
+      "saturation": 78,
+      "core_thesis": "下一代 AI 超級晶片量產出貨會牽動伺服器、散熱、電源、網通與封裝供應鏈同步重估。",
+      "rotation_targets": [
+        "AI Server",
+        "電源供應",
+        "散熱系統",
+        "高階 PCB"
+      ],
+      "rebirth_triggers": [
+        "新平台出貨時程提前或訂單上修",
+        "供應鏈月營收確認量產爬坡"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N007",
+      "category": "AI & Edge Devices",
+      "name": "AI edge device replacement cycle",
+      "name_zh": "AI Edge 換機潮",
+      "status": "genesis",
+      "strength": 78,
+      "confidence": 72,
+      "saturation": 48,
+      "core_thesis": "端側 AI 若帶動 PC、手機與終端裝置換機，將從雲端 AI 擴散到消費電子供應鏈。",
+      "rotation_targets": [
+        "AI PC",
+        "手機供應鏈",
+        "感測器",
+        "邊緣 AI 晶片"
+      ],
+      "rebirth_triggers": [
+        "AI PC 或 AI Phone 銷售數據明確優於預期",
+        "殺手級端側 AI 應用出現"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N008",
+      "category": "Macro Liquidity",
+      "name": "Preventive rate cuts and liquidity party",
+      "name_zh": "防範性降息與資金派對",
+      "status": "contagion",
+      "strength": 82,
+      "confidence": 78,
+      "saturation": 66,
+      "core_thesis": "若降息被市場解讀為防範性而非衰退確認，風險資產可能迎來估值擴張與資金行情。",
+      "rotation_targets": [
+        "成長股",
+        "半導體",
+        "高 Beta 題材",
+        "金融資產"
+      ],
+      "rebirth_triggers": [
+        "通膨降溫且就業未崩壞",
+        "Fed 釋放更明確的預防性寬鬆訊號"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N009",
+      "category": "Macro Risk",
+      "name": "Payroll collapse and recession fear",
+      "name_zh": "非農暴跌與經濟衰退恐懼",
+      "status": "mutation",
+      "strength": 80,
+      "confidence": 76,
+      "saturation": 58,
+      "core_thesis": "就業數據若急速惡化，市場可能從降息利多切換為衰退風險，壓縮風險資產評價。",
+      "rotation_targets": [
+        "防禦股",
+        "公債",
+        "黃金",
+        "低波動資產"
+      ],
+      "rebirth_triggers": [
+        "非農與失業率連續惡化",
+        "信用利差快速擴大"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N010",
+      "category": "FX & Global Liquidity",
+      "name": "Yen appreciation and carry trade unwind",
+      "name_zh": "日圓升值與 Carry Trade 平倉",
+      "status": "mutation",
+      "strength": 79,
+      "confidence": 74,
+      "saturation": 52,
+      "core_thesis": "日圓快速升值可能觸發全球槓桿資金平倉，造成風險資產同步去槓桿。",
+      "rotation_targets": [
+        "日圓資產",
+        "避險資產",
+        "低槓桿防禦股",
+        "波動率產品"
+      ],
+      "rebirth_triggers": [
+        "日本央行明確轉鷹",
+        "美元兌日圓跌破關鍵技術與資金水位"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N011",
+      "category": "Trade Policy",
+      "name": "Full tariff war and global supply chain restructuring",
+      "name_zh": "全面關稅戰與全球供應鏈重組",
+      "status": "mutation",
+      "strength": 83,
+      "confidence": 80,
+      "saturation": 60,
+      "core_thesis": "關稅戰會改變成本、產能配置與供應鏈地理位置，受惠者與受害者會快速分化。",
+      "rotation_targets": [
+        "非中供應鏈",
+        "自動化設備",
+        "工業地產",
+        "區域製造龍頭"
+      ],
+      "rebirth_triggers": [
+        "主要經濟體宣布新一輪高關稅",
+        "企業加速產能外移並形成訂單轉移證據"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N012",
+      "category": "Geopolitics & Technology",
+      "name": "US-China technology restrictions",
+      "name_zh": "中美科技禁令",
+      "status": "contagion",
+      "strength": 85,
+      "confidence": 82,
+      "saturation": 67,
+      "core_thesis": "科技禁令推動自主可控、替代供應鏈與地緣分流，但也提高部分企業出貨與估值不確定性。",
+      "rotation_targets": [
+        "國產替代",
+        "設備材料",
+        "資安",
+        "非中供應鏈"
+      ],
+      "rebirth_triggers": [
+        "禁令範圍擴大到新晶片或設備類別",
+        "中國自主替代政策加碼"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N013",
+      "category": "Geopolitics & Shipping",
+      "name": "Freight rate surge from geopolitical conflict",
+      "name_zh": "地緣衝突引發運價飆升",
+      "status": "mutation",
+      "strength": 76,
+      "confidence": 72,
+      "saturation": 50,
+      "core_thesis": "地緣衝突若干擾航線與港口效率，運價、保險與供應鏈成本可能快速上升。",
+      "rotation_targets": [
+        "貨櫃航運",
+        "散裝航運",
+        "物流",
+        "保險"
+      ],
+      "rebirth_triggers": [
+        "主要航線繞道或中斷時間拉長",
+        "運價指數連續大幅上升"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N014",
+      "category": "Power & Energy Infrastructure",
+      "name": "AI data center power shortage and heavy electrical green energy",
+      "name_zh": "AI 資料中心缺電危機與重電綠能",
+      "status": "contagion",
+      "strength": 89,
+      "confidence": 86,
+      "saturation": 70,
+      "core_thesis": "AI 資料中心電力需求高速成長，使電力設備、儲能、綠能與供電穩定性成為基建主線。",
+      "rotation_targets": [
+        "重電設備",
+        "儲能",
+        "綠能",
+        "電力管理系統"
+      ],
+      "rebirth_triggers": [
+        "大型資料中心宣布新增電力採購或自建電力方案",
+        "電力瓶頸造成 AI Data Center 建設延遲"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N015",
+      "category": "Power Grid Infrastructure",
+      "name": "US grid megaproject and transformer shortage",
+      "name_zh": "美國電網大基建與變壓器缺貨",
+      "status": "contagion",
+      "strength": 84,
+      "confidence": 82,
+      "saturation": 63,
+      "core_thesis": "美國電網老化與用電需求提升形成長期更新需求，變壓器與電網設備供應緊張。",
+      "rotation_targets": [
+        "變壓器",
+        "電纜",
+        "配電設備",
+        "工程服務"
+      ],
+      "rebirth_triggers": [
+        "美國電網投資法案或補貼加碼",
+        "主要電力設備交期再度拉長"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N016",
+      "category": "Autos & Semiconductors",
+      "name": "Automotive semiconductor and EV inventory bottoming",
+      "name_zh": "車用半導體與 EV 庫存去化築底",
+      "status": "rebirth",
+      "strength": 73,
+      "confidence": 70,
+      "saturation": 42,
+      "core_thesis": "車用半導體與 EV 供應鏈若庫存去化完成，可能從壓抑循環進入溫和復甦。",
+      "rotation_targets": [
+        "車用 MCU",
+        "功率半導體",
+        "車用連接器",
+        "電池材料"
+      ],
+      "rebirth_triggers": [
+        "車用半導體庫存週期明確落底",
+        "EV 銷售與訂單連續改善"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N017",
+      "category": "Satellite & Telecom Infrastructure",
+      "name": "LEO satellite and 5G infrastructure subsidies",
+      "name_zh": "低軌衛星與 5G 基礎設施補貼",
+      "status": "genesis",
+      "strength": 72,
+      "confidence": 68,
+      "saturation": 38,
+      "core_thesis": "低軌衛星與 5G 補貼若轉化為實際建設訂單，可能帶動通訊設備與零組件新循環。",
+      "rotation_targets": [
+        "衛星通訊",
+        "射頻元件",
+        "通訊設備",
+        "基地台供應鏈"
+      ],
+      "rebirth_triggers": [
+        "政府補貼轉為明確採購或建設訂單",
+        "大型衛星服務商宣布擴大部署"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N018",
+      "category": "Electronics Cycle",
+      "name": "Passive components and basic electronic materials recovery",
+      "name_zh": "被動元件與基礎電子材料復甦",
+      "status": "rebirth",
+      "strength": 70,
+      "confidence": 72,
+      "saturation": 40,
+      "core_thesis": "被動元件與基礎電子材料若庫存調整完成，可能成為電子循環復甦的早期訊號。",
+      "rotation_targets": [
+        "MLCC",
+        "電阻電感",
+        "銅箔基板",
+        "電子化學品"
+      ],
+      "rebirth_triggers": [
+        "通路庫存降至健康水位",
+        "報價止跌或稼動率回升"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N019",
+      "category": "Hard Assets",
+      "name": "Gold, Bitcoin, and hard asset narrative",
+      "name_zh": "黃金、比特幣等硬資產敘事",
+      "status": "contagion",
+      "strength": 81,
+      "confidence": 77,
+      "saturation": 64,
+      "core_thesis": "貨幣寬鬆、財政赤字與地緣風險會強化硬資產敘事，吸引避險與替代貨幣資金。",
+      "rotation_targets": [
+        "黃金",
+        "比特幣",
+        "貴金屬礦商",
+        "加密資產基礎設施"
+      ],
+      "rebirth_triggers": [
+        "實質利率下行且美元轉弱",
+        "主權風險或金融系統風險升溫"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "N020",
+      "category": "Taiwan Fund Flow",
+      "name": "Taiwan high-dividend ETF passive capital lock-up",
+      "name_zh": "台灣高股息 ETF 被動資金鎖籌",
+      "status": "contagion",
+      "strength": 77,
+      "confidence": 80,
+      "saturation": 69,
+      "core_thesis": "高股息 ETF 的被動資金可能改變台股籌碼結構，使特定成分股出現資金鎖籌與再平衡效應。",
+      "rotation_targets": [
+        "高股息成分股",
+        "金融股",
+        "電信股",
+        "現金流穩定企業"
+      ],
+      "rebirth_triggers": [
+        "高股息 ETF 規模再度快速擴張",
+        "成分股調整引發明確資金流入"
+      ],
+      "notes": ""
+    }
+  ]
+}
