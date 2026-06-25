@@ -1,0 +1,24 @@
+{
+  "document_id": "AR-KG-METADATA-2026-06-25",
+  "version": "1.0",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "implemented_by": "小C / Repository Engineer",
+  "status": "schema_ready",
+  "model_impact": "schema_only_not_production_scoring",
+  "last_updated": "2026-06-25",
+  "graph_name": "Auto Radar Knowledge Graph",
+  "graph_scope": "skeleton_only",
+  "data_status": "empty_no_real_nodes_or_edges",
+  "files": {
+    "schema": "Data/KnowledgeGraph/GRAPH_SCHEMA.md",
+    "nodes": "Data/KnowledgeGraph/NODES.json",
+    "edges": "Data/KnowledgeGraph/EDGES.json"
+  },
+  "governance_rules": [
+    "This graph is not connected to runtime.",
+    "This graph must not change Theme Score, Stage Score, or Decision Score.",
+    "Real nodes and edges require separate approved tasks.",
+    "Production integration requires 小P review and a separate 小C implementation task."
+  ]
+}
