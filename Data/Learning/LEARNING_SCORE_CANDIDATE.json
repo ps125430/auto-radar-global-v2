@@ -1,0 +1,18 @@
+{
+  "document_id": "AR-LEARNING-SCORE-CANDIDATE-v1",
+  "version": "1.0",
+  "status": "review_metric_candidate",
+  "model_impact": "review_only_not_production_scoring",
+  "formula_candidate": {
+    "new_pattern_added_weight": 0.4,
+    "taxonomy_match_severity_weight": 0.4,
+    "playbook_promotion_weight": 0.2
+  },
+  "rules": [
+    "Learning Score is not trading performance.",
+    "A profitable case can have low learning score.",
+    "A losing case can have high learning score.",
+    "Learning Score must not directly change Theme Score, Stage Score, Decision Score, or production trading logic.",
+    "Weights are candidate only and require case validation."
+  ]
+}

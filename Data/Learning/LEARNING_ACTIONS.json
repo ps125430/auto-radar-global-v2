@@ -1,0 +1,52 @@
+{
+  "document_id": "AR-LEARNING-ACTIONS-v1",
+  "version": "1.0",
+  "status": "hypothesis_ready",
+  "layer": "Review / Decision Lab",
+  "model_impact": "review_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "actions": [
+    {
+      "id": "LA-001",
+      "name": "Need Nothing"
+    },
+    {
+      "id": "LA-002",
+      "name": "Need New Evidence"
+    },
+    {
+      "id": "LA-003",
+      "name": "Need Missing Data"
+    },
+    {
+      "id": "LA-004",
+      "name": "Need New Case Study"
+    },
+    {
+      "id": "LA-005",
+      "name": "Need Framework Update"
+    },
+    {
+      "id": "LA-006",
+      "name": "Need Hypothesis Update"
+    },
+    {
+      "id": "LA-007",
+      "name": "Need Engineering Fix"
+    },
+    {
+      "id": "LA-008",
+      "name": "Need Validation"
+    },
+    {
+      "id": "LA-009",
+      "name": "Need Confidence Recalibration"
+    }
+  ],
+  "rules": [
+    "Learning actions are review workflow outputs.",
+    "Learning actions do not directly change production scoring.",
+    "Engineering fixes require a separate C-task."
+  ]
+}

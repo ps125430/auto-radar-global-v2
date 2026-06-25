@@ -1,0 +1,88 @@
+{
+  "document_id": "AR-SUCCESS-TAXONOMY-v1",
+  "version": "1.0",
+  "status": "hypothesis_ready",
+  "layer": "Review / Decision Lab",
+  "model_impact": "review_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "categories": [
+    {
+      "id": "A",
+      "name": "Information Perception Success",
+      "items": [
+        {
+          "id": "A-1",
+          "name": "Cross-Evidence Resonance"
+        },
+        {
+          "id": "A-2",
+          "name": "Noise Filter Efficiency"
+        },
+        {
+          "id": "A-3",
+          "name": "Pattern Saturation Edge"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Market Cognition Success",
+      "items": [
+        {
+          "id": "B-4",
+          "name": "Expectation Gap Strike"
+        },
+        {
+          "id": "B-5",
+          "name": "Narrative Lifecycle Timing"
+        },
+        {
+          "id": "B-6",
+          "name": "Market DNA Premonition"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Temporal & Propagation Success",
+      "items": [
+        {
+          "id": "C-7",
+          "name": "Market Relay Alignment"
+        },
+        {
+          "id": "C-8",
+          "name": "Half-life Perfect Fitting"
+        },
+        {
+          "id": "C-9",
+          "name": "Feedback Loop Expansion"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "Boundary & Random Luck",
+      "items": [
+        {
+          "id": "D-10",
+          "name": "Random Beta Dividend"
+        },
+        {
+          "id": "D-11",
+          "name": "Accidental Catalyst"
+        },
+        {
+          "id": "D-12",
+          "name": "Regime Congruence"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    "Success taxonomy is for review only.",
+    "Success taxonomy must separate skill, evidence, timing, structure, and luck.",
+    "A success category must not directly change production scoring."
+  ]
+}
