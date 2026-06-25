@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/case_validation.schema.json",
+  "title": "Case Validation",
+  "description": "Integrates prediction snapshot, outcome tracking, and root cause audit for Decision Lab cases.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "title",
+    "event_type",
+    "status",
+    "prediction_snapshot",
+    "outcome_tracker",
+    "root_cause_audit",
+    "lessons",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "title": { "type": "string" },
+    "event_type": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "tracking",
+        "reviewed",
+        "archived"
+      ]
+    },
+    "prediction_snapshot": { "type": "object" },
+    "outcome_tracker": { "type": "object" },
+    "root_cause_audit": { "type": "object" },
+    "lessons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" }
+  }
+}
