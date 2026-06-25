@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/prediction_snapshot.schema.json",
+  "title": "Prediction Snapshot",
+  "description": "Freezes Auto Radar state before a major event for Decision Lab validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "case_id",
+    "timestamp",
+    "event_type",
+    "related_themes",
+    "theme_scores",
+    "stage_scores",
+    "decision_scores",
+    "market_cognition",
+    "narrative_status",
+    "knowledge_graph_signals",
+    "decision_before_event",
+    "notes"
+  ],
+  "properties": {
+    "snapshot_id": { "type": "string" },
+    "case_id": { "type": "string" },
+    "timestamp": { "type": "string" },
+    "event_type": { "type": "string" },
+    "related_themes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "theme_scores": { "type": "object" },
+    "stage_scores": { "type": "object" },
+    "decision_scores": { "type": "object" },
+    "market_cognition": { "type": "object" },
+    "narrative_status": { "type": "object" },
+    "knowledge_graph_signals": { "type": "object" },
+    "decision_before_event": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}
