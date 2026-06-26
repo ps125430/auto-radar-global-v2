@@ -1,0 +1,17 @@
+{
+  "date": "2026-06-26",
+  "status": "draft",
+  "layer": "daily_decision_decision_lab",
+  "model_impact": "record_only_not_production_scoring",
+  "prediction_id": "",
+  "prediction_probability": null,
+  "expected_scenario": "",
+  "expected_leader": [],
+  "expected_theme": [],
+  "expected_risk": [],
+  "expected_invalidator": [],
+  "prediction_window": "",
+  "prediction_expiry": "",
+  "evidence_ids": [],
+  "notes": ""
+}
