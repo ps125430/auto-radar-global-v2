@@ -6,9 +6,45 @@ Reviewer:
 
 Market Session:
 
+Status: Draft
+
+Model Impact: review_pipeline_only
+
 ---
 
-## 1. Market Summary
+## 1. Pipeline
+
+Prediction
+
+↓
+
+Outcome
+
+↓
+
+Review
+
+↓
+
+Learning
+
+↓
+
+Decision Journal
+
+↓
+
+Candidate
+
+Decision Journal Generation:
+
+```text
+pending / generated / skipped
+```
+
+---
+
+## 2. Market Summary
 
 Market Mode:
 
@@ -20,7 +56,7 @@ Risk Events:
 
 ---
 
-## 2. Theme Review
+## 3. Theme Review
 
 Main Theme:
 
@@ -32,7 +68,7 @@ Avoid Theme:
 
 ---
 
-## 3. Evidence Review
+## 4. Evidence Review
 
 Strong Evidence:
 
@@ -48,7 +84,7 @@ Contradicting Evidence:
 
 ---
 
-## 4. Decision Review
+## 5. Decision Review
 
 Auto Radar Output:
 
@@ -62,7 +98,33 @@ Reason:
 
 ---
 
-## 5. Follow-Up Candidates
+## 6. Review Error Outputs
+
+Prediction Error:
+
+Behavior Error:
+
+Execution Error:
+
+Missing Information:
+
+* 
+
+Preventable:
+
+```text
+yes / no / partial / unknown
+```
+
+Preventable Reason:
+
+Learning Target:
+
+* 
+
+---
+
+## 7. Follow-Up Candidates
 
 Decision Lab Candidate:
 
@@ -74,7 +136,7 @@ Lesson Candidate:
 
 ---
 
-## 6. Notes
+## 8. Notes
 
 Notes:
 

@@ -1,17 +1,27 @@
 {
   "document_id": "AR-DECISION-JOURNAL-SCHEMA-2026-06-26",
-  "version": "1.1",
+  "version": "1.2",
   "status": "schema_candidate",
-  "model_impact": "review_only_not_production",
+  "model_impact": "review_pipeline_only",
   "owner": "小G / Research Chief",
   "reviewed_by": "小P / Chief Architect",
   "title": "Decision Journal Schema",
-  "description": "Schema skeleton for recording decision context, evidence quality, outcome linkage, missing information, preventability, and learning targets. This is review-only and not production scoring.",
+  "description": "Schema skeleton for Decision Journal records generated from Review output. Decision Journal is downstream of the Daily Review Pipeline and is not an independent upstream record.",
   "schema": {
     "date": "string",
     "status": "draft / reviewed / archived",
     "layer": "review_decision_journal",
-    "model_impact": "review_only_not_production",
+    "model_impact": "review_pipeline_only",
+    "generated_from": "review_record",
+    "pipeline_stage": "Decision Journal",
+    "pipeline_flow": [
+      "Prediction",
+      "Outcome",
+      "Review",
+      "Learning",
+      "Decision Journal",
+      "Candidate"
+    ],
     "decision_id": "string",
     "linked_prediction_id": "string",
     "linked_outcome_id": "string",
@@ -59,7 +69,9 @@
     "notes": "string"
   },
   "validation_notes": [
-    "This schema is for Decision Journal review records only.",
+    "This schema is for Decision Journal records generated from Review output.",
+    "Decision Journal is not independently created before Review completion.",
+    "Pipeline order is Prediction -> Outcome -> Review -> Learning -> Decision Journal -> Candidate.",
     "Decision Journal records must not directly change Theme Score, Stage Score, Decision Score, or production trading logic.",
     "G-014 content should be written only after it is completed and approved.",
     "This schema must not modify runtime, pipeline, Dashboard, or scoring."

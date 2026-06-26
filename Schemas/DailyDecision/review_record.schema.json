@@ -1,16 +1,29 @@
 {
   "document_id": "AR-DD-REVIEW-RECORD-SCHEMA-2026-06-25",
-  "version": "1.0",
+  "version": "1.1",
   "status": "schema_candidate",
-  "model_impact": "schema_only_not_production_scoring",
+  "model_impact": "review_pipeline_only",
   "owner": "小G / Research Chief",
   "reviewed_by": "小P / Chief Architect",
   "title": "Daily Decision Review Record Schema",
-  "description": "Schema skeleton for reviewing a decision outcome, root cause, uncertainty, and lesson candidate.",
+  "description": "Schema skeleton for the integrated Daily Review Pipeline. Review outputs must connect Prediction, Outcome, Learning, Decision Journal, and Candidate records without changing production scoring.",
   "schema": {
     "review_id": "string",
+    "pipeline_stage": "Review",
+    "pipeline_flow": [
+      "Prediction",
+      "Outcome",
+      "Review",
+      "Learning",
+      "Decision Journal",
+      "Candidate"
+    ],
     "decision_id": "string",
+    "prediction_id": "string",
     "outcome_id": "string",
+    "learning_id": "string",
+    "decision_journal_id": "string",
+    "candidate_id": "string",
     "case_id": "string",
     "review_date": "string",
     "review_owner": "string",
@@ -38,13 +51,59 @@
       "smaller_exposure_alternative": "string",
       "conclusion": "string"
     },
+    "prediction_error": {
+      "status": "none / low / medium / high / unknown",
+      "description": "string",
+      "evidence": [
+        "string"
+      ]
+    },
+    "behavior_error": {
+      "status": "none / low / medium / high / unknown",
+      "description": "string",
+      "evidence": [
+        "string"
+      ]
+    },
+    "execution_error": {
+      "status": "none / low / medium / high / unknown",
+      "description": "string",
+      "evidence": [
+        "string"
+      ]
+    },
+    "missing_information": [
+      "string"
+    ],
+    "preventable": {
+      "status": "yes / no / partial / unknown",
+      "reason": "string",
+      "prevention_signal": [
+        "string"
+      ]
+    },
+    "learning_target": [
+      "string"
+    ],
+    "decision_journal_generation": {
+      "required": true,
+      "source": "review_record",
+      "status": "pending / generated / skipped"
+    },
     "lesson_candidate": "string",
+    "candidate_output": {
+      "candidate_type": "lesson / playbook / hypothesis / framework_update / engineering_fix / none",
+      "candidate_status": "none / proposed / validation_required"
+    },
     "production_rule_status": "Not Production Rule",
     "notes": "string"
   },
   "validation_notes": [
+    "Pipeline order is Prediction -> Outcome -> Review -> Learning -> Decision Journal -> Candidate.",
+    "Decision Journal is generated from Review output and should not be treated as an independent upstream record.",
+    "Review must output Prediction Error, Behavior Error, Execution Error, Missing Information, Preventable, and Learning Target.",
     "Use not_applicable_success_case instead of NONE for successful cases.",
     "remaining_uncertainty must be preserved.",
-    "Review records do not directly change production scoring."
+    "Review records do not directly change runtime, scoring, Dashboard, or production trading logic."
   ]
 }
