@@ -1,0 +1,89 @@
+{
+  "document_id": "AR-OUTCOME-EVALUATION-SCHEMA-2026-06-26",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "research_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Outcome Evaluation Schema",
+  "description": "Schema candidate for Decision Lab outcome evaluation. This evaluates prediction quality after outcome capture and is not production scoring.",
+  "evaluation_status_enum": [
+    "TRUE_ALPHA",
+    "PARTIAL_SUCCESS",
+    "TIMING_MISMATCH",
+    "NARRATIVE_DRIFT",
+    "LEADER_DRIFT",
+    "COMPLETE_MISS",
+    "BLACK_SWAN"
+  ],
+  "schema": {
+    "evaluation_id": "string",
+    "prediction_ref": "string",
+    "outcome_ref": "string",
+    "overall_pms": {
+      "score": 0,
+      "notes": "string"
+    },
+    "narrative_match": {
+      "score": 0,
+      "result": "match / partial_match / mismatch / inconclusive",
+      "notes": "string"
+    },
+    "leader_match": {
+      "score": 0,
+      "result": "match / partial_match / mismatch / inconclusive",
+      "notes": "string"
+    },
+    "theme_match": {
+      "score": 0,
+      "result": "match / partial_match / mismatch / inconclusive",
+      "notes": "string"
+    },
+    "flow_match": {
+      "score": 0,
+      "result": "match / partial_match / mismatch / inconclusive",
+      "notes": "string"
+    },
+    "timing_match": {
+      "score": 0,
+      "result": "match / partial_match / mismatch / inconclusive",
+      "notes": "string"
+    },
+    "risk_match": {
+      "score": 0,
+      "result": "match / partial_match / mismatch / inconclusive",
+      "notes": "string"
+    },
+    "luck_penalty": {
+      "score": 0,
+      "reason": "string"
+    },
+    "narrative_drift": {
+      "status": "none / low / medium / high / unknown",
+      "description": "string"
+    },
+    "leader_drift": {
+      "status": "none / low / medium / high / unknown",
+      "description": "string"
+    },
+    "window_quality": {
+      "window_10m": "low / medium / high / inconclusive",
+      "window_24h": "low / medium / high / inconclusive",
+      "window_t5d": "low / medium / high / inconclusive",
+      "notes": "string"
+    },
+    "evaluation_status": "TRUE_ALPHA / PARTIAL_SUCCESS / TIMING_MISMATCH / NARRATIVE_DRIFT / LEADER_DRIFT / COMPLETE_MISS / BLACK_SWAN",
+    "status": "schema_candidate / draft / reviewed / archived",
+    "model_impact": "research_only_not_production",
+    "evidence_ids": [
+      "string"
+    ],
+    "notes": "string"
+  },
+  "validation_notes": [
+    "Outcome Evaluation is research-only.",
+    "overall_pms is an evaluation field and must not be production scoring.",
+    "Outcome Evaluation must not directly change runtime, pipeline, scoring, Dashboard, Decision, or production trading logic.",
+    "Outcome Evaluation must not create Production Rules."
+  ]
+}
