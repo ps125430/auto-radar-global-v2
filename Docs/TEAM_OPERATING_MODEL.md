@@ -1,5 +1,13 @@
 # Auto Radar Team Operating Model v1.2
 
+## Governance Source
+
+Team communication and workflow are governed by `TEAM_OPERATING_SYSTEM.md`.
+
+Do not duplicate or fork workflow governance rules in this file. This document remains a role and operating model reference.
+
+---
+
 ## Purpose
 
 This document defines how 綠茶 CEO, 小G, 小P, and Auto Radar work together.
