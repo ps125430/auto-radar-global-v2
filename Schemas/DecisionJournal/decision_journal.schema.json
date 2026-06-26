@@ -1,0 +1,54 @@
+{
+  "document_id": "AR-DECISION-JOURNAL-SCHEMA-2026-06-26",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "review_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Decision Journal Schema",
+  "description": "Schema skeleton for recording decision context, evidence quality, outcome linkage, and learning candidates. This is review-only and not production scoring.",
+  "schema": {
+    "date": "string",
+    "status": "draft / reviewed / archived",
+    "layer": "review_decision_journal",
+    "model_impact": "review_only_not_production",
+    "decision_id": "string",
+    "linked_prediction_id": "string",
+    "linked_outcome_id": "string",
+    "linked_review_id": "string",
+    "market_context": "string",
+    "decision_context": "string",
+    "decision": "Buy / Watch / Wait / Avoid",
+    "decision_confidence": {
+      "level": "low / medium / high",
+      "score": 0,
+      "drivers": [
+        "string"
+      ],
+      "reducers": [
+        "string"
+      ]
+    },
+    "evidence_quality": {
+      "rating": "low / medium / high",
+      "evidence_ids": [
+        "string"
+      ],
+      "missing_evidence": [
+        "string"
+      ]
+    },
+    "expected_scenario": "string",
+    "actual_outcome": "string",
+    "counterfactual": "string",
+    "lesson_candidate": "string",
+    "follow_up_action": "string",
+    "notes": "string"
+  },
+  "validation_notes": [
+    "This schema is for Decision Journal review records only.",
+    "Decision Journal records must not directly change Theme Score, Stage Score, Decision Score, or production trading logic.",
+    "G-014 content should be written only after it is completed and approved.",
+    "This schema must not modify runtime, pipeline, Dashboard, or scoring."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-06-26",
+  "status": "draft",
+  "layer": "review_decision_journal",
+  "model_impact": "review_only_not_production",
+  "decision_id": "",
+  "linked_prediction_id": "",
+  "linked_outcome_id": "",
+  "linked_review_id": "",
+  "market_context": "",
+  "decision_context": "",
+  "decision": "",
+  "decision_confidence": {
+    "level": "",
+    "score": null,
+    "drivers": [],
+    "reducers": []
+  },
+  "evidence_quality": {
+    "rating": "",
+    "evidence_ids": [],
+    "missing_evidence": []
+  },
+  "expected_scenario": "",
+  "actual_outcome": "",
+  "counterfactual": "",
+  "lesson_candidate": "",
+  "follow_up_action": "",
+  "notes": ""
+}
