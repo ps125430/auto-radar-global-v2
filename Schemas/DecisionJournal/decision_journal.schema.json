@@ -1,12 +1,12 @@
 {
   "document_id": "AR-DECISION-JOURNAL-SCHEMA-2026-06-26",
-  "version": "1.0",
+  "version": "1.1",
   "status": "schema_candidate",
   "model_impact": "review_only_not_production",
   "owner": "小G / Research Chief",
   "reviewed_by": "小P / Chief Architect",
   "title": "Decision Journal Schema",
-  "description": "Schema skeleton for recording decision context, evidence quality, outcome linkage, and learning candidates. This is review-only and not production scoring.",
+  "description": "Schema skeleton for recording decision context, evidence quality, outcome linkage, missing information, preventability, and learning targets. This is review-only and not production scoring.",
   "schema": {
     "date": "string",
     "status": "draft / reviewed / archived",
@@ -38,6 +38,19 @@
         "string"
       ]
     },
+    "missing_information": [
+      "string"
+    ],
+    "preventable": {
+      "status": "yes / no / partial / unknown",
+      "reason": "string",
+      "prevention_signal": [
+        "string"
+      ]
+    },
+    "learning_target": [
+      "string"
+    ],
     "expected_scenario": "string",
     "actual_outcome": "string",
     "counterfactual": "string",
