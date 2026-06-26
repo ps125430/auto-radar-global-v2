@@ -1,0 +1,42 @@
+{
+  "document_id": "AR-MARKET-MIND-STATE-SCHEMA-2026-06-26",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "research_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Market Mind State Schema",
+  "description": "Schema skeleton for recording daily market cognition state as research history. This structure is not production scoring.",
+  "schema": {
+    "date": "string",
+    "status": "draft / reviewed / archived",
+    "layer": "research_market_cognition",
+    "model_impact": "research_only_not_production",
+    "market_mood": "string",
+    "dominant_narrative": "string",
+    "expectation_state": "string",
+    "risk_perception": "string",
+    "liquidity_perception": "string",
+    "leader_behavior": [
+      "string"
+    ],
+    "theme_rotation": [
+      "string"
+    ],
+    "information_diffusion": "string",
+    "market_memory": "string",
+    "unknowns": [
+      "string"
+    ],
+    "evidence_ids": [
+      "string"
+    ],
+    "notes": "string"
+  },
+  "validation_notes": [
+    "This schema is for Market Mind research history only.",
+    "Market Mind records must not directly change Theme Score, Stage Score, Decision Score, or production trading logic.",
+    "G-013 research content should be written only after it is completed and approved.",
+    "This schema must not modify runtime, pipeline, Dashboard, or scoring."
+  ]
+}
