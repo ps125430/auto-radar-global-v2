@@ -1,0 +1,116 @@
+{
+  "document_id": "AR-DD-PREDICTION-SNAPSHOT-V2-SCHEMA-2026-06-26",
+  "version": "2.0",
+  "status": "schema_candidate",
+  "model_impact": "schema_only_not_production_scoring",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Daily Decision Prediction Snapshot Schema v2",
+  "description": "Schema skeleton for linking a prediction snapshot with outcome, review, and learning records without changing production scoring.",
+  "schema": {
+    "prediction_id": "string",
+    "snapshot_id": "string",
+    "decision_id": "string",
+    "case_id": "string",
+    "created_at": "string",
+    "market_date": "string",
+    "event_name": "string",
+    "event_type": "string",
+    "prediction_probability": {
+      "score": 0,
+      "range": "0-100",
+      "confidence_level": "low / medium / high",
+      "calibration_notes": "string"
+    },
+    "expected_scenario": {
+      "base_case": "string",
+      "bull_case": "string",
+      "bear_case": "string",
+      "scenario_trigger": "string"
+    },
+    "expected_leader": {
+      "primary_leaders": [
+        "string"
+      ],
+      "secondary_leaders": [
+        "string"
+      ],
+      "leader_rotation_notes": "string"
+    },
+    "expected_theme": {
+      "primary_theme": "string",
+      "secondary_themes": [
+        "string"
+      ],
+      "theme_propagation_notes": "string"
+    },
+    "expected_risk": {
+      "risk_factors": [
+        "string"
+      ],
+      "risk_level": "low / medium / high",
+      "risk_notes": "string"
+    },
+    "expected_invalidator": {
+      "invalidator_conditions": [
+        "string"
+      ],
+      "invalidator_signal": "string",
+      "invalidator_notes": "string"
+    },
+    "prediction_window": {
+      "start_at": "string",
+      "end_at": "string",
+      "window_type": "intraday / t_plus_24h / t_plus_5d / custom",
+      "tracking_windows": [
+        "t_plus_10m",
+        "t_plus_24h",
+        "t_plus_5d"
+      ]
+    },
+    "prediction_expiry": {
+      "expires_at": "string",
+      "expiry_condition": "string",
+      "expired_status": "active / expired / invalidated / reviewed"
+    },
+    "related_themes": [
+      "string"
+    ],
+    "related_narratives": [
+      "string"
+    ],
+    "core_leaders": [
+      "string"
+    ],
+    "market_expectation": {
+      "consensus_view": "string",
+      "expectation_gap": 0,
+      "expectation_gap_notes": "string"
+    },
+    "pre_event_signals": {
+      "theme_score_snapshot": {},
+      "stage_score_snapshot": {},
+      "decision_score_snapshot": {},
+      "pattern_saturation": 0,
+      "ai_leader_signal": "string",
+      "cross_evidence_quality": "string"
+    },
+    "decision_before_event": "Buy / Watch / Wait / Avoid",
+    "decision_reason": [
+      "string"
+    ],
+    "evidence_ids": [
+      "string"
+    ],
+    "linked_outcome_record": "string",
+    "linked_review_record": "string",
+    "linked_learning_record": "string",
+    "notes": "string"
+  },
+  "validation_notes": [
+    "This schema is for snapshot structure only.",
+    "Prediction probability is a review and calibration field, not a production score.",
+    "Expected scenario, leader, theme, risk, and invalidator must be validated against outcome and review records.",
+    "This schema must not directly change runtime, pipeline, Dashboard, scoring, Theme Score, Stage Score, or Decision Score."
+  ]
+}
