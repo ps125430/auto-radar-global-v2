@@ -1,0 +1,34 @@
+{
+  "document_id": "AR-EXPERIENCE-CONFLICT-SCHEMA-2026-06-26",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "research_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Experience Conflict Schema",
+  "description": "Schema candidate for documenting conflicts between active Experience records. This is not a formal arbitration engine or production rule.",
+  "schema": {
+    "conflict_id": "string",
+    "active_experiences": [
+      "string"
+    ],
+    "conflict_type": "string",
+    "arbitration_candidate": "string",
+    "resolution_status": "open / under_review / resolved / deprecated / inconclusive",
+    "model_impact": "research_only_not_production",
+    "conflicting_cases": [
+      "string"
+    ],
+    "evidence_ids": [
+      "string"
+    ],
+    "review_owner": "string",
+    "last_reviewed": "string",
+    "notes": "string"
+  },
+  "validation_notes": [
+    "Conflict records are review artifacts only.",
+    "Conflict Engine must not be treated as a formal arbitration rule.",
+    "Conflict resolution must not directly change Decision, runtime, pipeline, scoring, Dashboard, or main.py."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "document_id": "AR-EXPERIENCE-SCHEMA-2026-06-26",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "research_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Experience Schema",
+  "description": "Schema candidate for Experience Engine records derived from patterns and supported cases. Experience records are research-only and do not directly change decisions.",
+  "experience_status_values": [
+    "experience_candidate",
+    "shadow_experience",
+    "verified_experience",
+    "core_experience",
+    "deprecated_experience"
+  ],
+  "schema": {
+    "experience_id": "string",
+    "experience_name": "string",
+    "derived_from_patterns": [
+      "string"
+    ],
+    "supported_cases": [
+      "string"
+    ],
+    "conflicting_cases": [
+      "string"
+    ],
+    "health_score": 0,
+    "experience_confidence": 0,
+    "experience_weight": 0,
+    "market_condition": "string",
+    "status": "experience_candidate / shadow_experience / verified_experience / core_experience / deprecated_experience",
+    "model_impact": "research_only_not_production",
+    "last_reviewed": "string",
+    "review_notes": "string",
+    "boundary_rule": [
+      "Experience must not directly change Decision.",
+      "Experience weight is research-only and not production scoring.",
+      "Experience promotion requires separate architecture review and validation."
+    ]
+  },
+  "validation_notes": [
+    "Experience records are not Production Rules.",
+    "Experience records must not directly change runtime, pipeline, scoring, Dashboard, main.py, or final decisions.",
+    "experience_weight is a research field only."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "document_id": "AR-EXPERIENCE-PATTERN-SCHEMA-2026-06-26",
+  "version": "1.0",
+  "status": "schema_candidate",
+  "model_impact": "research_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Experience Pattern Schema",
+  "description": "Schema candidate for reusable market pattern records. Patterns are research-only and do not directly change decisions or production scoring.",
+  "pattern_status_values": [
+    "pattern_candidate",
+    "pattern_validation",
+    "pattern_verified",
+    "pattern_deprecated"
+  ],
+  "schema": {
+    "pattern_id": "string",
+    "pattern_name": "string",
+    "pattern_description": "string",
+    "derived_from_cases": [
+      "string"
+    ],
+    "related_themes": [
+      "string"
+    ],
+    "related_market_conditions": [
+      "string"
+    ],
+    "supporting_evidence": [
+      "string"
+    ],
+    "contradicting_evidence": [
+      "string"
+    ],
+    "pattern_confidence": 0,
+    "pattern_health_score": 0,
+    "status": "pattern_candidate / pattern_validation / pattern_verified / pattern_deprecated",
+    "model_impact": "research_only_not_production",
+    "last_reviewed": "string",
+    "notes": "string"
+  },
+  "validation_notes": [
+    "Pattern records are not Production Rules.",
+    "Patterns must not directly change Decision, runtime, pipeline, scoring, Dashboard, or main.py.",
+    "Promotion requires separate review and validation."
+  ]
+}
