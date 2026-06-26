@@ -1,0 +1,75 @@
+{
+  "document_id": "AR-CASE-QUALITY-SCHEMA-2026-06-26",
+  "version": "1.1",
+  "status": "schema_candidate",
+  "model_impact": "research_only_not_production",
+  "owner": "小G / Research Chief",
+  "reviewed_by": "小P / Chief Architect",
+  "title": "Case Quality Standard Schema",
+  "description": "Schema candidate for Case Quality Standard v1.1. This defines research-only case quality fields and the rating flow: Metrics -> Gate Validation -> Grade.",
+  "schema": {
+    "case_id": "string",
+    "case_title": "string",
+    "case_category": "Epic / Core / Theme / Noise / Reference",
+    "status": "draft / open / tracking / reviewed / archived",
+    "model_impact": "research_only_not_production",
+    "quality_standard_version": "1.1",
+    "yaml_fields": {
+      "novelty": "low / medium / high",
+      "evidence_quality": "low / medium / high",
+      "prediction_confidence": "low / medium / high"
+    },
+    "rating_flow": [
+      "Metrics",
+      "Gate Validation",
+      "Grade"
+    ],
+    "metrics": {
+      "novelty": {
+        "score": 0,
+        "notes": "string"
+      },
+      "evidence_quality": {
+        "score": 0,
+        "notes": "string"
+      },
+      "prediction_confidence": {
+        "score": 0,
+        "notes": "string"
+      },
+      "outcome_clarity": {
+        "score": 0,
+        "notes": "string"
+      },
+      "learning_value": {
+        "score": 0,
+        "notes": "string"
+      }
+    },
+    "gate_validation": {
+      "has_prediction_snapshot": true,
+      "has_outcome_record": true,
+      "has_review_record": true,
+      "has_evidence_links": true,
+      "has_missing_information_review": true,
+      "has_preventable_review": true,
+      "has_learning_target": true,
+      "gate_result": "pass / fail / pending"
+    },
+    "grade": {
+      "quality_grade": "A / B / C / D / Reference Only",
+      "grade_reason": "string",
+      "promotion_candidate": "none / lesson / playbook / hypothesis / framework_update"
+    },
+    "boundary_rule": [
+      "Case Quality Standard is research-only.",
+      "Case grade must not directly change Theme Score, Stage Score, Decision Score, or production trading logic.",
+      "Promotion from case grade to production logic requires separate architecture review and validation."
+    ]
+  },
+  "validation_notes": [
+    "All cases should follow Metrics -> Gate Validation -> Grade.",
+    "novelty, evidence_quality, and prediction_confidence must appear in case YAML front matter.",
+    "This schema must not modify runtime, pipeline, scoring, or dashboard."
+  ]
+}
