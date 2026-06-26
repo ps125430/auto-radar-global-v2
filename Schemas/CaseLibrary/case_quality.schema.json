@@ -25,6 +25,10 @@
       "Grade"
     ],
     "metrics": {
+      "case_value": {
+        "score": 0,
+        "notes": "string"
+      },
       "novelty": {
         "score": 0,
         "notes": "string"
@@ -54,10 +58,24 @@
       "has_missing_information_review": true,
       "has_preventable_review": true,
       "has_learning_target": true,
+      "grade_caps": [
+        {
+          "rule": "Case Value < 60",
+          "effect": "Cannot receive S grade"
+        },
+        {
+          "rule": "Evidence Quality < 70",
+          "effect": "Maximum grade is B"
+        },
+        {
+          "rule": "Novelty < 20",
+          "effect": "Cannot receive S grade"
+        }
+      ],
       "gate_result": "pass / fail / pending"
     },
     "grade": {
-      "quality_grade": "A / B / C / D / Reference Only",
+      "quality_grade": "S / A / B / C / D / Reference Only",
       "grade_reason": "string",
       "promotion_candidate": "none / lesson / playbook / hypothesis / framework_update"
     },
@@ -69,6 +87,9 @@
   },
   "validation_notes": [
     "All cases should follow Metrics -> Gate Validation -> Grade.",
+    "Gate Validation must enforce: Case Value < 60 cannot receive S grade.",
+    "Gate Validation must enforce: Evidence Quality < 70 has maximum grade B.",
+    "Gate Validation must enforce: Novelty < 20 cannot receive S grade.",
     "novelty, evidence_quality, and prediction_confidence must appear in case YAML front matter.",
     "This schema must not modify runtime, pipeline, scoring, or dashboard."
   ]

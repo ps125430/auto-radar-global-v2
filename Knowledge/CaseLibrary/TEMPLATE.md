@@ -36,6 +36,8 @@ Metrics -> Gate Validation -> Grade
 
 ## 8. Metrics
 
+### Case Value
+
 ### Novelty
 
 ### Evidence Quality
@@ -62,6 +64,26 @@ Preventable Review:
 
 Learning Target:
 
+### Gate Rules
+
+Case Value < 60:
+
+```text
+Cannot receive S grade
+```
+
+Evidence Quality < 70:
+
+```text
+Maximum grade is B
+```
+
+Novelty < 20:
+
+```text
+Cannot receive S grade
+```
+
 Gate Result:
 
 ```text
@@ -73,7 +95,7 @@ pass / fail / pending
 Quality Grade:
 
 ```text
-A / B / C / D / Reference Only
+S / A / B / C / D / Reference Only
 ```
 
 Grade Reason:
