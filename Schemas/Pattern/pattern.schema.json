@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/pattern/pattern.schema.json",
+  "title": "Pattern Repository Entity",
+  "description": "Repository-only schema for Pattern entities derived from registered Cases.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pattern_id",
+    "version",
+    "status",
+    "title",
+    "description",
+    "source_cases",
+    "feature_vector",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^PAT-[0-9]{3,}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Candidate",
+        "Verified",
+        "Deprecated",
+        "Archived"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_cases": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^CASE-[0-9]{3}$"
+      }
+    },
+    "feature_vector": {
+      "type": "object"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "x-repository": {
+    "status": "schema_candidate",
+    "model_impact": "repository_only_not_production",
+    "boundary": "Pattern entities have no Runtime, Decision, Prediction, Strategy, or trading authority."
+  }
+}
+
