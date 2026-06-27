@@ -1,3 +1,18 @@
+---
+case_id: CASE-001
+title: Micron Earnings
+case_category: Theme
+status: reviewed
+model_impact: review_only_not_production_scoring
+quality_standard_version: "1.1"
+novelty: null
+evidence_quality: high
+prediction_confidence: null
+grade: null
+theme: HBM / Memory / AI Infrastructure
+tags: ["HBM", "Memory", "AI Infrastructure", "Micron Earnings"]
+---
+
 # CASE-001 Micron Earnings
 
 Document ID: AR-CASE-001

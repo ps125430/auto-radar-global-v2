@@ -1,0 +1,2 @@
+"""Auto Radar automated tests."""
+

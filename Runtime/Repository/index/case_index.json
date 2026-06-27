@@ -1,0 +1,22 @@
+{
+  "document_id": "AR-CASE-REPOSITORY-INDEX-v1",
+  "version": "1.0",
+  "status": "repository_index",
+  "model_impact": "repository_only_not_production",
+  "case_count": 1,
+  "cases": [
+    {
+      "id": "CASE-001",
+      "title": "Micron Earnings",
+      "grade": null,
+      "status": "reviewed",
+      "theme": "HBM / Memory / AI Infrastructure",
+      "tags": [
+        "HBM",
+        "Memory",
+        "AI Infrastructure",
+        "Micron Earnings"
+      ]
+    }
+  ]
+}
