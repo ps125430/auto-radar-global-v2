@@ -18,6 +18,12 @@ from .pattern_repository import (
     PatternRepositoryError,
     PatternValidationError,
 )
+from .playbook_repository import (
+    Playbook,
+    PlaybookRepository,
+    PlaybookRepositoryError,
+    PlaybookValidationError,
+)
 
 __all__ = [
     "Experience",
@@ -32,4 +38,8 @@ __all__ = [
     "PatternRepository",
     "PatternRepositoryError",
     "PatternValidationError",
+    "Playbook",
+    "PlaybookRepository",
+    "PlaybookRepositoryError",
+    "PlaybookValidationError",
 ]

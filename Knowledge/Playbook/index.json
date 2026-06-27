@@ -1,0 +1,8 @@
+{
+  "document_id": "AR-PLAYBOOK-REPOSITORY-INDEX-v1",
+  "version": "1.0",
+  "status": "repository_index",
+  "model_impact": "repository_only_not_production",
+  "playbook_count": 0,
+  "playbooks": []
+}
