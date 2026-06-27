@@ -1,0 +1,8 @@
+{
+  "document_id": "AR-KNOWLEDGE-GRAPH-INDEX-v1",
+  "version": "1.0",
+  "status": "repository_index",
+  "model_impact": "repository_only_not_production",
+  "edge_count": 0,
+  "edges": []
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/graph/graph.schema.json",
+  "title": "Knowledge Graph Repository Edge",
+  "description": "Repository-only schema for static relationships between registered entities.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "node_id",
+    "node_type",
+    "relation",
+    "target",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "pattern": "^(CASE|PAT|EXP|PB|RULE|EV)-[0-9]{3,}$"
+    },
+    "node_type": {
+      "type": "string",
+      "enum": [
+        "Case",
+        "Pattern",
+        "Experience",
+        "Playbook",
+        "Rule",
+        "Evidence"
+      ]
+    },
+    "relation": {
+      "type": "string",
+      "enum": [
+        "DERIVED_FROM",
+        "REFERENCES",
+        "GENERATES",
+        "USES",
+        "DEPENDS_ON",
+        "RELATED_TO"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "pattern": "^(CASE|PAT|EXP|PB|RULE|EV)-[0-9]{3,}$"
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "x-repository": {
+    "status": "schema_candidate",
+    "model_impact": "repository_only_not_production",
+    "boundary": "Graph edges describe static repository relationships only and provide no inference authority."
+  }
+}
+

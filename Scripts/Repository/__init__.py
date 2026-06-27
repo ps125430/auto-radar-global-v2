@@ -6,6 +6,12 @@ from .experience_repository import (
     ExperienceRepositoryError,
     ExperienceValidationError,
 )
+from .graph_repository import (
+    GraphEdge,
+    GraphRepository,
+    GraphRepositoryError,
+    GraphValidationError,
+)
 from .pattern_repository import (
     Pattern,
     PatternRepository,
@@ -18,6 +24,10 @@ __all__ = [
     "ExperienceRepository",
     "ExperienceRepositoryError",
     "ExperienceValidationError",
+    "GraphEdge",
+    "GraphRepository",
+    "GraphRepositoryError",
+    "GraphValidationError",
     "Pattern",
     "PatternRepository",
     "PatternRepositoryError",
