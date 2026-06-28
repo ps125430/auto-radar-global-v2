@@ -35,7 +35,7 @@ class GlobalRepositoryValidatorTests(unittest.TestCase):
             report = validator.validate_all()
 
             self.assertEqual("PASS", report["validation_status"])
-            self.assertEqual(8, len(report["checked_modules"]))
+            self.assertEqual(9, len(report["checked_modules"]))
             self.assertEqual(1, report["total_entities"])
             self.assertEqual(0, report["total_errors"])
             self.assertEqual(1, report["total_warnings"])
@@ -113,6 +113,32 @@ class GlobalRepositoryValidatorTests(unittest.TestCase):
 
             with self.assertRaises(GlobalValidationError):
                 validator.validate_all()
+
+    def test_missing_prediction_consumer_reference_fails_fast(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            indexes = {
+                "Prediction": ("predictions", []),
+                "Outcome": (
+                    "outcomes",
+                    [{"id": "OUT-001", "prediction_ref": "PRED-999"}],
+                ),
+                "OutcomeEvaluation": ("evaluations", []),
+                "DailyReview": ("reviews", []),
+            }
+            validator = GlobalRepositoryValidator(
+                REPOSITORY_ROOT, root / "report.json"
+            )
+            for module, (records_key, records) in indexes.items():
+                path = root / f"{module}.json"
+                path.write_text(
+                    json.dumps({records_key: records}),
+                    encoding="utf-8",
+                )
+                validator.index_specs[module]["path"] = path
+
+            with self.assertRaises(GlobalValidationError):
+                validator._validate_prediction_consumers()
 
 
 if __name__ == "__main__":

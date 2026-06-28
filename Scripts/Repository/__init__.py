@@ -32,6 +32,12 @@ from .playbook_repository import (
     PlaybookRepositoryError,
     PlaybookValidationError,
 )
+from .prediction_repository import (
+    PredictionRepository,
+    PredictionRepositoryError,
+    PredictionSnapshot,
+    PredictionValidationError,
+)
 
 __all__ = [
     "Experience",
@@ -56,4 +62,8 @@ __all__ = [
     "PlaybookRepository",
     "PlaybookRepositoryError",
     "PlaybookValidationError",
+    "PredictionRepository",
+    "PredictionRepositoryError",
+    "PredictionSnapshot",
+    "PredictionValidationError",
 ]

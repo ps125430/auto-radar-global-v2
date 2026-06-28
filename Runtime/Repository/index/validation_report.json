@@ -6,6 +6,7 @@
     "Experience",
     "Graph",
     "Playbook",
+    "Prediction",
     "Outcome",
     "OutcomeEvaluation",
     "DailyReview"
@@ -15,7 +16,7 @@
   "total_warnings": 1,
   "errors": [],
   "warnings": [
-    "Prediction Repository is not established; prediction_ref is validated for required format and chain consistency only."
+    "Confidence Repository is not established; confidence_ref is validated for format only when present."
   ],
-  "generated_at": "2026-06-28T06:23:15.897821+00:00"
+  "generated_at": "2026-06-28T06:59:19.301392+00:00"
 }

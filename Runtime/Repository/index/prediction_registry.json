@@ -1,0 +1,8 @@
+{
+  "document_id": "AR-PREDICTION-REGISTRY-v1",
+  "version": "1.0",
+  "status": "repository_index",
+  "model_impact": "snapshot_only_not_production_scoring",
+  "prediction_count": 0,
+  "predictions": []
+}

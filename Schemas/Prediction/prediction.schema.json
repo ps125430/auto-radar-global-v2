@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/prediction/prediction.schema.json",
+  "title": "Prediction Snapshot Repository Entity",
+  "description": "Repository-only schema for one daily Prediction Snapshot.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prediction_id",
+    "prediction_date",
+    "generated_at",
+    "state",
+    "market",
+    "playbook_refs",
+    "experience_refs",
+    "pattern_refs",
+    "confidence_ref",
+    "decision_status",
+    "model_impact",
+    "status"
+  ],
+  "properties": {
+    "prediction_id": {
+      "type": "string",
+      "pattern": "^PRED-[A-Za-z0-9._-]+$"
+    },
+    "prediction_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market": {
+      "type": "string",
+      "minLength": 1
+    },
+    "playbook_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^PB-[0-9]{3,}$"
+      }
+    },
+    "experience_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^EXP-[0-9]{3,}$"
+      }
+    },
+    "pattern_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^PAT-[0-9]{3,}$"
+      }
+    },
+    "confidence_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^CONF-[A-Za-z0-9._-]+$"
+    },
+    "decision_status": {
+      "type": "string",
+      "enum": [
+        "not_evaluated",
+        "pending_external_decision",
+        "external_decision_recorded"
+      ]
+    },
+    "model_impact": {
+      "type": "string",
+      "const": "snapshot_only_not_production_scoring"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Candidate",
+        "Generated",
+        "Archived"
+      ]
+    }
+  },
+  "x-repository": {
+    "status": "schema_candidate",
+    "model_impact": "snapshot_only_not_production_scoring",
+    "boundary": "Prediction Snapshots store state and references only; they do not generate signals or decisions."
+  }
+}
+

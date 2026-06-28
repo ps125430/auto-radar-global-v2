@@ -18,6 +18,7 @@ from Scripts.Repository import (
     OutcomeReviewRepository,
     PatternRepository,
     PlaybookRepository,
+    PredictionRepository,
 )
 
 from .case_repository import CaseRepository
@@ -36,6 +37,7 @@ class GlobalRepositoryValidator:
         "Experience",
         "Graph",
         "Playbook",
+        "Prediction",
         "Outcome",
         "OutcomeEvaluation",
         "DailyReview",
@@ -78,6 +80,10 @@ class GlobalRepositoryValidator:
             / "Schemas"
             / "Playbook"
             / "playbook.schema.json",
+            "Prediction": self.repository_root
+            / "Schemas"
+            / "Prediction"
+            / "prediction.schema.json",
             "Outcome": self.repository_root
             / "Schemas"
             / "Outcome"
@@ -122,6 +128,12 @@ class GlobalRepositoryValidator:
                 "playbook_count",
                 "id",
             ),
+            "Prediction": self._index_spec(
+                "Runtime/Repository/index/prediction_registry.json",
+                "predictions",
+                "prediction_count",
+                "id",
+            ),
             "Outcome": self._index_spec(
                 "Knowledge/Outcome/index.json",
                 "outcomes",
@@ -145,8 +157,8 @@ class GlobalRepositoryValidator:
         self._total_entities = 0
         self._warnings = [
             (
-                "Prediction Repository is not established; prediction_ref is "
-                "validated for required format and chain consistency only."
+                "Confidence Repository is not established; confidence_ref is "
+                "validated for format only when present."
             )
         ]
 
@@ -346,6 +358,14 @@ class GlobalRepositoryValidator:
             graph_index_path=self.index_specs["Graph"]["path"],
             index_path=self.index_specs["Playbook"]["path"],
         )
+        PredictionRepository(
+            prediction_root=root / "Knowledge" / "Prediction",
+            schema_path=self.schema_paths["Prediction"],
+            registry_path=self.index_specs["Prediction"]["path"],
+            playbook_index_path=self.index_specs["Playbook"]["path"],
+            experience_index_path=self.index_specs["Experience"]["path"],
+            pattern_index_path=self.index_specs["Pattern"]["path"],
+        )
         OutcomeReviewRepository(
             outcome_root=root / "Knowledge" / "Outcome",
             evaluation_root=root / "Knowledge" / "OutcomeEvaluation",
@@ -354,6 +374,7 @@ class GlobalRepositoryValidator:
             evaluation_schema_path=self.schema_paths["OutcomeEvaluation"],
             review_schema_path=self.schema_paths["DailyReview"],
         )
+        self._validate_prediction_consumers()
         return True
 
     def _source_keys(self, module: str) -> set[Any]:
@@ -372,6 +393,33 @@ class GlobalRepositoryValidator:
                     )
                 )
                 if path.name != "CASE_INDEX.md"
+            ]
+            return self._unique_source_keys(module, keys)
+
+        if module == "Prediction":
+            repository = PredictionRepository(
+                prediction_root=self.repository_root / "Knowledge" / "Prediction",
+                schema_path=self.schema_paths["Prediction"],
+                registry_path=self.index_specs["Prediction"]["path"],
+                playbook_index_path=self.index_specs["Playbook"]["path"],
+                experience_index_path=self.index_specs["Experience"]["path"],
+                pattern_index_path=self.index_specs["Pattern"]["path"],
+                auto_start=False,
+            )
+            repository.validate_template(
+                self.repository_root / "Knowledge" / "Prediction" / "TEMPLATE.md"
+            )
+            keys = [
+                repository.load_snapshot(path).prediction_id
+                for folder in ("daily", "archive")
+                for path in sorted(
+                    (
+                        self.repository_root
+                        / "Knowledge"
+                        / "Prediction"
+                        / folder
+                    ).glob("*.md")
+                )
             ]
             return self._unique_source_keys(module, keys)
 
@@ -455,6 +503,42 @@ class GlobalRepositoryValidator:
                     )
                 keys.append(entity_id)
         return self._unique_source_keys(module, keys)
+
+    def _validate_prediction_consumers(self) -> None:
+        prediction_ids = {
+            self._registry_key("Prediction", record, "id")
+            for record in self._read_index_records("Prediction")
+        }
+        for module in ("Outcome", "OutcomeEvaluation", "DailyReview"):
+            for record in self._read_index_records(module):
+                prediction_ref = record.get("prediction_ref")
+                if not isinstance(prediction_ref, str):
+                    raise GlobalValidationError(
+                        f"{module}: registry item missing prediction_ref"
+                    )
+                if prediction_ref not in prediction_ids:
+                    raise GlobalValidationError(
+                        f"{module}: missing Prediction reference {prediction_ref}"
+                    )
+
+    def _read_index_records(self, module: str) -> list[dict[str, Any]]:
+        spec = self.index_specs[module]
+        try:
+            payload = json.loads(
+                Path(spec["path"]).read_text(encoding="utf-8-sig")
+            )
+        except (OSError, json.JSONDecodeError) as exc:
+            raise GlobalValidationError(
+                f"{module}: unable to reload registry"
+            ) from exc
+        records = payload.get(spec["records_key"])
+        if not isinstance(records, list) or not all(
+            isinstance(record, dict) for record in records
+        ):
+            raise GlobalValidationError(
+                f"{module}: invalid registry record array"
+            )
+        return records
 
     @staticmethod
     def _read_source_json(module: str, path: Path) -> dict[str, Any]:
@@ -574,4 +658,3 @@ def main(argv: Iterable[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
