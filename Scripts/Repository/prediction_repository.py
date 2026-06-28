@@ -52,6 +52,9 @@ class PredictionSnapshot:
             "state": self.state,
             "market": self.market,
             "status": self.status,
+            "playbook_refs": list(self.playbook_refs),
+            "experience_refs": list(self.experience_refs),
+            "pattern_refs": list(self.pattern_refs),
             "source_file": source_file,
         }
 
@@ -509,4 +512,3 @@ def main(argv: Iterable[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
