@@ -1,0 +1,19 @@
+{
+  "candidate_id": "CC-101",
+  "evidence_id": "EV-101",
+  "title": "Sample Company Filing",
+  "symbols": [
+    "TEST"
+  ],
+  "tags": [
+    "sample",
+    "filing"
+  ],
+  "source": "https://example.test/filings/ev-101",
+  "generated_at": "2026-06-28T15:39:44.963679+00:00",
+  "status": "Candidate",
+  "confidence": null,
+  "grade": null,
+  "review_required": true,
+  "model_impact": "repository_only"
+}

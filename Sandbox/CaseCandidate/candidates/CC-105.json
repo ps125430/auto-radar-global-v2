@@ -1,0 +1,19 @@
+{
+  "candidate_id": "CC-105",
+  "evidence_id": "EV-105",
+  "title": "Sample Manual News Record",
+  "symbols": [
+    "DEMO"
+  ],
+  "tags": [
+    "sample",
+    "manual"
+  ],
+  "source": "https://example.test/news/ev-105",
+  "generated_at": "2026-06-28T15:39:44.963679+00:00",
+  "status": "Candidate",
+  "confidence": null,
+  "grade": null,
+  "review_required": true,
+  "model_impact": "repository_only"
+}

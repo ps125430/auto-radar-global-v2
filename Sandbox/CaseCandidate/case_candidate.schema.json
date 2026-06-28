@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/sandbox/case-candidate.schema.json",
+  "title": "Sandbox Case Candidate",
+  "description": "Rule-mapped Case Candidate requiring human review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_id",
+    "evidence_id",
+    "title",
+    "symbols",
+    "tags",
+    "source",
+    "generated_at",
+    "status",
+    "confidence",
+    "grade",
+    "review_required",
+    "model_impact"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^CC-[0-9]{3,}$"
+    },
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EV-[0-9]{3,}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "symbols": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "const": "Candidate"
+    },
+    "confidence": {
+      "type": "null"
+    },
+    "grade": {
+      "type": "null"
+    },
+    "review_required": {
+      "type": "boolean",
+      "const": true
+    },
+    "model_impact": {
+      "type": "string",
+      "const": "repository_only"
+    }
+  },
+  "x-sandbox": {
+    "mapping": "rule_based_only",
+    "review_required": true,
+    "forbidden_outputs": [
+      "Pattern",
+      "Experience",
+      "Prediction",
+      "Decision",
+      "Strategy"
+    ]
+  }
+}

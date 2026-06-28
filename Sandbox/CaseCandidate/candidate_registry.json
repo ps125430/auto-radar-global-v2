@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-06-28T15:39:44.963679+00:00",
+  "candidate_count": 5,
+  "candidates": [
+    {
+      "candidate_id": "CC-101",
+      "evidence_id": "EV-101",
+      "status": "Candidate",
+      "file": "candidates/CC-101.json"
+    },
+    {
+      "candidate_id": "CC-102",
+      "evidence_id": "EV-102",
+      "status": "Candidate",
+      "file": "candidates/CC-102.json"
+    },
+    {
+      "candidate_id": "CC-103",
+      "evidence_id": "EV-103",
+      "status": "Candidate",
+      "file": "candidates/CC-103.json"
+    },
+    {
+      "candidate_id": "CC-104",
+      "evidence_id": "EV-104",
+      "status": "Candidate",
+      "file": "candidates/CC-104.json"
+    },
+    {
+      "candidate_id": "CC-105",
+      "evidence_id": "EV-105",
+      "status": "Candidate",
+      "file": "candidates/CC-105.json"
+    }
+  ]
+}

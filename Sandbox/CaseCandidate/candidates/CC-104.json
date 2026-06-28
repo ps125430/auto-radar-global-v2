@@ -1,0 +1,17 @@
+{
+  "candidate_id": "CC-104",
+  "evidence_id": "EV-104",
+  "title": "Sample Economic Calendar Event",
+  "symbols": [],
+  "tags": [
+    "sample",
+    "calendar"
+  ],
+  "source": "https://example.test/calendar/ev-104",
+  "generated_at": "2026-06-28T15:39:44.963679+00:00",
+  "status": "Candidate",
+  "confidence": null,
+  "grade": null,
+  "review_required": true,
+  "model_impact": "repository_only"
+}
