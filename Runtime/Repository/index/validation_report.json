@@ -1,0 +1,21 @@
+{
+  "validation_status": "PASS",
+  "checked_modules": [
+    "Case",
+    "Pattern",
+    "Experience",
+    "Graph",
+    "Playbook",
+    "Outcome",
+    "OutcomeEvaluation",
+    "DailyReview"
+  ],
+  "total_entities": 1,
+  "total_errors": 0,
+  "total_warnings": 1,
+  "errors": [],
+  "warnings": [
+    "Prediction Repository is not established; prediction_ref is validated for required format and chain consistency only."
+  ],
+  "generated_at": "2026-06-28T06:23:15.897821+00:00"
+}
