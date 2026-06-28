@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Auto Radar · Daily Command</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Auto Radar home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="brand-copy">
+          <strong>AUTO RADAR</strong>
+          <small>DAILY COMMAND</small>
+        </span>
+      </a>
+
+      <nav class="nav-list">
+        <a class="nav-item active" href="#top">
+          <i data-lucide="layout-dashboard"></i><span>Overview</span>
+        </a>
+        <a class="nav-item" href="#opportunities">
+          <i data-lucide="list-ordered"></i><span>Opportunities</span>
+        </a>
+        <a class="nav-item" href="#capital-flow">
+          <i data-lucide="git-branch"></i><span>Capital Flow</span>
+        </a>
+        <a class="nav-item" href="#repository">
+          <i data-lucide="database"></i><span>Repository</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <span class="live-dot" aria-hidden="true"></span>
+        <div>
+          <strong id="side-validation">Checking</strong>
+          <small>Repository validation</small>
+        </div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar" id="top">
+        <div>
+          <p class="eyebrow">Auto Radar Global v2</p>
+          <h1>Daily Command</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="as-of">
+            <span>Repository snapshot</span>
+            <strong id="snapshot-time">—</strong>
+          </div>
+          <button class="icon-button" id="refresh-button" type="button" title="Refresh view" aria-label="Refresh view">
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="tactical-band" aria-labelledby="tactical-title">
+          <div class="tactical-head">
+            <p class="eyebrow light">Daily Tactical Panel</p>
+            <h2 id="tactical-title">Today at a glance</h2>
+          </div>
+          <div class="tactical-grid">
+            <div class="tactical-item">
+              <span>Strategy</span>
+              <strong id="tactical-strategy">—</strong>
+            </div>
+            <div class="tactical-item">
+              <span>Window</span>
+              <strong id="tactical-window">—</strong>
+            </div>
+            <div class="tactical-item">
+              <span>Risk</span>
+              <strong id="tactical-risk">—</strong>
+            </div>
+            <div class="tactical-item">
+              <span>Watch</span>
+              <strong id="tactical-watch">—</strong>
+            </div>
+            <div class="tactical-item avoid">
+              <span>Avoid</span>
+              <strong id="tactical-avoid">—</strong>
+            </div>
+          </div>
+        </section>
+
+        <div class="dashboard-grid summary-grid">
+          <section class="panel strategy-panel" aria-labelledby="strategy-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Today's Meta Strategy</p>
+                <h2 id="strategy-title">Strategy posture</h2>
+              </div>
+              <span class="status-chip" id="strategy-status">—</span>
+            </div>
+            <div class="strategy-name" id="strategy-name">—</div>
+            <div class="metric-pair">
+              <div>
+                <span>Confidence</span>
+                <strong id="strategy-confidence">—</strong>
+              </div>
+              <div>
+                <span>Window</span>
+                <strong id="strategy-window">—</strong>
+              </div>
+            </div>
+            <div class="context-block">
+              <span>Why now</span>
+              <p id="strategy-why">—</p>
+            </div>
+          </section>
+
+          <section class="panel regime-panel" aria-labelledby="regime-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Market Regime</p>
+                <h2 id="regime-title">Three-layer state</h2>
+              </div>
+              <span class="status-chip neutral" id="regime-status">—</span>
+            </div>
+            <div class="regime-list">
+              <div class="regime-row">
+                <span class="regime-icon macro"><i data-lucide="globe-2"></i></span>
+                <div><span>Macro Regime</span><strong id="regime-macro">—</strong></div>
+              </div>
+              <div class="regime-row">
+                <span class="regime-icon sector"><i data-lucide="layers-3"></i></span>
+                <div><span>Sector Regime</span><strong id="regime-sector">—</strong></div>
+              </div>
+              <div class="regime-row">
+                <span class="regime-icon micro"><i data-lucide="scan-line"></i></span>
+                <div><span>Micro Regime</span><strong id="regime-micro">—</strong></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel health-panel" id="repository" aria-labelledby="health-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Repository</p>
+                <h2 id="health-title">Knowledge health</h2>
+              </div>
+              <span class="health-badge" id="health-badge">—</span>
+            </div>
+            <div class="health-stats">
+              <div><strong id="count-patterns">0</strong><span>Patterns</span></div>
+              <div><strong id="count-cases">0</strong><span>Cases</span></div>
+              <div><strong id="count-evidence">0</strong><span>Evidence</span></div>
+            </div>
+            <div class="gap-summary">
+              <div class="gap-head">
+                <span>Input readiness</span>
+                <strong id="gap-count">0 gaps</strong>
+              </div>
+              <div class="readiness-track"><span id="readiness-bar"></span></div>
+              <p id="gap-note">—</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="dashboard-grid primary-grid">
+          <section class="panel opportunity-panel" id="opportunities" aria-labelledby="opportunity-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Top Opportunity Ranking</p>
+                <h2 id="opportunity-title">Top 3 repository candidates</h2>
+              </div>
+              <span class="sort-label"><i data-lucide="arrow-down-wide-narrow"></i> Score order</span>
+            </div>
+            <div class="opportunity-list" id="opportunity-list"></div>
+          </section>
+
+          <section class="panel flow-panel" id="capital-flow" aria-labelledby="flow-title">
+            <div class="panel-heading flow-heading">
+              <div>
+                <p class="eyebrow">Capital Flow Map</p>
+                <h2 id="flow-title">Transmission chain</h2>
+              </div>
+              <div class="segmented-control" aria-label="Flow view">
+                <button class="segment active" type="button" data-flow-mode="capital">Capital</button>
+                <button class="segment" type="button" data-flow-mode="trace">Trace</button>
+              </div>
+            </div>
+            <div id="flow-view" class="flow-view"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="explain-drawer" id="explain-drawer" aria-labelledby="drawer-title" aria-hidden="true">
+    <div class="drawer-header">
+      <div>
+        <p class="eyebrow">Explainability</p>
+        <h2 id="drawer-title">—</h2>
+      </div>
+      <button class="icon-button ghost" id="drawer-close" type="button" title="Close explainability" aria-label="Close explainability">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="drawer-score">
+      <span>Opportunity Score</span>
+      <strong id="drawer-score">—</strong>
+    </div>
+    <div class="tab-list" role="tablist" aria-label="Explainability detail">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="why_score">Why Score</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="evidence">Evidence</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="money">Money</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="history">History</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="risk">Risk</button>
+    </div>
+    <div class="tab-panel" id="drawer-content"></div>
+    <div class="drawer-source">
+      <i data-lucide="lock-keyhole"></i>
+      <span>Read-only Repository projection</span>
+    </div>
+  </aside>
+
+  <script src="dashboard-data.js"></script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
