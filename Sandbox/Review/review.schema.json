@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/sandbox/review.schema.json",
+  "title": "Sandbox Case Candidate Review",
+  "description": "Human Review record for one Sandbox Case Candidate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "candidate_id",
+    "review_status",
+    "reviewed_at",
+    "reviewer",
+    "decision",
+    "notes",
+    "verified_case_id",
+    "model_impact"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "pattern": "^REV-[0-9]{3,}$"
+    },
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^CC-[0-9]{3,}$"
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Approved",
+        "Rejected",
+        "Verified"
+      ]
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Approve",
+        "Reject"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "verified_case_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^VC-[0-9]{3,}$"
+    },
+    "model_impact": {
+      "type": "string",
+      "const": "repository_only"
+    }
+  },
+  "x-sandbox": {
+    "review_mode": "human_only",
+    "formal_case_promotion": false,
+    "forbidden_outputs": [
+      "Pattern",
+      "Experience",
+      "Playbook",
+      "Prediction",
+      "Decision",
+      "Trading"
+    ]
+  }
+}

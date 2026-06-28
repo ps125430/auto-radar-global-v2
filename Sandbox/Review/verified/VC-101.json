@@ -1,0 +1,18 @@
+{
+  "verified_case_id": "VC-101",
+  "candidate_id": "CC-101",
+  "evidence_id": "EV-101",
+  "review_id": "REV-101",
+  "title": "Sample Company Filing",
+  "symbols": [
+    "TEST"
+  ],
+  "tags": [
+    "sample",
+    "filing"
+  ],
+  "source": "https://example.test/filings/ev-101",
+  "verified_at": "2026-06-28T16:00:00+00:00",
+  "status": "Verified",
+  "model_impact": "repository_only"
+}

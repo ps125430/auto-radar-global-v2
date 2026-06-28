@@ -59,6 +59,16 @@ def create_repository(root: Path) -> None:
         root / "Knowledge/DailyReview/index.json",
         {"review_count": 0, "reviews": []},
     )
+    write_json(
+        root / "Sandbox/Review/verified_case_registry.json",
+        {
+            "generated_at": "2026-06-28T00:00:00+00:00",
+            "review_count": 0,
+            "reviews": [],
+            "verified_case_count": 0,
+            "verified_cases": [],
+        },
+    )
 
 
 def generator(root: Path, output: Path) -> MorningReportGenerator:
@@ -182,6 +192,42 @@ class MorningReportTests(unittest.TestCase):
             self.assertIn("- Evaluation Pending: 1", report)
             self.assertIn("- Review Pending: 0", report)
 
+    def test_verified_case_summary_is_rendered(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            create_repository(root)
+            write_json(
+                root / "Sandbox/Review/verified_case_registry.json",
+                {
+                    "generated_at": "2026-06-28T00:00:00+00:00",
+                    "review_count": 3,
+                    "reviews": [
+                        {
+                            "review_id": "REV-001",
+                            "review_status": "Approved",
+                        },
+                        {
+                            "review_id": "REV-002",
+                            "review_status": "Rejected",
+                        },
+                        {
+                            "review_id": "REV-003",
+                            "review_status": "Pending",
+                        },
+                    ],
+                    "verified_case_count": 1,
+                    "verified_cases": [{"verified_case_id": "VC-001"}],
+                },
+            )
+
+            report = generator(root, root / "report.md").generate()
+
+            self.assertIn("## Verified Case Summary", report)
+            self.assertIn("- Approved: 1", report)
+            self.assertIn("- Rejected: 1", report)
+            self.assertIn("- Pending: 1", report)
+            self.assertIn("- Verified Count: 1", report)
+
     def test_validator_rejects_missing_section(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -238,4 +284,3 @@ class MorningReportTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -24,6 +24,7 @@ class MorningReportValidator:
         "## Active References",
         "## Repository Health",
         "## Pending Review",
+        "## Verified Case Summary",
         "## Notes",
     )
     REQUIRED_FIELDS = (
@@ -48,6 +49,10 @@ class MorningReportValidator:
         "Outcome Pending",
         "Evaluation Pending",
         "Review Pending",
+        "Approved",
+        "Rejected",
+        "Pending",
+        "Verified Count",
     )
     PROHIBITED_WORDS = (
         "buy",
@@ -213,4 +218,3 @@ def main(argv: Iterable[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -1,0 +1,11 @@
+{
+  "review_id": "REV-101",
+  "candidate_id": "CC-101",
+  "review_status": "Approved",
+  "reviewed_at": "2026-06-28T16:00:00+00:00",
+  "reviewer": "Sandbox Reviewer",
+  "decision": "Approve",
+  "notes": "Manual sample approval for Review Pipeline validation.",
+  "verified_case_id": "VC-101",
+  "model_impact": "repository_only"
+}

@@ -69,6 +69,10 @@ class MorningReportGenerator:
             / "Knowledge"
             / "DailyReview"
             / "index.json",
+            "SandboxReview": self.repository_root
+            / "Sandbox"
+            / "Review"
+            / "verified_case_registry.json",
         }
 
     def generate(self) -> str:
@@ -106,6 +110,9 @@ class MorningReportGenerator:
         review_registry = self._load_json(
             self.paths["Review"], "Review Registry"
         )
+        sandbox_review_registry = self._load_json(
+            self.paths["SandboxReview"], "Sandbox Review Registry"
+        )
 
         cases = self._records(case_registry, "cases", "Case Registry")
         patterns = self._records(
@@ -124,6 +131,26 @@ class MorningReportGenerator:
             evaluation_registry, "evaluations", "Evaluation Registry"
         )
         reviews = self._records(review_registry, "reviews", "Review Registry")
+        sandbox_reviews = self._records(
+            sandbox_review_registry, "reviews", "Sandbox Review Registry"
+        )
+        verified_cases = self._records(
+            sandbox_review_registry,
+            "verified_cases",
+            "Sandbox Review Registry",
+        )
+        self._check_count(
+            sandbox_review_registry,
+            "review_count",
+            sandbox_reviews,
+            "Sandbox Review",
+        )
+        self._check_count(
+            sandbox_review_registry,
+            "verified_case_count",
+            verified_cases,
+            "Sandbox Verified Case",
+        )
 
         prediction_data = self._prediction_data(prediction)
         active_patterns = prediction_data["pattern_refs"]
@@ -166,6 +193,18 @@ class MorningReportGenerator:
                 "Outcome": self._pending_count(outcomes),
                 "Evaluation": self._pending_count(evaluations),
                 "Review": self._pending_count(reviews),
+            },
+            verified_case_summary={
+                "Approved": self._sandbox_review_count(
+                    sandbox_reviews, "Approved"
+                ),
+                "Rejected": self._sandbox_review_count(
+                    sandbox_reviews, "Rejected"
+                ),
+                "Pending": self._sandbox_review_count(
+                    sandbox_reviews, "Pending"
+                ),
+                "Verified": len(verified_cases),
             },
         )
         self._write_report(report)
@@ -276,6 +315,22 @@ class MorningReportGenerator:
         return count
 
     @staticmethod
+    def _sandbox_review_count(
+        records: list[dict[str, Any]], expected_status: str
+    ) -> int:
+        allowed = {"Pending", "Approved", "Rejected", "Verified"}
+        count = 0
+        for record in records:
+            status = record.get("review_status")
+            if status not in allowed:
+                raise MorningReportError(
+                    "Sandbox Review Registry item has invalid review_status"
+                )
+            if status == expected_status:
+                count += 1
+        return count
+
+    @staticmethod
     def _reference_list(
         record: dict[str, Any], field: str, context: str
     ) -> list[str]:
@@ -366,6 +421,7 @@ class MorningReportGenerator:
         errors: int,
         warnings: int,
         pending: dict[str, int],
+        verified_case_summary: dict[str, int],
     ) -> str:
         repository_note = (
             "Repository validation is current."
@@ -414,6 +470,13 @@ class MorningReportGenerator:
             f"- Evaluation Pending: {pending['Evaluation']}",
             f"- Review Pending: {pending['Review']}",
             "",
+            "## Verified Case Summary",
+            "",
+            f"- Approved: {verified_case_summary['Approved']}",
+            f"- Rejected: {verified_case_summary['Rejected']}",
+            f"- Pending: {verified_case_summary['Pending']}",
+            f"- Verified Count: {verified_case_summary['Verified']}",
+            "",
             "## Notes",
             "",
             f"- {repository_note}",
@@ -449,4 +512,3 @@ def main(argv: Iterable[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

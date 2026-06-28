@@ -2,7 +2,7 @@
 
 ## System
 
-- Generated Time: 2026-06-28T23:24:29.542356+08:00
+- Generated Time: 2026-06-29T00:03:13.705135+08:00
 - Repository Version: main
 - Validation Status: PASS
 
@@ -38,6 +38,13 @@
 - Outcome Pending: 0
 - Evaluation Pending: 0
 - Review Pending: 0
+
+## Verified Case Summary
+
+- Approved: 5
+- Rejected: 0
+- Pending: 0
+- Verified Count: 5
 
 ## Notes
 

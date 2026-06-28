@@ -1,0 +1,16 @@
+{
+  "verified_case_id": "VC-104",
+  "candidate_id": "CC-104",
+  "evidence_id": "EV-104",
+  "review_id": "REV-104",
+  "title": "Sample Economic Calendar Event",
+  "symbols": [],
+  "tags": [
+    "sample",
+    "calendar"
+  ],
+  "source": "https://example.test/calendar/ev-104",
+  "verified_at": "2026-06-28T16:00:00+00:00",
+  "status": "Verified",
+  "model_impact": "repository_only"
+}

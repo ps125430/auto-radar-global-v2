@@ -1,0 +1,16 @@
+{
+  "verified_case_id": "VC-102",
+  "candidate_id": "CC-102",
+  "evidence_id": "EV-102",
+  "review_id": "REV-102",
+  "title": "Sample Macro Event",
+  "symbols": [],
+  "tags": [
+    "sample",
+    "macro"
+  ],
+  "source": "https://example.test/macro/ev-102",
+  "verified_at": "2026-06-28T16:00:00+00:00",
+  "status": "Verified",
+  "model_impact": "repository_only"
+}

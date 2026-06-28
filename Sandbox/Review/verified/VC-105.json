@@ -1,0 +1,18 @@
+{
+  "verified_case_id": "VC-105",
+  "candidate_id": "CC-105",
+  "evidence_id": "EV-105",
+  "review_id": "REV-105",
+  "title": "Sample Manual News Record",
+  "symbols": [
+    "DEMO"
+  ],
+  "tags": [
+    "sample",
+    "manual"
+  ],
+  "source": "https://example.test/news/ev-105",
+  "verified_at": "2026-06-28T16:00:00+00:00",
+  "status": "Verified",
+  "model_impact": "repository_only"
+}
