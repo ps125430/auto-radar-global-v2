@@ -1,0 +1,19 @@
+{
+  "evidence_id": "EV-101",
+  "source": "https://example.test/filings/ev-101",
+  "source_type": "company_filing",
+  "timestamp": "2026-06-28T08:00:00+08:00",
+  "title": "Sample Company Filing",
+  "summary": "A fictional filing sample used to validate manual ingestion.",
+  "language": "en",
+  "region": "US",
+  "symbols": [
+    "TEST"
+  ],
+  "tags": [
+    "sample",
+    "filing"
+  ],
+  "importance": 70,
+  "reliability": 90
+}

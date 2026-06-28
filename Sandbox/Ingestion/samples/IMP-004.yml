@@ -1,0 +1,12 @@
+evidence_id: EV-104
+source: https://example.test/calendar/ev-104
+source_type: economic_calendar
+timestamp: 2026-06-28T11:00:00+08:00
+title: Sample Economic Calendar Event
+summary: A fictional calendar event used to validate YAML ingestion.
+language: en
+region: US
+symbols: []
+tags: ["sample", "calendar"]
+importance: 55
+reliability: 85

@@ -1,0 +1,47 @@
+{
+  "document_id": "AR-INGESTION-MANIFEST-v1",
+  "version": "1.0",
+  "status": "sandbox_manifest",
+  "imports": [
+    {
+      "import_id": "IMP-001",
+      "source": "Sandbox/Ingestion/samples/IMP-001.json",
+      "imported_at": "2026-06-28T15:39:44.963679+00:00",
+      "format": "json",
+      "status": "processed",
+      "output_evidence": "EV-101"
+    },
+    {
+      "import_id": "IMP-002",
+      "source": "Sandbox/Ingestion/samples/IMP-002.json",
+      "imported_at": "2026-06-28T15:39:44.963679+00:00",
+      "format": "json",
+      "status": "processed",
+      "output_evidence": "EV-102"
+    },
+    {
+      "import_id": "IMP-003",
+      "source": "Sandbox/Ingestion/samples/IMP-003.yaml",
+      "imported_at": "2026-06-28T15:39:44.963679+00:00",
+      "format": "yaml",
+      "status": "processed",
+      "output_evidence": "EV-103"
+    },
+    {
+      "import_id": "IMP-004",
+      "source": "Sandbox/Ingestion/samples/IMP-004.yml",
+      "imported_at": "2026-06-28T15:39:44.963679+00:00",
+      "format": "yaml",
+      "status": "processed",
+      "output_evidence": "EV-104"
+    },
+    {
+      "import_id": "IMP-005",
+      "source": "Sandbox/Ingestion/samples/IMP-005.md",
+      "imported_at": "2026-06-28T15:39:44.963679+00:00",
+      "format": "markdown",
+      "status": "processed",
+      "output_evidence": "EV-105"
+    }
+  ]
+}

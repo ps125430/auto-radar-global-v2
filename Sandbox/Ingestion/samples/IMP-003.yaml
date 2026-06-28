@@ -1,0 +1,12 @@
+evidence_id: EV-103
+source: https://example.test/exchange/ev-103
+source_type: exchange_announcement
+timestamp: 2026-06-28T10:00:00+08:00
+title: Sample Exchange Announcement
+summary: A fictional exchange announcement used to validate YAML ingestion.
+language: en
+region: TW
+symbols: ["SAMPLE"]
+tags: ["sample", "exchange"]
+importance: 75
+reliability: 95

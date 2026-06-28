@@ -1,0 +1,17 @@
+{
+  "evidence_id": "EV-102",
+  "source": "https://example.test/macro/ev-102",
+  "source_type": "macro_event",
+  "timestamp": "2026-06-28T09:00:00+08:00",
+  "title": "Sample Macro Event",
+  "summary": "A fictional macro event sample used to validate manual ingestion.",
+  "language": "en",
+  "region": "Global",
+  "symbols": [],
+  "tags": [
+    "sample",
+    "macro"
+  ],
+  "importance": 60,
+  "reliability": 80
+}
