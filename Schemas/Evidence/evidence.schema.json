@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/evidence/evidence.schema.json",
+  "title": "Evidence Repository Entity",
+  "description": "Repository-only schema for sourced Evidence entering Auto Radar knowledge workflows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "source",
+    "source_type",
+    "published_at",
+    "collected_at",
+    "title",
+    "summary",
+    "language",
+    "region",
+    "symbols",
+    "tags",
+    "importance",
+    "reliability",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EV-[0-9]{3,}$"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "news",
+        "sec",
+        "exchange_announcement",
+        "economic_calendar",
+        "company_filing",
+        "macro_event",
+        "other"
+      ]
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "region": {
+      "type": "string",
+      "minLength": 1
+    },
+    "symbols": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "importance": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "reliability": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Incoming",
+        "Verified",
+        "Rejected",
+        "Archived"
+      ]
+    },
+    "model_impact": {
+      "type": "string",
+      "const": "evidence_only_not_production"
+    }
+  },
+  "x-repository": {
+    "status": "schema_candidate",
+    "model_impact": "evidence_only_not_production",
+    "boundary": "Evidence records preserve sourced facts only and cannot create Cases or decisions automatically."
+  }
+}
+

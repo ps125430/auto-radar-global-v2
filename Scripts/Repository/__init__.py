@@ -1,5 +1,11 @@
 """Repository-only validation engines."""
 
+from .evidence_repository import (
+    EvidenceRecord,
+    EvidenceRepository,
+    EvidenceRepositoryError,
+    EvidenceValidationError,
+)
 from .experience_repository import (
     Experience,
     ExperienceRepository,
@@ -40,6 +46,10 @@ from .prediction_repository import (
 )
 
 __all__ = [
+    "EvidenceRecord",
+    "EvidenceRepository",
+    "EvidenceRepositoryError",
+    "EvidenceValidationError",
     "Experience",
     "ExperienceRepository",
     "ExperienceRepositoryError",

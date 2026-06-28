@@ -1,6 +1,7 @@
 {
   "validation_status": "PASS",
   "checked_modules": [
+    "Evidence",
     "Case",
     "Pattern",
     "Experience",
@@ -18,5 +19,5 @@
   "warnings": [
     "Confidence Repository is not established; confidence_ref is validated for format only when present."
   ],
-  "generated_at": "2026-06-28T06:59:19.301392+00:00"
+  "generated_at": "2026-06-28T15:32:49.049218+00:00"
 }

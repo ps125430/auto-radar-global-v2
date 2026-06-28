@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from Scripts.Repository import (
+    EvidenceRepository,
     ExperienceRepository,
     GraphRepository,
     OutcomeReviewRepository,
@@ -32,6 +33,7 @@ class GlobalRepositoryValidator:
     """Single entry point for repository-wide validation."""
 
     CHECKED_MODULES = (
+        "Evidence",
         "Case",
         "Pattern",
         "Experience",
@@ -60,6 +62,10 @@ class GlobalRepositoryValidator:
             / "validation_report.json"
         )
         self.schema_paths = {
+            "Evidence": self.repository_root
+            / "Schemas"
+            / "Evidence"
+            / "evidence.schema.json",
             "Case": self.repository_root
             / "Schemas"
             / "CaseLibrary"
@@ -98,6 +104,12 @@ class GlobalRepositoryValidator:
             / "review_record.schema.json",
         }
         self.index_specs = {
+            "Evidence": self._index_spec(
+                "Runtime/Repository/index/evidence_registry.json",
+                "evidence",
+                "evidence_count",
+                "id",
+            ),
             "Case": self._index_spec(
                 "Runtime/Repository/index/case_index.json",
                 "cases",
@@ -315,6 +327,11 @@ class GlobalRepositoryValidator:
     def validate_cross_references(self) -> bool:
         """Run module validators in dependency order with fail-fast behavior."""
         root = self.repository_root
+        EvidenceRepository(
+            evidence_root=root / "Knowledge" / "Evidence",
+            schema_path=self.schema_paths["Evidence"],
+            registry_path=self.index_specs["Evidence"]["path"],
+        )
         CaseRepository(
             case_root=root / "Knowledge" / "CaseLibrary",
             schema_path=self.schema_paths["Case"],
@@ -349,7 +366,10 @@ class GlobalRepositoryValidator:
                     "playbooks",
                 ),
                 "Rule": None,
-                "Evidence": None,
+                "Evidence": (
+                    self.index_specs["Evidence"]["path"],
+                    "evidence",
+                ),
             },
         )
         PlaybookRepository(
@@ -378,6 +398,30 @@ class GlobalRepositoryValidator:
         return True
 
     def _source_keys(self, module: str) -> set[Any]:
+        if module == "Evidence":
+            repository = EvidenceRepository(
+                evidence_root=self.repository_root / "Knowledge" / "Evidence",
+                schema_path=self.schema_paths["Evidence"],
+                registry_path=self.index_specs["Evidence"]["path"],
+                auto_start=False,
+            )
+            repository.validate_template(
+                self.repository_root / "Knowledge" / "Evidence" / "TEMPLATE.md"
+            )
+            keys = [
+                repository.load_evidence(path).evidence_id
+                for folder in ("incoming", "verified", "rejected", "archive")
+                for path in sorted(
+                    (
+                        self.repository_root
+                        / "Knowledge"
+                        / "Evidence"
+                        / folder
+                    ).glob("*.md")
+                )
+            ]
+            return self._unique_source_keys(module, keys)
+
         if module == "Case":
             repository = CaseRepository(
                 case_root=self.repository_root / "Knowledge" / "CaseLibrary",

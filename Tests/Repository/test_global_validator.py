@@ -35,7 +35,7 @@ class GlobalRepositoryValidatorTests(unittest.TestCase):
             report = validator.validate_all()
 
             self.assertEqual("PASS", report["validation_status"])
-            self.assertEqual(9, len(report["checked_modules"]))
+            self.assertEqual(10, len(report["checked_modules"]))
             self.assertEqual(1, report["total_entities"])
             self.assertEqual(0, report["total_errors"])
             self.assertEqual(1, report["total_warnings"])

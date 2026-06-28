@@ -95,7 +95,14 @@ class GraphRepository:
             ),
             "Playbook": None,
             "Rule": None,
-            "Evidence": None,
+            "Evidence": (
+                repository_root
+                / "Runtime"
+                / "Repository"
+                / "index"
+                / "evidence_registry.json",
+                "evidence",
+            ),
         }
         if registry_paths:
             defaults.update(registry_paths)
@@ -357,4 +364,3 @@ def main(argv: Iterable[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
