@@ -1,18 +1,36 @@
-# Daily Review
+# Daily Review Repository
 
-Purpose:
+Status: repository_active
+Model Impact: review_pipeline_only
 
-Store daily review templates and future daily review records for Auto Radar.
+## Purpose
 
-This folder is for review workflow only. It does not directly change Theme Score, Stage Score, Decision Score, Dashboard behavior, pipeline behavior, or production trading logic.
+The Daily Review Repository stores static review records linked to a Prediction reference, registered Outcome, and registered Evaluation.
 
-Rules:
+It captures prediction, behavior, execution, and missing-information review fields without running Learning logic.
 
-* Do not store unreviewed production rules here.
-* Do not treat daily observations as confirmed lessons without validation.
-* Link important findings to Decision Lab, Case Library, Lessons, or Hypothesis only after review.
-* Keep daily review records separate from prediction snapshots.
+## Lifecycle
 
-Current status:
+```text
+draft -> reviewed -> archived
+```
 
-Template only. No real daily review data has been added.
+## Folder Structure
+
+| Path | Purpose |
+|---|---|
+| `Records/` | Daily Review JSON records |
+| `index.json` | Generated Review Registry |
+| `TEMPLATE.md` | Human-readable review template |
+
+Records validate against `Schemas/DailyDecision/review_record.schema.json`.
+
+## Boundary
+
+Review records cannot execute Predictions, Decisions, Learning, Runtime, Pipeline, Scoring, Dashboard behavior, Strategy, or Production Rules.
+
+`learning_target` is a static review field only.
+
+## Repository Only
+
+This Repository supports static record scanning, validation, registration, and index generation only.

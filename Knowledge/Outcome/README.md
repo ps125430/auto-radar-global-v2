@@ -1,20 +1,36 @@
 # Outcome Repository
 
-status: schema_candidate
-model_impact: review_only_not_production
-
-Outcome Repository stores observed market results after a prediction or decision.
-
-It is the evidence bridge between Prediction, Review, Learning, Decision Journal, and Candidate records.
+Status: repository_active
+Model Impact: review_only_not_production
 
 ## Purpose
 
-* preserve market outcomes;
-* compare expected narrative with actual narrative;
-* track leader, theme, and macro results;
-* support Review Queue triage;
-* support Decision Lab closed-loop validation.
+The Outcome Repository stores observed market results linked to a Prediction and Decision reference.
 
-## Boundary Rule
+It is the first post-event input to the repository review chain.
 
-Outcome records are review artifacts only. They must not directly change runtime, pipeline, scoring, Dashboard, Decision, or production trading logic.
+## Lifecycle
+
+```text
+open -> tracking -> reviewed -> archived
+```
+
+Lifecycle state records review progress only and does not trigger any Engine.
+
+## Folder Structure
+
+| Path | Purpose |
+|---|---|
+| `Records/` | Outcome JSON records |
+| `index.json` | Generated Outcome Registry |
+| `TEMPLATE.md` | Human-readable record template |
+
+Records validate against `Schemas/Outcome/outcome.schema.json`.
+
+## Boundary
+
+Outcome records cannot create or modify Predictions, Decisions, Learning, Runtime, Pipeline, Scoring, Dashboard behavior, Strategy, or Production Rules.
+
+## Repository Only
+
+This Repository supports static record scanning, validation, registration, and index generation only.

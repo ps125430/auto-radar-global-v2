@@ -1,109 +1,81 @@
 {
-  "document_id": "AR-DD-REVIEW-RECORD-SCHEMA-2026-06-25",
-  "version": "1.1",
-  "status": "schema_candidate",
-  "model_impact": "review_pipeline_only",
-  "owner": "小G / Research Chief",
-  "reviewed_by": "小P / Chief Architect",
-  "title": "Daily Decision Review Record Schema",
-  "description": "Schema skeleton for the integrated Daily Review Pipeline. Review outputs must connect Prediction, Outcome, Learning, Decision Journal, and Candidate records without changing production scoring.",
-  "schema": {
-    "review_id": "string",
-    "pipeline_stage": "Review",
-    "pipeline_flow": [
-      "Prediction",
-      "Outcome",
-      "Review",
-      "Learning",
-      "Decision Journal",
-      "Candidate"
-    ],
-    "decision_id": "string",
-    "prediction_id": "string",
-    "outcome_id": "string",
-    "learning_id": "string",
-    "decision_journal_id": "string",
-    "candidate_id": "string",
-    "case_id": "string",
-    "review_date": "string",
-    "review_owner": "string",
-    "decision_result": "success / partial_success / failure / inconclusive",
-    "primary_death_reason": "not_applicable_success_case",
-    "primary_success_driver": [
-      "string"
-    ],
-    "remaining_uncertainty": [
-      "string"
-    ],
-    "root_cause_categories": [
-      "expectation_blindness",
-      "memory_depletion",
-      "saturation_explosion",
-      "graph_disconnection",
-      "ai_resonance_overload",
-      "data_issue",
-      "timing_issue",
-      "other"
-    ],
-    "counterfactual_analysis": {
-      "watch_wait_alternative": "string",
-      "avoid_alternative": "string",
-      "smaller_exposure_alternative": "string",
-      "conclusion": "string"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/daily-decision/review_record.schema.json",
+  "title": "Daily Review Repository Entity",
+  "description": "Repository-only review record linked to Prediction, Outcome, and Evaluation references.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "prediction_ref",
+    "outcome_ref",
+    "evaluation_ref",
+    "prediction_error",
+    "behavior_error",
+    "execution_error",
+    "missing_information",
+    "preventable",
+    "learning_target",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "pattern": "^REV-[0-9]{3,}$"
+    },
+    "prediction_ref": {
+      "type": "string",
+      "pattern": "^PRED-[A-Za-z0-9._-]+$"
+    },
+    "outcome_ref": {
+      "type": "string",
+      "pattern": "^OUT-[0-9]{3,}$"
+    },
+    "evaluation_ref": {
+      "type": "string",
+      "pattern": "^EVAL-[0-9]{3,}$"
     },
     "prediction_error": {
-      "status": "none / low / medium / high / unknown",
-      "description": "string",
-      "evidence": [
-        "string"
-      ]
+      "type": "object"
     },
     "behavior_error": {
-      "status": "none / low / medium / high / unknown",
-      "description": "string",
-      "evidence": [
-        "string"
-      ]
+      "type": "object"
     },
     "execution_error": {
-      "status": "none / low / medium / high / unknown",
-      "description": "string",
-      "evidence": [
-        "string"
-      ]
+      "type": "object"
     },
-    "missing_information": [
-      "string"
-    ],
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "preventable": {
-      "status": "yes / no / partial / unknown",
-      "reason": "string",
-      "prevention_signal": [
-        "string"
+      "type": "object"
+    },
+    "learning_target": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewed",
+        "archived"
       ]
     },
-    "learning_target": [
-      "string"
-    ],
-    "decision_journal_generation": {
-      "required": true,
-      "source": "review_record",
-      "status": "pending / generated / skipped"
-    },
-    "lesson_candidate": "string",
-    "candidate_output": {
-      "candidate_type": "lesson / playbook / hypothesis / framework_update / engineering_fix / none",
-      "candidate_status": "none / proposed / validation_required"
-    },
-    "production_rule_status": "Not Production Rule",
-    "notes": "string"
+    "model_impact": {
+      "type": "string",
+      "const": "review_pipeline_only"
+    }
   },
-  "validation_notes": [
-    "Pipeline order is Prediction -> Outcome -> Review -> Learning -> Decision Journal -> Candidate.",
-    "Decision Journal is generated from Review output and should not be treated as an independent upstream record.",
-    "Review must output Prediction Error, Behavior Error, Execution Error, Missing Information, Preventable, and Learning Target.",
-    "Use not_applicable_success_case instead of NONE for successful cases.",
-    "remaining_uncertainty must be preserved.",
-    "Review records do not directly change runtime, scoring, Dashboard, or production trading logic."
-  ]
+  "x-repository": {
+    "status": "schema_candidate",
+    "model_impact": "review_pipeline_only",
+    "boundary": "Review records are static repository inputs and do not execute Learning logic."
+  }
 }

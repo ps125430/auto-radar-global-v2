@@ -1,32 +1,34 @@
 # Outcome Evaluation Repository
 
-status: schema_candidate
-model_impact: research_only_not_production
-
-Outcome Evaluation stores the research-only evaluation layer between Outcome records and Review / Learning records.
-
-It measures whether a prediction matched the market result across narrative, leader, theme, flow, timing, and risk dimensions.
+Status: repository_active
+Model Impact: research_only_not_production
 
 ## Purpose
 
-* evaluate prediction quality after outcomes are recorded;
-* calculate review-only PMS fields;
-* identify narrative drift and leader drift;
-* support Decision Lab review and learning;
-* preserve evidence for future case quality review.
+The Outcome Evaluation Repository stores review-only comparisons between one Prediction reference and one registered Outcome.
 
-## Evaluation Status
+PMS, match values, and luck penalties are validation measurements, not Production scoring.
+
+## Lifecycle
 
 ```text
-TRUE_ALPHA
-PARTIAL_SUCCESS
-TIMING_MISMATCH
-NARRATIVE_DRIFT
-LEADER_DRIFT
-COMPLETE_MISS
-BLACK_SWAN
+draft -> reviewed -> archived
 ```
 
-## Boundary Rule
+## Folder Structure
 
-Outcome Evaluation is research-only. It must not directly change runtime, pipeline, scoring, Dashboard, Decision, or production trading logic.
+| Path | Purpose |
+|---|---|
+| `Records/` | Outcome Evaluation JSON records |
+| `index.json` | Generated Evaluation Registry |
+| `TEMPLATE.md` | Human-readable evaluation template |
+
+Records validate against `Schemas/OutcomeEvaluation/outcome_evaluation.schema.json`.
+
+## Boundary
+
+Evaluations cannot modify Predictions, Decisions, Learning, Runtime, Pipeline, Scoring, Dashboard behavior, Strategy, or Production Rules.
+
+## Repository Only
+
+This Repository supports static record scanning, validation, registration, and index generation only.

@@ -1,53 +1,67 @@
 {
-  "document_id": "AR-OUTCOME-SCHEMA-2026-06-26",
-  "version": "1.0",
-  "status": "schema_candidate",
-  "model_impact": "review_only_not_production",
-  "owner": "小G / Research Chief",
-  "reviewed_by": "小P / Chief Architect",
-  "title": "Outcome Schema",
-  "description": "Schema candidate for Outcome Repository records. Outcomes connect Prediction, Decision, Review, Learning, Decision Journal, and Candidate artifacts without changing production logic.",
-  "schema": {
-    "outcome_id": "string",
-    "prediction_ref": "string",
-    "decision_ref": "string",
-    "market_open": "string",
-    "market_close": "string",
-    "leader_result": "string",
-    "theme_result": "string",
-    "macro_result": "string",
-    "expected_narrative": "string",
-    "actual_narrative": "string",
-    "prediction_match": "match / partial_match / mismatch / inconclusive",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/outcome/outcome.schema.json",
+  "title": "Outcome Repository Entity",
+  "description": "Repository-only record of observed post-prediction market windows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "outcome_id",
+    "prediction_ref",
+    "decision_ref",
+    "market_open",
+    "market_close",
+    "window_10m",
+    "window_24h",
+    "window_t5d",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "outcome_id": {
+      "type": "string",
+      "pattern": "^OUT-[0-9]{3,}$"
+    },
+    "prediction_ref": {
+      "type": "string",
+      "pattern": "^PRED-[A-Za-z0-9._-]+$"
+    },
+    "decision_ref": {
+      "type": "string",
+      "pattern": "^DEC-[A-Za-z0-9._-]+$"
+    },
+    "market_open": {
+      "type": "string"
+    },
+    "market_close": {
+      "type": "string"
+    },
     "window_10m": {
-      "price_reaction": "string",
-      "leader_reaction": "string",
-      "narrative_reaction": "string",
-      "notes": "string"
+      "type": "object"
     },
     "window_24h": {
-      "price_reaction": "string",
-      "leader_reaction": "string",
-      "theme_reaction": "string",
-      "notes": "string"
+      "type": "object"
     },
     "window_t5d": {
-      "leader_follow_through": "string",
-      "theme_propagation": "string",
-      "macro_confirmation": "string",
-      "notes": "string"
+      "type": "object"
     },
-    "status": "schema_candidate / open / tracking / reviewed / archived",
-    "model_impact": "review_only_not_production",
-    "review_queue_status": "pending_review / completed_review / not_required",
-    "evidence_ids": [
-      "string"
-    ],
-    "notes": "string"
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "tracking",
+        "reviewed",
+        "archived"
+      ]
+    },
+    "model_impact": {
+      "type": "string",
+      "const": "review_only_not_production"
+    }
   },
-  "validation_notes": [
-    "Outcome records are review-only artifacts.",
-    "Outcome records must not directly change runtime, pipeline, scoring, Dashboard, Decision, or production trading logic.",
-    "Outcome records may route items to Review Queue but do not create Production Rules."
-  ]
+  "x-repository": {
+    "status": "schema_candidate",
+    "model_impact": "review_only_not_production",
+    "boundary": "Outcome records are repository review inputs only."
+  }
 }

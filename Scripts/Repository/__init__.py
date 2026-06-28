@@ -12,6 +12,14 @@ from .graph_repository import (
     GraphRepositoryError,
     GraphValidationError,
 )
+from .outcome_review_repository import (
+    EvaluationRecord,
+    OutcomeRecord,
+    OutcomeReviewRepository,
+    OutcomeReviewRepositoryError,
+    OutcomeReviewValidationError,
+    ReviewRecord,
+)
 from .pattern_repository import (
     Pattern,
     PatternRepository,
@@ -34,6 +42,12 @@ __all__ = [
     "GraphRepository",
     "GraphRepositoryError",
     "GraphValidationError",
+    "EvaluationRecord",
+    "OutcomeRecord",
+    "OutcomeReviewRepository",
+    "OutcomeReviewRepositoryError",
+    "OutcomeReviewValidationError",
+    "ReviewRecord",
     "Pattern",
     "PatternRepository",
     "PatternRepositoryError",
