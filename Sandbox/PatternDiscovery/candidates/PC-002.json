@@ -1,0 +1,16 @@
+{
+  "pattern_candidate_id": "PC-002",
+  "source_cases": [
+    "VC-102",
+    "VC-104"
+  ],
+  "generated_at": "2026-06-28T16:00:00+00:00",
+  "status": "Candidate",
+  "pattern_tags": [
+    "macro_calendar"
+  ],
+  "feature_summary": "Rule-matched Verified Case tags: macro or calendar.",
+  "similarity_score": 1.0,
+  "review_required": true,
+  "model_impact": "repository_only"
+}

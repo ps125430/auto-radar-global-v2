@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/sandbox/pattern-candidate.schema.json",
+  "title": "Sandbox Pattern Candidate",
+  "description": "Rule-discovered Pattern Candidate requiring human review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pattern_candidate_id",
+    "source_cases",
+    "generated_at",
+    "status",
+    "pattern_tags",
+    "feature_summary",
+    "similarity_score",
+    "review_required",
+    "model_impact"
+  ],
+  "properties": {
+    "pattern_candidate_id": {
+      "type": "string",
+      "pattern": "^PC-[0-9]{3,}$"
+    },
+    "source_cases": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^VC-[0-9]{3,}$"
+      }
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "const": "Candidate"
+    },
+    "pattern_tags": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "feature_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "similarity_score": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "review_required": {
+      "type": "boolean",
+      "const": true
+    },
+    "model_impact": {
+      "type": "string",
+      "const": "repository_only"
+    }
+  },
+  "x-sandbox": {
+    "discovery_mode": "rule_based_only",
+    "similarity_semantics": "binary_rule_match_not_model_confidence",
+    "forbidden_outputs": [
+      "Experience",
+      "Playbook",
+      "Prediction",
+      "Decision",
+      "Trading"
+    ]
+  }
+}

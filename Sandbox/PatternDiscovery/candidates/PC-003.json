@@ -1,0 +1,15 @@
+{
+  "pattern_candidate_id": "PC-003",
+  "source_cases": [
+    "VC-105"
+  ],
+  "generated_at": "2026-06-28T16:00:00+00:00",
+  "status": "Candidate",
+  "pattern_tags": [
+    "manual_news"
+  ],
+  "feature_summary": "Rule-matched Verified Case tag: manual.",
+  "similarity_score": 1.0,
+  "review_required": true,
+  "model_impact": "repository_only"
+}
