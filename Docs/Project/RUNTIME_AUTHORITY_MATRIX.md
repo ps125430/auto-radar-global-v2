@@ -3,7 +3,7 @@
 文件代號：AR-RUNTIME-AUTHORITY-v2-CANDIDATE
 任務代號：A-116
 版本：1.0
-狀態：Architecture Review Pending
+狀態：Accepted
 層級：Runtime Governance
 負責人：小P／首席架構師
 維護人：小C／文件工程
@@ -105,7 +105,7 @@ Engine 本身沒有寫入權。只有受控 Writer 服務可在輸出通過 Vali
 
 ## Gate 狀態
 
-目前狀態：**CLOSED**
+目前狀態：**OPEN**
 
 開啟條件：
 
@@ -114,3 +114,6 @@ Engine 本身沒有寫入權。只有受控 Writer 服務可在輸出通過 Vali
 - 綠茶接受 Shadow Runtime 邊界。
 - 現行 `Docs/RUNTIME_AUTHORITY_MATRIX.md` 完成正式修訂。
 - E-121 建立獨立工程任務。
+
+小P 已完成 Architecture Review 並簽核 Runtime Governance v1。Gate 僅授權
+E-121 至 E-125 的 Shadow Runtime infrastructure；Production Runtime 仍未授權。

@@ -1,0 +1,386 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/runtime/north_star_decision.schema.json",
+  "title": "North Star Decision Shadow Candidate",
+  "description": "Infrastructure-only Decision contract with no Decision Logic, Strategy, Scoring, or Production authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "generated_at",
+    "as_of",
+    "runtime_mode",
+    "decision_state",
+    "direction_candidate",
+    "recommendation_candidate",
+    "window",
+    "reasons",
+    "confidence",
+    "risk_factors",
+    "invalidators",
+    "input_refs",
+    "validation",
+    "model_impact"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^NSD-[A-Za-z0-9-]+$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "runtime_mode": {
+      "const": "shadow_candidate"
+    },
+    "decision_state": {
+      "type": "string",
+      "enum": [
+        "insufficient_data",
+        "candidate",
+        "validated",
+        "rejected",
+        "archived"
+      ]
+    },
+    "direction_candidate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recommendation_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text",
+        "owner",
+        "production_authorized"
+      ],
+      "properties": {
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner": {
+          "const": "綠茶"
+        },
+        "production_authorized": {
+          "const": false
+        }
+      }
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start_at",
+        "end_at",
+        "label"
+      ],
+      "properties": {
+        "start_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "end_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "reason_id",
+          "claim",
+          "source_layer",
+          "source_refs",
+          "evidence_refs",
+          "counter_evidence_refs",
+          "limitations",
+          "status"
+        ],
+        "properties": {
+          "reason_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_layer": {
+            "type": "string",
+            "enum": [
+              "market_regime",
+              "capital_flow",
+              "repository",
+              "strategy",
+              "validation"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "counter_evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "candidate",
+              "validated",
+              "rejected"
+            ]
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "status",
+        "scale",
+        "methodology_ref",
+        "coverage",
+        "freshness",
+        "consistency",
+        "uncertainty",
+        "production_authorized"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "unavailable",
+            "candidate",
+            "validated"
+          ]
+        },
+        "scale": {
+          "const": "0_100"
+        },
+        "methodology_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "coverage": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "freshness": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "consistency": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "uncertainty": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "production_authorized": {
+          "const": false
+        }
+      }
+    },
+    "risk_factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "invalidators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "input_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market_regime_ref",
+        "capital_flow_ref",
+        "repository_snapshot_ref",
+        "opportunity_ref",
+        "strategy_candidate_ref",
+        "validation_report_ref"
+      ],
+      "properties": {
+        "market_regime_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "capital_flow_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "repository_snapshot_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "opportunity_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strategy_candidate_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "validation_report_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "errors",
+        "warnings",
+        "validated_at",
+        "validator_version"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "validated",
+            "rejected"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "validator_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "model_impact": {
+      "const": "shadow_candidate_not_production"
+    }
+  },
+  "x-runtime": {
+    "status": "schema_candidate",
+    "authority": "shadow_infrastructure_only",
+    "decision_logic": false,
+    "strategy_logic": false,
+    "repository_write": false,
+    "production_authorized": false
+  }
+}

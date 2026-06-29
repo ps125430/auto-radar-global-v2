@@ -75,13 +75,21 @@ Last Updated: 2026-06-29
 - 完成 A-116 至 A-120 Runtime Authority、Decision Schema、IO Contract、Write Policy、Validation 與 Rollback 文件。
 - E-121 維持 BLOCKED，等待 Architecture Review PASS 與 active Runtime Authority Matrix 更新。
 
+### 2026-06-29 — North Star Runtime Infrastructure
+
+- Runtime Governance v1 Architecture Review PASS，Runtime Gate OPEN。
+- 完成 E-121 Runtime Framework、Loader、Context、Session 與 Dispatcher。
+- 完成 E-122 無 Decision Logic 的 Decision Schema packaging。
+- 完成 E-123 Explain Chain、E-124 Suggest-only Learning Runtime 與 E-125 Patch Queue。
+- Production Runtime、Strategy、Scoring、Dashboard 修改與 N-001 至 N-010 仍未獲授權。
+
 ## Current Direction
 
 ```text
 Research (Frozen)
   -> Repository (Completed)
   -> Dashboard v1 (Completed)
-  -> Engine (Planned; Production blocked)
+  -> Shadow Runtime Infrastructure (Implemented; Production blocked)
   -> Automation
   -> Beta
   -> v1.0

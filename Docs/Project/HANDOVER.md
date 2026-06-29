@@ -30,54 +30,59 @@ Last Updated: 2026-06-29
 
 ## Current Phase
 
-Engineering Phase — Runtime Governance Gate
+Engineering Phase — North Star Runtime Infrastructure
 
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented
-- Engine: Runtime Governance implemented for review; Gate CLOSED
+- Engine: E-121 through E-125 implemented for review; Gate OPEN
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: A-120
-- Task: Runtime Governance v1
-- Owner: 小C / Documentation
-- Status: Implemented; awaiting 小P architecture acceptance
-- Impact: Documentation / Runtime Governance only
+- Task ID: E-125
+- Task: Repository Patch Queue
+- Owner: 小C / Engineering
+- Status: E-121 through E-125 implemented; awaiting 小P architecture review
+- Impact: Shadow Runtime infrastructure only
 
-## Completed in A-116 through A-120
+## Completed Runtime Milestone
 
 - Runtime Authority Matrix。
 - North Star Decision、Reason、Confidence Schema。
 - Runtime IO Contract 與 Layer boundary。
 - Repository Write Authority。
 - Validation、Rollback 與 E-121 Entry Gate。
+- E-121 Runtime Framework、Loader、Context、Session、Dispatcher。
+- E-122 Decision Schema packaging，沒有 Decision Logic。
+- E-123 Decision 至 Repository Explain Chain。
+- E-124 Lesson 與 Repository Patch suggestions，不直接寫入。
+- E-125 需要 Repository Manager 審核的 Patch Queue。
 
 ## Active Boundaries
 
-- 不修改 Runtime。
+- 不擴充未授權 Runtime。
 - 不修改 Pipeline。
 - 不修改 Dashboard。
 - 不修改 Strategy、Scoring 或 Production Rule。
 - Research Freeze 持續有效。
 - Dashboard 仍為唯讀。
-- Engine 與真實交易尚未獲授權。
+- Production Engine 與真實交易尚未獲授權。
 
 ## Validation Baseline
 
 - C-035 commit 已同步至 GitHub `main`。
-- 所有 Engine 目前仍為 Deny。
-- Engine 最多只能成為 Read／Suggest Candidate。
+- Runtime Governance v1 Architecture Review PASS，Gate OPEN。
+- E-121 至 E-125 僅為 Shadow infrastructure。
 - Learning 僅允許 Suggest，不得寫入 Repository。
-- E-121、N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 未修改任何 Runtime code、Pipeline、Scoring、Strategy 或 Production Rule。
+- N-001 至 N-010、Production Runtime 全部 BLOCKED。
+- 157 項自動測試通過。
+- 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 A-116 至 A-120。
-2. 若 PASS，正式更新 active Runtime Authority Matrix。
-3. 開啟 Runtime Governance Gate。
-4. 由 Architecture 派發 E-121。
+1. 小P驗收 E-121 至 E-125。
+2. 記錄 PASS 或修正要求。
+3. 未經另案授權，不得進入 N-series 或 Production Runtime。
 
 不得自行從 Roadmap 選擇工作開工。

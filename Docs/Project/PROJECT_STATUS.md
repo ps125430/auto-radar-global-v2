@@ -19,32 +19,32 @@ Last Updated: 2026-06-29
 
 ## Current Phase
 
-Engineering Phase — Runtime Governance Gate
+Engineering Phase — North Star Runtime Infrastructure
 
-Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 Runtime Governance 文件已完成並等待架構驗收；Shadow Runtime 與 Production Runtime 仍未獲授權。
+Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 已獲 Architecture Review PASS，Runtime Gate 已開啟。E-121 至 E-125 Shadow Runtime infrastructure 已完成實作並等待小P驗收；Production Runtime 仍未獲授權。
 
 ## Current Sprint
 
-Architecture Sprint 3 — Runtime Governance
+Engineering Sprint 4 — Runtime Infrastructure
 
 Sprint focus:
 
-- 建立 Runtime Authority Matrix。
-- 建立 North Star Decision Schema 與 Runtime IO Contract。
-- 建立 Repository Write Authority。
-- 建立 Validation、Rollback 與 E-121 Entry Gate。
+- 建立 Runtime Framework、Loader、Context、Session 與 Dispatcher。
+- 建立無決策邏輯的 Decision Runtime。
+- 建立 Explain Chain 與 Suggest-only Learning Runtime。
+- 建立 Repository Patch Queue 與人工審核邊界。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | A-120 |
-| Task | Runtime Governance v1 |
-| Owner | 小C / Documentation |
-| Status | Implemented; awaiting 小P architecture acceptance |
+| Task ID | E-125 |
+| Task | Repository Patch Queue |
+| Owner | 小C / Engineering |
+| Status | E-121 through E-125 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
-在 A-120 完成架構驗收前，不得自行切換 Current Task 或開始 E-121。
+E-121 至 E-125 已完成工程實作；Architecture Review 前不得擴充為 N-series 或 Production Runtime。
 
 ## Completed
 
@@ -64,22 +64,26 @@ Sprint focus:
 - North Star card system, Hero, Captain, Top3, Ocean Map, Market Story, Learning, Evolution, and Mission Control integration completed.
 - Architecture Decision confirmed the Runtime BLOCK and paused N-001 through N-010.
 - Runtime Governance documentation A-116 through A-120 implemented for review.
+- Runtime Governance v1 Architecture Review: PASS; Runtime Gate: OPEN.
+- E-121 Runtime Framework, Loader, Context, Session, and Dispatcher implemented.
+- E-122 Decision Runtime implemented as schema packaging without Decision Logic.
+- E-123 Explain Runtime implemented as a traceable reference chain.
+- E-124 Learning Runtime implemented as Lesson and Patch suggestions only.
+- E-125 Repository Patch Queue implemented with Repository Manager approval.
+- 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
 - 143 automated tests passing at the start of C-035.
 - GitHub `main` synchronized through the E-120 baseline commit `de7c69d`.
 
 ## In Progress
 
-- A-120 architecture acceptance by 小P.
-- Runtime Authority, IO, Validation, Rollback, and Repository Write review.
+- E-121 through E-125 architecture review by 小P.
 
-No Runtime implementation, Pipeline, Scoring, Strategy, or Production work is in progress.
+No Pipeline, Scoring, Strategy, Dashboard, trading, or Production work is in progress.
 
 ## Next Task
 
-E-121 — North Star Runtime.
-
-Status: BLOCKED until A-116 through A-120 receive Architecture Review PASS and the active Runtime Authority Matrix is formally updated.
+Not assigned. E-121 through E-125 must pass Architecture Review before any additional Runtime task.
 
 ## Overall Progress
 
@@ -90,7 +94,7 @@ Milestone method: 3 of 7 product stages are complete.
 | Research | Complete / Frozen |
 | Repository | Complete |
 | Dashboard | North Star v1 implemented; awaiting acceptance |
-| Engine | Runtime Governance implemented for review; Gate CLOSED |
+| Engine | Shadow Runtime infrastructure implemented; Gate OPEN; Production blocked |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |
@@ -106,7 +110,7 @@ This percentage measures completed product stages, not code volume or prediction
 - Production Runtime, Decision Engine activation, position sizing, capital allocation, and real trading remain blocked.
 - No unvalidated hypothesis may become a Production Rule.
 - Research is frozen unless Architecture Review explicitly authorizes an exception.
-- N-001 through N-010 and E-121 remain blocked.
+- N-001 through N-010 and Production Runtime remain blocked.
 
 ## Canonical References
 

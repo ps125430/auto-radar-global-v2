@@ -3,7 +3,7 @@
 文件代號：AR-REPOSITORY-WRITE-AUTHORITY-v1
 任務代號：A-119
 版本：1.0
-狀態：Architecture Review Pending
+狀態：Accepted
 層級：Runtime Governance
 負責人：小P／首席架構師
 模型影響：寫入政策候選，不授權自動知識更新

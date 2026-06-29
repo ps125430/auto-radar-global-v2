@@ -9,28 +9,24 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Current Owner | 小C / Documentation |
-| Current Task | A-120 — Runtime Governance v1 |
-| Status | Implemented; awaiting 小P architecture acceptance |
+| Current Owner | 小C / Engineering |
+| Current Task | E-125 — Repository Patch Queue |
+| Status | E-121 through E-125 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
 This is the only Current Task.
 
 ## Next Task
 
-E-121 — North Star Runtime.
+Not assigned.
 
 Next step:
 
-1. 小P reviews A-116 through A-120.
-2. If accepted, record Architecture Review PASS.
-3. Update the active Runtime Authority Matrix.
-4. Open the Runtime Governance Gate in `PROJECT_STATUS.md`.
-5. Issue E-121 as one bounded Shadow Runtime engineering task.
+1. 小P reviews E-121 through E-125.
+2. Record PASS or required corrections.
+3. Keep N-001 through N-010 and Production Runtime blocked until separately authorized.
 
-Current status: **BLOCKED**
-
-N-001 through N-010 also remain blocked.
+Current status: **WAITING FOR ARCHITECTURE REVIEW**
 
 ## Task Transition Rule
 

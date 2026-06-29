@@ -60,7 +60,7 @@ Next improvement candidates require separate approved tasks:
 
 ## Stage 4 — Engine
 
-Status: **Runtime Governance Implemented for Review / Gate Closed**
+Status: **Shadow Runtime Infrastructure Implemented / Gate Open**
 
 Potential scope:
 
@@ -70,8 +70,9 @@ Potential scope:
 
 Current gate:
 
-- A-116 through A-120 implemented for Architecture Review.
-- E-121 and N-001 through N-010 blocked.
+- A-116 through A-120 Architecture Review PASS.
+- E-121 through E-125 implemented for Architecture Review.
+- N-001 through N-010 and Production Runtime remain blocked.
 
 Entry gate:
 

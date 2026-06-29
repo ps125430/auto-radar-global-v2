@@ -7,6 +7,8 @@ This is a product-level changelog. It does not duplicate Git commit history.
 
 | Date | Feature | Impact Area | Owner |
 |---|---|---|---|
+| 2026-06-29 | North Star Runtime infrastructure added immutable loading, sessions, dispatch, Decision schema packaging, Explain chain, Learning suggestions, and a reviewed Patch Queue | Runtime Infrastructure / Shadow Candidate | 小C |
+| 2026-06-29 | Runtime Governance v1 passed Architecture Review and opened the bounded Shadow infrastructure gate | Architecture / Governance | 小P |
 | 2026-06-29 | Runtime Governance package established authority, decision schema, IO contracts, write policy, validation, and rollback gates | Architecture / Documentation | 小P / 小C |
 | 2026-06-29 | North Star Mission Control integrated four dashboard screens, unified cards, Ocean Map, Top3, learning, and evolution views | Dashboard / Presentation | 小C |
 | 2026-06-29 | Architecture Bible v1.0 consolidated the complete project architecture into one traceable handover | Architecture / Documentation | 小P / 小C |

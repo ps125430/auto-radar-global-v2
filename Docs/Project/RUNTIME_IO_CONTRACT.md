@@ -3,7 +3,7 @@
 文件代號：AR-RUNTIME-IO-CONTRACT-v1
 任務代號：A-118
 版本：1.0
-狀態：Architecture Review Pending
+狀態：Accepted
 層級：Runtime Contract
 負責人：小P／首席架構師
 模型影響：契約候選，不啟用 Engine

@@ -3,7 +3,7 @@
 文件代號：AR-RUNTIME-GOVERNANCE-v1
 任務代號：A-120
 版本：1.0
-狀態：Architecture Review Pending
+狀態：Accepted
 層級：Runtime Governance Gate
 負責人：小P／首席架構師
 維護人：小C／文件工程
@@ -14,7 +14,8 @@
 
 整合 A-116 至 A-119，建立 North Star Intelligence Phase 1 的 Runtime Boundary、Authority、IO Contract、Validation、Rollback 與 Repository Write Policy。
 
-本文件是 E-121 的前置 Gate，不是 E-121 的實作授權。
+本文件是 E-121 的前置 Gate。小P 已完成 Architecture Review 並授權
+E-121 至 E-125 的 Shadow Runtime infrastructure。
 
 ## Governing Documents
 
@@ -191,17 +192,17 @@ Engine 之間不得直接呼叫。Orchestrator 只傳遞契約，不修改 Engin
 
 只有滿足以下條件才能建立 E-121：
 
-- [ ] A-116 文件完成。
-- [ ] A-117 文件完成。
-- [ ] A-118 文件完成。
-- [ ] A-119 文件完成。
-- [ ] A-120 文件完成。
-- [ ] 五份文件引用一致。
-- [ ] 小P Architecture Review PASS。
-- [ ] 綠茶接受 Shadow-only 邊界。
-- [ ] 現行 `Docs/RUNTIME_AUTHORITY_MATRIX.md` 正式更新。
-- [ ] `Docs/Project/PROJECT_STATUS.md` 宣告 Runtime Governance Gate OPEN。
-- [ ] E-121 有單一 Objective、Files、Constraints、Acceptance 與 Rollback test。
+- [x] A-116 文件完成。
+- [x] A-117 文件完成。
+- [x] A-118 文件完成。
+- [x] A-119 文件完成。
+- [x] A-120 文件完成。
+- [x] 五份文件引用一致。
+- [x] 小P Architecture Review PASS。
+- [x] 綠茶接受 Shadow-only 邊界。
+- [x] 現行 Runtime Authority 狀態正式啟用於 Shadow infrastructure。
+- [x] `Docs/Project/PROJECT_STATUS.md` 宣告 Runtime Governance Gate OPEN。
+- [x] E-121 有單一 Objective、Files、Constraints、Acceptance 與 Rollback test。
 
 ## E-121 Allowed Scope Candidate
 
@@ -221,16 +222,16 @@ Engine 之間不得直接呼叫。Orchestrator 只傳遞契約，不修改 Engin
 
 ## Gate Decision
 
-目前 Gate：**CLOSED**
+目前 Gate：**OPEN**
 
 目前結論：
 
 ```text
-Runtime Governance Package: IMPLEMENTED FOR REVIEW
-Architecture Review: PENDING
-E-121: BLOCKED
+Runtime Governance Package: COMPLETE
+Architecture Review: PASS
+E-121 through E-125: IMPLEMENTED FOR REVIEW
 N-001 through N-010: BLOCKED
 Production Runtime: BLOCKED
 ```
 
-Next Owner：小P／Architecture Review
+Next Owner：小P／E-121 至 E-125 Architecture Review

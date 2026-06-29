@@ -16,6 +16,7 @@ Last Updated: 2026-06-29
 | DEC-009 | 2026-06-29 | `Docs/ARCHITECTURE_BIBLE.md` is the single complete architecture handover | New collaborators need one traceable overview without replacing the live project SSOT | 綠茶 / 小P | Accepted |
 | DEC-010 | 2026-06-29 | Dashboard adopts the North Star four-screen Mission Control hierarchy | Daily use must prioritize direction, opportunities, risk, flow, energy, and learning without inventing missing data | 綠茶 / 小P | Accepted |
 | DEC-011 | 2026-06-29 | Runtime BLOCK is confirmed; N-001 through N-010 pause until Runtime Governance PASS | Decision, Learning, Recommendation, Confidence, IO, Validation, and Rollback authority are not yet active | 小P | Accepted |
+| DEC-012 | 2026-06-29 | Runtime Governance v1 PASS and Gate OPEN authorize E-121 through E-125 Shadow infrastructure | Runtime authority, IO, validation, rollback, and Repository write boundaries are now explicit; Production Runtime remains blocked | 小P | Accepted |
 
 ## Decision Rule
 

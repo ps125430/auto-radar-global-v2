@@ -3,7 +3,7 @@
 文件代號：AR-NORTH-STAR-DECISION-SPEC-v1
 任務代號：A-117
 版本：1.0
-狀態：Architecture Review Pending
+狀態：Accepted
 層級：Runtime Contract
 負責人：小P／首席架構師
 模型影響：Schema only，不定義演算法、策略或正式評分

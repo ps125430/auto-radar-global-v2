@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Architecture Sprint 3 — Runtime Governance |
-| Current Owner | 小C / Documentation |
-| Current Module | Runtime Governance Gate |
-| Current Task | A-120 |
-| Progress | Implementation complete; awaiting Architecture acceptance |
+| Sprint | Engineering Sprint 4 — Runtime Infrastructure |
+| Current Owner | 小C / Engineering |
+| Current Module | North Star Runtime Infrastructure |
+| Current Task | E-125 |
+| Progress | E-121 through E-125 implementation complete; awaiting Architecture review |
 | Blocker | None |
-| ETA | No committed date; closes when 小P accepts A-116 through A-120 |
+| ETA | No committed date; closes when 小P reviews E-121 through E-125 |
 
 ## Recently Completed
 
@@ -28,17 +28,19 @@ Project status authority: `PROJECT_STATUS.md`
 - C-037: Architecture Bible v1.0; architecture acceptance PASS.
 - E-111 through E-120: North Star Dashboard engineering sequence.
 - A-116 through A-120: Runtime Governance documentation package.
+- E-121 through E-125: Runtime framework, Decision schema packaging, Explain chain, Learning suggestions, and Patch Queue.
 
 ## Current Implementation
 
-- A-120: Runtime Governance v1 implemented.
-- Remaining step: 小P architecture acceptance.
+- Runtime Governance v1: Architecture Review PASS; Gate OPEN.
+- E-121 through E-125: implemented.
+- Remaining step: 小P architecture review.
 
 ## Quality Status
 
 Validation baseline:
 
-- Automated tests: 144 passing.
+- Automated tests: 157 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
 - GitHub baseline before Runtime Governance: `de7c69d`.
@@ -46,8 +48,8 @@ Validation baseline:
 - Responsive layout: PASS at the mobile navigation breakpoint.
 - Explainability drawer: PASS.
 - Runtime, Pipeline, Scoring, and Strategy changes: none.
-- Runtime Governance Gate: CLOSED.
-- E-121 and N-001 through N-010: BLOCKED.
+- Runtime Governance Gate: OPEN for approved Shadow infrastructure.
+- N-001 through N-010 and Production Runtime: BLOCKED.
 
 ## Engineering Boundaries
 
@@ -62,4 +64,4 @@ Validation baseline:
 
 Not assigned.
 
-Engineering must not begin E-121 or any N-series Runtime task until A-120 PASS and Runtime Authority is formally updated.
+Engineering must not begin N-series or Production Runtime work until separately authorized.
