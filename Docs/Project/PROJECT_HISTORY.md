@@ -92,6 +92,15 @@ Last Updated: 2026-06-29
 - 完成 E-130 North Star Shadow Daily Brief。
 - 全部維持 Shadow Runtime only，不產生正式交易指令、不改 Strategy、不改 Scoring、不寫回 Repository。
 
+### 2026-06-30 — North Star Shadow Dashboard Binding
+
+- 完成 E-131 North Star Data Binding。
+- 完成 E-132 Dashboard Live Context，缺資料統一顯示 Shadow waiting message。
+- 完成 E-133 North Star Timeline。
+- 完成 E-134 Today's Direction Explain Data Binding。
+- 完成 E-135 Shadow Dashboard Mode。
+- Dashboard 顯示 Shadow Runtime 狀態，但仍為 Read Only、非 Production、非交易訊號。
+
 ## Current Direction
 
 ```text
@@ -99,7 +108,8 @@ Research (Frozen)
   -> Repository (Completed)
   -> Dashboard v1 (Completed)
   -> Shadow Runtime Infrastructure (Implemented)
-  -> Shadow Runtime Integration (Implemented; Production blocked)
+  -> Shadow Runtime Integration (Implemented)
+  -> Shadow Dashboard Binding (Implemented; Production blocked)
   -> Automation
   -> Beta
   -> v1.0

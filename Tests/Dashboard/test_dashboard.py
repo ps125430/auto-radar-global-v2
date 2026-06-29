@@ -140,6 +140,36 @@ class DashboardDataTests(unittest.TestCase):
             payload["capital_flow"]["message"],
         )
 
+    def test_shadow_runtime_projection_drives_daily_dashboard_fields(self) -> None:
+        payload = DashboardDataBuilder(
+            REPOSITORY_ROOT, generated_at=FIXED_TIME
+        ).build()
+        shadow = payload["shadow_runtime"]
+
+        self.assertEqual("shadow_dashboard_projection", shadow["status"])
+        self.assertEqual("Shadow Runtime", shadow["mode"]["label"])
+        self.assertEqual("Read Only", shadow["mode"]["repository"])
+        self.assertFalse(shadow["mode"]["production_authorized"])
+        self.assertTrue(shadow["today"]["direction"])
+        self.assertTrue(shadow["today"]["captain_mission"])
+        self.assertTrue(shadow["today"]["market_story"])
+        self.assertTrue(shadow["today"]["daily_brief"])
+        self.assertTrue(shadow["today"]["risk_summary"])
+        self.assertIn("yesterday", shadow["timeline"])
+        self.assertIn("today", shadow["timeline"])
+        self.assertIn("tomorrow", shadow["timeline"])
+        self.assertIn("nodes", shadow["explain"])
+
+    def test_dashboard_binding_uses_single_shadow_waiting_message(self) -> None:
+        payload = DashboardDataBuilder(
+            REPOSITORY_ROOT, generated_at=FIXED_TIME
+        ).build()
+
+        self.assertEqual(
+            "Waiting for today's shadow run...",
+            payload["shadow_runtime"]["waiting_message"],
+        )
+
     def test_write_creates_local_file_safe_javascript(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             output = Path(temporary_directory) / "dashboard-data.js"
@@ -210,6 +240,9 @@ class DashboardDataTests(unittest.TestCase):
             "資金流地圖",
             "每日戰術面板",
             "決策解釋",
+            "Shadow Runtime",
+            "North Star Timeline",
+            "Daily Brief",
         ):
             self.assertIn(section, html)
 
@@ -242,6 +275,9 @@ class DashboardDataTests(unittest.TestCase):
             "每日學習",
             "演化狀態",
             "檢討佇列",
+            "Shadow Runtime",
+            "North Star Timeline",
+            "Daily Brief",
         ):
             self.assertIn(module, html)
 
@@ -260,6 +296,9 @@ class DashboardDataTests(unittest.TestCase):
             self.assertIn(route_node, javascript)
 
         self.assertIn("概念航線 · 尚無已驗證資金流", javascript)
+        self.assertIn("shadow_runtime", javascript)
+        self.assertIn("direction-explain-button", html)
+        self.assertIn("renderShadowExplainContent", javascript)
         self.assertNotIn("AI Infrastructure", html + javascript)
         self.assertNotIn("91%", html + javascript)
         self.assertNotIn("gradient", css)
@@ -287,6 +326,8 @@ class DashboardDataTests(unittest.TestCase):
             "Confidence",
             "Window",
             "Not available",
+            "Awaiting Node",
+            "Placeholder",
         ):
             self.assertNotIn(phrase, visible_text)
 
@@ -297,6 +338,8 @@ class DashboardDataTests(unittest.TestCase):
             '"Unlinked"',
             '"Capital flow is unavailable."',
             '"Open explainability"',
+            '"Placeholder"',
+            '"Awaiting Node"',
         ):
             self.assertNotIn(literal, javascript)
 

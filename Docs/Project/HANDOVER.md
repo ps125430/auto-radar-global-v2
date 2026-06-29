@@ -30,21 +30,21 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — North Star Shadow Integration
+Engineering Phase — North Star Shadow Dashboard Binding
 
 - Research: Complete / Frozen
 - Repository: Complete
-- Dashboard: North Star v1 implemented
-- Engine: E-121 through E-125 implemented and pushed; E-126 through E-130 implemented for review; Gate OPEN
+- Dashboard: North Star v1 implemented with Shadow Runtime binding
+- Engine: E-121 through E-125 implemented and pushed; E-126 through E-130 implemented and pushed; E-131 through E-135 implemented for review; Gate OPEN
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-130
-- Task: North Star Shadow Daily Brief
+- Task ID: E-135
+- Task: Shadow Dashboard Mode
 - Owner: 小C / Engineering
-- Status: E-126 through E-130 implemented; awaiting 小P architecture review
-- Impact: Shadow Runtime integration only
+- Status: E-131 through E-135 implemented; awaiting 小P architecture review
+- Impact: Dashboard Shadow Runtime binding only
 
 ## Completed Runtime Milestone
 
@@ -63,6 +63,11 @@ Engineering Phase — North Star Shadow Integration
 - E-128 Shadow Review Pipeline 與 Lesson Draft。
 - E-129 Patch Suggestion Flow，不自動 Merge。
 - E-130 North Star Shadow Daily Brief。
+- E-131 North Star Data Binding。
+- E-132 Dashboard Live Context。
+- E-133 North Star Timeline。
+- E-134 Explain Data Binding。
+- E-135 Shadow Dashboard Mode。
 
 ## Active Boundaries
 
@@ -80,14 +85,15 @@ Engineering Phase — North Star Shadow Integration
 - Runtime Governance v1 Architecture Review PASS，Gate OPEN。
 - E-121 至 E-125 僅為 Shadow infrastructure。
 - E-126 至 E-130 僅為 Shadow integration。
+- E-131 至 E-135 僅為 Dashboard Shadow binding。
 - Learning 僅允許 Suggest，不得寫入 Repository。
 - N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 162 項自動測試通過。
+- 166 項自動測試通過。
 - 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-126 至 E-130。
+1. 小P驗收 E-131 至 E-135。
 2. 記錄 PASS 或修正要求。
 3. 未經另案授權，不得進入 N-series 或 Production Runtime。
 

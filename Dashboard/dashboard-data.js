@@ -1,6 +1,6 @@
 window.AUTO_RADAR_DASHBOARD_DATA = {
   "meta": {
-    "generated_at": "2026-06-29T01:24:06.913819+00:00",
+    "generated_at": "2026-06-29T17:17:30.618811+00:00",
     "mode": "知識庫唯讀",
     "repository_status": "通過",
     "validation_errors": 0,
@@ -163,5 +163,147 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "warnings": [
       "信心度知識庫尚未建立。"
     ]
+  },
+  "shadow_runtime": {
+    "contract_version": "1.0",
+    "status": "shadow_dashboard_projection",
+    "model_impact": "shadow_candidate_not_production",
+    "waiting_message": "Waiting for today's shadow run...",
+    "last_run": "2026-06-29T17:17:30.618811+00:00",
+    "mode": {
+      "label": "Shadow Runtime",
+      "status": "Healthy",
+      "schema": "PASS",
+      "repository": "Read Only",
+      "production_authorized": false
+    },
+    "today": {
+      "direction": "公司公告訊號",
+      "captain_mission": "以 Shadow 模式觀察 公司公告訊號。",
+      "market_story": "今日 Shadow 方向為 公司公告訊號；第一候選為 公司公告訊號，主要風險是 Shadow 輸出僅供觀察，行動前必須人工審查。。",
+      "daily_brief": "今日北極星：公司公告訊號。今日航向：以 Shadow 模式觀察 公司公告訊號。。今日 Top3：公司公告訊號, 總經事件時程, 人工新聞樣本。今日風險：Shadow 輸出僅供觀察，行動前必須人工審查。。",
+      "risk_summary": [
+        "Shadow 輸出僅供觀察，行動前必須人工審查。"
+      ],
+      "window": "Waiting for today's shadow run...",
+      "top3": [
+        "公司公告訊號",
+        "總經事件時程",
+        "人工新聞樣本"
+      ],
+      "forbidden_zone": [
+        "Shadow 輸出不得作為正式交易指令。"
+      ]
+    },
+    "timeline": {
+      "yesterday": "Waiting for previous shadow run...",
+      "today": "公司公告訊號",
+      "tomorrow": "Waiting for next shadow projection..."
+    },
+    "explain": {
+      "chain_id": "EXPLAIN-DASHBOARD-20260629",
+      "direction": "公司公告訊號",
+      "decision": "NSD-DASHBOARD-20260629",
+      "nodes": [
+        {
+          "node_id": "decision:NSD-DASHBOARD",
+          "layer": "decision",
+          "reference": "NSD-DASHBOARD-20260629",
+          "available": true
+        },
+        {
+          "node_id": "evidence:EV-101",
+          "layer": "evidence",
+          "reference": "EV-101",
+          "available": true
+        },
+        {
+          "node_id": "evidence:EV-103",
+          "layer": "evidence",
+          "reference": "EV-103",
+          "available": true
+        },
+        {
+          "node_id": "evidence:EV-102",
+          "layer": "evidence",
+          "reference": "EV-102",
+          "available": true
+        },
+        {
+          "node_id": "evidence:EV-104",
+          "layer": "evidence",
+          "reference": "EV-104",
+          "available": true
+        },
+        {
+          "node_id": "evidence:EV-105",
+          "layer": "evidence",
+          "reference": "EV-105",
+          "available": true
+        },
+        {
+          "node_id": "pattern:VC-101",
+          "layer": "pattern",
+          "reference": "VC-101",
+          "available": true
+        },
+        {
+          "node_id": "pattern:VC-103",
+          "layer": "pattern",
+          "reference": "VC-103",
+          "available": true
+        },
+        {
+          "node_id": "pattern:VC-102",
+          "layer": "pattern",
+          "reference": "VC-102",
+          "available": true
+        },
+        {
+          "node_id": "pattern:VC-104",
+          "layer": "pattern",
+          "reference": "VC-104",
+          "available": true
+        },
+        {
+          "node_id": "pattern:VC-105",
+          "layer": "pattern",
+          "reference": "VC-105",
+          "available": true
+        },
+        {
+          "node_id": "repository:dashboard-projection",
+          "layer": "repository",
+          "reference": "Dashboard/dashboard-data.js",
+          "available": true
+        }
+      ],
+      "edges": [],
+      "missing_refs": [],
+      "layers": {
+        "direction": [],
+        "decision": [
+          "NSD-DASHBOARD-20260629"
+        ],
+        "regime": [
+          "VC-101",
+          "VC-103",
+          "VC-102",
+          "VC-104",
+          "VC-105"
+        ],
+        "capital_flow": [],
+        "evidence": [
+          "EV-101",
+          "EV-103",
+          "EV-102",
+          "EV-104",
+          "EV-105"
+        ],
+        "repository": [
+          "Dashboard/dashboard-data.js"
+        ]
+      }
+    }
   }
 };

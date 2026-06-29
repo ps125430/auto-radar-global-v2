@@ -10,6 +10,11 @@ from .decision import (
     DecisionRuntimeError,
     NorthStarDecisionValidator,
 )
+from .dashboard_binding import (
+    DashboardBindingError,
+    WAITING_FOR_SHADOW_RUN,
+    build_shadow_dashboard_projection,
+)
 from .dispatcher import RuntimeDispatcher, RuntimeDispatchError
 from .explain import ExplainRuntime, ExplainRuntimeError
 from .framework import RuntimeExecution, RuntimeFramework, RuntimeFrameworkError
@@ -41,6 +46,7 @@ from .shadow import (
 __all__ = [
     "DecisionRuntime",
     "DecisionRuntimeError",
+    "DashboardBindingError",
     "DailyShadowDecisionRun",
     "ExplainRuntime",
     "ExplainRuntimeError",
@@ -72,4 +78,6 @@ __all__ = [
     "ShadowReviewPipeline",
     "ShadowRunResult",
     "ShadowRuntimeOrchestrator",
+    "WAITING_FOR_SHADOW_RUN",
+    "build_shadow_dashboard_projection",
 ]

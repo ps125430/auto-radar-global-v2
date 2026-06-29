@@ -4,9 +4,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
+
+from Runtime.NorthStar import build_shadow_dashboard_projection
 
 
 class DashboardDataError(RuntimeError):
@@ -110,6 +117,24 @@ class DashboardDataBuilder:
             if not value
         ]
 
+        shadow_output = self._build_shadow_output(
+            strategy_name=strategy_name,
+            window=window,
+            opportunities=opportunities[:3],
+            risks=expected_risks,
+            generated_at=self.generated_at,
+        )
+        explain_chain = self._build_explain_chain(
+            opportunities=opportunities[:3],
+            nodes=nodes,
+            generated_at=self.generated_at,
+        )
+        shadow_runtime = build_shadow_dashboard_projection(
+            shadow_output=shadow_output,
+            explain_chain=explain_chain,
+            generated_at=self.generated_at,
+        )
+
         return {
             "meta": {
                 "generated_at": self.generated_at.isoformat(),
@@ -206,6 +231,7 @@ class DashboardDataBuilder:
                     for warning in warnings
                 ],
             },
+            "shadow_runtime": shadow_runtime,
         }
 
     def write(self) -> dict[str, Any]:
@@ -368,6 +394,129 @@ class DashboardDataBuilder:
                 item["id"],
             ),
         )
+
+    def _build_shadow_output(
+        self,
+        *,
+        strategy_name: str | None,
+        window: str | None,
+        opportunities: list[dict[str, Any]],
+        risks: list[str],
+        generated_at: datetime,
+    ) -> dict[str, Any]:
+        direction = strategy_name or (
+            opportunities[0]["name"] if opportunities else None
+        )
+        top3 = [item["name"] for item in opportunities if item.get("name")]
+        fallback_risk = [
+            "Shadow 輸出僅供觀察，行動前必須人工審查。"
+        ]
+        return {
+            "contract_version": "1.0",
+            "shadow_run_id": f"SHADOW-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
+            "generated_at": generated_at.isoformat(),
+            "status": "shadow_output_only",
+            "north_star_direction": direction,
+            "captain_mission": (
+                f"以 Shadow 模式觀察 {direction}。"
+                if direction
+                else None
+            ),
+            "top3_candidate": top3,
+            "forbidden_zone": [
+                "Shadow 輸出不得作為正式交易指令。"
+            ],
+            "risk": risks or fallback_risk,
+            "window": window,
+            "decision_ref": f"NSD-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
+            "formal_decision": False,
+            "trading_signal": False,
+            "production_authorized": False,
+            "model_impact": "shadow_candidate_not_production",
+        }
+
+    def _build_explain_chain(
+        self,
+        *,
+        opportunities: list[dict[str, Any]],
+        nodes: list[dict[str, Any]],
+        generated_at: datetime,
+    ) -> dict[str, Any]:
+        evidence_refs = [
+            evidence_id
+            for item in opportunities
+            for evidence_id in item.get("evidence_ids", [])
+            if isinstance(evidence_id, str)
+        ]
+        case_refs = [
+            case_id
+            for item in opportunities
+            for case_id in item.get("source_cases", [])
+            if isinstance(case_id, str)
+        ]
+        graph_refs = [
+            str(node.get("id") or node.get("name"))
+            for node in nodes[:5]
+            if node.get("id") or node.get("name")
+        ]
+        layer_nodes = [
+            {
+                "node_id": "decision:NSD-DASHBOARD",
+                "layer": "decision",
+                "reference": f"NSD-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
+                "available": True,
+            },
+        ]
+        layer_nodes.extend(
+            {
+                "node_id": f"evidence:{reference}",
+                "layer": "evidence",
+                "reference": reference,
+                "available": True,
+            }
+            for reference in evidence_refs
+        )
+        layer_nodes.extend(
+            {
+                "node_id": f"pattern:{reference}",
+                "layer": "pattern",
+                "reference": reference,
+                "available": True,
+            }
+            for reference in case_refs
+        )
+        layer_nodes.extend(
+            {
+                "node_id": f"experience:{reference}",
+                "layer": "experience",
+                "reference": reference,
+                "available": True,
+            }
+            for reference in graph_refs
+        )
+        layer_nodes.append(
+            {
+                "node_id": "repository:dashboard-projection",
+                "layer": "repository",
+                "reference": "Dashboard/dashboard-data.js",
+                "available": True,
+            }
+        )
+        return {
+            "chain_id": f"EXPLAIN-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
+            "decision_ref": f"NSD-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
+            "layer_order": [
+                "decision",
+                "evidence",
+                "pattern",
+                "experience",
+                "repository",
+            ],
+            "nodes": layer_nodes,
+            "edges": [],
+            "missing_layers": [],
+            "missing_refs": [],
+        }
 
     def _load_json(self, relative_path: str, context: str) -> dict[str, Any]:
         path = self.repository_root / relative_path

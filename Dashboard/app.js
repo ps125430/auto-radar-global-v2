@@ -8,6 +8,11 @@
   const repository = data.repository || {};
   const tactical = data.tactical || {};
   const capitalFlow = data.capital_flow || {};
+  const shadowRuntime = data.shadow_runtime || {};
+  const shadowToday = shadowRuntime.today || {};
+  const shadowMode = shadowRuntime.mode || {};
+  const shadowTimeline = shadowRuntime.timeline || {};
+  const shadowExplain = shadowRuntime.explain || {};
   const opportunities = Array.isArray(data.opportunities)
     ? data.opportunities.slice(0, 3)
     : [];
@@ -73,23 +78,32 @@
     }).format(parsed);
   };
 
-  const missingEvidence = "等待核准資料";
-  const strategyName = strategy.name || "等待今日分析完成";
-  const strategyWindow = windowText(strategy.window);
+  const waitingShadow =
+    shadowRuntime.waiting_message || "Waiting for today's shadow run...";
+  const missingEvidence = waitingShadow;
+  const strategyName =
+    shadowToday.direction || strategy.name || waitingShadow;
+  const strategyWindow = windowText(shadowToday.window || strategy.window);
   const strategyWhy =
-    strategy.why_now || strategy.fallback || "等待今日分析完成";
-  const riskText = listText(tactical.risk, "等待風險分析");
+    shadowToday.market_story ||
+    strategy.why_now ||
+    strategy.fallback ||
+    waitingShadow;
+  const riskText = listText(
+    shadowToday.risk_summary || tactical.risk,
+    waitingShadow
+  );
   const opportunityEvidence = opportunities.flatMap((item) =>
     Array.isArray(item.evidence_ids) ? item.evidence_ids : []
   );
 
   function renderHeader() {
-    setText("snapshot-time", dateText(meta.generated_at));
-    setText("side-validation", meta.repository_status || "等待驗證");
+    setText("snapshot-time", dateText(shadowRuntime.last_run || meta.generated_at));
+    setText("side-validation", shadowMode.status || meta.repository_status || "Waiting");
   }
 
   function renderNorthStar() {
-    setText("north-status", strategy.status || "草稿");
+    setText("north-status", shadowMode.label || strategy.status || "Shadow Runtime");
     setText("north-name", strategyName);
     setText("north-confidence", confidenceText(strategy.confidence));
     setText("north-window", strategyWindow);
@@ -106,15 +120,19 @@
     setText("captain-risk", riskText);
     setText(
       "captain-trend",
-      strategy.name ? "依核准策略航行" : "等待策略核准"
+      shadowToday.captain_mission ? "Shadow Runtime 輸出" : waitingShadow
     );
-    setText("captain-why", strategyWhy);
+    setText("captain-why", shadowToday.captain_mission || strategyWhy);
     setText(
       "captain-evidence",
-      strategy.name ? "每日預測快照" : missingEvidence
+      shadowExplain.chain_id || missingEvidence
     );
 
-    const avoid = Array.isArray(tactical.avoid) ? tactical.avoid : [];
+    const avoid = Array.isArray(shadowToday.forbidden_zone)
+      ? shadowToday.forbidden_zone
+      : Array.isArray(tactical.avoid)
+        ? tactical.avoid
+        : [];
     setText("avoid-score", avoid.length ? `${avoid.length} 區` : "—");
     setText(
       "avoid-trend",
@@ -126,8 +144,17 @@
     );
     setText(
       "avoid-evidence",
-      avoid.length ? "每日戰術快照" : "風險資料待建立"
+      avoid.length ? "Shadow Runtime Risk Boundary" : waitingShadow
     );
+
+    setText("shadow-last-run", dateText(shadowRuntime.last_run));
+    setText("shadow-status", shadowMode.status || "Waiting");
+    setText("shadow-schema", shadowMode.schema || "WAITING");
+    setText("shadow-repository", shadowMode.repository || "Read Only");
+    setText("timeline-yesterday", shadowTimeline.yesterday || waitingShadow);
+    setText("timeline-today", shadowTimeline.today || waitingShadow);
+    setText("timeline-tomorrow", shadowTimeline.tomorrow || waitingShadow);
+    setText("daily-brief", shadowToday.daily_brief || waitingShadow);
   }
 
   function renderOpportunities() {
@@ -312,16 +339,15 @@
 
   function renderStory() {
     const story =
+      shadowToday.market_story ||
       regime.market_mood ||
       regime.dominant_narrative ||
       strategy.why_now ||
-      "等待今日市場敘事資料。";
+      waitingShadow;
     setText("market-story", story);
     setText(
       "story-evidence",
-      story === "等待今日市場敘事資料。"
-        ? "證據待建立"
-        : "來源：市場認知快照"
+      shadowExplain.chain_id || "Runtime Explain Chain"
     );
   }
 
@@ -469,6 +495,34 @@
     content.innerHTML = `<p>${escapeHtml(value || "等待資料建立。")}</p>`;
   }
 
+  function renderShadowExplainContent() {
+    const content = $("drawer-content");
+    if (!content) return;
+    const layers = shadowExplain.layers || {};
+    const rows = [
+      ["Direction", shadowExplain.direction || waitingShadow],
+      ["Decision", shadowExplain.decision || waitingShadow],
+      ["Regime", listText(layers.regime, waitingShadow)],
+      ["Capital Flow", listText(layers.capital_flow, waitingShadow)],
+      ["Evidence", listText(layers.evidence, waitingShadow)],
+      ["Repository", listText(layers.repository, waitingShadow)],
+    ];
+    content.innerHTML = `
+      <ol class="explain-chain-list">
+        ${rows
+          .map(
+            ([label, value]) => `
+              <li>
+                <span>${escapeHtml(label)}</span>
+                <strong>${escapeHtml(value)}</strong>
+              </li>
+            `
+          )
+          .join("")}
+      </ol>
+    `;
+  }
+
   function openDrawer(item) {
     activeOpportunity = item;
     activeTab = "why_score";
@@ -489,6 +543,24 @@
     $("drawer-close").focus();
   }
 
+  function openShadowExplain() {
+    activeOpportunity = null;
+    setText("drawer-title", "Today's Direction · Runtime Explain Chain");
+    setText("drawer-score", shadowMode.status || "Shadow");
+
+    document.querySelectorAll("[data-tab]").forEach((tab) => {
+      tab.classList.remove("active");
+      tab.setAttribute("aria-selected", "false");
+    });
+
+    renderShadowExplainContent();
+    $("drawer-backdrop").hidden = false;
+    $("explain-drawer").classList.add("open");
+    $("explain-drawer").setAttribute("aria-hidden", "false");
+    document.body.classList.add("drawer-open");
+    $("drawer-close").focus();
+  }
+
   function closeDrawer() {
     $("explain-drawer").classList.remove("open");
     $("explain-drawer").setAttribute("aria-hidden", "true");
@@ -498,6 +570,7 @@
 
   function bindEvents() {
     $("refresh-button")?.addEventListener("click", () => window.location.reload());
+    $("direction-explain-button")?.addEventListener("click", openShadowExplain);
     $("drawer-close")?.addEventListener("click", closeDrawer);
     $("drawer-backdrop")?.addEventListener("click", closeDrawer);
 

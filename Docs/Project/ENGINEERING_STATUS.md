@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 4 — Shadow Runtime Integration |
+| Sprint | Engineering Sprint 4 — Shadow Dashboard Binding |
 | Current Owner | 小C / Engineering |
-| Current Module | North Star Shadow Integration |
-| Current Task | E-130 |
-| Progress | E-126 through E-130 implementation complete; awaiting Architecture review |
+| Current Module | North Star Shadow Dashboard Binding |
+| Current Task | E-135 |
+| Progress | E-131 through E-135 implementation complete; awaiting Architecture review |
 | Blocker | None |
-| ETA | No committed date; closes when 小P reviews E-126 through E-130 |
+| ETA | No committed date; closes when 小P reviews E-131 through E-135 |
 
 ## Recently Completed
 
@@ -30,28 +30,31 @@ Project status authority: `PROJECT_STATUS.md`
 - A-116 through A-120: Runtime Governance documentation package.
 - E-121 through E-125: Runtime framework, Decision schema packaging, Explain chain, Learning suggestions, and Patch Queue.
 - E-126 through E-130: Shadow Orchestrator, Daily Shadow Run, Review Pipeline, Patch Suggestion Flow, and Shadow Daily Brief.
+- E-131 through E-135: Dashboard Shadow Runtime binding, Live Context, Timeline, Explain Binding, and Shadow Mode.
 
 ## Current Implementation
 
 - Runtime Governance v1: Architecture Review PASS; Gate OPEN.
 - E-121 through E-125: implemented.
 - E-126 through E-130: implemented.
+- E-131 through E-135: implemented.
 - Remaining step: 小P architecture review.
 
 ## Quality Status
 
 Validation baseline:
 
-- Automated tests: 162 passing.
+- Automated tests: 166 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
 - GitHub baseline before Runtime Governance: `de7c69d`.
 - Desktop layout: PASS with no horizontal overflow.
 - Responsive layout: PASS at the mobile navigation breakpoint.
 - Explainability drawer: PASS.
-- Runtime, Pipeline, Scoring, and Strategy changes: none.
+- Runtime, Pipeline, Scoring, and Strategy changes: none beyond read-only Shadow Dashboard binding.
 - Runtime Governance Gate: OPEN for approved Shadow infrastructure.
 - Shadow Integration: implemented for Architecture Review.
+- Shadow Dashboard Binding: implemented for Architecture Review.
 - N-001 through N-010 and Production Runtime: BLOCKED.
 
 ## Engineering Boundaries

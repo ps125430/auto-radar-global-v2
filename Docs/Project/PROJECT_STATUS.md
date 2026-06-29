@@ -19,33 +19,33 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — North Star Shadow Integration
+Engineering Phase — North Star Shadow Dashboard Binding
 
-Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 已獲 Architecture Review PASS，Runtime Gate 已開啟。E-121 至 E-125 Shadow Runtime infrastructure 已完成並推送 GitHub。E-126 至 E-130 Shadow Runtime Integration 已完成工程實作並等待小P驗收；Production Runtime 仍未獲授權。
+Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 已獲 Architecture Review PASS，Runtime Gate 已開啟。E-121 至 E-125 Shadow Runtime infrastructure 已完成並推送 GitHub。E-126 至 E-130 Shadow Runtime Integration 已完成並推送 GitHub。E-131 至 E-135 Dashboard Shadow Binding 已完成工程實作並等待小P驗收；Production Runtime 仍未獲授權。
 
 ## Current Sprint
 
-Engineering Sprint 4 — Shadow Runtime Integration
+Engineering Sprint 4 — Shadow Dashboard Binding
 
 Sprint focus:
 
-- 串接 Runtime Context、Session、Decision Runtime、Explain Runtime、Learning Runtime 與 Patch Queue。
-- 建立 Daily Shadow Decision Run。
-- 建立 Shadow Review Pipeline 與 Lesson Draft。
-- 建立 Patch Suggestion Flow，不自動 Merge。
-- 建立 North Star Shadow Daily Brief。
+- 將 Shadow Runtime projection 綁定 Dashboard。
+- 建立 Dashboard Live Context 與統一等待訊息。
+- 建立 North Star Timeline。
+- 建立 Today's Direction Runtime Explain Chain。
+- 建立 Shadow Dashboard Mode 狀態卡。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-130 |
-| Task | North Star Shadow Daily Brief |
+| Task ID | E-135 |
+| Task | Shadow Dashboard Mode |
 | Owner | 小C / Engineering |
-| Status | E-126 through E-130 implemented; awaiting 小P architecture review |
+| Status | E-131 through E-135 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
-E-126 至 E-130 已完成工程實作；Architecture Review 前不得擴充為 N-series 或 Production Runtime。
+E-131 至 E-135 已完成工程實作；Architecture Review 前不得擴充為 N-series 或 Production Runtime。
 
 ## Completed
 
@@ -76,6 +76,12 @@ E-126 至 E-130 已完成工程實作；Architecture Review 前不得擴充為 N
 - E-128 Shadow Review Pipeline implemented with Lesson Draft only.
 - E-129 Patch Suggestion Flow implemented; Merge requires manual review.
 - E-130 North Star Shadow Daily Brief implemented as Shadow output only.
+- E-131 North Star Data Binding implemented for Dashboard Shadow fields.
+- E-132 Dashboard Live Context implemented with one waiting message.
+- E-133 North Star Timeline implemented.
+- E-134 Explain Data Binding implemented for Today's Direction.
+- E-135 Shadow Dashboard Mode implemented.
+- 166 automated tests passing after E-131 through E-135.
 - 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
@@ -84,13 +90,13 @@ E-126 至 E-130 已完成工程實作；Architecture Review 前不得擴充為 N
 
 ## In Progress
 
-- E-126 through E-130 architecture review by 小P.
+- E-131 through E-135 architecture review by 小P.
 
-No Pipeline, Scoring, Strategy, Dashboard, trading, or Production work is in progress.
+No Pipeline, Scoring, Strategy, trading, or Production work is in progress.
 
 ## Next Task
 
-Not assigned. E-126 through E-130 must pass Architecture Review before any additional Runtime task.
+Not assigned. E-131 through E-135 must pass Architecture Review before any additional Runtime or Dashboard task.
 
 ## Overall Progress
 
@@ -100,8 +106,8 @@ Milestone method: 3 of 7 product stages are complete.
 |---|---|
 | Research | Complete / Frozen |
 | Repository | Complete |
-| Dashboard | North Star v1 implemented; awaiting acceptance |
-| Engine | Shadow Runtime infrastructure and integration implemented; Gate OPEN; Production blocked |
+| Dashboard | North Star v1 with Shadow Runtime binding implemented; awaiting acceptance |
+| Engine | Shadow Runtime infrastructure, integration, and dashboard projection implemented; Gate OPEN; Production blocked |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |

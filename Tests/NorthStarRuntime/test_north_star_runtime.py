@@ -10,6 +10,7 @@ from pathlib import Path
 from Runtime.NorthStar import (
     DecisionRuntime,
     DecisionRuntimeError,
+    DashboardBindingError,
     ExplainRuntime,
     LearningRuntime,
     MergeAuthorization,
@@ -29,6 +30,7 @@ from Runtime.NorthStar import (
     SessionStatus,
     ShadowIntegrationError,
     ShadowRuntimeOrchestrator,
+    build_shadow_dashboard_projection,
 )
 
 
@@ -538,6 +540,59 @@ class NorthStarRuntimeTests(unittest.TestCase):
                     },
                     explain_refs={},
                 )
+
+    def test_shadow_dashboard_binding_rejects_production_output(self) -> None:
+        with self.assertRaises(DashboardBindingError):
+            build_shadow_dashboard_projection(
+                shadow_output={
+                    "production_authorized": True,
+                    "trading_signal": False,
+                },
+                explain_chain={},
+            )
+
+        with self.assertRaises(DashboardBindingError):
+            build_shadow_dashboard_projection(
+                shadow_output={
+                    "production_authorized": False,
+                    "trading_signal": True,
+                },
+                explain_chain={},
+            )
+
+    def test_shadow_dashboard_binding_maps_explain_layers(self) -> None:
+        projection = build_shadow_dashboard_projection(
+            shadow_output={
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "north_star_direction": "Shadow direction",
+                "captain_mission": "Shadow mission",
+                "top3_candidate": ["Cooling"],
+                "risk": ["Manual review"],
+                "window": "shadow_only",
+                "decision_ref": "NSD-001",
+                "production_authorized": False,
+                "trading_signal": False,
+            },
+            explain_chain={
+                "chain_id": "EXPLAIN-001",
+                "nodes": [
+                    {"layer": "decision", "reference": "NSD-001"},
+                    {"layer": "evidence", "reference": "EV-001"},
+                    {"layer": "pattern", "reference": "PAT-001"},
+                    {"layer": "experience", "reference": "EXP-001"},
+                    {"layer": "repository", "reference": "Knowledge/"},
+                ],
+                "edges": [],
+                "missing_refs": [],
+            },
+        )
+
+        self.assertEqual("Shadow Runtime", projection["mode"]["label"])
+        self.assertEqual("Shadow direction", projection["today"]["direction"])
+        self.assertEqual(["EV-001"], projection["explain"]["layers"]["evidence"])
+        self.assertEqual(
+            ["Knowledge/"], projection["explain"]["layers"]["repository"]
+        )
 
 
 if __name__ == "__main__":

@@ -460,6 +460,94 @@ main {
   min-height: 286px;
 }
 
+.shadow-mode-card,
+.timeline-card,
+.daily-brief-card {
+  grid-column: span 4;
+}
+
+.daily-brief-card {
+  grid-column: span 8;
+}
+
+.hero-explain-button {
+  align-self: flex-start;
+  margin: -4px 0 12px;
+}
+
+.link-button {
+  min-height: 30px;
+  padding: 0;
+  color: #d8fff0;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 760;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.shadow-mode-list {
+  display: grid;
+  gap: 9px;
+  margin: 14px 0 0;
+}
+
+.shadow-mode-list div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.shadow-mode-list dt,
+.timeline-track span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.shadow-mode-list dd {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.timeline-track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.timeline-track div {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  background: var(--green-soft);
+  border: 1px solid #c5e1d7;
+  border-radius: 6px;
+}
+
+.timeline-track strong {
+  min-height: 40px;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.daily-brief-card p {
+  margin: 14px 0 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
 .header-icon {
   width: 20px;
   height: 20px;
@@ -1209,6 +1297,34 @@ main {
   padding-left: 18px;
 }
 
+.explain-chain-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.explain-chain-list li {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  background: var(--green-soft);
+  border: 1px solid #c5e1d7;
+  border-radius: 6px;
+}
+
+.explain-chain-list span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.explain-chain-list strong {
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
 .drawer-source {
   display: flex;
   align-items: center;
@@ -1291,6 +1407,12 @@ body.drawer-open {
 
   .captain-card {
     grid-column: span 4;
+  }
+
+  .shadow-mode-card,
+  .timeline-card,
+  .daily-brief-card {
+    grid-column: span 12;
   }
 
   .opportunity-panel {
@@ -1404,8 +1526,15 @@ body.drawer-open {
   .hero-card,
   .captain-card,
   .opportunity-panel,
-  .no-sail-card {
+  .no-sail-card,
+  .shadow-mode-card,
+  .timeline-card,
+  .daily-brief-card {
     grid-column: auto;
+  }
+
+  .timeline-track {
+    grid-template-columns: 1fr;
   }
 
   .hero-card {

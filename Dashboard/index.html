@@ -85,6 +85,9 @@
                   <span class="status-chip" id="north-status">—</span>
                 </div>
                 <strong class="hero-name" id="north-name">—</strong>
+                <button class="link-button hero-explain-button" id="direction-explain-button" type="button">
+                  展開 Runtime Explain Chain
+                </button>
                 <div class="hero-metrics">
                   <div>
                     <span>信心度</span>
@@ -133,6 +136,37 @@
               </div>
             </article>
 
+            <article class="system-card shadow-mode-card" aria-labelledby="shadow-mode-title">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow">Shadow Dashboard Mode</p>
+                  <h3 id="shadow-mode-title">🟣 Shadow Runtime</h3>
+                </div>
+                <i class="header-icon" data-lucide="radar"></i>
+              </div>
+              <dl class="shadow-mode-list">
+                <div><dt>Last Run</dt><dd id="shadow-last-run">Waiting for today's shadow run...</dd></div>
+                <div><dt>Status</dt><dd id="shadow-status">Waiting</dd></div>
+                <div><dt>Schema</dt><dd id="shadow-schema">WAITING</dd></div>
+                <div><dt>Repository</dt><dd id="shadow-repository">Read Only</dd></div>
+              </dl>
+            </article>
+
+            <article class="system-card timeline-card" aria-labelledby="timeline-title">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow">North Star Timeline</p>
+                  <h3 id="timeline-title">昨天 → 今天 → 預估明天</h3>
+                </div>
+                <i class="header-icon" data-lucide="timeline"></i>
+              </div>
+              <div class="timeline-track">
+                <div><span>昨天</span><strong id="timeline-yesterday">Waiting for today's shadow run...</strong></div>
+                <div><span>今天</span><strong id="timeline-today">Waiting for today's shadow run...</strong></div>
+                <div><span>預估明天</span><strong id="timeline-tomorrow">Waiting for today's shadow run...</strong></div>
+              </div>
+            </article>
+
             <section class="opportunity-panel" id="opportunities" aria-labelledby="opportunity-title">
               <div class="section-row">
                 <div>
@@ -162,6 +196,17 @@
                 <i data-lucide="shield-alert"></i>
                 <span id="avoid-evidence">風險資料待建立</span>
               </div>
+            </article>
+
+            <article class="system-card daily-brief-card" aria-labelledby="daily-brief-title">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow">Daily Brief</p>
+                  <h3 id="daily-brief-title">📖 Daily Brief</h3>
+                </div>
+                <i class="header-icon" data-lucide="file-text"></i>
+              </div>
+              <p id="daily-brief">Waiting for today's shadow run...</p>
             </article>
           </div>
         </section>
@@ -369,8 +414,8 @@
     </div>
   </aside>
 
-  <script src="dashboard-data.js?v=e120"></script>
+  <script src="dashboard-data.js?v=e131"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-  <script src="app.js?v=e120"></script>
+  <script src="app.js?v=e131"></script>
 </body>
 </html>

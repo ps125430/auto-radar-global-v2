@@ -38,7 +38,7 @@ Boundary:
 
 ## Stage 3 — Dashboard
 
-Status: **North Star v1 Implemented / Awaiting Acceptance**
+Status: **North Star v1 Implemented with Shadow Runtime Binding / Awaiting Acceptance**
 
 Delivered:
 
@@ -50,6 +50,7 @@ Delivered:
 - Market Story and explainability drawer.
 - Responsive desktop and mobile layout.
 - Full Traditional Chinese user interface.
+- Shadow Runtime projection bound to North Star, Captain, Story, Timeline, Risk, Daily Brief, and Explain Chain.
 
 Next improvement candidates require separate approved tasks:
 
@@ -60,7 +61,7 @@ Next improvement candidates require separate approved tasks:
 
 ## Stage 4 — Engine
 
-Status: **Shadow Runtime Integration Implemented / Gate Open**
+Status: **Shadow Runtime Integration and Dashboard Binding Implemented / Gate Open**
 
 Potential scope:
 
@@ -72,7 +73,8 @@ Current gate:
 
 - A-116 through A-120 Architecture Review PASS.
 - E-121 through E-125 implemented and pushed to GitHub.
-- E-126 through E-130 implemented for Architecture Review.
+- E-126 through E-130 implemented and pushed to GitHub.
+- E-131 through E-135 implemented for Architecture Review.
 - N-001 through N-010 and Production Runtime remain blocked.
 
 Entry gate:
