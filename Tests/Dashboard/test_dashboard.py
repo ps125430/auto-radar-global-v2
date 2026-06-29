@@ -5,6 +5,7 @@ import shutil
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 
 from Scripts.Dashboard.build_dashboard_data import (
@@ -39,6 +40,24 @@ SOURCE_PATHS = (
 )
 
 
+class VisibleTextParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.values: list[str] = []
+
+    def handle_data(self, data: str) -> None:
+        value = " ".join(data.split())
+        if value:
+            self.values.append(value)
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        for name, value in attrs:
+            if name in {"aria-label", "title"} and value:
+                self.values.append(value)
+
+
 def create_repository(root: Path) -> None:
     for relative in SOURCE_PATHS:
         source = REPOSITORY_ROOT / relative
@@ -53,7 +72,7 @@ class DashboardDataTests(unittest.TestCase):
             REPOSITORY_ROOT, generated_at=FIXED_TIME
         ).build()
 
-        self.assertEqual("PASS", payload["meta"]["repository_status"])
+        self.assertEqual("通過", payload["meta"]["repository_status"])
         self.assertEqual(3, payload["repository"]["pattern_candidates"])
         self.assertEqual(5, payload["repository"]["verified_cases"])
         self.assertEqual(5, payload["repository"]["evidence_records"])
@@ -81,7 +100,7 @@ class DashboardDataTests(unittest.TestCase):
         )
         self.assertTrue(
             all(
-                "Similarity is intentionally not reused"
+                "不會以相似度替代"
                 in item["explainability"]["why_score"]
                 for item in payload["opportunities"]
             )
@@ -95,8 +114,8 @@ class DashboardDataTests(unittest.TestCase):
         self.assertIsNone(payload["strategy"]["name"])
         self.assertIsNone(payload["strategy"]["confidence"])
         self.assertIsNone(payload["regime"]["macro"])
-        self.assertIn("Daily strategy", payload["meta"]["data_gaps"])
-        self.assertIn("Macro regime", payload["meta"]["data_gaps"])
+        self.assertIn("今日策略", payload["meta"]["data_gaps"])
+        self.assertIn("總經環境", payload["meta"]["data_gaps"])
 
     def test_pattern_case_evidence_traceability_is_projected(self) -> None:
         payload = DashboardDataBuilder(
@@ -113,11 +132,11 @@ class DashboardDataTests(unittest.TestCase):
         ).build()
 
         self.assertEqual(
-            "not_available", payload["capital_flow"]["status"]
+            "尚無資料", payload["capital_flow"]["status"]
         )
         self.assertEqual([], payload["capital_flow"]["nodes"])
         self.assertIn(
-            "No validated capital-flow",
+            "目前尚無已驗證資金流資料",
             payload["capital_flow"]["message"],
         )
 
@@ -162,7 +181,7 @@ class DashboardDataTests(unittest.TestCase):
                     {
                         "status": "draft",
                         "prediction_probability": None,
-                        "expected_scenario": "Latest approved text",
+                        "expected_scenario": "最新核准文字",
                         "prediction_window": "",
                         "expected_risk": [],
                         "notes": "",
@@ -176,7 +195,7 @@ class DashboardDataTests(unittest.TestCase):
             ).build()
 
             self.assertEqual(
-                "Latest approved text", payload["strategy"]["name"]
+                "最新核准文字", payload["strategy"]["name"]
             )
 
     def test_static_dashboard_contains_required_modules(self) -> None:
@@ -185,14 +204,50 @@ class DashboardDataTests(unittest.TestCase):
         )
 
         for section in (
-            "Today's Meta Strategy",
-            "Market Regime",
-            "Top Opportunity Ranking",
-            "Capital Flow Map",
-            "Daily Tactical Panel",
-            "Explainability",
+            "今日核心策略",
+            "市場狀態",
+            "今日前三大機會",
+            "資金流地圖",
+            "每日戰術面板",
+            "決策解釋",
         ):
             self.assertIn(section, html)
+
+    def test_visible_interface_contains_no_prohibited_english(self) -> None:
+        html = (REPOSITORY_ROOT / "Dashboard/index.html").read_text(
+            encoding="utf-8"
+        )
+        javascript = (REPOSITORY_ROOT / "Dashboard/app.js").read_text(
+            encoding="utf-8"
+        )
+        parser = VisibleTextParser()
+        parser.feed(html)
+        visible_text = " ".join(parser.values)
+
+        for phrase in (
+            "Daily Command",
+            "Overview",
+            "Opportunities",
+            "Capital Flow",
+            "Repository Health",
+            "Market Regime",
+            "Opportunity Ranking",
+            "Strategy Posture",
+            "Confidence",
+            "Window",
+            "Not available",
+        ):
+            self.assertNotIn(phrase, visible_text)
+
+        for literal in (
+            '"Not available"',
+            '"Not scored"',
+            '"Awaiting validated node"',
+            '"Unlinked"',
+            '"Capital flow is unavailable."',
+            '"Open explainability"',
+        ):
+            self.assertNotIn(literal, javascript)
 
     def test_frontend_contains_responsive_and_explainability_contracts(
         self,

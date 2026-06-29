@@ -4,43 +4,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Auto Radar · Daily Command</title>
+  <title>Auto Radar · 每日作戰中心</title>
   <link rel="preconnect" href="https://unpkg.com">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=e101-r1">
 </head>
 <body>
   <div class="app-shell">
-    <aside class="sidebar" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Auto Radar home">
+    <aside class="sidebar" aria-label="主要導覽">
+      <a class="brand" href="#top" aria-label="Auto Radar 首頁">
         <span class="brand-mark" aria-hidden="true">
           <span></span><span></span><span></span>
         </span>
         <span class="brand-copy">
           <strong>AUTO RADAR</strong>
-          <small>DAILY COMMAND</small>
+          <small>每日作戰中心</small>
         </span>
       </a>
 
       <nav class="nav-list">
         <a class="nav-item active" href="#top">
-          <i data-lucide="layout-dashboard"></i><span>Overview</span>
+          <i data-lucide="layout-dashboard"></i><span>總覽</span>
         </a>
         <a class="nav-item" href="#opportunities">
-          <i data-lucide="list-ordered"></i><span>Opportunities</span>
+          <i data-lucide="list-ordered"></i><span>今日機會</span>
         </a>
         <a class="nav-item" href="#capital-flow">
-          <i data-lucide="git-branch"></i><span>Capital Flow</span>
+          <i data-lucide="git-branch"></i><span>資金流</span>
         </a>
         <a class="nav-item" href="#repository">
-          <i data-lucide="database"></i><span>Repository</span>
+          <i data-lucide="database"></i><span>知識庫</span>
         </a>
       </nav>
 
       <div class="sidebar-foot">
         <span class="live-dot" aria-hidden="true"></span>
         <div>
-          <strong id="side-validation">Checking</strong>
-          <small>Repository validation</small>
+          <strong id="side-validation">檢查中</strong>
+          <small>知識庫驗證</small>
         </div>
       </div>
     </aside>
@@ -48,15 +48,15 @@
     <div class="workspace">
       <header class="topbar" id="top">
         <div>
-          <p class="eyebrow">Auto Radar Global v2</p>
-          <h1>Daily Command</h1>
+          <p class="eyebrow">Auto Radar 全球版 v2</p>
+          <h1>每日作戰中心</h1>
         </div>
         <div class="topbar-actions">
           <div class="as-of">
-            <span>Repository snapshot</span>
+            <span>知識庫快照</span>
             <strong id="snapshot-time">—</strong>
           </div>
-          <button class="icon-button" id="refresh-button" type="button" title="Refresh view" aria-label="Refresh view">
+          <button class="icon-button" id="refresh-button" type="button" title="重新整理畫面" aria-label="重新整理畫面">
             <i data-lucide="refresh-cw"></i>
           </button>
         </div>
@@ -65,28 +65,28 @@
       <main>
         <section class="tactical-band" aria-labelledby="tactical-title">
           <div class="tactical-head">
-            <p class="eyebrow light">Daily Tactical Panel</p>
-            <h2 id="tactical-title">Today at a glance</h2>
+            <p class="eyebrow light">每日戰術面板</p>
+            <h2 id="tactical-title">今日戰術總覽</h2>
           </div>
           <div class="tactical-grid">
             <div class="tactical-item">
-              <span>Strategy</span>
+              <span>今日策略</span>
               <strong id="tactical-strategy">—</strong>
             </div>
             <div class="tactical-item">
-              <span>Window</span>
+              <span>預估有效天數</span>
               <strong id="tactical-window">—</strong>
             </div>
             <div class="tactical-item">
-              <span>Risk</span>
+              <span>風險</span>
               <strong id="tactical-risk">—</strong>
             </div>
             <div class="tactical-item">
-              <span>Watch</span>
+              <span>持續觀察</span>
               <strong id="tactical-watch">—</strong>
             </div>
             <div class="tactical-item avoid">
-              <span>Avoid</span>
+              <span>避免布局</span>
               <strong id="tactical-avoid">—</strong>
             </div>
           </div>
@@ -96,24 +96,24 @@
           <section class="panel strategy-panel" aria-labelledby="strategy-title">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Today's Meta Strategy</p>
-                <h2 id="strategy-title">Strategy posture</h2>
+                <p class="eyebrow">今日核心策略</p>
+                <h2 id="strategy-title">今日策略</h2>
               </div>
               <span class="status-chip" id="strategy-status">—</span>
             </div>
             <div class="strategy-name" id="strategy-name">—</div>
             <div class="metric-pair">
               <div>
-                <span>Confidence</span>
+                <span>信心度</span>
                 <strong id="strategy-confidence">—</strong>
               </div>
               <div>
-                <span>Window</span>
+                <span>預估有效天數</span>
                 <strong id="strategy-window">—</strong>
               </div>
             </div>
             <div class="context-block">
-              <span>Why now</span>
+              <span>今日發動原因</span>
               <p id="strategy-why">—</p>
             </div>
           </section>
@@ -121,23 +121,23 @@
           <section class="panel regime-panel" aria-labelledby="regime-title">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Market Regime</p>
-                <h2 id="regime-title">Three-layer state</h2>
+                <p class="eyebrow">市場狀態</p>
+                <h2 id="regime-title">三層市場狀態</h2>
               </div>
               <span class="status-chip neutral" id="regime-status">—</span>
             </div>
             <div class="regime-list">
               <div class="regime-row">
                 <span class="regime-icon macro"><i data-lucide="globe-2"></i></span>
-                <div><span>Macro Regime</span><strong id="regime-macro">—</strong></div>
+                <div><span>總經環境</span><strong id="regime-macro">—</strong></div>
               </div>
               <div class="regime-row">
                 <span class="regime-icon sector"><i data-lucide="layers-3"></i></span>
-                <div><span>Sector Regime</span><strong id="regime-sector">—</strong></div>
+                <div><span>產業狀態</span><strong id="regime-sector">—</strong></div>
               </div>
               <div class="regime-row">
                 <span class="regime-icon micro"><i data-lucide="scan-line"></i></span>
-                <div><span>Micro Regime</span><strong id="regime-micro">—</strong></div>
+                <div><span>市場情緒</span><strong id="regime-micro">—</strong></div>
               </div>
             </div>
           </section>
@@ -145,20 +145,20 @@
           <section class="panel health-panel" id="repository" aria-labelledby="health-title">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Repository</p>
-                <h2 id="health-title">Knowledge health</h2>
+                <p class="eyebrow">知識庫</p>
+                <h2 id="health-title">知識庫健康度</h2>
               </div>
               <span class="health-badge" id="health-badge">—</span>
             </div>
             <div class="health-stats">
-              <div><strong id="count-patterns">0</strong><span>Patterns</span></div>
-              <div><strong id="count-cases">0</strong><span>Cases</span></div>
-              <div><strong id="count-evidence">0</strong><span>Evidence</span></div>
+              <div><strong id="count-patterns">0</strong><span>模式候選</span></div>
+              <div><strong id="count-cases">0</strong><span>驗證案例</span></div>
+              <div><strong id="count-evidence">0</strong><span>證據</span></div>
             </div>
             <div class="gap-summary">
               <div class="gap-head">
-                <span>Input readiness</span>
-                <strong id="gap-count">0 gaps</strong>
+                <span>建置完成度</span>
+                <strong id="gap-count">0 項缺口</strong>
               </div>
               <div class="readiness-track"><span id="readiness-bar"></span></div>
               <p id="gap-note">—</p>
@@ -170,10 +170,10 @@
           <section class="panel opportunity-panel" id="opportunities" aria-labelledby="opportunity-title">
             <div class="panel-heading">
               <div>
-                <p class="eyebrow">Top Opportunity Ranking</p>
-                <h2 id="opportunity-title">Top 3 repository candidates</h2>
+                <p class="eyebrow">今日前三大機會</p>
+                <h2 id="opportunity-title">知識庫前三大候選</h2>
               </div>
-              <span class="sort-label"><i data-lucide="arrow-down-wide-narrow"></i> Score order</span>
+              <span class="sort-label"><i data-lucide="arrow-down-wide-narrow"></i> 依分數排序</span>
             </div>
             <div class="opportunity-list" id="opportunity-list"></div>
           </section>
@@ -181,12 +181,12 @@
           <section class="panel flow-panel" id="capital-flow" aria-labelledby="flow-title">
             <div class="panel-heading flow-heading">
               <div>
-                <p class="eyebrow">Capital Flow Map</p>
-                <h2 id="flow-title">Transmission chain</h2>
+                <p class="eyebrow">資金流地圖</p>
+                <h2 id="flow-title">資金傳導鏈</h2>
               </div>
-              <div class="segmented-control" aria-label="Flow view">
-                <button class="segment active" type="button" data-flow-mode="capital">Capital</button>
-                <button class="segment" type="button" data-flow-mode="trace">Trace</button>
+              <div class="segmented-control" aria-label="資金流檢視">
+                <button class="segment active" type="button" data-flow-mode="capital">資金流</button>
+                <button class="segment" type="button" data-flow-mode="trace">追溯鏈</button>
               </div>
             </div>
             <div id="flow-view" class="flow-view"></div>
@@ -200,33 +200,33 @@
   <aside class="explain-drawer" id="explain-drawer" aria-labelledby="drawer-title" aria-hidden="true">
     <div class="drawer-header">
       <div>
-        <p class="eyebrow">Explainability</p>
+        <p class="eyebrow">決策解釋</p>
         <h2 id="drawer-title">—</h2>
       </div>
-      <button class="icon-button ghost" id="drawer-close" type="button" title="Close explainability" aria-label="Close explainability">
+      <button class="icon-button ghost" id="drawer-close" type="button" title="關閉決策解釋" aria-label="關閉決策解釋">
         <i data-lucide="x"></i>
       </button>
     </div>
     <div class="drawer-score">
-      <span>Opportunity Score</span>
+      <span>機會分數</span>
       <strong id="drawer-score">—</strong>
     </div>
-    <div class="tab-list" role="tablist" aria-label="Explainability detail">
-      <button class="tab active" role="tab" aria-selected="true" data-tab="why_score">Why Score</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="evidence">Evidence</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="money">Money</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="history">History</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="risk">Risk</button>
+    <div class="tab-list" role="tablist" aria-label="決策解釋明細">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="why_score">分數原因</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="evidence">證據</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="money">資金</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="history">歷史案例</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="risk">風險</button>
     </div>
     <div class="tab-panel" id="drawer-content"></div>
     <div class="drawer-source">
       <i data-lucide="lock-keyhole"></i>
-      <span>Read-only Repository projection</span>
+      <span>知識庫唯讀投影</span>
     </div>
   </aside>
 
-  <script src="dashboard-data.js"></script>
+  <script src="dashboard-data.js?v=e101-r1"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=e101-r1"></script>
 </body>
 </html>

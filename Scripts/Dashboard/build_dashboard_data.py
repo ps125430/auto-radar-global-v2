@@ -70,7 +70,7 @@ class DashboardDataBuilder:
         nodes = self._object_array(graph_nodes, "nodes", "Knowledge Graph")
         edges = self._object_array(graph_edges, "edges", "Knowledge Graph")
 
-        unavailable = "Not provided by an approved Repository record."
+        unavailable = "等待核准資料建立。"
         strategy_name = self._optional_text(prediction.get("expected_scenario"))
         confidence = prediction.get("prediction_probability")
         if isinstance(confidence, bool) or not isinstance(
@@ -81,21 +81,25 @@ class DashboardDataBuilder:
         expected_risks = self._string_array(prediction.get("expected_risk"))
 
         warnings = self._string_array(validation.get("warnings"))
-        repository_status = self._optional_text(
-            validation.get("validation_status")
-        ) or "UNKNOWN"
+        repository_status = {
+            "PASS": "通過",
+            "FAIL": "未通過",
+        }.get(
+            self._optional_text(validation.get("validation_status")),
+            "未知",
+        )
         data_gaps = [
             label
             for label, value in (
-                ("Daily strategy", strategy_name),
-                ("Strategy confidence", confidence),
-                ("Strategy window", window),
-                ("Macro regime", None),
-                ("Sector regime", None),
-                ("Micro regime", None),
-                ("Capital flow graph", nodes if nodes and edges else None),
+                ("今日策略", strategy_name),
+                ("策略信心度", confidence),
+                ("預估有效天數", window),
+                ("總經環境", None),
+                ("產業狀態", None),
+                ("市場情緒", None),
+                ("資金流地圖", nodes if nodes and edges else None),
                 (
-                    "Opportunity scores",
+                    "機會分數",
                     [
                         item["opportunity_score"]
                         for item in opportunities
@@ -109,7 +113,7 @@ class DashboardDataBuilder:
         return {
             "meta": {
                 "generated_at": self.generated_at.isoformat(),
-                "mode": "read_only_repository",
+                "mode": "知識庫唯讀",
                 "repository_status": repository_status,
                 "validation_errors": self._integer_or_zero(
                     validation.get("total_errors")
@@ -119,13 +123,13 @@ class DashboardDataBuilder:
                 ),
                 "data_gaps": data_gaps,
                 "sources": [
-                    "Daily Prediction draft",
-                    "MarketMind draft",
-                    "Pattern Candidate Registry",
-                    "Verified Case Registry",
-                    "Evidence Sandbox",
-                    "Knowledge Graph",
-                    "Global Validation Report",
+                    "每日預測草稿",
+                    "市場認知草稿",
+                    "模式候選清冊",
+                    "驗證案例清冊",
+                    "證據沙盒",
+                    "知識圖譜",
+                    "全域驗證報告",
                 ],
             },
             "strategy": {
@@ -133,8 +137,13 @@ class DashboardDataBuilder:
                 "confidence": confidence,
                 "window": window,
                 "why_now": self._optional_text(prediction.get("notes")),
-                "status": self._optional_text(prediction.get("status"))
-                or "unknown",
+                "status": {
+                    "draft": "草稿",
+                    "candidate": "候選",
+                }.get(
+                    self._optional_text(prediction.get("status")),
+                    "未知",
+                ),
                 "fallback": unavailable,
             },
             "regime": {
@@ -147,19 +156,24 @@ class DashboardDataBuilder:
                 "dominant_narrative": self._optional_text(
                     market_mind.get("dominant_narrative")
                 ),
-                "status": self._optional_text(market_mind.get("status"))
-                or "unknown",
+                "status": {
+                    "draft": "草稿",
+                    "candidate": "候選",
+                }.get(
+                    self._optional_text(market_mind.get("status")),
+                    "未知",
+                ),
                 "fallback": unavailable,
             },
             "opportunities": opportunities[:3],
             "capital_flow": {
-                "status": "available" if nodes and edges else "not_available",
+                "status": "已有資料" if nodes and edges else "尚無資料",
                 "nodes": nodes,
                 "edges": edges,
                 "message": (
                     None
                     if nodes and edges
-                    else "No validated capital-flow nodes or edges are stored."
+                    else "目前尚無已驗證資金流資料。"
                 ),
             },
             "tactical": {
@@ -167,7 +181,7 @@ class DashboardDataBuilder:
                 "risk": expected_risks,
                 "window": window,
                 "watch": [
-                    f"{item['id']} · research review required"
+                    f"{item['id']} · 等待研究審查"
                     for item in opportunities[:3]
                 ],
                 "avoid": [],
@@ -185,7 +199,12 @@ class DashboardDataBuilder:
                 ),
                 "graph_nodes": len(nodes),
                 "graph_edges": len(edges),
-                "warnings": warnings,
+                "warnings": [
+                    "信心度知識庫尚未建立。"
+                    if "Confidence Repository" in warning
+                    else warning
+                    for warning in warnings
+                ],
             },
         }
 
@@ -281,13 +300,25 @@ class DashboardDataBuilder:
                 for case_id in source_cases
             ]
             pattern_tags = self._string_array(pattern.get("pattern_tags"))
-            display_name = (
-                pattern_tags[0].replace("_", " ").title()
-                if pattern_tags
-                else pattern_id
-            )
-            feature_summary = self._optional_text(
-                pattern.get("feature_summary")
+            display_names = {
+                "corporate_disclosure": "公司公告訊號",
+                "macro_calendar": "總經事件時程",
+                "manual_news": "人工新聞樣本",
+            }
+            why_now_text = {
+                "corporate_disclosure": (
+                    "公司申報與交易所公告案例符合既定標籤規則。"
+                ),
+                "macro_calendar": (
+                    "總經事件與行事曆案例符合既定標籤規則。"
+                ),
+                "manual_news": "人工彙整新聞案例符合既定標籤規則。",
+            }
+            primary_tag = pattern_tags[0] if pattern_tags else ""
+            display_name = display_names.get(primary_tag, pattern_id)
+            feature_summary = why_now_text.get(
+                primary_tag,
+                self._optional_text(pattern.get("feature_summary")),
             )
             opportunities.append(
                 {
@@ -299,23 +330,28 @@ class DashboardDataBuilder:
                     "window": None,
                     "crowded": None,
                     "risk": (
-                        "Pattern Candidate only; human review required."
+                        "模式候選資料，仍需人工審查。"
                     ),
-                    "status": self._optional_text(pattern.get("status")),
+                    "status": {
+                        "Candidate": "候選",
+                        "Verified": "已驗證",
+                    }.get(
+                        self._optional_text(pattern.get("status")),
+                        "未知",
+                    ),
                     "source_cases": source_cases,
                     "evidence_ids": evidence_ids,
                     "explainability": {
                         "why_score": (
-                            "No approved Opportunity Score exists. "
-                            "Similarity is intentionally not reused."
+                            "目前尚無核准的機會分數，且不會以相似度替代。"
                         ),
                         "evidence": evidence_ids,
                         "money": (
-                            "No validated money-flow record is linked."
+                            "目前尚未連結已驗證的資金流紀錄。"
                         ),
                         "history": source_cases,
                         "risk": (
-                            "Candidate status; no Production or trading use."
+                            "目前仍為候選狀態，不供正式交易使用。"
                         ),
                     },
                 }

@@ -1,28 +1,28 @@
 window.AUTO_RADAR_DASHBOARD_DATA = {
   "meta": {
-    "generated_at": "2026-06-28T16:59:15.888795+00:00",
-    "mode": "read_only_repository",
-    "repository_status": "PASS",
+    "generated_at": "2026-06-29T01:24:06.913819+00:00",
+    "mode": "知識庫唯讀",
+    "repository_status": "通過",
     "validation_errors": 0,
     "validation_warnings": 1,
     "data_gaps": [
-      "Daily strategy",
-      "Strategy confidence",
-      "Strategy window",
-      "Macro regime",
-      "Sector regime",
-      "Micro regime",
-      "Capital flow graph",
-      "Opportunity scores"
+      "今日策略",
+      "策略信心度",
+      "預估有效天數",
+      "總經環境",
+      "產業狀態",
+      "市場情緒",
+      "資金流地圖",
+      "機會分數"
     ],
     "sources": [
-      "Daily Prediction draft",
-      "MarketMind draft",
-      "Pattern Candidate Registry",
-      "Verified Case Registry",
-      "Evidence Sandbox",
-      "Knowledge Graph",
-      "Global Validation Report"
+      "每日預測草稿",
+      "市場認知草稿",
+      "模式候選清冊",
+      "驗證案例清冊",
+      "證據沙盒",
+      "知識圖譜",
+      "全域驗證報告"
     ]
   },
   "strategy": {
@@ -30,8 +30,8 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "confidence": null,
     "window": null,
     "why_now": null,
-    "status": "draft",
-    "fallback": "Not provided by an approved Repository record."
+    "status": "草稿",
+    "fallback": "等待核准資料建立。"
   },
   "regime": {
     "macro": null,
@@ -39,20 +39,20 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "micro": null,
     "market_mood": null,
     "dominant_narrative": null,
-    "status": "draft",
-    "fallback": "Not provided by an approved Repository record."
+    "status": "草稿",
+    "fallback": "等待核准資料建立。"
   },
   "opportunities": [
     {
       "id": "PC-001",
-      "name": "Corporate Disclosure",
+      "name": "公司公告訊號",
       "opportunity_score": null,
-      "why_now": "Rule-matched Verified Case tags: filing or exchange.",
+      "why_now": "公司申報與交易所公告案例符合既定標籤規則。",
       "money_flow": null,
       "window": null,
       "crowded": null,
-      "risk": "Pattern Candidate only; human review required.",
-      "status": "Candidate",
+      "risk": "模式候選資料，仍需人工審查。",
+      "status": "候選",
       "source_cases": [
         "VC-101",
         "VC-103"
@@ -62,29 +62,29 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
         "EV-103"
       ],
       "explainability": {
-        "why_score": "No approved Opportunity Score exists. Similarity is intentionally not reused.",
+        "why_score": "目前尚無核准的機會分數，且不會以相似度替代。",
         "evidence": [
           "EV-101",
           "EV-103"
         ],
-        "money": "No validated money-flow record is linked.",
+        "money": "目前尚未連結已驗證的資金流紀錄。",
         "history": [
           "VC-101",
           "VC-103"
         ],
-        "risk": "Candidate status; no Production or trading use."
+        "risk": "目前仍為候選狀態，不供正式交易使用。"
       }
     },
     {
       "id": "PC-002",
-      "name": "Macro Calendar",
+      "name": "總經事件時程",
       "opportunity_score": null,
-      "why_now": "Rule-matched Verified Case tags: macro or calendar.",
+      "why_now": "總經事件與行事曆案例符合既定標籤規則。",
       "money_flow": null,
       "window": null,
       "crowded": null,
-      "risk": "Pattern Candidate only; human review required.",
-      "status": "Candidate",
+      "risk": "模式候選資料，仍需人工審查。",
+      "status": "候選",
       "source_cases": [
         "VC-102",
         "VC-104"
@@ -94,29 +94,29 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
         "EV-104"
       ],
       "explainability": {
-        "why_score": "No approved Opportunity Score exists. Similarity is intentionally not reused.",
+        "why_score": "目前尚無核准的機會分數，且不會以相似度替代。",
         "evidence": [
           "EV-102",
           "EV-104"
         ],
-        "money": "No validated money-flow record is linked.",
+        "money": "目前尚未連結已驗證的資金流紀錄。",
         "history": [
           "VC-102",
           "VC-104"
         ],
-        "risk": "Candidate status; no Production or trading use."
+        "risk": "目前仍為候選狀態，不供正式交易使用。"
       }
     },
     {
       "id": "PC-003",
-      "name": "Manual News",
+      "name": "人工新聞樣本",
       "opportunity_score": null,
-      "why_now": "Rule-matched Verified Case tag: manual.",
+      "why_now": "人工彙整新聞案例符合既定標籤規則。",
       "money_flow": null,
       "window": null,
       "crowded": null,
-      "risk": "Pattern Candidate only; human review required.",
-      "status": "Candidate",
+      "risk": "模式候選資料，仍需人工審查。",
+      "status": "候選",
       "source_cases": [
         "VC-105"
       ],
@@ -124,35 +124,35 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
         "EV-105"
       ],
       "explainability": {
-        "why_score": "No approved Opportunity Score exists. Similarity is intentionally not reused.",
+        "why_score": "目前尚無核准的機會分數，且不會以相似度替代。",
         "evidence": [
           "EV-105"
         ],
-        "money": "No validated money-flow record is linked.",
+        "money": "目前尚未連結已驗證的資金流紀錄。",
         "history": [
           "VC-105"
         ],
-        "risk": "Candidate status; no Production or trading use."
+        "risk": "目前仍為候選狀態，不供正式交易使用。"
       }
     }
   ],
   "capital_flow": {
-    "status": "not_available",
+    "status": "尚無資料",
     "nodes": [],
     "edges": [],
-    "message": "No validated capital-flow nodes or edges are stored."
+    "message": "目前尚無已驗證資金流資料。"
   },
   "tactical": {
     "strategy": null,
     "risk": [],
     "window": null,
     "watch": [
-      "PC-001 · research review required",
-      "PC-002 · research review required",
-      "PC-003 · research review required"
+      "PC-001 · 等待研究審查",
+      "PC-002 · 等待研究審查",
+      "PC-003 · 等待研究審查"
     ],
     "avoid": [],
-    "fallback": "Not provided by an approved Repository record."
+    "fallback": "等待核准資料建立。"
   },
   "repository": {
     "pattern_candidates": 3,
@@ -161,7 +161,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "graph_nodes": 0,
     "graph_edges": 0,
     "warnings": [
-      "Confidence Repository is not established; confidence_ref is validated for format only when present."
+      "信心度知識庫尚未建立。"
     ]
   }
 };
