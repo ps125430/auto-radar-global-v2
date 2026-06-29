@@ -1,6 +1,6 @@
 # Auto Radar Project Status
 
-Document ID: AR-PROJECT-SSOT-v1
+Document ID: AR-PROJECT-SSOT-v2
 Status: Active
 Authority: Single Source of Truth
 Owner: 綠茶 / Product Owner
@@ -38,13 +38,13 @@ Sprint focus:
 
 | Field | Value |
 |---|---|
-| Task ID | C-035 |
-| Task | Project Governance Center |
-| Owner | 小C / Engineering |
+| Task ID | C-036 |
+| Task | Project Constitution & AI Operating System |
+| Owner | 小C / Engineering Chief |
 | Status | Implemented; awaiting 小P architecture acceptance |
 | Priority | P0 |
 
-在 C-035 完成架構驗收前，不得自行切換 Current Task。
+在 C-036 完成架構驗收前，不得自行切換 Current Task。
 
 ## Completed
 
@@ -56,13 +56,15 @@ Sprint focus:
 - Evidence ingestion, Case Candidate, Review, and Pattern Discovery Sandbox lifecycle completed.
 - Dashboard v1 completed under E-100.
 - Dashboard Traditional Chinese localization completed under E-101 Rev.1.
+- Project Governance Center and SSOT completed under C-035.
+- Governance v2.0 Constitution, AI Role Specification, Architect Principles, History, and Handover completed under C-036.
 - 143 automated tests passing at the start of C-035.
-- GitHub `main` synchronized through commit `5295eef`.
+- GitHub `main` synchronized through the C-035 baseline commit `94a77fe`.
 
 ## In Progress
 
-- C-035 documentation acceptance by 小P.
-- Migration of project status authority from legacy files to `Docs/Project/`.
+- C-036 documentation acceptance by 小P.
+- Governance v2.0 activation and handover verification.
 
 No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
 
@@ -70,7 +72,7 @@ No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
 
 Not assigned.
 
-The next task must be assigned after C-035 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
+The next task must be assigned after C-036 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
 
 ## Overall Progress
 
@@ -100,9 +102,14 @@ This percentage measures completed product stages, not code volume or prediction
 
 ## Canonical References
 
+- `Docs/Project/PROJECT_CONSTITUTION.md`
 - `Docs/Project/NEXT_TASK.md`
+- `Docs/Project/AI_ROLE_SPECIFICATION.md`
+- `Docs/Project/ARCHITECT_PRINCIPLES.md`
 - `Docs/Project/ROADMAP.md`
 - `Docs/Project/TEAM_OPERATING_MODEL.md`
+- `Docs/Project/HANDOVER.md`
+- `Docs/Project/PROJECT_HISTORY.md`
 - `Docs/Project/ENGINEERING_STATUS.md`
 - `Docs/Project/RESEARCH_STATUS.md`
 - `Docs/Project/DECISION_LOG.md`

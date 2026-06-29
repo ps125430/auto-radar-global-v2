@@ -4,15 +4,22 @@ Status: Active
 Layer: Project Governance
 Last Updated: 2026-06-29
 
+## Governance Authority
+
+本文件受 `PROJECT_CONSTITUTION.md` 管理，負責團隊日常分工與工作交接，不得修改 Project Constitution。
+
 ## Single Source of Truth
 
 `Docs/Project/PROJECT_STATUS.md` is the only authoritative project-status source.
 
 Before any work begins, every AI must read:
 
-1. `Docs/Project/PROJECT_STATUS.md`
-2. `Docs/Project/NEXT_TASK.md`
-3. This file
+1. `Docs/Project/PROJECT_CONSTITUTION.md`
+2. `Docs/Project/PROJECT_STATUS.md`
+3. `Docs/Project/NEXT_TASK.md`
+4. `Docs/Project/AI_ROLE_SPECIFICATION.md`
+5. This file
+6. `Docs/Project/HANDOVER.md`
 
 This applies to:
 
@@ -23,6 +30,8 @@ This applies to:
 If chat content, memory, legacy documents, or assumptions conflict with `PROJECT_STATUS.md`, `PROJECT_STATUS.md` wins.
 
 No AI may infer project progress from chat history.
+
+完成 Startup Protocol 後，AI 還必須確認 Git branch、working tree、remote、Current Task、Owner、Scope、Constraints 與 Definition of Done，才可開始修改。
 
 ## Roles
 
@@ -141,3 +150,13 @@ Priority order:
 ## Governing Reference
 
 Communication contracts and completion-report rules remain governed by `TEAM_OPERATING_SYSTEM.md`.
+
+角色 Mission、Authority、Never Do、Deliverables 與 KPI 由 `AI_ROLE_SPECIFICATION.md` 定義。
+
+Chief Architect 的設計鐵律由 `ARCHITECT_PRINCIPLES.md` 定義。
+
+## Mandatory Project Sync
+
+Task 完成時必須依 `PROJECT_CONSTITUTION.md` 的 Mandatory Update Rule，同步更新適用的 Status、Task、Changelog、Handover、Decision 與 History 文件。
+
+未完成文件同步、Validation、Commit 與 Push，不算完成交接。

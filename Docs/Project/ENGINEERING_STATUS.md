@@ -10,12 +10,12 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Sprint | Engineering Sprint 1 — Dashboard and Governance |
-| Current Owner | 小C / Engineering |
-| Current Module | Project Governance Center |
-| Current Task | C-035 |
+| Current Owner | 小C / Engineering Chief |
+| Current Module | Project Constitution & AI Operating System |
+| Current Task | C-036 |
 | Progress | Implementation complete; awaiting Architecture acceptance |
 | Blocker | None |
-| ETA | No committed date; closes when 小P accepts C-035 |
+| ETA | No committed date; closes when 小P accepts C-036 |
 
 ## Recently Completed
 
@@ -23,20 +23,22 @@ Project status authority: `PROJECT_STATUS.md`
 - E-012 through E-015: Sandbox knowledge lifecycle from raw Evidence to Pattern Candidate.
 - E-100: Dashboard v1.
 - E-101 Rev.1: Full Traditional Chinese Dashboard presentation.
+- C-035: Project Governance Center and SSOT.
 
 ## Current Implementation
 
-- C-035: Project Governance Center files implemented.
+- C-036: Governance v2.0 files implemented.
 - Remaining step: 小P architecture acceptance.
 
 ## Quality Status
 
-Baseline before C-035:
+Baseline before C-036:
 
 - Automated tests: 143 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
-- Runtime changes in C-035: none.
+- GitHub baseline: `94a77fe`.
+- Runtime changes in C-036: none.
 
 ## Engineering Boundaries
 
@@ -51,4 +53,4 @@ Baseline before C-035:
 
 Not assigned.
 
-Engineering must not begin another task until `NEXT_TASK.md` is updated after C-035 acceptance.
+Engineering must not begin another task until `NEXT_TASK.md` is updated after C-036 acceptance.

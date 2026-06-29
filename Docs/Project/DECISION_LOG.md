@@ -12,6 +12,7 @@ Last Updated: 2026-06-29
 | DEC-005 | 2026-06-29 | Dashboard uses Traditional Chinese as the primary UI language | The product must serve daily user decisions, not engineering demonstration | 綠茶 | Accepted |
 | DEC-006 | 2026-06-29 | Dashboard UX is organized around Daily Tactical, Top3, risk, window, and explainability | The first screen must support a 30-second daily review | 綠茶 / 小P | Accepted |
 | DEC-007 | 2026-06-29 | Top3 displays honest unavailable states when Opportunity Score is absent | Similarity or candidate fields must not be mislabeled as approved scores | 小P / 小C | Accepted |
+| DEC-008 | 2026-06-29 | Project Constitution v2.0 governs all AI startup, authority, mandatory updates, and conflict resolution | Future collaborators must operate from Repository truth instead of chat memory | 綠茶 / 小P | Accepted |
 
 ## Decision Rule
 
