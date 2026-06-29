@@ -38,13 +38,13 @@ Sprint focus:
 
 | Field | Value |
 |---|---|
-| Task ID | C-036 |
-| Task | Project Constitution & AI Operating System |
-| Owner | 小C / Engineering Chief |
+| Task ID | C-037 |
+| Task | Auto Radar Architecture Bible v1.0 |
+| Owner | 小C / Engineering |
 | Status | Implemented; awaiting 小P architecture acceptance |
 | Priority | P0 |
 
-在 C-036 完成架構驗收前，不得自行切換 Current Task。
+在 C-037 完成架構驗收前，不得自行切換 Current Task。
 
 ## Completed
 
@@ -58,13 +58,14 @@ Sprint focus:
 - Dashboard Traditional Chinese localization completed under E-101 Rev.1.
 - Project Governance Center and SSOT completed under C-035.
 - Governance v2.0 Constitution, AI Role Specification, Architect Principles, History, and Handover completed under C-036.
+- Architecture Bible v1.0 completed under C-037 as the consolidated architecture handover.
 - 143 automated tests passing at the start of C-035.
-- GitHub `main` synchronized through the C-035 baseline commit `94a77fe`.
+- GitHub `main` synchronized through the C-036 baseline commit `b1868c7`.
 
 ## In Progress
 
-- C-036 documentation acceptance by 小P.
-- Governance v2.0 activation and handover verification.
+- C-037 documentation acceptance by 小P.
+- Architecture Bible reference and consistency verification.
 
 No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
 
@@ -72,7 +73,7 @@ No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
 
 Not assigned.
 
-The next task must be assigned after C-036 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
+The next task must be assigned after C-037 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
 
 ## Overall Progress
 
@@ -102,6 +103,7 @@ This percentage measures completed product stages, not code volume or prediction
 
 ## Canonical References
 
+- `Docs/ARCHITECTURE_BIBLE.md`
 - `Docs/Project/PROJECT_CONSTITUTION.md`
 - `Docs/Project/NEXT_TASK.md`
 - `Docs/Project/AI_ROLE_SPECIFICATION.md`

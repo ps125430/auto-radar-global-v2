@@ -7,6 +7,7 @@ This is a product-level changelog. It does not duplicate Git commit history.
 
 | Date | Feature | Impact Area | Owner |
 |---|---|---|---|
+| 2026-06-29 | Architecture Bible v1.0 consolidated the complete project architecture into one traceable handover | Architecture / Documentation | 小P / 小C |
 | 2026-06-29 | Governance v2.0 established Project Constitution, AI startup, role, architecture, history, and handover standards | Governance / Documentation | 小P / 小C |
 | 2026-06-29 | Project Governance Center established as the SSOT | Governance / Documentation | 小C |
 | 2026-06-29 | Dashboard fully localized in Traditional Chinese | Dashboard / Presentation | 小C |

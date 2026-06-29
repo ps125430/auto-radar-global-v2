@@ -57,6 +57,12 @@ Last Updated: 2026-06-29
 - 建立可執行的 AI Startup Protocol 與 Mandatory Update Rule。
 - 建立新對話可在五分鐘內接手的正式 Handover。
 
+### 2026-06-29 — Architecture Bible v1.0
+
+- 將願景、歷史、團隊、治理、研究、架構、知識庫、儀表板、工程與路線圖整合為單一架構交接文件。
+- 建立新小P、新小G、新小C、新工程師與未來 AI 的完整專案入口。
+- 維持 Project Status 的即時狀態權限與 Runtime deny-by-default 邊界。
+
 ## Current Direction
 
 ```text
