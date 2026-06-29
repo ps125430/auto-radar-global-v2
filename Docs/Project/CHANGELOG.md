@@ -1,12 +1,13 @@
 # Product Changelog
 
 Status: Active
-Last Updated: 2026-06-29
+Last Updated: 2026-06-30
 
 This is a product-level changelog. It does not duplicate Git commit history.
 
 | Date | Feature | Impact Area | Owner |
 |---|---|---|---|
+| 2026-06-30 | North Star Shadow Integration connected Orchestrator, Daily Shadow Run, Review Pipeline, Patch Suggestion Flow, and Shadow Daily Brief | Shadow Runtime Integration | 小C |
 | 2026-06-29 | North Star Runtime infrastructure added immutable loading, sessions, dispatch, Decision schema packaging, Explain chain, Learning suggestions, and a reviewed Patch Queue | Runtime Infrastructure / Shadow Candidate | 小C |
 | 2026-06-29 | Runtime Governance v1 passed Architecture Review and opened the bounded Shadow infrastructure gate | Architecture / Governance | 小P |
 | 2026-06-29 | Runtime Governance package established authority, decision schema, IO contracts, write policy, validation, and rollback gates | Architecture / Documentation | 小P / 小C |

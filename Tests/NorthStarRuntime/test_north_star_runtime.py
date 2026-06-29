@@ -13,7 +13,9 @@ from Runtime.NorthStar import (
     ExplainRuntime,
     LearningRuntime,
     MergeAuthorization,
+    NorthStarShadowDailyBrief,
     NorthStarDecisionValidator,
+    PatchSuggestionFlow,
     PatchQueueError,
     PatchStatus,
     RepositoryPatchQueue,
@@ -25,6 +27,8 @@ from Runtime.NorthStar import (
     RuntimeLoaderError,
     RuntimeSession,
     SessionStatus,
+    ShadowIntegrationError,
+    ShadowRuntimeOrchestrator,
 )
 
 
@@ -374,6 +378,166 @@ class NorthStarRuntimeTests(unittest.TestCase):
         self.assertFalse(schema["x-runtime"]["strategy_logic"])
         self.assertFalse(schema["x-runtime"]["repository_write"])
         self.assertFalse(schema["x-runtime"]["production_authorized"])
+
+    def test_shadow_orchestrator_runs_daily_shadow_output(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            references = create_runtime_repository(root)
+            orchestrator = ShadowRuntimeOrchestrator(str(root))
+
+            result = orchestrator.run_daily_shadow_decision(
+                decision_refs={
+                    "regime": references[0],
+                    "flow": references[1],
+                    "repository": references[2],
+                    "opportunity": references[3],
+                },
+                explain_refs={
+                    "evidence_refs": [references[4]],
+                    "pattern_refs": [references[5]],
+                    "experience_refs": [references[6]],
+                    "repository_refs": [references[2]],
+                },
+                display_candidates={
+                    "north_star_direction": "AI Infrastructure",
+                    "captain_mission": "Shadow observe only",
+                    "top3_candidate": ["HBM", "Cooling", "PCB"],
+                    "forbidden_zone": ["Unvalidated chase"],
+                    "risk": ["Manual validation required"],
+                    "window": "shadow_only",
+                },
+            )
+
+            output = result.shadow_output
+            self.assertEqual("shadow_output_only", output["status"])
+            self.assertEqual("AI Infrastructure", output["north_star_direction"])
+            self.assertEqual(["HBM", "Cooling", "PCB"], output["top3_candidate"])
+            self.assertEqual(["Unvalidated chase"], output["forbidden_zone"])
+            self.assertFalse(output["formal_decision"])
+            self.assertFalse(output["trading_signal"])
+            self.assertFalse(output["production_authorized"])
+            self.assertEqual(
+                ["decision", "evidence", "pattern", "experience", "repository"],
+                output["explain_chain"]["layer_order"],
+            )
+
+    def test_shadow_review_generates_lesson_draft_only(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            references = create_runtime_repository(root)
+            orchestrator = ShadowRuntimeOrchestrator(str(root))
+            result = orchestrator.run_daily_shadow_decision(
+                decision_refs={
+                    "regime": references[0],
+                    "flow": references[1],
+                    "repository": references[2],
+                    "opportunity": references[3],
+                },
+                explain_refs={
+                    "evidence_refs": [references[4]],
+                    "pattern_refs": [references[5]],
+                    "experience_refs": [references[6]],
+                    "repository_refs": [references[2]],
+                },
+            )
+
+            reviewed = orchestrator.run_shadow_review(
+                shadow_result=result,
+                manual_outcome={"status": "manual_placeholder"},
+            )
+
+            self.assertEqual("draft_only", reviewed.review["lesson_status"])
+            self.assertEqual(
+                "manual_outcome", reviewed.review["outcome_status"]
+            )
+            lesson = reviewed.learning["payload"]["lesson"]
+            patch = reviewed.learning["payload"]["repository_patch_suggestion"]
+            self.assertEqual("candidate", lesson["status"])
+            self.assertEqual("candidate", patch["status"])
+            self.assertFalse(lesson["production_authorized"])
+            self.assertFalse(patch["production_authorized"])
+            self.assertIsNone(patch["target_repository"])
+
+    def test_shadow_patch_suggestion_flow_enqueues_without_merge(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            references = create_runtime_repository(root)
+            queue = RepositoryPatchQueue()
+            orchestrator = ShadowRuntimeOrchestrator(str(root), patch_queue=queue)
+            result = orchestrator.run_daily_shadow_decision(
+                decision_refs={
+                    "regime": references[0],
+                    "flow": references[1],
+                    "repository": references[2],
+                    "opportunity": references[3],
+                },
+                explain_refs={
+                    "evidence_refs": [references[4]],
+                    "pattern_refs": [references[5]],
+                    "experience_refs": [references[6]],
+                    "repository_refs": [references[2]],
+                },
+            )
+            reviewed = orchestrator.run_shadow_review(shadow_result=result)
+            queued = orchestrator.enqueue_learning_patch(shadow_result=reviewed)
+
+            self.assertEqual(PatchStatus.PENDING, queued.patch_entry.status)
+            self.assertEqual(
+                "pending_review",
+                PatchSuggestionFlow.status(queued.patch_entry)["shadow_status"],
+            )
+            with self.assertRaises(PatchQueueError):
+                queue.authorize_merge(
+                    queued.patch_entry.patch_id,
+                    repository_manager="Repository Manager",
+                )
+
+    def test_shadow_daily_brief_is_in_memory_and_non_production(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            references = create_runtime_repository(root)
+            before = sorted(path.relative_to(root) for path in root.rglob("*"))
+            orchestrator = ShadowRuntimeOrchestrator(str(root))
+            result = orchestrator.run_daily_shadow_decision(
+                decision_refs={
+                    "regime": references[0],
+                    "flow": references[1],
+                    "repository": references[2],
+                    "opportunity": references[3],
+                },
+                explain_refs={
+                    "evidence_refs": [references[4]],
+                    "pattern_refs": [references[5]],
+                    "experience_refs": [references[6]],
+                    "repository_refs": [references[2]],
+                },
+                display_candidates={
+                    "north_star_direction": "Shadow direction",
+                    "captain_mission": "Shadow mission",
+                },
+            )
+            reviewed = orchestrator.run_shadow_review(shadow_result=result)
+            brief = NorthStarShadowDailyBrief.render(shadow_result=reviewed)
+            after = sorted(path.relative_to(root) for path in root.rglob("*"))
+
+            self.assertEqual(before, after)
+            self.assertIn("今日北極星", brief)
+            self.assertIn("今日航向", brief)
+            self.assertIn("今日 Top3", brief)
+            self.assertIn("今日學習草稿", brief)
+            self.assertIn("Production Authorized: false", brief)
+
+    def test_shadow_orchestrator_requires_complete_decision_refs(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            orchestrator = ShadowRuntimeOrchestrator(temporary_directory)
+
+            with self.assertRaises(ShadowIntegrationError):
+                orchestrator.run_daily_shadow_decision(
+                    decision_refs={
+                        "regime": "Knowledge/runtime/regime.json",
+                    },
+                    explain_refs={},
+                )
 
 
 if __name__ == "__main__":

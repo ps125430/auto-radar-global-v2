@@ -28,10 +28,20 @@ from .session import (
     SessionEvent,
     SessionStatus,
 )
+from .shadow import (
+    DailyShadowDecisionRun,
+    NorthStarShadowDailyBrief,
+    PatchSuggestionFlow,
+    ShadowIntegrationError,
+    ShadowReviewPipeline,
+    ShadowRunResult,
+    ShadowRuntimeOrchestrator,
+)
 
 __all__ = [
     "DecisionRuntime",
     "DecisionRuntimeError",
+    "DailyShadowDecisionRun",
     "ExplainRuntime",
     "ExplainRuntimeError",
     "LearningRuntime",
@@ -39,6 +49,8 @@ __all__ = [
     "LoadedSnapshot",
     "MergeAuthorization",
     "NorthStarDecisionValidator",
+    "NorthStarShadowDailyBrief",
+    "PatchSuggestionFlow",
     "PatchQueueEntry",
     "PatchQueueError",
     "PatchStatus",
@@ -56,4 +68,8 @@ __all__ = [
     "RuntimeSessionError",
     "SessionEvent",
     "SessionStatus",
+    "ShadowIntegrationError",
+    "ShadowReviewPipeline",
+    "ShadowRunResult",
+    "ShadowRuntimeOrchestrator",
 ]

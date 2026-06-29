@@ -83,13 +83,23 @@ Last Updated: 2026-06-29
 - 完成 E-123 Explain Chain、E-124 Suggest-only Learning Runtime 與 E-125 Patch Queue。
 - Production Runtime、Strategy、Scoring、Dashboard 修改與 N-001 至 N-010 仍未獲授權。
 
+### 2026-06-30 — North Star Shadow Integration
+
+- 完成 E-126 Shadow Runtime Orchestrator。
+- 完成 E-127 Daily Shadow Decision Run。
+- 完成 E-128 Shadow Review Pipeline 與 Lesson Draft。
+- 完成 E-129 Patch Suggestion Flow，Patch 未經審核不得 Merge。
+- 完成 E-130 North Star Shadow Daily Brief。
+- 全部維持 Shadow Runtime only，不產生正式交易指令、不改 Strategy、不改 Scoring、不寫回 Repository。
+
 ## Current Direction
 
 ```text
 Research (Frozen)
   -> Repository (Completed)
   -> Dashboard v1 (Completed)
-  -> Shadow Runtime Infrastructure (Implemented; Production blocked)
+  -> Shadow Runtime Infrastructure (Implemented)
+  -> Shadow Runtime Integration (Implemented; Production blocked)
   -> Automation
   -> Beta
   -> v1.0

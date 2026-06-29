@@ -5,7 +5,7 @@ Status: Active
 Authority: Single Source of Truth
 Owner: 綠茶 / Product Owner
 Maintainer: 小C / Engineering
-Last Updated: 2026-06-29
+Last Updated: 2026-06-30
 
 ---
 
@@ -19,32 +19,33 @@ Last Updated: 2026-06-29
 
 ## Current Phase
 
-Engineering Phase — North Star Runtime Infrastructure
+Engineering Phase — North Star Shadow Integration
 
-Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 已獲 Architecture Review PASS，Runtime Gate 已開啟。E-121 至 E-125 Shadow Runtime infrastructure 已完成實作並等待小P驗收；Production Runtime 仍未獲授權。
+Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 已獲 Architecture Review PASS，Runtime Gate 已開啟。E-121 至 E-125 Shadow Runtime infrastructure 已完成並推送 GitHub。E-126 至 E-130 Shadow Runtime Integration 已完成工程實作並等待小P驗收；Production Runtime 仍未獲授權。
 
 ## Current Sprint
 
-Engineering Sprint 4 — Runtime Infrastructure
+Engineering Sprint 4 — Shadow Runtime Integration
 
 Sprint focus:
 
-- 建立 Runtime Framework、Loader、Context、Session 與 Dispatcher。
-- 建立無決策邏輯的 Decision Runtime。
-- 建立 Explain Chain 與 Suggest-only Learning Runtime。
-- 建立 Repository Patch Queue 與人工審核邊界。
+- 串接 Runtime Context、Session、Decision Runtime、Explain Runtime、Learning Runtime 與 Patch Queue。
+- 建立 Daily Shadow Decision Run。
+- 建立 Shadow Review Pipeline 與 Lesson Draft。
+- 建立 Patch Suggestion Flow，不自動 Merge。
+- 建立 North Star Shadow Daily Brief。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-125 |
-| Task | Repository Patch Queue |
+| Task ID | E-130 |
+| Task | North Star Shadow Daily Brief |
 | Owner | 小C / Engineering |
-| Status | E-121 through E-125 implemented; awaiting 小P architecture review |
+| Status | E-126 through E-130 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
-E-121 至 E-125 已完成工程實作；Architecture Review 前不得擴充為 N-series 或 Production Runtime。
+E-126 至 E-130 已完成工程實作；Architecture Review 前不得擴充為 N-series 或 Production Runtime。
 
 ## Completed
 
@@ -70,6 +71,12 @@ E-121 至 E-125 已完成工程實作；Architecture Review 前不得擴充為 N
 - E-123 Explain Runtime implemented as a traceable reference chain.
 - E-124 Learning Runtime implemented as Lesson and Patch suggestions only.
 - E-125 Repository Patch Queue implemented with Repository Manager approval.
+- E-126 Shadow Runtime Orchestrator implemented.
+- E-127 Daily Shadow Decision Run implemented.
+- E-128 Shadow Review Pipeline implemented with Lesson Draft only.
+- E-129 Patch Suggestion Flow implemented; Merge requires manual review.
+- E-130 North Star Shadow Daily Brief implemented as Shadow output only.
+- 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
 - 143 automated tests passing at the start of C-035.
@@ -77,13 +84,13 @@ E-121 至 E-125 已完成工程實作；Architecture Review 前不得擴充為 N
 
 ## In Progress
 
-- E-121 through E-125 architecture review by 小P.
+- E-126 through E-130 architecture review by 小P.
 
 No Pipeline, Scoring, Strategy, Dashboard, trading, or Production work is in progress.
 
 ## Next Task
 
-Not assigned. E-121 through E-125 must pass Architecture Review before any additional Runtime task.
+Not assigned. E-126 through E-130 must pass Architecture Review before any additional Runtime task.
 
 ## Overall Progress
 
@@ -94,7 +101,7 @@ Milestone method: 3 of 7 product stages are complete.
 | Research | Complete / Frozen |
 | Repository | Complete |
 | Dashboard | North Star v1 implemented; awaiting acceptance |
-| Engine | Shadow Runtime infrastructure implemented; Gate OPEN; Production blocked |
+| Engine | Shadow Runtime infrastructure and integration implemented; Gate OPEN; Production blocked |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |

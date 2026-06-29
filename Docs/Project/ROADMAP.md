@@ -2,7 +2,7 @@
 
 Status: Active
 Authority: Product Roadmap
-Last Updated: 2026-06-29
+Last Updated: 2026-06-30
 
 Project state is governed by `PROJECT_STATUS.md`.
 
@@ -60,7 +60,7 @@ Next improvement candidates require separate approved tasks:
 
 ## Stage 4 — Engine
 
-Status: **Shadow Runtime Infrastructure Implemented / Gate Open**
+Status: **Shadow Runtime Integration Implemented / Gate Open**
 
 Potential scope:
 
@@ -71,7 +71,8 @@ Potential scope:
 Current gate:
 
 - A-116 through A-120 Architecture Review PASS.
-- E-121 through E-125 implemented for Architecture Review.
+- E-121 through E-125 implemented and pushed to GitHub.
+- E-126 through E-130 implemented for Architecture Review.
 - N-001 through N-010 and Production Runtime remain blocked.
 
 Entry gate:

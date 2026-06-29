@@ -1,7 +1,7 @@
 # Engineering Status
 
 Status: Active
-Last Updated: 2026-06-29
+Last Updated: 2026-06-30
 
 Project status authority: `PROJECT_STATUS.md`
 
@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 4 — Runtime Infrastructure |
+| Sprint | Engineering Sprint 4 — Shadow Runtime Integration |
 | Current Owner | 小C / Engineering |
-| Current Module | North Star Runtime Infrastructure |
-| Current Task | E-125 |
-| Progress | E-121 through E-125 implementation complete; awaiting Architecture review |
+| Current Module | North Star Shadow Integration |
+| Current Task | E-130 |
+| Progress | E-126 through E-130 implementation complete; awaiting Architecture review |
 | Blocker | None |
-| ETA | No committed date; closes when 小P reviews E-121 through E-125 |
+| ETA | No committed date; closes when 小P reviews E-126 through E-130 |
 
 ## Recently Completed
 
@@ -29,18 +29,20 @@ Project status authority: `PROJECT_STATUS.md`
 - E-111 through E-120: North Star Dashboard engineering sequence.
 - A-116 through A-120: Runtime Governance documentation package.
 - E-121 through E-125: Runtime framework, Decision schema packaging, Explain chain, Learning suggestions, and Patch Queue.
+- E-126 through E-130: Shadow Orchestrator, Daily Shadow Run, Review Pipeline, Patch Suggestion Flow, and Shadow Daily Brief.
 
 ## Current Implementation
 
 - Runtime Governance v1: Architecture Review PASS; Gate OPEN.
 - E-121 through E-125: implemented.
+- E-126 through E-130: implemented.
 - Remaining step: 小P architecture review.
 
 ## Quality Status
 
 Validation baseline:
 
-- Automated tests: 157 passing.
+- Automated tests: 162 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
 - GitHub baseline before Runtime Governance: `de7c69d`.
@@ -49,6 +51,7 @@ Validation baseline:
 - Explainability drawer: PASS.
 - Runtime, Pipeline, Scoring, and Strategy changes: none.
 - Runtime Governance Gate: OPEN for approved Shadow infrastructure.
+- Shadow Integration: implemented for Architecture Review.
 - N-001 through N-010 and Production Runtime: BLOCKED.
 
 ## Engineering Boundaries

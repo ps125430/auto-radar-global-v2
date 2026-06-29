@@ -1,7 +1,7 @@
 # Product Decision Log
 
 Status: Active
-Last Updated: 2026-06-29
+Last Updated: 2026-06-30
 
 | Decision ID | Date | Decision | Reason | Owner | Status |
 |---|---|---|---|---|---|
@@ -17,6 +17,7 @@ Last Updated: 2026-06-29
 | DEC-010 | 2026-06-29 | Dashboard adopts the North Star four-screen Mission Control hierarchy | Daily use must prioritize direction, opportunities, risk, flow, energy, and learning without inventing missing data | 綠茶 / 小P | Accepted |
 | DEC-011 | 2026-06-29 | Runtime BLOCK is confirmed; N-001 through N-010 pause until Runtime Governance PASS | Decision, Learning, Recommendation, Confidence, IO, Validation, and Rollback authority are not yet active | 小P | Accepted |
 | DEC-012 | 2026-06-29 | Runtime Governance v1 PASS and Gate OPEN authorize E-121 through E-125 Shadow infrastructure | Runtime authority, IO, validation, rollback, and Repository write boundaries are now explicit; Production Runtime remains blocked | 小P | Accepted |
+| DEC-013 | 2026-06-30 | E-126 through E-130 may integrate Shadow Runtime outputs without Production authority | Shadow Orchestrator, Daily Run, Review, Patch Suggestion, and Shadow Brief are permitted only as non-trading integration outputs | 小P / 小C | Pending Review |
 
 ## Decision Rule
 

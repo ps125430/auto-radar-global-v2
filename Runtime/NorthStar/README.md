@@ -1,9 +1,10 @@
 # North Star Runtime Infrastructure
 
-Status: Shadow infrastructure candidate
+Status: Shadow infrastructure and integration candidate
 Production authorization: False
 
-This package implements E-121 through E-125 as bounded Runtime infrastructure.
+This package implements E-121 through E-130 as bounded Runtime infrastructure
+and Shadow integration.
 It does not contain strategy, scoring, trading commands, confidence calculation,
 or production decision logic.
 
@@ -18,6 +19,8 @@ or production decision logic.
 - `explain.py`: builds a traceable Decision-to-Repository reference chain.
 - `learning.py`: converts Review input into Lesson and Patch suggestions only.
 - `patch_queue.py`: in-memory review queue requiring Repository Manager approval.
+- `shadow.py`: orchestrates Shadow Run, Review, Patch Suggestion Flow, and
+  Shadow Daily Brief in memory.
 
 ## Boundaries
 
@@ -40,4 +43,3 @@ The package is governed by:
 - `Docs/Project/RUNTIME_IO_CONTRACT.md`
 - `Docs/Project/REPOSITORY_WRITE_AUTHORITY.md`
 - `Docs/Project/RUNTIME_GOVERNANCE.md`
-

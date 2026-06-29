@@ -3,7 +3,7 @@
 Document ID: AR-PROJECT-HANDOVER-v2
 Status: Active
 Authority: Current Handover Snapshot
-Last Updated: 2026-06-29
+Last Updated: 2026-06-30
 
 ## Startup Instruction
 
@@ -30,21 +30,21 @@ Last Updated: 2026-06-29
 
 ## Current Phase
 
-Engineering Phase — North Star Runtime Infrastructure
+Engineering Phase — North Star Shadow Integration
 
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented
-- Engine: E-121 through E-125 implemented for review; Gate OPEN
+- Engine: E-121 through E-125 implemented and pushed; E-126 through E-130 implemented for review; Gate OPEN
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-125
-- Task: Repository Patch Queue
+- Task ID: E-130
+- Task: North Star Shadow Daily Brief
 - Owner: 小C / Engineering
-- Status: E-121 through E-125 implemented; awaiting 小P architecture review
-- Impact: Shadow Runtime infrastructure only
+- Status: E-126 through E-130 implemented; awaiting 小P architecture review
+- Impact: Shadow Runtime integration only
 
 ## Completed Runtime Milestone
 
@@ -58,6 +58,11 @@ Engineering Phase — North Star Runtime Infrastructure
 - E-123 Decision 至 Repository Explain Chain。
 - E-124 Lesson 與 Repository Patch suggestions，不直接寫入。
 - E-125 需要 Repository Manager 審核的 Patch Queue。
+- E-126 Shadow Runtime Orchestrator。
+- E-127 Daily Shadow Decision Run。
+- E-128 Shadow Review Pipeline 與 Lesson Draft。
+- E-129 Patch Suggestion Flow，不自動 Merge。
+- E-130 North Star Shadow Daily Brief。
 
 ## Active Boundaries
 
@@ -74,14 +79,15 @@ Engineering Phase — North Star Runtime Infrastructure
 - C-035 commit 已同步至 GitHub `main`。
 - Runtime Governance v1 Architecture Review PASS，Gate OPEN。
 - E-121 至 E-125 僅為 Shadow infrastructure。
+- E-126 至 E-130 僅為 Shadow integration。
 - Learning 僅允許 Suggest，不得寫入 Repository。
 - N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 157 項自動測試通過。
+- 162 項自動測試通過。
 - 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-121 至 E-125。
+1. 小P驗收 E-126 至 E-130。
 2. 記錄 PASS 或修正要求。
 3. 未經另案授權，不得進入 N-series 或 Production Runtime。
 
