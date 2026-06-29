@@ -39,9 +39,11 @@ Important decisions must be written into GitHub.
 
 ## Highest Priority File
 
-`Docs/PROJECT_MEMORY.md` is the highest-priority project memory file.
+`Docs/Project/PROJECT_STATUS.md` is the Single Source of Truth.
 
 Read it before working.
+
+If chat, memory, or legacy project files conflict with it, the SSOT wins.
 
 ---
 
@@ -49,13 +51,16 @@ Read it before working.
 
 Before starting work, read:
 
-1. `Docs/PROJECT_MEMORY.md`
-2. `Docs/PROJECT_STATUS.md`
-3. `Docs/HANDOVER_STATE.md`
-4. `Docs/TEAM_OPERATING_MODEL.md`
-5. `Docs/COMMAND_PROTOCOL.md`
+1. `Docs/Project/PROJECT_STATUS.md`
+2. `Docs/Project/NEXT_TASK.md`
+3. `Docs/Project/TEAM_OPERATING_MODEL.md`
+4. `Docs/Project/ENGINEERING_STATUS.md` or `Docs/Project/RESEARCH_STATUS.md`
+5. `Docs/Project/KNOWN_ISSUES.md`
+6. `TEAM_OPERATING_SYSTEM.md`
 
 Then read any task-specific files.
+
+Legacy files under `Docs/` remain historical references and are not project-status authority.
 
 ---
 

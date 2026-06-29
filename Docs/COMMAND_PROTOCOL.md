@@ -23,10 +23,11 @@ Update the entire Project Sync set.
 
 Required actions:
 
-* update `Docs/PROJECT_MEMORY.md`
-* update `Docs/PROJECT_STATUS.md`
-* update `Docs/HANDOVER_STATE.md`
-* update `Docs/ARCHITECTURE_DECISION_LOG.md` when architecture decisions changed
+* update `Docs/Project/PROJECT_STATUS.md`
+* update `Docs/Project/NEXT_TASK.md`
+* update `Docs/Project/ENGINEERING_STATUS.md` or `Docs/Project/RESEARCH_STATUS.md`
+* update `Docs/Project/CHANGELOG.md` when product state changed
+* update `Docs/Project/DECISION_LOG.md` when major decisions changed
 * commit changes to GitHub
 
 ---
@@ -54,7 +55,8 @@ Create a Handover Snapshot.
 
 Required actions:
 
-* update `Docs/HANDOVER_STATE.md`
+* update `Docs/Project/PROJECT_STATUS.md`
+* update `Docs/Project/NEXT_TASK.md`
 * summarize current sprint
 * summarize current architecture
 * summarize current repository and latest commit
@@ -101,9 +103,9 @@ Create new Sprint state.
 
 Required actions:
 
-* update `Docs/PROJECT_STATUS.md`
-* update `Docs/PROJECT_MEMORY.md`
-* update `Docs/HANDOVER_STATE.md`
+* update `Docs/Project/PROJECT_STATUS.md`
+* update `Docs/Project/NEXT_TASK.md`
+* update `Docs/Project/ROADMAP.md`
 * define sprint focus
 * identify P0 / P1 / P2 priorities
 
@@ -114,3 +116,5 @@ Required actions:
 When new commands become stable, this file must be updated.
 
 Chat history is not the official protocol.
+
+Project status authority is always `Docs/Project/PROJECT_STATUS.md`.

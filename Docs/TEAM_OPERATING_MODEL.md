@@ -6,6 +6,10 @@ Team communication and workflow are governed by `TEAM_OPERATING_SYSTEM.md`.
 
 Do not duplicate or fork workflow governance rules in this file. This document remains a role and operating model reference.
 
+Project status is governed exclusively by `Docs/Project/PROJECT_STATUS.md`.
+
+The canonical team status rules are maintained in `Docs/Project/TEAM_OPERATING_MODEL.md`.
+
 ---
 
 ## Purpose
@@ -448,9 +452,9 @@ At the end of every sprint:
 
 Every new chat must begin by reading or referencing:
 
-* Docs/PROJECT_STATE.md
-* Docs/CONSTITUTION.md
-* Docs/TEAM_OPERATING_MODEL.md
-* Docs/ROLE_MATRIX.md
+* Docs/Project/PROJECT_STATUS.md
+* Docs/Project/NEXT_TASK.md
+* Docs/Project/TEAM_OPERATING_MODEL.md
+* TEAM_OPERATING_SYSTEM.md
 
-These documents are the long-term memory of Auto Radar.
+Legacy project-state documents are historical references only.
