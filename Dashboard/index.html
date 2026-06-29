@@ -4,35 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Auto Radar · 每日作戰中心</title>
+  <title>Auto Radar · 北極星任務中心</title>
   <link rel="preconnect" href="https://unpkg.com">
-  <link rel="stylesheet" href="styles.css?v=e101-r1">
+  <link rel="stylesheet" href="styles.css?v=e120">
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" aria-label="主要導覽">
-      <a class="brand" href="#top" aria-label="Auto Radar 首頁">
-        <span class="brand-mark" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
+      <a class="brand" href="#north-star" aria-label="Auto Radar 北極星首頁">
+        <span class="brand-mark" aria-hidden="true"><i data-lucide="radar"></i></span>
         <span class="brand-copy">
           <strong>AUTO RADAR</strong>
-          <small>每日作戰中心</small>
+          <small>北極星任務中心</small>
         </span>
       </a>
 
       <nav class="nav-list">
-        <a class="nav-item active" href="#top">
-          <i data-lucide="layout-dashboard"></i><span>總覽</span>
+        <a class="nav-item active" href="#north-star">
+          <i data-lucide="star"></i><span>北極星</span>
         </a>
-        <a class="nav-item" href="#opportunities">
-          <i data-lucide="list-ordered"></i><span>今日機會</span>
+        <a class="nav-item" href="#ocean">
+          <i data-lucide="waves"></i><span>海況</span>
         </a>
-        <a class="nav-item" href="#capital-flow">
-          <i data-lucide="git-branch"></i><span>資金流</span>
+        <a class="nav-item" href="#money">
+          <i data-lucide="activity"></i><span>動能</span>
         </a>
-        <a class="nav-item" href="#repository">
-          <i data-lucide="database"></i><span>知識庫</span>
+        <a class="nav-item" href="#knowledge">
+          <i data-lucide="database"></i><span>知識</span>
         </a>
       </nav>
 
@@ -46,10 +44,10 @@
     </aside>
 
     <div class="workspace">
-      <header class="topbar" id="top">
+      <header class="topbar">
         <div>
           <p class="eyebrow">Auto Radar 全球版 v2</p>
-          <h1>每日作戰中心</h1>
+          <h1>北極星任務中心</h1>
         </div>
         <div class="topbar-actions">
           <div class="as-of">
@@ -63,135 +61,281 @@
       </header>
 
       <main>
-        <section class="tactical-band" aria-labelledby="tactical-title">
-          <div class="tactical-head">
-            <p class="eyebrow light">每日戰術面板</p>
-            <h2 id="tactical-title">今日戰術總覽</h2>
+        <section class="screen screen-north" id="north-star" aria-labelledby="north-title">
+          <div class="screen-heading">
+            <div>
+              <p class="eyebrow">每日戰術面板</p>
+              <h2 id="north-title">三秒掌握今日航向</h2>
+            </div>
+            <span class="read-only-badge"><i data-lucide="lock-keyhole"></i> 知識庫唯讀</span>
           </div>
-          <div class="tactical-grid">
-            <div class="tactical-item">
-              <span>今日策略</span>
-              <strong id="tactical-strategy">—</strong>
-            </div>
-            <div class="tactical-item">
-              <span>預估有效天數</span>
-              <strong id="tactical-window">—</strong>
-            </div>
-            <div class="tactical-item">
-              <span>風險</span>
-              <strong id="tactical-risk">—</strong>
-            </div>
-            <div class="tactical-item">
-              <span>持續觀察</span>
-              <strong id="tactical-watch">—</strong>
-            </div>
-            <div class="tactical-item avoid">
-              <span>避免布局</span>
-              <strong id="tactical-avoid">—</strong>
-            </div>
+
+          <div class="north-grid">
+            <article class="hero-card" aria-labelledby="hero-title">
+              <div class="hero-compass" aria-hidden="true">
+                <span class="compass-orbit"></span>
+                <i data-lucide="star"></i>
+              </div>
+              <div class="hero-content">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow light">今日核心策略</p>
+                    <h3 id="hero-title">今日北極星</h3>
+                  </div>
+                  <span class="status-chip" id="north-status">—</span>
+                </div>
+                <strong class="hero-name" id="north-name">—</strong>
+                <div class="hero-metrics">
+                  <div>
+                    <span>信心度</span>
+                    <strong id="north-confidence">—</strong>
+                  </div>
+                  <div>
+                    <span>預估有效天數</span>
+                    <strong id="north-window">—</strong>
+                  </div>
+                </div>
+                <div class="card-why">
+                  <span>今日發動原因</span>
+                  <p id="north-why">—</p>
+                </div>
+                <div class="card-evidence">
+                  <i data-lucide="file-search"></i>
+                  <span id="north-evidence">等待核准資料</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="system-card captain-card" aria-labelledby="captain-title">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow">今日航向</p>
+                  <h3 id="captain-title">我的船</h3>
+                </div>
+                <i class="header-icon" data-lucide="ship-wheel"></i>
+              </div>
+              <div class="captain-route">
+                <span>去哪</span>
+                <strong id="captain-destination">—</strong>
+              </div>
+              <dl class="compact-metrics">
+                <div><dt>多久</dt><dd id="captain-window">—</dd></div>
+                <div><dt>風浪</dt><dd id="captain-risk">—</dd></div>
+                <div><dt>趨勢</dt><dd id="captain-trend">等待判讀</dd></div>
+              </dl>
+              <div class="card-why">
+                <span>原因</span>
+                <p id="captain-why">—</p>
+              </div>
+              <div class="card-evidence">
+                <i data-lucide="link-2"></i>
+                <span id="captain-evidence">等待核准資料</span>
+              </div>
+            </article>
+
+            <section class="opportunity-panel" id="opportunities" aria-labelledby="opportunity-title">
+              <div class="section-row">
+                <div>
+                  <p class="eyebrow">今日前三大機會</p>
+                  <h3 id="opportunity-title">前三大機會雷達</h3>
+                </div>
+                <span class="section-note"><i data-lucide="list-filter"></i> 依核准分數排序</span>
+              </div>
+              <div class="opportunity-grid" id="opportunity-list"></div>
+            </section>
+
+            <article class="system-card no-sail-card" aria-labelledby="avoid-title">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow danger">風險邊界</p>
+                  <h3 id="avoid-title">禁航區</h3>
+                </div>
+                <i class="header-icon danger-icon" data-lucide="circle-slash-2"></i>
+              </div>
+              <strong class="card-score danger-text" id="avoid-score">—</strong>
+              <span class="card-trend" id="avoid-trend">等待風險清單</span>
+              <div class="card-why">
+                <span>原因</span>
+                <p id="avoid-why">尚無核准的避免布局資料。</p>
+              </div>
+              <div class="card-evidence">
+                <i data-lucide="shield-alert"></i>
+                <span id="avoid-evidence">風險資料待建立</span>
+              </div>
+            </article>
           </div>
         </section>
 
-        <div class="dashboard-grid summary-grid">
-          <section class="panel strategy-panel" aria-labelledby="strategy-title">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">今日核心策略</p>
-                <h2 id="strategy-title">今日策略</h2>
-              </div>
-              <span class="status-chip" id="strategy-status">—</span>
+        <section class="screen ocean-screen" id="ocean" aria-labelledby="ocean-title">
+          <div class="screen-heading">
+            <div>
+              <p class="eyebrow">資金流地圖</p>
+              <h2 id="ocean-title">全球洋流圖</h2>
             </div>
-            <div class="strategy-name" id="strategy-name">—</div>
-            <div class="metric-pair">
-              <div>
-                <span>信心度</span>
-                <strong id="strategy-confidence">—</strong>
-              </div>
-              <div>
-                <span>預估有效天數</span>
-                <strong id="strategy-window">—</strong>
-              </div>
+            <div class="segmented-control" aria-label="資金流檢視">
+              <button class="segment active" type="button" data-flow-mode="capital">洋流</button>
+              <button class="segment" type="button" data-flow-mode="trace">追溯鏈</button>
             </div>
-            <div class="context-block">
-              <span>今日發動原因</span>
-              <p id="strategy-why">—</p>
-            </div>
-          </section>
+          </div>
 
-          <section class="panel regime-panel" aria-labelledby="regime-title">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">市場狀態</p>
-                <h2 id="regime-title">三層市場狀態</h2>
-              </div>
-              <span class="status-chip neutral" id="regime-status">—</span>
-            </div>
-            <div class="regime-list">
-              <div class="regime-row">
-                <span class="regime-icon macro"><i data-lucide="globe-2"></i></span>
-                <div><span>總經環境</span><strong id="regime-macro">—</strong></div>
-              </div>
-              <div class="regime-row">
-                <span class="regime-icon sector"><i data-lucide="layers-3"></i></span>
-                <div><span>產業狀態</span><strong id="regime-sector">—</strong></div>
-              </div>
-              <div class="regime-row">
-                <span class="regime-icon micro"><i data-lucide="scan-line"></i></span>
-                <div><span>市場情緒</span><strong id="regime-micro">—</strong></div>
-              </div>
-            </div>
-          </section>
+          <div class="ocean-map" id="flow-view" aria-label="全球資金洋流傳導">
+            <div class="ocean-grid" aria-hidden="true"></div>
+            <div class="route-line" aria-hidden="true"><span></span></div>
+            <div class="ocean-route" id="ocean-route"></div>
+            <div class="ocean-status" id="ocean-status">—</div>
+          </div>
 
-          <section class="panel health-panel" id="repository" aria-labelledby="health-title">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">知識庫</p>
-                <h2 id="health-title">知識庫健康度</h2>
-              </div>
-              <span class="health-badge" id="health-badge">—</span>
-            </div>
-            <div class="health-stats">
-              <div><strong id="count-patterns">0</strong><span>模式候選</span></div>
-              <div><strong id="count-cases">0</strong><span>驗證案例</span></div>
-              <div><strong id="count-evidence">0</strong><span>證據</span></div>
-            </div>
-            <div class="gap-summary">
-              <div class="gap-head">
-                <span>建置完成度</span>
-                <strong id="gap-count">0 項缺口</strong>
-              </div>
-              <div class="readiness-track"><span id="readiness-bar"></span></div>
-              <p id="gap-note">—</p>
-            </div>
-          </section>
-        </div>
+          <div class="metric-grid sea-grid">
+            <article class="metric-card" data-card="current">
+              <div class="card-header"><div><p class="eyebrow">洋流</p><h3>資金方向</h3></div><i class="header-icon" data-lucide="waves"></i></div>
+              <strong class="card-score" id="current-score">—</strong>
+              <span class="card-trend" id="current-trend">等待驗證</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="current-window">尚未計算</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="current-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="current-evidence">—</span></div>
+            </article>
 
-        <div class="dashboard-grid primary-grid">
-          <section class="panel opportunity-panel" id="opportunities" aria-labelledby="opportunity-title">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">今日前三大機會</p>
-                <h2 id="opportunity-title">知識庫前三大候選</h2>
-              </div>
-              <span class="sort-label"><i data-lucide="arrow-down-wide-narrow"></i> 依分數排序</span>
-            </div>
-            <div class="opportunity-list" id="opportunity-list"></div>
-          </section>
+            <article class="metric-card" data-card="tide">
+              <div class="card-header"><div><p class="eyebrow">潮汐</p><h3>敘事強弱</h3></div><i class="header-icon" data-lucide="gauge"></i></div>
+              <strong class="card-score" id="tide-score">—</strong>
+              <span class="card-trend" id="tide-trend">等待判讀</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="tide-window">尚未計算</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="tide-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="tide-evidence">—</span></div>
+            </article>
 
-          <section class="panel flow-panel" id="capital-flow" aria-labelledby="flow-title">
-            <div class="panel-heading flow-heading">
-              <div>
-                <p class="eyebrow">資金流地圖</p>
-                <h2 id="flow-title">資金傳導鏈</h2>
-              </div>
-              <div class="segmented-control" aria-label="資金流檢視">
-                <button class="segment active" type="button" data-flow-mode="capital">資金流</button>
-                <button class="segment" type="button" data-flow-mode="trace">追溯鏈</button>
-              </div>
+            <article class="metric-card" data-card="regime">
+              <div class="card-header"><div><p class="eyebrow">市場狀態</p><h3>市場環境</h3></div><i class="header-icon" data-lucide="compass"></i></div>
+              <strong class="card-score" id="regime-score">—</strong>
+              <span class="card-trend" id="regime-trend">等待分析</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="regime-window">本日</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="regime-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="regime-evidence">—</span></div>
+            </article>
+
+            <article class="metric-card" data-card="health">
+              <div class="card-header"><div><p class="eyebrow">市場健康</p><h3>資料健康度</h3></div><i class="header-icon" data-lucide="heart-pulse"></i></div>
+              <strong class="card-score" id="health-score">—</strong>
+              <span class="card-trend" id="health-trend">檢查中</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd>即時快照</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="health-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="shield-check"></i><span id="health-evidence">—</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="story-band" aria-labelledby="story-title">
+          <div class="story-icon"><i data-lucide="message-circle-more"></i></div>
+          <div>
+            <p class="eyebrow light">每日市場故事</p>
+            <h2 id="story-title">今天市場在說什麼</h2>
+          </div>
+          <p id="market-story">等待今日市場敘事資料。</p>
+          <span id="story-evidence">證據待建立</span>
+        </section>
+
+        <section class="screen" id="money" aria-labelledby="money-title">
+          <div class="screen-heading">
+            <div>
+              <p class="eyebrow">市場動能</p>
+              <h2 id="money-title">資金、密度、能量與速度</h2>
             </div>
-            <div id="flow-view" class="flow-view"></div>
-          </section>
-        </div>
+          </div>
+          <div class="metric-grid money-grid">
+            <article class="metric-card">
+              <div class="card-header"><div><p class="eyebrow">聰明資金</p><h3>資金足跡</h3></div><i class="header-icon" data-lucide="badge-dollar-sign"></i></div>
+              <strong class="card-score" id="smart-score">—</strong>
+              <span class="card-trend" id="smart-trend">等待驗證</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="smart-window">尚未計算</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="smart-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="smart-evidence">—</span></div>
+            </article>
+
+            <article class="metric-card">
+              <div class="card-header"><div><p class="eyebrow">魚群密度</p><h3>籌碼擁擠</h3></div><i class="header-icon" data-lucide="scan-search"></i></div>
+              <strong class="card-score" id="density-score">—</strong>
+              <span class="card-trend" id="density-trend">等待評估</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="density-window">尚未計算</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="density-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="density-evidence">—</span></div>
+            </article>
+
+            <article class="metric-card">
+              <div class="card-header"><div><p class="eyebrow">市場能量</p><h3>主題動能</h3></div><i class="header-icon" data-lucide="zap"></i></div>
+              <strong class="card-score" id="energy-score">—</strong>
+              <span class="card-trend" id="energy-trend">等待分析</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="energy-window">尚未計算</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="energy-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="energy-evidence">—</span></div>
+            </article>
+
+            <article class="metric-card">
+              <div class="card-header"><div><p class="eyebrow">資金速度</p><h3>傳導速度</h3></div><i class="header-icon" data-lucide="rocket"></i></div>
+              <strong class="card-score" id="velocity-score">—</strong>
+              <span class="card-trend" id="velocity-trend">等待分析</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd id="velocity-window">尚未計算</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="velocity-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="velocity-evidence">—</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen knowledge-screen" id="knowledge" aria-labelledby="knowledge-title">
+          <div class="screen-heading">
+            <div>
+              <p class="eyebrow">自我進化</p>
+              <h2 id="knowledge-title">知識庫、學習、演化與檢討</h2>
+            </div>
+          </div>
+          <div class="metric-grid knowledge-grid">
+            <article class="metric-card repository-card" id="repository">
+              <div class="card-header"><div><p class="eyebrow">知識核心</p><h3>知識庫</h3></div><i class="header-icon" data-lucide="database"></i></div>
+              <strong class="card-score" id="repository-score">—</strong>
+              <span class="card-trend" id="repository-trend">檢查中</span>
+              <div class="repository-counts">
+                <div><strong id="count-patterns">0</strong><span>模式</span></div>
+                <div><strong id="count-cases">0</strong><span>案例</span></div>
+                <div><strong id="count-evidence">0</strong><span>證據</span></div>
+              </div>
+              <div class="card-why"><span>原因</span><p id="repository-why">—</p></div>
+              <div class="card-evidence"><i data-lucide="shield-check"></i><span id="repository-evidence">—</span></div>
+            </article>
+
+            <article class="metric-card learning-card">
+              <div class="card-header"><div><p class="eyebrow">今日學習</p><h3>每日學習</h3></div><i class="header-icon" data-lucide="brain-circuit"></i></div>
+              <strong class="card-score" id="learning-score">—</strong>
+              <span class="card-trend">只讀摘要</span>
+              <ul class="learning-list">
+                <li><span>今天學到</span><strong id="learning-learned">—</strong></li>
+                <li><span>今天修正</span><strong id="learning-corrected">—</strong></li>
+                <li><span>今天新增</span><strong id="learning-added">—</strong></li>
+              </ul>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="learning-evidence">—</span></div>
+            </article>
+
+            <article class="metric-card evolution-card">
+              <div class="card-header"><div><p class="eyebrow">知識演化</p><h3>演化狀態</h3></div><i class="header-icon" data-lucide="chart-no-axes-combined"></i></div>
+              <strong class="card-score" id="evolution-score">—</strong>
+              <span class="card-trend">生命週期快照</span>
+              <div class="evolution-list">
+                <div><span class="state-dot growing"></span><span>成長</span><strong id="evolution-growing">—</strong></div>
+                <div><span class="state-dot stable"></span><span>穩定</span><strong id="evolution-stable">—</strong></div>
+                <div><span class="state-dot weakening"></span><span>轉弱</span><strong id="evolution-weakening">—</strong></div>
+                <div><span class="state-dot deprecated"></span><span>停用</span><strong id="evolution-deprecated">—</strong></div>
+              </div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="evolution-evidence">等待生命週期資料</span></div>
+            </article>
+
+            <article class="metric-card review-card">
+              <div class="card-header"><div><p class="eyebrow">決策檢討</p><h3>檢討佇列</h3></div><i class="header-icon" data-lucide="search-check"></i></div>
+              <strong class="card-score" id="review-score">—</strong>
+              <span class="card-trend" id="review-trend">等待檢討資料</span>
+              <dl class="card-meta"><div><dt>觀察窗</dt><dd>每日收盤後</dd></div></dl>
+              <div class="card-why"><span>原因</span><p id="review-why">尚無核准的每日檢討紀錄。</p></div>
+              <div class="card-evidence"><i data-lucide="file-search"></i><span id="review-evidence">檢討清冊待連結</span></div>
+            </article>
+          </div>
+        </section>
       </main>
     </div>
   </div>
@@ -225,8 +369,8 @@
     </div>
   </aside>
 
-  <script src="dashboard-data.js?v=e101-r1"></script>
+  <script src="dashboard-data.js?v=e120"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-  <script src="app.js?v=e101-r1"></script>
+  <script src="app.js?v=e120"></script>
 </body>
 </html>

@@ -213,6 +213,57 @@ class DashboardDataTests(unittest.TestCase):
         ):
             self.assertIn(section, html)
 
+    def test_north_star_mission_control_contract(self) -> None:
+        html = (REPOSITORY_ROOT / "Dashboard/index.html").read_text(
+            encoding="utf-8"
+        )
+        css = (REPOSITORY_ROOT / "Dashboard/styles.css").read_text(
+            encoding="utf-8"
+        )
+        javascript = (REPOSITORY_ROOT / "Dashboard/app.js").read_text(
+            encoding="utf-8"
+        )
+
+        for module in (
+            "今日北極星",
+            "我的船",
+            "禁航區",
+            "前三大機會雷達",
+            "全球洋流圖",
+            "資金方向",
+            "敘事強弱",
+            "市場環境",
+            "資料健康度",
+            "資金足跡",
+            "籌碼擁擠",
+            "主題動能",
+            "傳導速度",
+            "今天市場在說什麼",
+            "每日學習",
+            "演化狀態",
+            "檢討佇列",
+        ):
+            self.assertIn(module, html)
+
+        for card_contract in (
+            "card-header",
+            "card-score",
+            "card-trend",
+            "card-meta",
+            "card-why",
+            "card-evidence",
+        ):
+            self.assertIn(card_contract, html)
+            self.assertIn(card_contract, css)
+
+        for route_node in ("美國", "台灣", "HBM", "散熱", "PCB"):
+            self.assertIn(route_node, javascript)
+
+        self.assertIn("概念航線 · 尚無已驗證資金流", javascript)
+        self.assertNotIn("AI Infrastructure", html + javascript)
+        self.assertNotIn("91%", html + javascript)
+        self.assertNotIn("gradient", css)
+
     def test_visible_interface_contains_no_prohibited_english(self) -> None:
         html = (REPOSITORY_ROOT / "Dashboard/index.html").read_text(
             encoding="utf-8"

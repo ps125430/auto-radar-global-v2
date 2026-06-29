@@ -14,6 +14,7 @@ Last Updated: 2026-06-29
 | DEC-007 | 2026-06-29 | Top3 displays honest unavailable states when Opportunity Score is absent | Similarity or candidate fields must not be mislabeled as approved scores | 小P / 小C | Accepted |
 | DEC-008 | 2026-06-29 | Project Constitution v2.0 governs all AI startup, authority, mandatory updates, and conflict resolution | Future collaborators must operate from Repository truth instead of chat memory | 綠茶 / 小P | Accepted |
 | DEC-009 | 2026-06-29 | `Docs/ARCHITECTURE_BIBLE.md` is the single complete architecture handover | New collaborators need one traceable overview without replacing the live project SSOT | 綠茶 / 小P | Accepted |
+| DEC-010 | 2026-06-29 | Dashboard adopts the North Star four-screen Mission Control hierarchy | Daily use must prioritize direction, opportunities, risk, flow, energy, and learning without inventing missing data | 綠茶 / 小P | Accepted |
 
 ## Decision Rule
 

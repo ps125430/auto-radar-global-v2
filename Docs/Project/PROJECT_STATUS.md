@@ -19,32 +19,32 @@ Last Updated: 2026-06-29
 
 ## Current Phase
 
-Engineering Phase — Presentation and Governance
+Engineering Phase — North Star Dashboard
 
-Research Phase v1.0 已完成並封版。Repository Layer 已完成第一階段建置。目前重點為 Dashboard 與專案治理，不代表 Shadow Runtime 或 Production Runtime 已獲授權。
+Research Phase v1.0 已完成並封版。Repository Layer 已完成第一階段建置。North Star Dashboard v1 已完成工程實作並等待架構驗收，不代表 Shadow Runtime 或 Production Runtime 已獲授權。
 
 ## Current Sprint
 
-Engineering Sprint 1 — Dashboard and Governance
+Engineering Sprint 2 — North Star Mission Control
 
 Sprint focus:
 
-- 建立每日可使用的唯讀 Dashboard。
-- 完成 Dashboard 繁體中文化。
-- 建立 `Docs/Project/` 專案治理中心。
+- 建立 North Star 四屏任務中心。
+- 統一卡片、Top3、全球洋流、學習與演化介面。
+- 維持 Dashboard 繁體中文與 Repository-only 邊界。
 - 維持 Runtime 與 Production Rule 邊界。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | C-037 |
-| Task | Auto Radar Architecture Bible v1.0 |
+| Task ID | E-120 |
+| Task | Mission Control Dashboard Integration |
 | Owner | 小C / Engineering |
 | Status | Implemented; awaiting 小P architecture acceptance |
 | Priority | P0 |
 
-在 C-037 完成架構驗收前，不得自行切換 Current Task。
+在 E-120 完成架構驗收前，不得自行切換 Current Task。
 
 ## Completed
 
@@ -59,13 +59,17 @@ Sprint focus:
 - Project Governance Center and SSOT completed under C-035.
 - Governance v2.0 Constitution, AI Role Specification, Architect Principles, History, and Handover completed under C-036.
 - Architecture Bible v1.0 completed under C-037 as the consolidated architecture handover.
+- C-037 architecture acceptance: PASS.
+- North Star Dashboard engineering sequence E-111 through E-120 completed.
+- North Star card system, Hero, Captain, Top3, Ocean Map, Market Story, Learning, Evolution, and Mission Control integration completed.
+- 144 automated tests passing after E-120.
 - 143 automated tests passing at the start of C-035.
-- GitHub `main` synchronized through the C-036 baseline commit `b1868c7`.
+- GitHub `main` synchronized through the C-037 baseline commit `036f07e`.
 
 ## In Progress
 
-- C-037 documentation acceptance by 小P.
-- Architecture Bible reference and consistency verification.
+- E-120 architecture acceptance by 小P.
+- North Star Dashboard visual and data-boundary review.
 
 No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
 
@@ -73,7 +77,7 @@ No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
 
 Not assigned.
 
-The next task must be assigned after C-037 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
+The next task must be assigned after E-120 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
 
 ## Overall Progress
 
@@ -83,7 +87,7 @@ Milestone method: 3 of 7 product stages are complete.
 |---|---|
 | Research | Complete / Frozen |
 | Repository | Complete |
-| Dashboard | Complete for v1 |
+| Dashboard | North Star v1 implemented; awaiting acceptance |
 | Engine | Planned; Production behavior blocked |
 | Automation | Planned |
 | Beta | Planned |

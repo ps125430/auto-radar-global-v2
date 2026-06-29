@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 1 — Dashboard and Governance |
+| Sprint | Engineering Sprint 2 — North Star Mission Control |
 | Current Owner | 小C / Engineering |
-| Current Module | Architecture Knowledge Consolidation |
-| Current Task | C-037 |
+| Current Module | North Star Dashboard |
+| Current Task | E-120 |
 | Progress | Implementation complete; awaiting Architecture acceptance |
 | Blocker | None |
-| ETA | No committed date; closes when 小P accepts C-037 |
+| ETA | No committed date; closes when 小P accepts E-120 |
 
 ## Recently Completed
 
@@ -25,21 +25,26 @@ Project status authority: `PROJECT_STATUS.md`
 - E-101 Rev.1: Full Traditional Chinese Dashboard presentation.
 - C-035: Project Governance Center and SSOT.
 - C-036: Project Constitution and AI Operating System.
+- C-037: Architecture Bible v1.0; architecture acceptance PASS.
+- E-111 through E-120: North Star Dashboard engineering sequence.
 
 ## Current Implementation
 
-- C-037: Architecture Bible v1.0 implemented.
+- E-120: Mission Control integration implemented.
 - Remaining step: 小P architecture acceptance.
 
 ## Quality Status
 
-Baseline before C-037:
+Validation after E-120:
 
-- Automated tests: 143 passing.
+- Automated tests: 144 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
-- GitHub baseline: `b1868c7`.
-- Runtime changes in C-037: none.
+- GitHub baseline before North Star: `036f07e`.
+- Desktop layout: PASS with no horizontal overflow.
+- Responsive layout: PASS at the mobile navigation breakpoint.
+- Explainability drawer: PASS.
+- Runtime, Pipeline, Scoring, and Strategy changes: none.
 
 ## Engineering Boundaries
 
@@ -54,4 +59,4 @@ Baseline before C-037:
 
 Not assigned.
 
-Engineering must not begin another task until `NEXT_TASK.md` is updated after C-037 acceptance.
+Engineering must not begin another task until `NEXT_TASK.md` is updated after E-120 acceptance.

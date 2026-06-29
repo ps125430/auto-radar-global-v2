@@ -38,15 +38,16 @@ Boundary:
 
 ## Stage 3 — Dashboard
 
-Status: **v1 Complete**
+Status: **North Star v1 Implemented / Awaiting Acceptance**
 
 Delivered:
 
-- Daily Tactical Panel.
-- Today's strategy and market-state views.
-- Top3 candidate ranking.
-- Capital-flow empty state and Repository trace view.
-- Explainability drawer.
+- North Star Hero and Captain route.
+- Top3 opportunity panel and no-sail risk boundary.
+- Ocean Map, current, tide, regime, and health views.
+- Smart Money, density, energy, and velocity views.
+- Repository, learning, evolution, and review views.
+- Market Story and explainability drawer.
 - Responsive desktop and mobile layout.
 - Full Traditional Chinese user interface.
 
