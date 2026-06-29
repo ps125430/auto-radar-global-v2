@@ -9,8 +9,8 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Current Owner | 小C / Engineering |
-| Current Task | E-120 — Mission Control Dashboard Integration |
+| Current Owner | 小C / Documentation |
+| Current Task | A-120 — Runtime Governance v1 |
 | Status | Implemented; awaiting 小P architecture acceptance |
 | Priority | P0 |
 
@@ -18,15 +18,19 @@ This is the only Current Task.
 
 ## Next Task
 
-Not assigned.
+E-121 — North Star Runtime.
 
 Next step:
 
-1. 小P reviews E-111 through E-120 as the North Star Dashboard sequence.
-2. If accepted, mark E-120 complete and North Star v1 accepted.
-3. Architecture selects exactly one next task.
-4. Update this file and `PROJECT_STATUS.md`.
-5. Only then may the next Owner begin work.
+1. 小P reviews A-116 through A-120.
+2. If accepted, record Architecture Review PASS.
+3. Update the active Runtime Authority Matrix.
+4. Open the Runtime Governance Gate in `PROJECT_STATUS.md`.
+5. Issue E-121 as one bounded Shadow Runtime engineering task.
+
+Current status: **BLOCKED**
+
+N-001 through N-010 also remain blocked.
 
 ## Task Transition Rule
 

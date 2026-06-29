@@ -23,6 +23,7 @@ This is the canonical entry point for Auto Radar architecture and repository gov
 | Architecture Debt | `Docs/ARCHITECTURE_DEBT.md` | Known architecture debt and resolution tracking |
 | Entity Map | `Docs/ENTITY_MAP.md` | Canonical entity flow, ownership, schemas, and permissions |
 | Runtime Authority Matrix | `Docs/RUNTIME_AUTHORITY_MATRIX.md` | Deny-by-default Runtime permission whitelist |
+| Runtime Governance Candidate | `Docs/Project/RUNTIME_GOVERNANCE.md` | A-116 through A-120 Runtime Gate package; pending review |
 | Repository Structure | `Docs/REPOSITORY_STRUCTURE_STANDARD.md` | Canonical directory responsibilities and boundaries |
 | Project Blueprint | `Docs/PROJECT_BLUEPRINT.md` | Thirty-minute project and architecture overview |
 | Research Phase Closure | `Docs/RESEARCH_PHASE_V1_COMPLETE.md` | Research Phase v1.0 completion and freeze declaration |
@@ -35,6 +36,11 @@ This is the canonical entry point for Auto Radar architecture and repository gov
 * `Docs/HANDOVER_STATE.md`
 * `Docs/PROMPT_CONTRACT.md`
 * `Docs/CONSTITUTION.md`
+* `Docs/Project/RUNTIME_AUTHORITY_MATRIX.md`
+* `Docs/Project/DECISION_RUNTIME_SPECIFICATION.md`
+* `Docs/Project/RUNTIME_IO_CONTRACT.md`
+* `Docs/Project/REPOSITORY_WRITE_AUTHORITY.md`
+* `Docs/Project/RUNTIME_GOVERNANCE.md`
 
 ## Reading Order
 
@@ -49,4 +55,3 @@ This is the canonical entry point for Auto Radar architecture and repository gov
 ## Boundary
 
 This index documents architecture only. It does not authorize Runtime, Pipeline, Scoring, Dashboard, Strategy, or Production Rule changes.
-

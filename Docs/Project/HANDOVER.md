@@ -24,36 +24,35 @@ Last Updated: 2026-06-29
 - Remote: `https://github.com/ps125430/auto-radar-global-v2.git`
 - Branch: `main`
 - Local path: `C:\Users\user\Documents\Codex\2026-06-25\auto-radar-team-v1-0-auto\auto-radar-global-v2`
-- GitHub baseline before North Star engineering: `036f07e`
+- GitHub baseline before Runtime Governance: `de7c69d`
 
 工作開始前仍須執行 Git 檢查，不得只依賴本快照。
 
 ## Current Phase
 
-Engineering Phase — North Star Dashboard
+Engineering Phase — Runtime Governance Gate
 
 - Research: Complete / Frozen
 - Repository: Complete
-- Dashboard: North Star v1 implemented; awaiting architecture acceptance
-- Engine: Planned; Production behavior blocked
+- Dashboard: North Star v1 implemented
+- Engine: Runtime Governance implemented for review; Gate CLOSED
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-120
-- Task: Mission Control Dashboard Integration
-- Owner: 小C / Engineering
+- Task ID: A-120
+- Task: Runtime Governance v1
+- Owner: 小C / Documentation
 - Status: Implemented; awaiting 小P architecture acceptance
-- Impact: Dashboard presentation layer only
+- Impact: Documentation / Runtime Governance only
 
-## Completed in E-111 through E-120
+## Completed in A-116 through A-120
 
-- North Star 四屏資訊架構。
-- 統一卡片系統。
-- 全球洋流概念航線與已驗證資料切換。
-- North Star Hero、Captain、Top3、Market Story、Learning、Evolution。
-- Mission Control 最終整合與決策解釋抽屜。
-- 144 項自動測試通過。
+- Runtime Authority Matrix。
+- North Star Decision、Reason、Confidence Schema。
+- Runtime IO Contract 與 Layer boundary。
+- Repository Write Authority。
+- Validation、Rollback 與 E-121 Entry Gate。
 
 ## Active Boundaries
 
@@ -68,15 +67,17 @@ Engineering Phase — North Star Dashboard
 ## Validation Baseline
 
 - C-035 commit 已同步至 GitHub `main`。
-- North Star 只讀取既有 Dashboard Repository projection。
-- 未核准的策略、信心度、分數與資金流維持等待狀態。
-- Ocean Map 概念航線明確標示尚未驗證。
-- 未修改 Runtime、Pipeline、Scoring、Strategy 或 Production Rule。
+- 所有 Engine 目前仍為 Deny。
+- Engine 最多只能成為 Read／Suggest Candidate。
+- Learning 僅允許 Suggest，不得寫入 Repository。
+- E-121、N-001 至 N-010、Production Runtime 全部 BLOCKED。
+- 未修改任何 Runtime code、Pipeline、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-111 至 E-120。
-2. 驗收後同步更新 `PROJECT_STATUS.md` 與 `NEXT_TASK.md`。
-3. 由 Architecture 指定唯一下一個 Task。
+1. 小P驗收 A-116 至 A-120。
+2. 若 PASS，正式更新 active Runtime Authority Matrix。
+3. 開啟 Runtime Governance Gate。
+4. 由 Architecture 派發 E-121。
 
 不得自行從 Roadmap 選擇工作開工。

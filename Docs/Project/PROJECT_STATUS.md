@@ -19,32 +19,32 @@ Last Updated: 2026-06-29
 
 ## Current Phase
 
-Engineering Phase — North Star Dashboard
+Engineering Phase — Runtime Governance Gate
 
-Research Phase v1.0 已完成並封版。Repository Layer 已完成第一階段建置。North Star Dashboard v1 已完成工程實作並等待架構驗收，不代表 Shadow Runtime 或 Production Runtime 已獲授權。
+Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 Runtime Governance 文件已完成並等待架構驗收；Shadow Runtime 與 Production Runtime 仍未獲授權。
 
 ## Current Sprint
 
-Engineering Sprint 2 — North Star Mission Control
+Architecture Sprint 3 — Runtime Governance
 
 Sprint focus:
 
-- 建立 North Star 四屏任務中心。
-- 統一卡片、Top3、全球洋流、學習與演化介面。
-- 維持 Dashboard 繁體中文與 Repository-only 邊界。
-- 維持 Runtime 與 Production Rule 邊界。
+- 建立 Runtime Authority Matrix。
+- 建立 North Star Decision Schema 與 Runtime IO Contract。
+- 建立 Repository Write Authority。
+- 建立 Validation、Rollback 與 E-121 Entry Gate。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-120 |
-| Task | Mission Control Dashboard Integration |
-| Owner | 小C / Engineering |
+| Task ID | A-120 |
+| Task | Runtime Governance v1 |
+| Owner | 小C / Documentation |
 | Status | Implemented; awaiting 小P architecture acceptance |
 | Priority | P0 |
 
-在 E-120 完成架構驗收前，不得自行切換 Current Task。
+在 A-120 完成架構驗收前，不得自行切換 Current Task 或開始 E-121。
 
 ## Completed
 
@@ -62,22 +62,24 @@ Sprint focus:
 - C-037 architecture acceptance: PASS.
 - North Star Dashboard engineering sequence E-111 through E-120 completed.
 - North Star card system, Hero, Captain, Top3, Ocean Map, Market Story, Learning, Evolution, and Mission Control integration completed.
+- Architecture Decision confirmed the Runtime BLOCK and paused N-001 through N-010.
+- Runtime Governance documentation A-116 through A-120 implemented for review.
 - 144 automated tests passing after E-120.
 - 143 automated tests passing at the start of C-035.
-- GitHub `main` synchronized through the C-037 baseline commit `036f07e`.
+- GitHub `main` synchronized through the E-120 baseline commit `de7c69d`.
 
 ## In Progress
 
-- E-120 architecture acceptance by 小P.
-- North Star Dashboard visual and data-boundary review.
+- A-120 architecture acceptance by 小P.
+- Runtime Authority, IO, Validation, Rollback, and Repository Write review.
 
-No Runtime, Pipeline, Scoring, Strategy, or Production work is in progress.
+No Runtime implementation, Pipeline, Scoring, Strategy, or Production work is in progress.
 
 ## Next Task
 
-Not assigned.
+E-121 — North Star Runtime.
 
-The next task must be assigned after E-120 architecture acceptance and must be recorded in `NEXT_TASK.md` before work starts.
+Status: BLOCKED until A-116 through A-120 receive Architecture Review PASS and the active Runtime Authority Matrix is formally updated.
 
 ## Overall Progress
 
@@ -88,7 +90,7 @@ Milestone method: 3 of 7 product stages are complete.
 | Research | Complete / Frozen |
 | Repository | Complete |
 | Dashboard | North Star v1 implemented; awaiting acceptance |
-| Engine | Planned; Production behavior blocked |
+| Engine | Runtime Governance implemented for review; Gate CLOSED |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |
@@ -104,6 +106,7 @@ This percentage measures completed product stages, not code volume or prediction
 - Production Runtime, Decision Engine activation, position sizing, capital allocation, and real trading remain blocked.
 - No unvalidated hypothesis may become a Production Rule.
 - Research is frozen unless Architecture Review explicitly authorizes an exception.
+- N-001 through N-010 and E-121 remain blocked.
 
 ## Canonical References
 
@@ -112,6 +115,11 @@ This percentage measures completed product stages, not code volume or prediction
 - `Docs/Project/NEXT_TASK.md`
 - `Docs/Project/AI_ROLE_SPECIFICATION.md`
 - `Docs/Project/ARCHITECT_PRINCIPLES.md`
+- `Docs/Project/RUNTIME_AUTHORITY_MATRIX.md`
+- `Docs/Project/DECISION_RUNTIME_SPECIFICATION.md`
+- `Docs/Project/RUNTIME_IO_CONTRACT.md`
+- `Docs/Project/REPOSITORY_WRITE_AUTHORITY.md`
+- `Docs/Project/RUNTIME_GOVERNANCE.md`
 - `Docs/Project/ROADMAP.md`
 - `Docs/Project/TEAM_OPERATING_MODEL.md`
 - `Docs/Project/HANDOVER.md`

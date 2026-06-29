@@ -69,6 +69,12 @@ Last Updated: 2026-06-29
 - 建立北極星、今日航向、Top3、禁航區、全球洋流、市場動能與知識演化四屏任務中心。
 - 維持 Repository-only、繁體中文、缺少資料不補造與零 Production Rule 邊界。
 
+### 2026-06-29 — Runtime Governance Gate
+
+- 小P確認 Runtime BLOCK，暫停 N-001 至 N-010。
+- 完成 A-116 至 A-120 Runtime Authority、Decision Schema、IO Contract、Write Policy、Validation 與 Rollback 文件。
+- E-121 維持 BLOCKED，等待 Architecture Review PASS 與 active Runtime Authority Matrix 更新。
+
 ## Current Direction
 
 ```text

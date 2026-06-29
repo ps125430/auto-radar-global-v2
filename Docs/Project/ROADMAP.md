@@ -60,13 +60,18 @@ Next improvement candidates require separate approved tasks:
 
 ## Stage 4 — Engine
 
-Status: **Planned / Production Blocked**
+Status: **Runtime Governance Implemented for Review / Gate Closed**
 
 Potential scope:
 
 - Bounded Shadow Runtime design.
 - Engine contracts, monitoring, rollback, and audit.
 - Approved Decision Lab integrations.
+
+Current gate:
+
+- A-116 through A-120 implemented for Architecture Review.
+- E-121 and N-001 through N-010 blocked.
 
 Entry gate:
 

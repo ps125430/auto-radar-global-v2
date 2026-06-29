@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 2 — North Star Mission Control |
-| Current Owner | 小C / Engineering |
-| Current Module | North Star Dashboard |
-| Current Task | E-120 |
+| Sprint | Architecture Sprint 3 — Runtime Governance |
+| Current Owner | 小C / Documentation |
+| Current Module | Runtime Governance Gate |
+| Current Task | A-120 |
 | Progress | Implementation complete; awaiting Architecture acceptance |
 | Blocker | None |
-| ETA | No committed date; closes when 小P accepts E-120 |
+| ETA | No committed date; closes when 小P accepts A-116 through A-120 |
 
 ## Recently Completed
 
@@ -27,24 +27,27 @@ Project status authority: `PROJECT_STATUS.md`
 - C-036: Project Constitution and AI Operating System.
 - C-037: Architecture Bible v1.0; architecture acceptance PASS.
 - E-111 through E-120: North Star Dashboard engineering sequence.
+- A-116 through A-120: Runtime Governance documentation package.
 
 ## Current Implementation
 
-- E-120: Mission Control integration implemented.
+- A-120: Runtime Governance v1 implemented.
 - Remaining step: 小P architecture acceptance.
 
 ## Quality Status
 
-Validation after E-120:
+Validation baseline:
 
 - Automated tests: 144 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
-- GitHub baseline before North Star: `036f07e`.
+- GitHub baseline before Runtime Governance: `de7c69d`.
 - Desktop layout: PASS with no horizontal overflow.
 - Responsive layout: PASS at the mobile navigation breakpoint.
 - Explainability drawer: PASS.
 - Runtime, Pipeline, Scoring, and Strategy changes: none.
+- Runtime Governance Gate: CLOSED.
+- E-121 and N-001 through N-010: BLOCKED.
 
 ## Engineering Boundaries
 
@@ -59,4 +62,4 @@ Validation after E-120:
 
 Not assigned.
 
-Engineering must not begin another task until `NEXT_TASK.md` is updated after E-120 acceptance.
+Engineering must not begin E-121 or any N-series Runtime task until A-120 PASS and Runtime Authority is formally updated.
