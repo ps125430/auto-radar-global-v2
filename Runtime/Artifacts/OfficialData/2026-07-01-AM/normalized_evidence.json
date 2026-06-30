@@ -1,0 +1,79 @@
+{
+  "document_id": "NORMALIZED-EVIDENCE-2026-07-01-AM",
+  "evidence": [
+    {
+      "id": "OE-ETF-20260701-001",
+      "importance": 76,
+      "reference": "official-record://ETF/2026-07-01/001",
+      "region": "United States",
+      "reliability": 90,
+      "source": "ETF",
+      "theme": "Semiconductor Flow",
+      "timestamp": "2026-07-01T00:55:00+00:00"
+    },
+    {
+      "id": "OE-MACRO-20260701-001",
+      "importance": 89,
+      "reference": "official-record://MACRO/2026-07-01/001",
+      "region": "Global",
+      "reliability": 96,
+      "source": "MACRO",
+      "theme": "Rates",
+      "timestamp": "2026-07-01T00:54:00+00:00"
+    },
+    {
+      "id": "OE-MOPS-20260701-001",
+      "importance": 94,
+      "reference": "official-record://MOPS/2026-07-01/001",
+      "region": "Taiwan",
+      "reliability": 99,
+      "source": "MOPS",
+      "theme": "HBM",
+      "timestamp": "2026-07-01T00:52:00+00:00"
+    },
+    {
+      "id": "OE-NEWS-20260701-001",
+      "importance": 70,
+      "reference": "source-record://NEWS/2026-07-01/001",
+      "region": "Global",
+      "reliability": 72,
+      "source": "NEWS",
+      "theme": "AI Infrastructure",
+      "timestamp": "2026-07-01T00:56:00+00:00"
+    },
+    {
+      "id": "OE-TPEX-20260701-001",
+      "importance": 82,
+      "reference": "official-record://TPEX/2026-07-01/001",
+      "region": "Taiwan",
+      "reliability": 96,
+      "source": "TPEX",
+      "theme": "Cooling",
+      "timestamp": "2026-07-01T00:51:00+00:00"
+    },
+    {
+      "id": "OE-TWSE-20260701-001",
+      "importance": 92,
+      "reference": "official-record://TWSE/2026-07-01/001",
+      "region": "Taiwan",
+      "reliability": 98,
+      "source": "TWSE",
+      "theme": "AI Infrastructure",
+      "timestamp": "2026-07-01T00:50:00+00:00"
+    },
+    {
+      "id": "OE-US-20260701-001",
+      "importance": 91,
+      "reference": "official-record://US_MARKET/2026-07-01/001",
+      "region": "United States",
+      "reliability": 95,
+      "source": "US_MARKET",
+      "theme": "AI Infrastructure",
+      "timestamp": "2026-07-01T00:53:00+00:00"
+    }
+  ],
+  "model_impact": "evidence_only_not_production",
+  "repository_write_authorized": false,
+  "snapshot_version": "2026-07-01-AM",
+  "status": "normalized_shadow_evidence"
+}

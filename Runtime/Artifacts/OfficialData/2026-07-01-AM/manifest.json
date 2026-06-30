@@ -1,0 +1,22 @@
+{
+  "document_id": "LIVING-OCEAN-MANIFEST-2026-07-01-AM",
+  "generated_at": "2026-07-01T01:01:00+00:00",
+  "model_impact": "provider_data_only_not_production",
+  "output_hashes": {
+    "evidence": "67027742d6c54f1c157c5a1f40e596ad6435dc32f746c419cfa7e74bcb9f3ac9",
+    "health": "9330551c73447785a0267dbe12220990903d21f7b88d83fb618a9e1ffa8ac15c",
+    "snapshot": "7dd1e0408f9dc04f837641ac618f7b889fac43b504aa9572eee18ee44d02766d"
+  },
+  "repository_write_authorized": false,
+  "snapshot_version": "2026-07-01-AM",
+  "source_hashes": {
+    "Data/OfficialProvider/provider_registry.json": "9768c3b3e294808b37cfb3712ef5971197cdb6c2b489d6a5451b122ad4dd668a",
+    "Data/OfficialProvider/snapshot_input_2026-07-01-AM.json": "035ea02ef3595674ea76621609c3a703e1bfa070d098a95ee4a0d7c7b74a4e88",
+    "Runtime/Providers/evidence_normalizer.py": "a5f8cadb7dcccc00df261562deb78c489f1542b2aa589a907375bdf06d588b34",
+    "Runtime/Providers/ocean_health.py": "7b423cc3b8135abbdbf4fe378912add4518264494d898e76d3c7eb15369411d4",
+    "Runtime/Providers/official_registry.py": "74df0210bf46b7e3edafed47d9ae9a00b0b407fe6e0161efdfa18912912c9b5a",
+    "Runtime/Providers/snapshot_v2.py": "a2e311a315761257ada8e3afc4d2c55e8147cd6d51aac7ee8cedb63c30e3526f",
+    "Scripts/Providers/build_official_snapshot.py": "942f51a6d99b5d6fe3414fd28df3d7a3344cf3bcd23701f6dbc9d9a2884399a7"
+  },
+  "status": "shadow_artifact_manifest"
+}

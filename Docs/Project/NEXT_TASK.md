@@ -10,8 +10,8 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Current Owner | 小C / Engineering |
-| Current Task | E-155 — Shadow Data Replay |
-| Status | E-151 through E-155 implemented; awaiting 小P architecture review |
+| Current Task | E-160 — Living Ocean Monitor |
+| Status | E-156 through E-160 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
 This is the only Current Task.
@@ -22,9 +22,9 @@ Not assigned.
 
 Next step:
 
-1. 小P reviews E-151 through E-155.
+1. 小P reviews E-156 through E-160.
 2. Record PASS or required corrections.
-3. Keep N-001 through N-010 and Production Runtime blocked until separately authorized.
+3. Keep live provider connectivity and Production Runtime blocked until separately authorized.
 
 Current status: **WAITING FOR ARCHITECTURE REVIEW**
 

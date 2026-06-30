@@ -1,0 +1,72 @@
+{
+  "document_id": "AR-OFFICIAL-PROVIDER-REGISTRY-v1",
+  "version": "1.0",
+  "status": "shadow_registry",
+  "model_impact": "provider_metadata_only_not_production",
+  "official_first": true,
+  "providers": [
+    {
+      "source_id": "TWSE",
+      "source_class": "official",
+      "trust_score": 98,
+      "update_frequency": "trading_day_intraday_and_close",
+      "last_success": "2026-07-01T05:35:00+00:00",
+      "last_failure": null,
+      "health_status": "healthy"
+    },
+    {
+      "source_id": "TPEX",
+      "source_class": "official",
+      "trust_score": 98,
+      "update_frequency": "trading_day_intraday_and_close",
+      "last_success": "2026-07-01T05:36:00+00:00",
+      "last_failure": null,
+      "health_status": "healthy"
+    },
+    {
+      "source_id": "MOPS",
+      "source_class": "official",
+      "trust_score": 99,
+      "update_frequency": "event_driven",
+      "last_success": "2026-07-01T05:40:00+00:00",
+      "last_failure": null,
+      "health_status": "healthy"
+    },
+    {
+      "source_id": "US_MARKET",
+      "source_class": "official",
+      "trust_score": 96,
+      "update_frequency": "trading_day_intraday_and_close",
+      "last_success": "2026-07-01T00:10:00+00:00",
+      "last_failure": null,
+      "health_status": "healthy"
+    },
+    {
+      "source_id": "MACRO",
+      "source_class": "official",
+      "trust_score": 97,
+      "update_frequency": "calendar_and_event_driven",
+      "last_success": "2026-07-01T00:15:00+00:00",
+      "last_failure": null,
+      "health_status": "healthy"
+    },
+    {
+      "source_id": "ETF",
+      "source_class": "official",
+      "trust_score": 92,
+      "update_frequency": "trading_day",
+      "last_success": "2026-07-01T00:20:00+00:00",
+      "last_failure": null,
+      "health_status": "healthy"
+    },
+    {
+      "source_id": "NEWS",
+      "source_class": "third_party",
+      "trust_score": 78,
+      "update_frequency": "continuous",
+      "last_success": "2026-07-01T00:22:00+00:00",
+      "last_failure": "2026-06-30T23:40:00+00:00",
+      "health_status": "warning"
+    }
+  ]
+}

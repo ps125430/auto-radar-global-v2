@@ -23,6 +23,7 @@ Last Updated: 2026-06-30
 | DEC-016 | 2026-06-30 | E-146 through E-150 may persist Shadow review artifacts under Runtime/NorthStar only | Daily memory requires durable Snapshot and Review records, while Outcome and Engine attribution remain manual and Reflection has no Repository write or merge authority | 小P / 小C | Pending Review |
 | DEC-017 | 2026-06-30 | Runtime market data must enter through Provider → Quality → Snapshot → Snapshot Reader | Runtime must never access external APIs directly; archived fixtures establish the boundary before live adapters are authorized | 小P / 小C | Pending Review |
 | DEC-018 | 2026-06-30 | Shadow Replay artifacts are immutable and source-hashed under Runtime/Artifacts | Reproducibility requires fixed input, engine source, Repository source, output hashes, and byte-identical reruns without modifying Dashboard or Knowledge | 小P / 小C | Pending Review |
+| DEC-019 | 2026-06-30 | Living Ocean uses official-first Registry metadata and versioned Snapshot v2; source failure creates a data-confidence adjustment candidate but does not modify formal Confidence | Data quality must remain visible and degradable without inventing Decision logic or allowing Runtime direct URL access | 小P / 小C | Pending Review |
 
 ## Decision Rule
 

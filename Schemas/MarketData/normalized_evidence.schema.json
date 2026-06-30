@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/normalized_evidence.schema.json",
+  "title": "Normalized Official Evidence",
+  "type": "object",
+  "required": ["id", "source", "timestamp", "importance", "reliability", "region", "theme", "reference"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "source": {"enum": ["TWSE", "TPEX", "MOPS", "US_MARKET", "MACRO", "ETF", "NEWS"]},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "importance": {"type": "integer", "minimum": 0, "maximum": 100},
+    "reliability": {"type": "integer", "minimum": 0, "maximum": 100},
+    "region": {"type": "string", "minLength": 1},
+    "theme": {"type": "string", "minLength": 1},
+    "reference": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

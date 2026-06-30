@@ -129,6 +129,15 @@ Last Updated: 2026-06-29
 - Replay manifest 固定 input、Repository source、Engine source 與 output SHA-256；重跑產物 byte-identical。
 - 外部 API、Production Runtime、Trading Signal、Strategy、Scoring 與 Repository auto-write 仍未啟用。
 
+### 2026-06-30 — M-002 Living Ocean
+
+- 完成 E-156 Official Provider Registry，來源清冊不保存 Runtime 可直接存取的網址。
+- 完成 E-157 AM/PM versioned Global Snapshot v2。
+- 完成 E-158 Evidence Normalizer，Repository Evidence 使用單一格式。
+- 完成 E-159 Ocean Health；來源故障只產生資料信心調節候選，不修改正式 Confidence。
+- 完成 E-160 Dashboard Living Ocean Monitor。
+- 官方來源連線、Production Decision、Trading Signal、Strategy、Scoring 與 Repository auto-write 仍未啟用。
+
 ## Current Direction
 
 ```text
@@ -141,6 +150,7 @@ Research (Frozen)
   -> Shadow Data Quality (Implemented; Production blocked)
   -> Daily Intelligence Loop (Implemented; Production blocked)
   -> Real Data Foundation (Archived fixtures; APIs blocked)
+  -> Living Ocean (Official-first metadata and health; APIs blocked)
   -> Automation
   -> Beta
   -> v1.0

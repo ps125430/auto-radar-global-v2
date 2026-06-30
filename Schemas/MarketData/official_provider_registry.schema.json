@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/official_provider_registry.schema.json",
+  "title": "Official Provider Registry",
+  "type": "object",
+  "required": ["document_id", "version", "status", "model_impact", "official_first", "providers"],
+  "properties": {
+    "document_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "const": "shadow_registry"},
+    "model_impact": {"type": "string", "const": "provider_metadata_only_not_production"},
+    "official_first": {"type": "boolean", "const": true},
+    "providers": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "source_class", "trust_score", "update_frequency", "last_success", "last_failure", "health_status"],
+        "properties": {
+          "source_id": {"enum": ["TWSE", "TPEX", "MOPS", "US_MARKET", "MACRO", "ETF", "NEWS"]},
+          "source_class": {"enum": ["official", "third_party"]},
+          "trust_score": {"type": "integer", "minimum": 0, "maximum": 100},
+          "update_frequency": {"type": "string", "minLength": 1},
+          "last_success": {"type": "string", "format": "date-time"},
+          "last_failure": {"type": ["string", "null"], "format": "date-time"},
+          "health_status": {"enum": ["healthy", "warning", "degraded", "unavailable"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "x-runtime": {
+    "network_access": false,
+    "production_authorized": false,
+    "repository_auto_write": false
+  }
+}

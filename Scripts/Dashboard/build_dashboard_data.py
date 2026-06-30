@@ -172,6 +172,7 @@ class DashboardDataBuilder:
             explain_chain=explain_chain,
             generated_at=self.generated_at,
         )
+        living_ocean = self._load_living_ocean()
 
         return {
             "meta": {
@@ -194,6 +195,7 @@ class DashboardDataBuilder:
                     "知識圖譜",
                     "全域驗證報告",
                     "Shadow Runtime 半真實輸入包",
+                    "Living Ocean 官方來源快照",
                 ],
             },
             "strategy": {
@@ -271,6 +273,7 @@ class DashboardDataBuilder:
                 ],
             },
             "shadow_runtime": shadow_runtime,
+            "living_ocean": living_ocean,
         }
 
     def write(self) -> dict[str, Any]:
@@ -622,6 +625,63 @@ class DashboardDataBuilder:
         if not isinstance(payload, dict):
             raise DashboardDataError(f"{context} must be an object")
         return payload
+
+    def _load_living_ocean(self) -> dict[str, Any]:
+        root = self.repository_root / "Runtime/Artifacts/OfficialData"
+        candidates = sorted(root.glob("*/global_snapshot.json"))
+        if not candidates:
+            return {
+                "status": "waiting_for_shadow_snapshot",
+                "snapshot_version": None,
+                "generated_at": None,
+                "overall_status": "waiting",
+                "health_score": None,
+                "evidence_coverage": None,
+                "sources": [],
+                "formal_confidence_modified": False,
+                "repository_write_authorized": False,
+            }
+        path = candidates[-1]
+        snapshot = self._load_json(
+            path.relative_to(self.repository_root).as_posix(),
+            "Living Ocean Global Snapshot",
+        )
+        if snapshot.get("status") != "validated_shadow_snapshot_v2":
+            raise DashboardDataError(
+                "Living Ocean snapshot is not validated"
+            )
+        global_data = snapshot.get("global")
+        if not isinstance(global_data, dict):
+            raise DashboardDataError(
+                "Living Ocean snapshot is missing global data"
+            )
+        health = global_data.get("market_health")
+        if not isinstance(health, dict):
+            raise DashboardDataError(
+                "Living Ocean snapshot is missing market health"
+            )
+        sources = health.get("sources")
+        if not isinstance(sources, list):
+            raise DashboardDataError(
+                "Living Ocean health sources must be an array"
+            )
+        return {
+            "status": "shadow_data_monitor",
+            "snapshot_version": snapshot.get("snapshot_version"),
+            "generated_at": snapshot.get("generated_at"),
+            "overall_status": health.get("overall_status"),
+            "health_score": health.get("health_score"),
+            "evidence_coverage": health.get("evidence_coverage"),
+            "sources": sources,
+            "formal_confidence_modified": bool(
+                health.get(
+                    "data_confidence_adjustment_candidate", {}
+                ).get("applied_to_decision_confidence")
+            ),
+            "repository_write_authorized": bool(
+                snapshot.get("repository_write_authorized")
+            ),
+        }
 
     def _load_latest_json(
         self, root_relative: str, filename: str, context: str

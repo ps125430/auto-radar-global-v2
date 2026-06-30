@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 7 — Real Data Foundation |
+| Sprint | Engineering Sprint 8 — M-002 Living Ocean |
 | Current Owner | 小C / Engineering |
-| Current Module | Provider Layer and Shadow Data Replay |
-| Current Task | E-155 |
-| Progress | E-151 through E-155 implementation complete; awaiting Architecture review |
+| Current Module | Official Data Foundation and Living Ocean Monitor |
+| Current Task | E-160 |
+| Progress | E-156 through E-160 implementation complete; awaiting Architecture review |
 | Blocker | None |
-| ETA | No committed date; closes when 小P reviews E-151 through E-155 |
+| ETA | No committed date; closes when 小P reviews E-156 through E-160 |
 
 ## Recently Completed
 
@@ -34,6 +34,7 @@ Project status authority: `PROJECT_STATUS.md`
 - E-136 through E-140: Shadow input contract, sample input pack, fail-fast quality gates, and first readable Shadow Brief.
 - E-146 through E-150: Decision Snapshot, Manual Outcome, Residual, Root Cause, and Suggest-only Reflection.
 - E-151 through E-155: Provider Layer, Market Snapshot, automatic Evidence, Data Quality, and deterministic Replay.
+- E-156 through E-160: Official Provider Registry, Snapshot v2, Evidence Normalizer, Ocean Health, and Living Ocean Monitor.
 
 ## Current Implementation
 
@@ -44,13 +45,14 @@ Project status authority: `PROJECT_STATUS.md`
 - E-136 through E-140: implemented.
 - E-146 through E-150: implemented.
 - E-151 through E-155: implemented.
+- E-156 through E-160: implemented.
 - Remaining step: 小P architecture review.
 
 ## Quality Status
 
 Validation baseline:
 
-- Automated tests: 186 passing.
+- Automated tests: 194 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
 - GitHub baseline before Runtime Governance: `de7c69d`.
@@ -64,6 +66,7 @@ Validation baseline:
 - Shadow Data Quality: implemented for Architecture Review.
 - Daily Intelligence Loop: implemented for Architecture Review.
 - Real Data Foundation: implemented with archived fixtures; external APIs remain unconnected.
+- Living Ocean: official-first metadata and health monitoring implemented; live provider connectivity remains unconnected.
 - N-001 through N-010 and Production Runtime: BLOCKED.
 
 ## Engineering Boundaries
@@ -77,6 +80,6 @@ Validation baseline:
 
 ## Next Engineering Work
 
-Not assigned. E-151 through E-155 await Architecture Review.
+Not assigned. E-156 through E-160 await Architecture Review.
 
 Engineering must not begin N-series or Production Runtime work until separately authorized.

@@ -1,0 +1,105 @@
+{
+  "document_id": "AR-OFFICIAL-SNAPSHOT-INPUT-2026-07-01-AM",
+  "snapshot_version": "2026-07-01-AM",
+  "generated_at": "2026-07-01T01:01:00+00:00",
+  "status": "archived_shadow_input",
+  "model_impact": "provider_data_only_not_production",
+  "market_data": {
+    "us": {
+      "state": "risk_on_selective",
+      "reference": "US-MARKET-AM-20260701"
+    },
+    "taiwan": {
+      "state": "pre_open_validation",
+      "reference": "TW-MARKET-AM-20260701"
+    },
+    "macro": {
+      "state": "neutral_with_rate_risk",
+      "reference": "MACRO-AM-20260701"
+    },
+    "sector": [
+      "AI Infrastructure",
+      "HBM",
+      "Cooling",
+      "Power"
+    ],
+    "theme": [
+      "AI Infrastructure",
+      "HBM",
+      "Cooling",
+      "CPO"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "OE-TWSE-20260701-001",
+      "source": "TWSE",
+      "timestamp": "2026-07-01T00:50:00+00:00",
+      "importance": 92,
+      "reliability": 98,
+      "region": "Taiwan",
+      "theme": "AI Infrastructure",
+      "reference": "official-record://TWSE/2026-07-01/001"
+    },
+    {
+      "id": "OE-TPEX-20260701-001",
+      "source": "TPEX",
+      "timestamp": "2026-07-01T00:51:00+00:00",
+      "importance": 82,
+      "reliability": 96,
+      "region": "Taiwan",
+      "theme": "Cooling",
+      "reference": "official-record://TPEX/2026-07-01/001"
+    },
+    {
+      "id": "OE-MOPS-20260701-001",
+      "source": "MOPS",
+      "timestamp": "2026-07-01T00:52:00+00:00",
+      "importance": 94,
+      "reliability": 99,
+      "region": "Taiwan",
+      "theme": "HBM",
+      "reference": "official-record://MOPS/2026-07-01/001"
+    },
+    {
+      "id": "OE-US-20260701-001",
+      "source": "US_MARKET",
+      "timestamp": "2026-07-01T00:53:00+00:00",
+      "importance": 91,
+      "reliability": 95,
+      "region": "United States",
+      "theme": "AI Infrastructure",
+      "reference": "official-record://US_MARKET/2026-07-01/001"
+    },
+    {
+      "id": "OE-MACRO-20260701-001",
+      "source": "MACRO",
+      "timestamp": "2026-07-01T00:54:00+00:00",
+      "importance": 89,
+      "reliability": 96,
+      "region": "Global",
+      "theme": "Rates",
+      "reference": "official-record://MACRO/2026-07-01/001"
+    },
+    {
+      "id": "OE-ETF-20260701-001",
+      "source": "ETF",
+      "timestamp": "2026-07-01T00:55:00+00:00",
+      "importance": 76,
+      "reliability": 90,
+      "region": "United States",
+      "theme": "Semiconductor Flow",
+      "reference": "official-record://ETF/2026-07-01/001"
+    },
+    {
+      "id": "OE-NEWS-20260701-001",
+      "source": "NEWS",
+      "timestamp": "2026-07-01T00:56:00+00:00",
+      "importance": 70,
+      "reliability": 72,
+      "region": "Global",
+      "theme": "AI Infrastructure",
+      "reference": "source-record://NEWS/2026-07-01/001"
+    }
+  ]
+}

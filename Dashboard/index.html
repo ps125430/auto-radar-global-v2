@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <title>Auto Radar · 北極星任務中心</title>
   <link rel="preconnect" href="https://unpkg.com">
-  <link rel="stylesheet" href="styles.css?v=e120">
+  <link rel="stylesheet" href="styles.css?v=e160">
 </head>
 <body>
   <div class="app-shell">
@@ -267,6 +267,25 @@
               <div class="card-evidence"><i data-lucide="shield-check"></i><span id="health-evidence">—</span></div>
             </article>
           </div>
+          <article class="ocean-health-monitor" aria-labelledby="ocean-health-title">
+            <div class="ocean-health-heading">
+              <div>
+                <p class="eyebrow">Living Ocean</p>
+                <h3 id="ocean-health-title">官方資料來源監控</h3>
+              </div>
+              <div class="ocean-health-summary">
+                <span id="ocean-health-status">等待資料</span>
+                <strong id="ocean-snapshot-time">尚無快照</strong>
+              </div>
+            </div>
+            <div class="source-health-grid" id="source-health-grid">
+              <p>等待今日 Shadow Snapshot。</p>
+            </div>
+            <div class="ocean-health-footer">
+              <span id="ocean-evidence-coverage">Evidence 等待建立</span>
+              <span>知識庫唯讀 · 不修改正式信心度</span>
+            </div>
+          </article>
         </section>
 
         <section class="story-band" aria-labelledby="story-title">
@@ -414,8 +433,8 @@
     </div>
   </aside>
 
-  <script src="dashboard-data.js?v=e140"></script>
+  <script src="dashboard-data.js?v=e160"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-  <script src="app.js?v=e140"></script>
+  <script src="app.js?v=e160"></script>
 </body>
 </html>

@@ -1,0 +1,191 @@
+{
+  "document_id": "GLOBAL-SNAPSHOT-2026-07-01-AM",
+  "generated_at": "2026-07-01T01:01:00+00:00",
+  "global": {
+    "evidence": [
+      {
+        "id": "OE-ETF-20260701-001",
+        "importance": 76,
+        "reference": "official-record://ETF/2026-07-01/001",
+        "region": "United States",
+        "reliability": 90,
+        "source": "ETF",
+        "theme": "Semiconductor Flow",
+        "timestamp": "2026-07-01T00:55:00+00:00"
+      },
+      {
+        "id": "OE-MACRO-20260701-001",
+        "importance": 89,
+        "reference": "official-record://MACRO/2026-07-01/001",
+        "region": "Global",
+        "reliability": 96,
+        "source": "MACRO",
+        "theme": "Rates",
+        "timestamp": "2026-07-01T00:54:00+00:00"
+      },
+      {
+        "id": "OE-MOPS-20260701-001",
+        "importance": 94,
+        "reference": "official-record://MOPS/2026-07-01/001",
+        "region": "Taiwan",
+        "reliability": 99,
+        "source": "MOPS",
+        "theme": "HBM",
+        "timestamp": "2026-07-01T00:52:00+00:00"
+      },
+      {
+        "id": "OE-NEWS-20260701-001",
+        "importance": 70,
+        "reference": "source-record://NEWS/2026-07-01/001",
+        "region": "Global",
+        "reliability": 72,
+        "source": "NEWS",
+        "theme": "AI Infrastructure",
+        "timestamp": "2026-07-01T00:56:00+00:00"
+      },
+      {
+        "id": "OE-TPEX-20260701-001",
+        "importance": 82,
+        "reference": "official-record://TPEX/2026-07-01/001",
+        "region": "Taiwan",
+        "reliability": 96,
+        "source": "TPEX",
+        "theme": "Cooling",
+        "timestamp": "2026-07-01T00:51:00+00:00"
+      },
+      {
+        "id": "OE-TWSE-20260701-001",
+        "importance": 92,
+        "reference": "official-record://TWSE/2026-07-01/001",
+        "region": "Taiwan",
+        "reliability": 98,
+        "source": "TWSE",
+        "theme": "AI Infrastructure",
+        "timestamp": "2026-07-01T00:50:00+00:00"
+      },
+      {
+        "id": "OE-US-20260701-001",
+        "importance": 91,
+        "reference": "official-record://US_MARKET/2026-07-01/001",
+        "region": "United States",
+        "reliability": 95,
+        "source": "US_MARKET",
+        "theme": "AI Infrastructure",
+        "timestamp": "2026-07-01T00:53:00+00:00"
+      }
+    ],
+    "macro": {
+      "reference": "MACRO-AM-20260701",
+      "state": "neutral_with_rate_risk"
+    },
+    "market_health": {
+      "data_confidence_adjustment_candidate": {
+        "applied_to_decision_confidence": false,
+        "direction": "reduce_only",
+        "maximum_reduction_percent": 9,
+        "requires_architecture_validation": true
+      },
+      "document_id": "OCEAN-HEALTH-2026-07-01-AM",
+      "evidence_coverage": 100,
+      "generated_at": "2026-07-01T01:01:00+00:00",
+      "health_score": 91,
+      "model_impact": "data_health_only_not_production",
+      "overall_status": "healthy",
+      "production_authorized": false,
+      "repository_write_authorized": false,
+      "snapshot_version": "2026-07-01-AM",
+      "sources": [
+        {
+          "evidence_count": 1,
+          "health_status": "healthy",
+          "last_failure": null,
+          "last_success": "2026-07-01T00:20:00+00:00",
+          "source_class": "official",
+          "source_id": "ETF",
+          "trust_score": 92
+        },
+        {
+          "evidence_count": 1,
+          "health_status": "healthy",
+          "last_failure": null,
+          "last_success": "2026-07-01T00:15:00+00:00",
+          "source_class": "official",
+          "source_id": "MACRO",
+          "trust_score": 97
+        },
+        {
+          "evidence_count": 1,
+          "health_status": "healthy",
+          "last_failure": null,
+          "last_success": "2026-07-01T05:40:00+00:00",
+          "source_class": "official",
+          "source_id": "MOPS",
+          "trust_score": 99
+        },
+        {
+          "evidence_count": 1,
+          "health_status": "warning",
+          "last_failure": "2026-06-30T23:40:00+00:00",
+          "last_success": "2026-07-01T00:22:00+00:00",
+          "source_class": "third_party",
+          "source_id": "NEWS",
+          "trust_score": 78
+        },
+        {
+          "evidence_count": 1,
+          "health_status": "healthy",
+          "last_failure": null,
+          "last_success": "2026-07-01T05:36:00+00:00",
+          "source_class": "official",
+          "source_id": "TPEX",
+          "trust_score": 98
+        },
+        {
+          "evidence_count": 1,
+          "health_status": "healthy",
+          "last_failure": null,
+          "last_success": "2026-07-01T05:35:00+00:00",
+          "source_class": "official",
+          "source_id": "TWSE",
+          "trust_score": 98
+        },
+        {
+          "evidence_count": 1,
+          "health_status": "healthy",
+          "last_failure": null,
+          "last_success": "2026-07-01T00:10:00+00:00",
+          "source_class": "official",
+          "source_id": "US_MARKET",
+          "trust_score": 96
+        }
+      ],
+      "status": "shadow_health_candidate"
+    },
+    "sector": [
+      "AI Infrastructure",
+      "HBM",
+      "Cooling",
+      "Power"
+    ],
+    "taiwan": {
+      "reference": "TW-MARKET-AM-20260701",
+      "state": "pre_open_validation"
+    },
+    "theme": [
+      "AI Infrastructure",
+      "HBM",
+      "Cooling",
+      "CPO"
+    ],
+    "us": {
+      "reference": "US-MARKET-AM-20260701",
+      "state": "risk_on_selective"
+    }
+  },
+  "model_impact": "provider_data_only_not_production",
+  "production_authorized": false,
+  "repository_write_authorized": false,
+  "runtime_network_access": false,
+  "snapshot_version": "2026-07-01-AM",
+  "status": "validated_shadow_snapshot_v2"
+}

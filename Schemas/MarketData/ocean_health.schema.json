@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/ocean_health.schema.json",
+  "title": "Ocean Health",
+  "type": "object",
+  "required": ["document_id", "snapshot_version", "generated_at", "overall_status", "health_score", "evidence_coverage", "sources", "data_confidence_adjustment_candidate", "status", "model_impact"],
+  "properties": {
+    "document_id": {"type": "string", "minLength": 1},
+    "snapshot_version": {"type": "string"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "overall_status": {"enum": ["healthy", "warning", "degraded", "unavailable"]},
+    "health_score": {"type": "integer", "minimum": 0, "maximum": 100},
+    "evidence_coverage": {"type": "integer", "minimum": 0, "maximum": 100},
+    "sources": {"type": "array", "minItems": 7},
+    "data_confidence_adjustment_candidate": {
+      "type": "object",
+      "required": ["direction", "maximum_reduction_percent", "requires_architecture_validation", "applied_to_decision_confidence"],
+      "properties": {
+        "direction": {"const": "reduce_only"},
+        "maximum_reduction_percent": {"type": "integer", "minimum": 0, "maximum": 100},
+        "requires_architecture_validation": {"const": true},
+        "applied_to_decision_confidence": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "status": {"const": "shadow_health_candidate"},
+    "model_impact": {"const": "data_health_only_not_production"}
+  }
+}

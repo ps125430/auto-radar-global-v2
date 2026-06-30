@@ -13,6 +13,7 @@
   const shadowMode = shadowRuntime.mode || {};
   const shadowTimeline = shadowRuntime.timeline || {};
   const shadowExplain = shadowRuntime.explain || {};
+  const livingOcean = data.living_ocean || {};
   const opportunities = Array.isArray(data.opportunities)
     ? data.opportunities.slice(0, 3)
     : [];
@@ -329,19 +330,96 @@
       regime.macro ? "市場認知快照" : missingEvidence
     );
 
+    const oceanScore =
+      typeof livingOcean.health_score === "number"
+        ? `${Math.round(livingOcean.health_score)}%`
+        : null;
     setText(
       "health-score",
-      meta.repository_status === "通過" ? "通過" : "待檢查"
+      oceanScore || (meta.repository_status === "通過" ? "通過" : "待檢查")
     );
     setText(
       "health-trend",
-      warningCount ? `${warningCount} 項警告` : "資料正常"
+      livingOcean.overall_status
+        ? oceanHealthLabel(livingOcean.overall_status)
+        : warningCount
+          ? `${warningCount} 項警告`
+          : "資料正常"
     );
     setText(
       "health-why",
-      `${Number(meta.validation_errors || 0)} 項錯誤 · ${warningCount} 項警告`
+      typeof livingOcean.evidence_coverage === "number"
+        ? `Evidence 覆蓋率 ${livingOcean.evidence_coverage}% · 正式信心度未修改`
+        : `${Number(meta.validation_errors || 0)} 項錯誤 · ${warningCount} 項警告`
     );
-    setText("health-evidence", "全域知識庫驗證報告");
+    setText(
+      "health-evidence",
+      livingOcean.snapshot_version
+        ? `Global Snapshot ${livingOcean.snapshot_version}`
+        : "全域知識庫驗證報告"
+    );
+    renderLivingOcean();
+  }
+
+  function oceanHealthLabel(status) {
+    return {
+      healthy: "健康",
+      warning: "警告",
+      degraded: "降級",
+      unavailable: "中斷",
+      waiting: "等待資料",
+    }[status] || "狀態未知";
+  }
+
+  function renderLivingOcean() {
+    setText(
+      "ocean-health-status",
+      oceanHealthLabel(livingOcean.overall_status)
+    );
+    setText(
+      "ocean-snapshot-time",
+      livingOcean.snapshot_version
+        ? `${livingOcean.snapshot_version} · ${dateText(livingOcean.generated_at)}`
+        : "尚無快照"
+    );
+    setText(
+      "ocean-evidence-coverage",
+      typeof livingOcean.evidence_coverage === "number"
+        ? `Evidence 覆蓋率 ${livingOcean.evidence_coverage}%`
+        : "Evidence 等待建立"
+    );
+
+    const container = $("source-health-grid");
+    if (!container) return;
+    const sources = Array.isArray(livingOcean.sources)
+      ? livingOcean.sources
+      : [];
+    if (sources.length === 0) {
+      container.innerHTML = "<p>等待今日 Shadow Snapshot。</p>";
+      return;
+    }
+    const displayNames = {
+      TWSE: "TWSE",
+      TPEX: "TPEx",
+      MOPS: "MOPS",
+      US_MARKET: "美國市場",
+      MACRO: "總經",
+      ETF: "ETF",
+      NEWS: "新聞",
+    };
+    container.innerHTML = sources
+      .map(
+        (source) => `
+          <div class="source-health-item">
+            <span class="health-dot health-${escapeHtml(source.health_status)}"></span>
+            <div>
+              <strong>${escapeHtml(displayNames[source.source_id] || source.source_id)}</strong>
+              <span>${escapeHtml(oceanHealthLabel(source.health_status))} · Evidence ${Number(source.evidence_count || 0)}</span>
+            </div>
+          </div>
+        `
+      )
+      .join("");
   }
 
   function renderStory() {
