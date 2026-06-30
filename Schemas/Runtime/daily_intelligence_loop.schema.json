@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/runtime/daily_intelligence_loop.schema.json",
+  "title": "North Star Daily Intelligence Loop Records",
+  "description": "Review-only contracts for Shadow Snapshot, Outcome, Residual, Root Cause, and Reflection records.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/decision_snapshot"
+    },
+    {
+      "$ref": "#/$defs/outcome"
+    },
+    {
+      "$ref": "#/$defs/residual"
+    },
+    {
+      "$ref": "#/$defs/root_cause"
+    },
+    {
+      "$ref": "#/$defs/reflection"
+    }
+  ],
+  "$defs": {
+    "common": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "record_date",
+        "status",
+        "model_impact",
+        "production_authorized",
+        "repository_write_authorized"
+      ],
+      "properties": {
+        "record_type": {
+          "type": "string"
+        },
+        "record_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "type": "string"
+        },
+        "model_impact": {
+          "const": "review_only_not_production"
+        },
+        "production_authorized": {
+          "const": false
+        },
+        "repository_write_authorized": {
+          "const": false
+        }
+      }
+    },
+    "decision_snapshot": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/common"
+        },
+        {
+          "type": "object",
+          "required": [
+            "snapshot_id",
+            "north_star",
+            "captain",
+            "confidence",
+            "top3",
+            "risk",
+            "story",
+            "explain_chain"
+          ]
+        }
+      ]
+    },
+    "outcome": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/common"
+        },
+        {
+          "type": "object",
+          "required": [
+            "outcome_id",
+            "source",
+            "items",
+            "engine_diagnostics"
+          ]
+        }
+      ]
+    },
+    "residual": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/common"
+        },
+        {
+          "type": "object",
+          "required": [
+            "residual_id",
+            "prediction_ref",
+            "outcome_ref",
+            "items",
+            "accuracy_percent"
+          ]
+        }
+      ]
+    },
+    "root_cause": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/common"
+        },
+        {
+          "type": "object",
+          "required": [
+            "analysis_id",
+            "residual_ref",
+            "attribution_mode",
+            "primary_driver",
+            "engine_attribution"
+          ]
+        }
+      ]
+    },
+    "reflection": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/common"
+        },
+        {
+          "type": "object",
+          "required": [
+            "reflection_id",
+            "biggest_error",
+            "biggest_surprise",
+            "stale_knowledge",
+            "correction_suggestion",
+            "hypothesis_suggestion"
+          ]
+        }
+      ]
+    }
+  },
+  "x-runtime": {
+    "status": "schema_candidate",
+    "authority": "shadow_review_only",
+    "strategy_change": false,
+    "scoring_change": false,
+    "repository_auto_write": false,
+    "automatic_merge": false,
+    "production_authorized": false
+  }
+}

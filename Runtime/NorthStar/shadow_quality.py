@@ -129,6 +129,10 @@ class ShadowInputValidator:
                 item.get("display_score"),
                 f"opportunity_input[{index}].display_score",
             )
+            cls._require_stars(
+                item.get("expectation_stars"),
+                f"opportunity_input[{index}].expectation_stars",
+            )
             cls._require_window(
                 item.get("window_days"),
                 f"opportunity_input[{index}].window_days",
@@ -234,6 +238,13 @@ class ShadowInputValidator:
         if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= 30:
             raise ShadowInputValidationError(
                 f"{field} must be an integer from 1 to 30"
+            )
+
+    @staticmethod
+    def _require_stars(value: Any, field: str) -> None:
+        if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= 5:
+            raise ShadowInputValidationError(
+                f"{field} must be an integer from 1 to 5"
             )
 
     @classmethod

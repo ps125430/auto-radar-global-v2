@@ -35,6 +35,21 @@ E-136 至 E-140 新增：
 
 Quality Gate 只驗證資料完整性，不計算分數、不建立策略，也不授權 Production。
 
+## Daily Intelligence Loop
+
+E-146 至 E-150 新增：
+
+- `daily_intelligence.py`：Snapshot、Manual Outcome、Residual、Root Cause 與 Reflection。
+- `Snapshots/YYYY-MM-DD.json`：保存當日 Shadow Decision Snapshot。
+- `Outcomes/YYYY-MM-DD.json`：保存人工收盤 Outcome。
+- `Residuals/YYYY-MM-DD.json`：比較明確輸入的預期星等與人工實際星等。
+- `RootCauses/YYYY-MM-DD.json`：整理人工 Engine diagnostics，不宣稱自動因果。
+- `Reflections/YYYY-MM-DD.json`：產生 draft suggestion，不修改 Repository。
+
+Accuracy 只屬 Review metric，不修改任何正式 Scoring。Daily Intelligence writer
+只能寫入上述 `Runtime/NorthStar` 目錄，沒有 Knowledge、Data、Repository index
+或自動 Merge 權限。
+
 ## Boundaries
 
 - Runtime mode is limited to `shadow_candidate`.

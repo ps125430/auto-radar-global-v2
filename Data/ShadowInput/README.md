@@ -21,3 +21,5 @@ Model Impact: Shadow only, not production
 ## Current Pack
 
 `sample_real_input_v1.json` 是 E-137 建立的第一批半真實測試資料，涵蓋 AI 基礎建設、HBM、散熱、電力與 CPO 語境。
+
+`manual_outcome_2026-06-30.json` 是 E-147 的人工 Outcome 範例，包含價格結果、實際星等、人工 Engine diagnostics 與 Reflection context。它不是 API 資料，也不代表正式市場事實。

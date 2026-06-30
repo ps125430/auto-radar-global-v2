@@ -1,0 +1,155 @@
+{
+  "record_type": "decision_snapshot",
+  "record_date": "2026-06-30",
+  "generated_at": "2026-06-30T03:07:16.144978+00:00",
+  "status": "shadow_review_record",
+  "model_impact": "review_only_not_production",
+  "production_authorized": false,
+  "repository_write_authorized": false,
+  "snapshot_id": "NORTHSTAR-SNAPSHOT-20260630",
+  "north_star": "AI 基礎建設供應鏈",
+  "captain": "聚焦 HBM 與散熱的資金接力，CPO 與電力題材維持觀察。",
+  "confidence": {
+    "value": null,
+    "status": "unavailable",
+    "calculated_by_loop": false
+  },
+  "top3": [
+    {
+      "rank": 1,
+      "symbol": "HBM",
+      "expectation_stars": 5,
+      "window": "5 天",
+      "why_now": "半真實輸入將 HBM 標記為 AI 基礎建設的第一層供應瓶頸候選。",
+      "evidence_refs": [
+        "EV-101",
+        "EV-103"
+      ]
+    },
+    {
+      "rank": 2,
+      "symbol": "散熱",
+      "expectation_stars": 4,
+      "window": "5 天",
+      "why_now": "半真實輸入將散熱標記為高功耗 AI 系統的接力候選。",
+      "evidence_refs": [
+        "EV-102",
+        "EV-104"
+      ]
+    },
+    {
+      "rank": 3,
+      "symbol": "電力",
+      "expectation_stars": 4,
+      "window": "10 天",
+      "why_now": "半真實輸入將資料中心供電需求列為較長觀察窗候選。",
+      "evidence_refs": [
+        "EV-103",
+        "EV-105"
+      ]
+    }
+  ],
+  "risk": [
+    "題材價格可能已提前反映。",
+    "目前證據為 Sandbox 追溯資料，不代表市場事實已驗證。",
+    "Production Runtime 與交易指令仍未授權。"
+  ],
+  "story": "今日 Shadow 方向為 AI 基礎建設供應鏈；第一候選為 HBM，主要風險是 題材價格可能已提前反映。",
+  "explain_chain": {
+    "chain_id": "EXPLAIN-DASHBOARD-20260630",
+    "decision": "NSD-DASHBOARD-20260630",
+    "nodes": [
+      {
+        "node_id": "decision:NSD-DASHBOARD",
+        "layer": "decision",
+        "reference": "NSD-DASHBOARD-20260630",
+        "available": true
+      },
+      {
+        "node_id": "evidence:EV-101",
+        "layer": "evidence",
+        "reference": "EV-101",
+        "available": true
+      },
+      {
+        "node_id": "evidence:EV-102",
+        "layer": "evidence",
+        "reference": "EV-102",
+        "available": true
+      },
+      {
+        "node_id": "evidence:EV-103",
+        "layer": "evidence",
+        "reference": "EV-103",
+        "available": true
+      },
+      {
+        "node_id": "evidence:EV-104",
+        "layer": "evidence",
+        "reference": "EV-104",
+        "available": true
+      },
+      {
+        "node_id": "evidence:EV-105",
+        "layer": "evidence",
+        "reference": "EV-105",
+        "available": true
+      },
+      {
+        "node_id": "pattern:market-regime:1",
+        "layer": "pattern",
+        "reference": "總經：風險偏好中性偏多",
+        "available": true
+      },
+      {
+        "node_id": "pattern:market-regime:2",
+        "layer": "pattern",
+        "reference": "產業：AI 基礎建設維持主線",
+        "available": true
+      },
+      {
+        "node_id": "pattern:market-regime:3",
+        "layer": "pattern",
+        "reference": "市場：上游強勢，延伸題材分化",
+        "available": true
+      },
+      {
+        "node_id": "experience:SHADOW-FLOW-01",
+        "layer": "experience",
+        "reference": "SHADOW-FLOW-01",
+        "available": true
+      },
+      {
+        "node_id": "experience:SHADOW-FLOW-02",
+        "layer": "experience",
+        "reference": "SHADOW-FLOW-02",
+        "available": true
+      },
+      {
+        "node_id": "experience:SHADOW-FLOW-03",
+        "layer": "experience",
+        "reference": "SHADOW-FLOW-03",
+        "available": true
+      },
+      {
+        "node_id": "experience:SHADOW-FLOW-04",
+        "layer": "experience",
+        "reference": "SHADOW-FLOW-04",
+        "available": true
+      },
+      {
+        "node_id": "experience:SHADOW-FLOW-05",
+        "layer": "experience",
+        "reference": "SHADOW-FLOW-05",
+        "available": true
+      },
+      {
+        "node_id": "repository:dashboard-projection",
+        "layer": "repository",
+        "reference": "Dashboard/dashboard-data.js",
+        "available": true
+      }
+    ],
+    "edges": []
+  }
+}

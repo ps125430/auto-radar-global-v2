@@ -20,6 +20,7 @@ Last Updated: 2026-06-30
 | DEC-013 | 2026-06-30 | E-126 through E-130 may integrate Shadow Runtime outputs without Production authority | Shadow Orchestrator, Daily Run, Review, Patch Suggestion, and Shadow Brief are permitted only as non-trading integration outputs | 小P / 小C | Pending Review |
 | DEC-014 | 2026-06-30 | E-131 through E-135 may bind Dashboard fields to Shadow Runtime projection | Dashboard may display Shadow output and Explain Chain while remaining read-only, non-production, and non-trading | 小P / 小C | Pending Review |
 | DEC-015 | 2026-06-30 | E-136 through E-140 use an authored half-real Shadow input pack behind fail-fast input and output gates | The complete Input-to-Dashboard flow must be testable without representing test data as research truth, Strategy, Scoring, or Production output | 小P / 小C | Pending Review |
+| DEC-016 | 2026-06-30 | E-146 through E-150 may persist Shadow review artifacts under Runtime/NorthStar only | Daily memory requires durable Snapshot and Review records, while Outcome and Engine attribution remain manual and Reflection has no Repository write or merge authority | 小P / 小C | Pending Review |
 
 ## Decision Rule
 

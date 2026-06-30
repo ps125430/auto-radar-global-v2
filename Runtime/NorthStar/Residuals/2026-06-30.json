@@ -1,0 +1,41 @@
+{
+  "record_type": "decision_residual",
+  "record_date": "2026-06-30",
+  "generated_at": "2026-06-30T03:07:16.144978+00:00",
+  "status": "shadow_review_record",
+  "model_impact": "review_only_not_production",
+  "production_authorized": false,
+  "repository_write_authorized": false,
+  "residual_id": "NORTHSTAR-RESIDUAL-20260630",
+  "prediction_ref": "NORTHSTAR-SNAPSHOT-20260630",
+  "outcome_ref": "SHADOW-OUTCOME-20260630",
+  "items": [
+    {
+      "symbol": "HBM",
+      "prediction_stars": 5,
+      "reality_stars": 3,
+      "residual": -2,
+      "accuracy_percent": 50.0,
+      "return_percent": 2.3
+    },
+    {
+      "symbol": "散熱",
+      "prediction_stars": 4,
+      "reality_stars": 5,
+      "residual": 1,
+      "accuracy_percent": 75.0,
+      "return_percent": 5.8
+    },
+    {
+      "symbol": "電力",
+      "prediction_stars": 4,
+      "reality_stars": 2,
+      "residual": -2,
+      "accuracy_percent": 50.0,
+      "return_percent": -1.2
+    }
+  ],
+  "accuracy_percent": 58.33,
+  "accuracy_method": "Review-only 1-to-5 star distance; 100 * max(0, 1 - abs(residual) / 4)",
+  "scoring_impact": "none"
+}

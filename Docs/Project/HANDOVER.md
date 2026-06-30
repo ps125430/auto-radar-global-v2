@@ -30,21 +30,21 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — Shadow Data Quality and First Real Input
+Engineering Phase — Daily Intelligence Loop
 
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented with Shadow Runtime binding
-- Engine: E-121 through E-135 implemented; E-136 through E-140 data quality integration implemented for review; Gate OPEN
+- Engine: E-121 through E-140 implemented; E-146 through E-150 Daily Intelligence Loop implemented for review; Gate OPEN
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-140
-- Task: First Real Shadow Brief
+- Task ID: E-150
+- Task: Daily Reflection
 - Owner: 小C / Engineering
-- Status: E-136 through E-140 implemented; awaiting 小P architecture review
-- Impact: Shadow data integration only
+- Status: E-146 through E-150 implemented; awaiting 小P architecture review
+- Impact: Shadow review runtime only
 
 ## Completed Runtime Milestone
 
@@ -73,6 +73,11 @@ Engineering Phase — Shadow Data Quality and First Real Input
 - E-138 Input Quality Validator。
 - E-139 Dashboard projection 前的 Shadow Output Quality Gate。
 - E-140 First Real Shadow Brief。
+- E-146 Decision Snapshot 與 `Snapshots/2026-06-30.json`。
+- E-147 Manual Outcome Collector。
+- E-148 Review-only Decision Residual 與 Accuracy。
+- E-149 Manual diagnostic Root Cause attribution。
+- E-150 Suggest-only Daily Reflection。
 
 ## Active Boundaries
 
@@ -92,14 +97,15 @@ Engineering Phase — Shadow Data Quality and First Real Input
 - E-126 至 E-130 僅為 Shadow integration。
 - E-131 至 E-135 僅為 Dashboard Shadow binding。
 - E-136 至 E-140 僅為 Shadow data integration；測試輸入不是研究結論。
+- E-146 至 E-150 僅為 Shadow review records；不得修改 Scoring、Strategy 或 Repository。
 - Learning 僅允許 Suggest，不得寫入 Repository。
 - N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 171 項自動測試通過。
+- 178 項自動測試通過。
 - 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-136 至 E-140。
+1. 小P驗收 E-146 至 E-150。
 2. 記錄 PASS 或修正要求。
 3. 未經另案授權，不得進入 N-series 或 Production Runtime。
 

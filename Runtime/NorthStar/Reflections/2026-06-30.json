@@ -1,0 +1,33 @@
+{
+  "record_type": "daily_reflection",
+  "record_date": "2026-06-30",
+  "generated_at": "2026-06-30T03:07:16.144978+00:00",
+  "status": "shadow_review_record",
+  "model_impact": "review_only_not_production",
+  "production_authorized": false,
+  "repository_write_authorized": false,
+  "reflection_id": "NORTHSTAR-REFLECTION-20260630",
+  "residual_ref": "NORTHSTAR-RESIDUAL-20260630",
+  "root_cause_ref": "NORTHSTAR-ROOT-CAUSE-20260630",
+  "biggest_error": {
+    "symbol": "HBM",
+    "residual": -2,
+    "answer": "HBM 的預期與實際相差 -2 星。"
+  },
+  "biggest_surprise": {
+    "symbol": "散熱",
+    "residual": 1,
+    "answer": "散熱 的實際結果相對預期為 1 星。"
+  },
+  "stale_knowledge": "AI 基礎建設上位敘事過廣，需持續以子題材 Evidence 驗證。",
+  "correction_suggestion": {
+    "engine": "timing",
+    "text": "將 Timing 差異列入下一次 Decision Lab 人工檢查。"
+  },
+  "hypothesis_suggestion": {
+    "status": "draft_suggestion_only",
+    "text": "HBM 與散熱的資金接力速度可能不同，需增加多日 Outcome 比較。"
+  },
+  "learning_action": "suggest_only",
+  "automatic_merge": false
+}

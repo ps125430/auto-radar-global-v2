@@ -169,6 +169,7 @@
           "id",
           "theme",
           "display_score",
+          "expectation_stars",
           "window_days",
           "why_now",
           "risk",
@@ -187,6 +188,11 @@
             "type": "number",
             "minimum": 0,
             "maximum": 100
+          },
+          "expectation_stars": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
           },
           "window_days": {
             "type": "integer",

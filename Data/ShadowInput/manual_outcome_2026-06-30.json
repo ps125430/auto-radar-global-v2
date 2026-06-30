@@ -1,0 +1,54 @@
+{
+  "outcome_id": "SHADOW-OUTCOME-20260630",
+  "outcome_date": "2026-06-30",
+  "status": "manual_shadow_outcome",
+  "model_impact": "review_only_not_production",
+  "source": "manual",
+  "items": [
+    {
+      "symbol": "HBM",
+      "return_percent": 2.3,
+      "actual_stars": 3,
+      "notes": "手動輸入，用於驗證 Daily Intelligence Loop。"
+    },
+    {
+      "symbol": "散熱",
+      "return_percent": 5.8,
+      "actual_stars": 5,
+      "notes": "手動輸入，用於驗證正向 surprise。"
+    },
+    {
+      "symbol": "電力",
+      "return_percent": -1.2,
+      "actual_stars": 2,
+      "notes": "手動輸入，用於驗證負向 residual。"
+    }
+  ],
+  "engine_diagnostics": [
+    {
+      "engine": "capital_flow",
+      "impact": 12,
+      "notes": "資金接力方向大致正確，但強度落差仍需驗證。"
+    },
+    {
+      "engine": "evidence",
+      "impact": 2,
+      "notes": "Evidence reference 完整，但內容仍是 Sandbox 測試資料。"
+    },
+    {
+      "engine": "timing",
+      "impact": 18,
+      "notes": "預期觀察窗與當日價格反應節奏不一致。"
+    },
+    {
+      "engine": "regime",
+      "impact": 0,
+      "notes": "本次未觀察到明顯 Regime attribution。"
+    }
+  ],
+  "reflection_context": {
+    "stale_knowledge": "AI 基礎建設上位敘事過廣，需持續以子題材 Evidence 驗證。",
+    "correction_candidate": "將 Timing 差異列入下一次 Decision Lab 人工檢查。",
+    "hypothesis_candidate": "HBM 與散熱的資金接力速度可能不同，需增加多日 Outcome 比較。"
+  }
+}

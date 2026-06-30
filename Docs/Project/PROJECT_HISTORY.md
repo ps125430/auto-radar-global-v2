@@ -110,6 +110,15 @@ Last Updated: 2026-06-29
 - 完成 E-140 First Real Shadow Brief 與 Input → Runtime Projection → Dashboard 資料流。
 - 測試資料不代表正式研究、策略、評分或交易訊號。
 
+### 2026-06-30 — Daily Intelligence Loop
+
+- 完成 E-146 Decision Snapshot，保存當日北極星、Captain、Confidence、Top3、Risk、Story 與 Explain Chain。
+- 完成 E-147 Manual Outcome Collector。
+- 完成 E-148 Review-only Decision Residual 與 Accuracy。
+- 完成 E-149 以人工 Engine diagnostics 為來源的 Root Cause Analyzer。
+- 完成 E-150 Suggest-only Daily Reflection。
+- 所有日結產物保持 Shadow only，不修改 Strategy、Scoring、Knowledge Repository 或自動 Merge。
+
 ## Current Direction
 
 ```text
@@ -120,6 +129,7 @@ Research (Frozen)
   -> Shadow Runtime Integration (Implemented)
   -> Shadow Dashboard Binding (Implemented; Production blocked)
   -> Shadow Data Quality (Implemented; Production blocked)
+  -> Daily Intelligence Loop (Implemented; Production blocked)
   -> Automation
   -> Beta
   -> v1.0

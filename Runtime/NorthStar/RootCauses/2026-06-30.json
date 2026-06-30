@@ -1,0 +1,49 @@
+{
+  "record_type": "root_cause_analysis",
+  "record_date": "2026-06-30",
+  "generated_at": "2026-06-30T03:07:16.144978+00:00",
+  "status": "shadow_review_record",
+  "model_impact": "review_only_not_production",
+  "production_authorized": false,
+  "repository_write_authorized": false,
+  "analysis_id": "NORTHSTAR-ROOT-CAUSE-20260630",
+  "residual_ref": "NORTHSTAR-RESIDUAL-20260630",
+  "attribution_mode": "manual_diagnostic_input",
+  "primary_driver": {
+    "engine": "timing",
+    "impact": 18.0,
+    "notes": "預期觀察窗與當日價格反應節奏不一致。"
+  },
+  "largest_residual": {
+    "symbol": "HBM",
+    "prediction_stars": 5,
+    "reality_stars": 3,
+    "residual": -2,
+    "accuracy_percent": 50.0,
+    "return_percent": 2.3
+  },
+  "engine_attribution": [
+    {
+      "engine": "timing",
+      "impact": 18.0,
+      "notes": "預期觀察窗與當日價格反應節奏不一致。"
+    },
+    {
+      "engine": "capital_flow",
+      "impact": 12.0,
+      "notes": "資金接力方向大致正確，但強度落差仍需驗證。"
+    },
+    {
+      "engine": "evidence",
+      "impact": 2.0,
+      "notes": "Evidence reference 完整，但內容仍是 Sandbox 測試資料。"
+    },
+    {
+      "engine": "regime",
+      "impact": 0.0,
+      "notes": "本次未觀察到明顯 Regime attribution。"
+    }
+  ],
+  "automatic_causality_claim": false,
+  "scoring_impact": "none"
+}

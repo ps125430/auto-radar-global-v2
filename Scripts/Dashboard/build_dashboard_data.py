@@ -545,6 +545,7 @@ class DashboardDataBuilder:
                 "id": item["id"],
                 "name": item["theme"],
                 "opportunity_score": item["display_score"],
+                "expectation_stars": item["expectation_stars"],
                 "score_status": "sample_shadow_input",
                 "window": f"{item['window_days']} 天",
                 "money_flow": "半真實 Shadow 輸入",

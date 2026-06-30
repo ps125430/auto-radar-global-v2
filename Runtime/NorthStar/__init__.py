@@ -1,7 +1,7 @@
 """North Star Shadow Runtime infrastructure.
 
-The package contains no Decision Logic, Strategy, Scoring, trading execution,
-or direct Repository write capability.
+The package contains no Decision Logic, Strategy, production Scoring, trading
+execution, or direct Knowledge Repository write capability.
 """
 
 from .context import RuntimeContext, RuntimeContextError
@@ -14,6 +14,16 @@ from .dashboard_binding import (
     DashboardBindingError,
     WAITING_FOR_SHADOW_RUN,
     build_shadow_dashboard_projection,
+)
+from .daily_intelligence import (
+    DailyIntelligenceError,
+    DailyIntelligenceLoop,
+    DailyReflection,
+    DecisionResidualEngine,
+    DecisionSnapshot,
+    OutcomeCollector,
+    RootCauseAnalyzer,
+    ShadowRecordWriter,
 )
 from .dispatcher import RuntimeDispatcher, RuntimeDispatchError
 from .explain import ExplainRuntime, ExplainRuntimeError
@@ -53,7 +63,12 @@ __all__ = [
     "DecisionRuntime",
     "DecisionRuntimeError",
     "DashboardBindingError",
+    "DailyIntelligenceError",
+    "DailyIntelligenceLoop",
+    "DailyReflection",
     "DailyShadowDecisionRun",
+    "DecisionResidualEngine",
+    "DecisionSnapshot",
     "ExplainRuntime",
     "ExplainRuntimeError",
     "LearningRuntime",
@@ -62,6 +77,7 @@ __all__ = [
     "MergeAuthorization",
     "NorthStarDecisionValidator",
     "NorthStarShadowDailyBrief",
+    "OutcomeCollector",
     "PatchSuggestionFlow",
     "PatchQueueEntry",
     "PatchQueueError",
@@ -78,6 +94,7 @@ __all__ = [
     "RuntimeLoaderError",
     "RuntimeSession",
     "RuntimeSessionError",
+    "RootCauseAnalyzer",
     "SessionEvent",
     "SessionStatus",
     "ShadowIntegrationError",
@@ -88,6 +105,7 @@ __all__ = [
     "ShadowReviewPipeline",
     "ShadowRunResult",
     "ShadowRuntimeOrchestrator",
+    "ShadowRecordWriter",
     "WAITING_FOR_SHADOW_RUN",
     "build_shadow_dashboard_projection",
 ]

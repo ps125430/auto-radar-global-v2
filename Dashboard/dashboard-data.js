@@ -1,6 +1,6 @@
 window.AUTO_RADAR_DASHBOARD_DATA = {
   "meta": {
-    "generated_at": "2026-06-30T02:40:37.812779+00:00",
+    "generated_at": "2026-06-30T03:07:15.993619+00:00",
     "mode": "知識庫唯讀",
     "repository_status": "通過",
     "validation_errors": 0,
@@ -41,6 +41,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "id": "SHADOW-OPP-001",
       "name": "HBM",
       "opportunity_score": 86,
+      "expectation_stars": 5,
       "score_status": "sample_shadow_input",
       "window": "5 天",
       "money_flow": "半真實 Shadow 輸入",
@@ -68,6 +69,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "id": "SHADOW-OPP-002",
       "name": "散熱",
       "opportunity_score": 82,
+      "expectation_stars": 4,
       "score_status": "sample_shadow_input",
       "window": "5 天",
       "money_flow": "半真實 Shadow 輸入",
@@ -95,6 +97,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "id": "SHADOW-OPP-003",
       "name": "電力",
       "opportunity_score": 78,
+      "expectation_stars": 4,
       "score_status": "sample_shadow_input",
       "window": "10 天",
       "money_flow": "半真實 Shadow 輸入",
@@ -212,7 +215,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "status": "shadow_dashboard_projection",
     "model_impact": "shadow_candidate_not_production",
     "waiting_message": "Waiting for today's shadow run...",
-    "last_run": "2026-06-30T02:40:37.812779+00:00",
+    "last_run": "2026-06-30T03:07:15.993619+00:00",
     "mode": {
       "label": "Shadow Runtime",
       "status": "Healthy",

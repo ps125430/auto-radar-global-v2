@@ -10,8 +10,8 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Current Owner | 小C / Engineering |
-| Current Task | E-140 — First Real Shadow Brief |
-| Status | E-136 through E-140 implemented; awaiting 小P architecture review |
+| Current Task | E-150 — Daily Reflection |
+| Status | E-146 through E-150 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
 This is the only Current Task.
@@ -22,7 +22,7 @@ Not assigned.
 
 Next step:
 
-1. 小P reviews E-136 through E-140.
+1. 小P reviews E-146 through E-150.
 2. Record PASS or required corrections.
 3. Keep N-001 through N-010 and Production Runtime blocked until separately authorized.
 
