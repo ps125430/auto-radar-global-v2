@@ -19,33 +19,33 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — Daily Intelligence Loop
+Engineering Phase — Real Data Foundation
 
-Research Phase v1.0 已完成並封版。Runtime Gate 已開啟。E-121 至 E-140 已完成 Shadow Runtime、Dashboard binding 與資料品質基礎。E-146 至 E-150 已建立 Decision Snapshot、Manual Outcome、Residual、Manual Root Cause attribution 與 Suggest-only Reflection，等待小P驗收；Production Runtime 仍未獲授權。
+Research Phase v1.0 已完成並封版。Runtime Gate 已開啟。E-121 至 E-150 已完成 Shadow Runtime、Dashboard、資料品質與 Daily Intelligence Loop。E-151 至 E-155 已建立統一 Provider Layer、Market Snapshot、Automatic Evidence、Data Quality Engine 與 deterministic Shadow Replay，等待小P驗收；目前資料為 archived fixtures，尚未串接外部 API，Production Runtime 仍未獲授權。
 
 ## Current Sprint
 
-Engineering Sprint 6 — Daily Intelligence Loop
+Engineering Sprint 7 — Real Data Foundation
 
 Sprint focus:
 
-- 保存每日 Shadow Decision Snapshot。
-- 收集人工收盤 Outcome。
-- 計算 Review-only Residual 與 Accuracy。
-- 整理人工 Engine attribution。
-- 產生不可自動寫回的 Daily Reflection suggestion。
+- 建立六個統一 Provider adapters。
+- 建立 Runtime-only Market Snapshot gateway。
+- 自動由 validated provider records 產生 Evidence candidates。
+- 在 Snapshot 前執行 Missing、Duplicate、Invalid、Outlier 與 Timestamp validation。
+- 建立包含 input、source 與 output hashes 的 deterministic Replay。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-150 |
-| Task | Daily Reflection |
+| Task ID | E-155 |
+| Task | Shadow Data Replay |
 | Owner | 小C / Engineering |
-| Status | E-146 through E-150 implemented; awaiting 小P architecture review |
+| Status | E-151 through E-155 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
-E-146 至 E-150 已完成工程實作；Outcome 與 Engine diagnostics 為人工輸入，Reflection 只能產生 suggestion。
+E-151 至 E-155 已完成工程實作；Provider 目前只讀 archived fixture，Runtime 無直接 API access。
 
 ## Completed
 
@@ -93,6 +93,12 @@ E-146 至 E-150 已完成工程實作；Outcome 與 Engine diagnostics 為人工
 - E-149 Root Cause Analyzer implemented with manual diagnostic attribution.
 - E-150 Daily Reflection implemented as draft suggestion only.
 - 178 automated tests passing after E-146 through E-150.
+- E-151 unified Market Provider Layer implemented with six no-network adapters.
+- E-152 validated Market Snapshot Builder and Snapshot-only Runtime gateway implemented.
+- E-153 automatic Provider Evidence Collector implemented without Repository writes.
+- E-154 Data Quality Engine implemented with five fail-fast categories.
+- E-155 deterministic 2026-07-02 Shadow Replay implemented with source hashes.
+- 186 automated tests passing after E-151 through E-155.
 - 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
@@ -101,13 +107,13 @@ E-146 至 E-150 已完成工程實作；Outcome 與 Engine diagnostics 為人工
 
 ## In Progress
 
-- E-146 through E-150 architecture review by 小P.
+- E-151 through E-155 architecture review by 小P.
 
 No Pipeline, Scoring, Strategy, trading, or Production work is in progress.
 
 ## Next Task
 
-Not assigned. E-146 through E-150 must pass Architecture Review before additional Daily Intelligence expansion.
+Not assigned. E-151 through E-155 must pass Architecture Review before external API adapters or additional real-data work.
 
 ## Overall Progress
 
@@ -118,7 +124,7 @@ Milestone method: 3 of 7 product stages are complete.
 | Research | Complete / Frozen |
 | Repository | Complete |
 | Dashboard | North Star v1 driven by gated Shadow test input; awaiting acceptance |
-| Engine | Shadow Runtime, data quality, and Daily Intelligence Loop implemented; Gate OPEN; Production blocked |
+| Engine | Shadow Runtime, Daily Intelligence, Provider Layer, Snapshot gateway, and deterministic Replay implemented; Gate OPEN; Production blocked |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |

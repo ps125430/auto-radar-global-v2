@@ -1,0 +1,49 @@
+{
+  "analysis_id": "NORTHSTAR-ROOT-CAUSE-20260702",
+  "attribution_mode": "manual_diagnostic_input",
+  "automatic_causality_claim": false,
+  "engine_attribution": [
+    {
+      "engine": "timing",
+      "impact": 14.0,
+      "notes": "候選方向與收盤結果存在時間差。"
+    },
+    {
+      "engine": "capital_flow",
+      "impact": 8.0,
+      "notes": "Replay fixture 的資金方向大致一致。"
+    },
+    {
+      "engine": "evidence",
+      "impact": 4.0,
+      "notes": "Evidence 完整度足以追溯，但不代表即時研究已驗證。"
+    },
+    {
+      "engine": "regime",
+      "impact": 1.0,
+      "notes": "Replay fixture 未顯示重大 Regime 誤差。"
+    }
+  ],
+  "generated_at": "2026-07-02T21:00:00+00:00",
+  "largest_residual": {
+    "accuracy_percent": 75.0,
+    "prediction_stars": 3,
+    "reality_stars": 2,
+    "residual": -1,
+    "return_percent": -0.6,
+    "symbol": "CPO"
+  },
+  "model_impact": "review_only_not_production",
+  "primary_driver": {
+    "engine": "timing",
+    "impact": 14.0,
+    "notes": "候選方向與收盤結果存在時間差。"
+  },
+  "production_authorized": false,
+  "record_date": "2026-07-02",
+  "record_type": "root_cause_analysis",
+  "repository_write_authorized": false,
+  "residual_ref": "NORTHSTAR-RESIDUAL-20260702",
+  "scoring_impact": "none",
+  "status": "shadow_review_record"
+}

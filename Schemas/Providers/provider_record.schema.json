@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/providers/provider_record.schema.json",
+  "title": "Market Provider Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "provider",
+    "market",
+    "timestamp",
+    "category",
+    "value",
+    "unit",
+    "source",
+    "importance",
+    "reliability",
+    "reference"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "taiwan",
+        "us",
+        "macro",
+        "news",
+        "etf",
+        "mock"
+      ]
+    },
+    "market": {
+      "type": "string",
+      "enum": [
+        "GLOBAL",
+        "US",
+        "TAIWAN",
+        "CRYPTO",
+        "MACRO"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "symbol": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "value": {
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "importance": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "reliability": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_min": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "expected_max": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "x-runtime": {
+    "status": "schema_candidate",
+    "provider_layer_only": true,
+    "network_access": false,
+    "production_authorized": false
+  }
+}

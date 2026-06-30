@@ -119,6 +119,16 @@ Last Updated: 2026-06-29
 - 完成 E-150 Suggest-only Daily Reflection。
 - 所有日結產物保持 Shadow only，不修改 Strategy、Scoring、Knowledge Repository 或自動 Merge。
 
+### 2026-06-30 — Real Data Foundation
+
+- 完成 E-151 統一 Provider interface 與六個無網路 adapters。
+- 完成 E-152 Global、US、Taiwan、Crypto、Macro Market Snapshot 與 Snapshot-only Runtime gateway。
+- 完成 E-153 由 validated Provider records 自動產生 Evidence candidates。
+- 完成 E-154 Missing、Duplicate、Invalid、Outlier 與 Timestamp Data Quality Engine。
+- 完成 E-155 2026-07-02 deterministic Shadow Replay。
+- Replay manifest 固定 input、Repository source、Engine source 與 output SHA-256；重跑產物 byte-identical。
+- 外部 API、Production Runtime、Trading Signal、Strategy、Scoring 與 Repository auto-write 仍未啟用。
+
 ## Current Direction
 
 ```text
@@ -130,6 +140,7 @@ Research (Frozen)
   -> Shadow Dashboard Binding (Implemented; Production blocked)
   -> Shadow Data Quality (Implemented; Production blocked)
   -> Daily Intelligence Loop (Implemented; Production blocked)
+  -> Real Data Foundation (Archived fixtures; APIs blocked)
   -> Automation
   -> Beta
   -> v1.0

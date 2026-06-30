@@ -1,0 +1,33 @@
+{
+  "automatic_merge": false,
+  "biggest_error": {
+    "answer": "CPO 的預期與實際相差 -1 星。",
+    "residual": -1,
+    "symbol": "CPO"
+  },
+  "biggest_surprise": {
+    "answer": "CPO 的實際結果相對預期為 -1 星。",
+    "residual": -1,
+    "symbol": "CPO"
+  },
+  "correction_suggestion": {
+    "engine": "timing",
+    "text": "下一次 Replay 應比較盤中與收盤兩個 Outcome window。"
+  },
+  "generated_at": "2026-07-02T21:00:00+00:00",
+  "hypothesis_suggestion": {
+    "status": "draft_suggestion_only",
+    "text": "散熱與 HBM 的接力速度可能領先 CPO，需以多日 Snapshot 驗證。"
+  },
+  "learning_action": "suggest_only",
+  "model_impact": "review_only_not_production",
+  "production_authorized": false,
+  "record_date": "2026-07-02",
+  "record_type": "daily_reflection",
+  "reflection_id": "NORTHSTAR-REFLECTION-20260702",
+  "repository_write_authorized": false,
+  "residual_ref": "NORTHSTAR-RESIDUAL-20260702",
+  "root_cause_ref": "NORTHSTAR-ROOT-CAUSE-20260702",
+  "stale_knowledge": "CPO 的商用導入時間假設需要更多 Outcome 驗證。",
+  "status": "shadow_review_record"
+}

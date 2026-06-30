@@ -1,0 +1,154 @@
+{
+  "captain": "觀察散熱與 HBM 是否延續，CPO 維持次級候選。",
+  "confidence": {
+    "calculated_by_loop": false,
+    "status": "unavailable",
+    "value": null
+  },
+  "explain_chain": {
+    "chain_id": "EXPLAIN-DASHBOARD-20260702",
+    "decision": "NSD-DASHBOARD-20260702",
+    "edges": [],
+    "nodes": [
+      {
+        "available": true,
+        "layer": "decision",
+        "node_id": "decision:NSD-DASHBOARD",
+        "reference": "NSD-DASHBOARD-20260702"
+      },
+      {
+        "available": true,
+        "layer": "evidence",
+        "node_id": "evidence:EV-101",
+        "reference": "EV-101"
+      },
+      {
+        "available": true,
+        "layer": "evidence",
+        "node_id": "evidence:EV-102",
+        "reference": "EV-102"
+      },
+      {
+        "available": true,
+        "layer": "evidence",
+        "node_id": "evidence:EV-103",
+        "reference": "EV-103"
+      },
+      {
+        "available": true,
+        "layer": "evidence",
+        "node_id": "evidence:EV-104",
+        "reference": "EV-104"
+      },
+      {
+        "available": true,
+        "layer": "evidence",
+        "node_id": "evidence:EV-105",
+        "reference": "EV-105"
+      },
+      {
+        "available": true,
+        "layer": "pattern",
+        "node_id": "pattern:market-regime:1",
+        "reference": "總經：風險偏好中性偏多"
+      },
+      {
+        "available": true,
+        "layer": "pattern",
+        "node_id": "pattern:market-regime:2",
+        "reference": "產業：半導體與 AI 基礎建設偏強"
+      },
+      {
+        "available": true,
+        "layer": "pattern",
+        "node_id": "pattern:market-regime:3",
+        "reference": "市場：主線延續但子題材分化"
+      },
+      {
+        "available": true,
+        "layer": "experience",
+        "node_id": "experience:SHADOW-FLOW-01",
+        "reference": "SHADOW-FLOW-01"
+      },
+      {
+        "available": true,
+        "layer": "experience",
+        "node_id": "experience:SHADOW-FLOW-02",
+        "reference": "SHADOW-FLOW-02"
+      },
+      {
+        "available": true,
+        "layer": "experience",
+        "node_id": "experience:SHADOW-FLOW-03",
+        "reference": "SHADOW-FLOW-03"
+      },
+      {
+        "available": true,
+        "layer": "experience",
+        "node_id": "experience:SHADOW-FLOW-04",
+        "reference": "SHADOW-FLOW-04"
+      },
+      {
+        "available": true,
+        "layer": "experience",
+        "node_id": "experience:SHADOW-FLOW-05",
+        "reference": "SHADOW-FLOW-05"
+      },
+      {
+        "available": true,
+        "layer": "repository",
+        "node_id": "repository:dashboard-projection",
+        "reference": "Dashboard/dashboard-data.js"
+      }
+    ]
+  },
+  "generated_at": "2026-07-02T21:00:00+00:00",
+  "model_impact": "review_only_not_production",
+  "north_star": "AI 基礎建設接力觀察",
+  "production_authorized": false,
+  "record_date": "2026-07-02",
+  "record_type": "decision_snapshot",
+  "repository_write_authorized": false,
+  "risk": [
+    "Provider fixture 不是即時 API 資料。",
+    "Replay 不得產生正式交易訊號。",
+    "所有輸出仍需人工 Review。"
+  ],
+  "snapshot_id": "NORTHSTAR-SNAPSHOT-20260702",
+  "status": "shadow_review_record",
+  "story": "今日 Shadow 方向為 AI 基礎建設接力觀察；第一候選為 散熱，主要風險是 Provider fixture 不是即時 API 資料。",
+  "top3": [
+    {
+      "evidence_refs": [
+        "EV-102",
+        "EV-104"
+      ],
+      "expectation_stars": 5,
+      "rank": 1,
+      "symbol": "散熱",
+      "why_now": "Archived Replay 將散熱列為第一候選，不代表正式評分。",
+      "window": "5 天"
+    },
+    {
+      "evidence_refs": [
+        "EV-101",
+        "EV-103"
+      ],
+      "expectation_stars": 4,
+      "rank": 2,
+      "symbol": "HBM",
+      "why_now": "Archived Replay 將 HBM 列為第二候選，不代表正式評分。",
+      "window": "5 天"
+    },
+    {
+      "evidence_refs": [
+        "EV-105"
+      ],
+      "expectation_stars": 3,
+      "rank": 3,
+      "symbol": "CPO",
+      "why_now": "Archived Replay 將 CPO 列為次級擴散候選。",
+      "window": "10 天"
+    }
+  ]
+}

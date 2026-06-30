@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/market-data/replay_manifest.schema.json",
+  "title": "Deterministic Shadow Replay Manifest",
+  "type": "object",
+  "required": [
+    "replay_id",
+    "replay_date",
+    "as_of",
+    "engine_version",
+    "repository_baseline",
+    "status",
+    "input_hashes",
+    "output_hashes",
+    "reproducibility_digest",
+    "runtime_api_access",
+    "repository_write_authorized",
+    "production_authorized",
+    "trading_signal",
+    "strategy_change",
+    "scoring_change"
+  ],
+  "properties": {
+    "replay_id": {
+      "type": "string",
+      "pattern": "^SHADOW-REPLAY-[0-9]{8}$"
+    },
+    "replay_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "engine_version": {
+      "type": "string"
+    },
+    "repository_baseline": {
+      "type": "string"
+    },
+    "status": {
+      "const": "replay_complete"
+    },
+    "input_hashes": {
+      "$ref": "#/$defs/hashes"
+    },
+    "output_hashes": {
+      "$ref": "#/$defs/hashes"
+    },
+    "reproducibility_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "runtime_api_access": {
+      "const": false
+    },
+    "repository_write_authorized": {
+      "const": false
+    },
+    "production_authorized": {
+      "const": false
+    },
+    "trading_signal": {
+      "const": false
+    },
+    "strategy_change": {
+      "const": false
+    },
+    "scoring_change": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "hashes": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    }
+  },
+  "x-runtime": {
+    "status": "schema_candidate",
+    "deterministic_replay": true,
+    "repository_auto_write": false,
+    "production_authorized": false
+  }
+}

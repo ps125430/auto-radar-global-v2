@@ -1,0 +1,111 @@
+{
+  "document_id": "AR-SHADOW-INPUT-20260702-001",
+  "version": "1.0",
+  "status": "shadow_input_candidate",
+  "model_impact": "shadow_only_not_production",
+  "as_of": "2026-07-02T21:00:00+00:00",
+  "north_star_input": {
+    "direction": "AI 基礎建設接力觀察",
+    "captain_mission": "觀察散熱與 HBM 是否延續，CPO 維持次級候選。",
+    "why_now": "Archived replay fixture 顯示半導體與台灣 AI 供應鏈仍有資金語境；內容只用於重播驗證。",
+    "window_days": 5
+  },
+  "timeline_input": {
+    "yesterday": "AI 基礎建設維持主線，資金開始向供應鏈延伸。",
+    "today": "散熱與 HBM 成為 Replay Top2，CPO 位於第三順位。",
+    "tomorrow_projection": "只觀察 Evidence 與資金鏈是否延續，不自動升級。"
+  },
+  "market_regime_input": {
+    "macro": "風險偏好中性偏多",
+    "sector": "半導體與 AI 基礎建設偏強",
+    "micro": "主線延續但子題材分化"
+  },
+  "capital_flow_input": {
+    "source": "美國半導體",
+    "destination": "台灣 AI 供應鏈",
+    "path": [
+      "美國半導體",
+      "台灣 AI 供應鏈",
+      "散熱",
+      "HBM",
+      "CPO"
+    ],
+    "velocity": "moderate",
+    "tide": "rising"
+  },
+  "opportunity_input": [
+    {
+      "id": "SHADOW-OPP-001",
+      "theme": "散熱",
+      "display_score": 84,
+      "expectation_stars": 5,
+      "window_days": 5,
+      "why_now": "Archived Replay 將散熱列為第一候選，不代表正式評分。",
+      "risk": "價格反應可能早於基本面驗證。",
+      "evidence_refs": [
+        "EV-102",
+        "EV-104"
+      ]
+    },
+    {
+      "id": "SHADOW-OPP-002",
+      "theme": "HBM",
+      "display_score": 81,
+      "expectation_stars": 4,
+      "window_days": 5,
+      "why_now": "Archived Replay 將 HBM 列為第二候選，不代表正式評分。",
+      "risk": "規格升級預期可能已部分反映。",
+      "evidence_refs": [
+        "EV-101",
+        "EV-103"
+      ]
+    },
+    {
+      "id": "SHADOW-OPP-003",
+      "theme": "CPO",
+      "display_score": 72,
+      "expectation_stars": 3,
+      "window_days": 10,
+      "why_now": "Archived Replay 將 CPO 列為次級擴散候選。",
+      "risk": "商用導入時間仍不確定。",
+      "evidence_refs": [
+        "EV-105"
+      ]
+    }
+  ],
+  "risk_input": {
+    "summary": "Replay fixture 只用於工程重播，不得視為即時市場資料。",
+    "items": [
+      "Provider fixture 不是即時 API 資料。",
+      "Replay 不得產生正式交易訊號。",
+      "所有輸出仍需人工 Review。"
+    ],
+    "forbidden_zones": [
+      "不以 Replay 結果取代即時資料。",
+      "不將顯示分數視為 Production Scoring。",
+      "不自動寫回 Knowledge Repository。"
+    ]
+  },
+  "evidence_reference_input": [
+    {
+      "evidence_id": "EV-101",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-101.md"
+    },
+    {
+      "evidence_id": "EV-102",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-102.md"
+    },
+    {
+      "evidence_id": "EV-103",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-103.md"
+    },
+    {
+      "evidence_id": "EV-104",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-104.md"
+    },
+    {
+      "evidence_id": "EV-105",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-105.md"
+    }
+  ]
+}

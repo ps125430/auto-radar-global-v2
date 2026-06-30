@@ -21,6 +21,8 @@ Last Updated: 2026-06-30
 | DEC-014 | 2026-06-30 | E-131 through E-135 may bind Dashboard fields to Shadow Runtime projection | Dashboard may display Shadow output and Explain Chain while remaining read-only, non-production, and non-trading | 小P / 小C | Pending Review |
 | DEC-015 | 2026-06-30 | E-136 through E-140 use an authored half-real Shadow input pack behind fail-fast input and output gates | The complete Input-to-Dashboard flow must be testable without representing test data as research truth, Strategy, Scoring, or Production output | 小P / 小C | Pending Review |
 | DEC-016 | 2026-06-30 | E-146 through E-150 may persist Shadow review artifacts under Runtime/NorthStar only | Daily memory requires durable Snapshot and Review records, while Outcome and Engine attribution remain manual and Reflection has no Repository write or merge authority | 小P / 小C | Pending Review |
+| DEC-017 | 2026-06-30 | Runtime market data must enter through Provider → Quality → Snapshot → Snapshot Reader | Runtime must never access external APIs directly; archived fixtures establish the boundary before live adapters are authorized | 小P / 小C | Pending Review |
+| DEC-018 | 2026-06-30 | Shadow Replay artifacts are immutable and source-hashed under Runtime/Artifacts | Reproducibility requires fixed input, engine source, Repository source, output hashes, and byte-identical reruns without modifying Dashboard or Knowledge | 小P / 小C | Pending Review |
 
 ## Decision Rule
 

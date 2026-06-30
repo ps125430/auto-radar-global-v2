@@ -78,6 +78,7 @@ Current gate:
 - E-131 through E-135 implemented for Architecture Review.
 - E-136 through E-140 implemented for Architecture Review.
 - E-146 through E-150 Daily Intelligence Loop implemented for Architecture Review.
+- E-151 through E-155 Real Data Foundation implemented with archived fixtures for Architecture Review.
 - N-001 through N-010 and Production Runtime remain blocked.
 
 Entry gate:

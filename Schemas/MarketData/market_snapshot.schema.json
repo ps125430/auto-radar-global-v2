@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/market-data/market_snapshot.schema.json",
+  "title": "Validated Shadow Market Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "snapshot_date",
+    "as_of",
+    "status",
+    "model_impact",
+    "global",
+    "us",
+    "taiwan",
+    "crypto",
+    "macro",
+    "provider_summary",
+    "record_count",
+    "quality",
+    "runtime_api_access",
+    "production_authorized",
+    "repository_write_authorized"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^MARKET-SNAPSHOT-[0-9]{8}$"
+    },
+    "snapshot_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "const": "validated_shadow_snapshot"
+    },
+    "model_impact": {
+      "const": "provider_data_only_not_production"
+    },
+    "global": {
+      "$ref": "#/$defs/records"
+    },
+    "us": {
+      "$ref": "#/$defs/records"
+    },
+    "taiwan": {
+      "$ref": "#/$defs/records"
+    },
+    "crypto": {
+      "$ref": "#/$defs/records"
+    },
+    "macro": {
+      "$ref": "#/$defs/records"
+    },
+    "provider_summary": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "quality": {
+      "type": "object",
+      "required": [
+        "status",
+        "missing",
+        "duplicate",
+        "invalid",
+        "outlier",
+        "timestamp_errors"
+      ],
+      "properties": {
+        "status": {
+          "const": "PASS"
+        },
+        "missing": {
+          "const": 0
+        },
+        "duplicate": {
+          "const": 0
+        },
+        "invalid": {
+          "const": 0
+        },
+        "outlier": {
+          "const": 0
+        },
+        "timestamp_errors": {
+          "const": 0
+        }
+      }
+    },
+    "runtime_api_access": {
+      "const": false
+    },
+    "production_authorized": {
+      "const": false
+    },
+    "repository_write_authorized": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "../Providers/provider_record.schema.json"
+      }
+    }
+  },
+  "x-runtime": {
+    "status": "schema_candidate",
+    "snapshot_only": true,
+    "strategy_change": false,
+    "scoring_change": false,
+    "production_authorized": false
+  }
+}

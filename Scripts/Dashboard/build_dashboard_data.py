@@ -33,6 +33,9 @@ class DashboardDataBuilder:
         output_path: Path | str | None = None,
         *,
         generated_at: datetime | None = None,
+        shadow_input_path: str = (
+            "Data/ShadowInput/sample_real_input_v1.json"
+        ),
     ) -> None:
         self.repository_root = Path(
             repository_root or Path(__file__).resolve().parents[2]
@@ -42,6 +45,20 @@ class DashboardDataBuilder:
             or self.repository_root / "Dashboard" / "dashboard-data.js"
         )
         self.generated_at = generated_at or datetime.now(timezone.utc)
+        normalized_shadow_path = Path(
+            shadow_input_path.replace("\\", "/")
+        )
+        if (
+            normalized_shadow_path.is_absolute()
+            or ".." in normalized_shadow_path.parts
+            or not normalized_shadow_path.as_posix().startswith(
+                "Data/ShadowInput/"
+            )
+        ):
+            raise DashboardDataError(
+                "Shadow input path must remain under Data/ShadowInput"
+            )
+        self.shadow_input_path = normalized_shadow_path.as_posix()
 
     def build(self) -> dict[str, Any]:
         """Read source records and return one UI-only projection."""
@@ -76,7 +93,7 @@ class DashboardDataBuilder:
         try:
             shadow_input = ShadowInputValidator.validate(
                 self._load_json(
-                    "Data/ShadowInput/sample_real_input_v1.json",
+                    self.shadow_input_path,
                     "Shadow Runtime input",
                 ),
                 repository_root=self.repository_root,

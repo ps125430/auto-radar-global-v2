@@ -30,21 +30,21 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — Daily Intelligence Loop
+Engineering Phase — Real Data Foundation
 
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented with Shadow Runtime binding
-- Engine: E-121 through E-140 implemented; E-146 through E-150 Daily Intelligence Loop implemented for review; Gate OPEN
+- Engine: E-121 through E-150 implemented; E-151 through E-155 Real Data Foundation implemented for review; Gate OPEN
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-150
-- Task: Daily Reflection
+- Task ID: E-155
+- Task: Shadow Data Replay
 - Owner: 小C / Engineering
-- Status: E-146 through E-150 implemented; awaiting 小P architecture review
-- Impact: Shadow review runtime only
+- Status: E-151 through E-155 implemented; awaiting 小P architecture review
+- Impact: Provider and Shadow data infrastructure only
 
 ## Completed Runtime Milestone
 
@@ -78,6 +78,11 @@ Engineering Phase — Daily Intelligence Loop
 - E-148 Review-only Decision Residual 與 Accuracy。
 - E-149 Manual diagnostic Root Cause attribution。
 - E-150 Suggest-only Daily Reflection。
+- E-151 Taiwan、US、Macro、News、ETF 與 Mock Provider adapters。
+- E-152 Market Snapshot Builder 與 Snapshot Reader gateway。
+- E-153 Automatic Provider Evidence Collector。
+- E-154 Missing、Duplicate、Invalid、Outlier 與 Timestamp Fail-fast。
+- E-155 2026-07-02 source-hashed deterministic Replay。
 
 ## Active Boundaries
 
@@ -98,14 +103,15 @@ Engineering Phase — Daily Intelligence Loop
 - E-131 至 E-135 僅為 Dashboard Shadow binding。
 - E-136 至 E-140 僅為 Shadow data integration；測試輸入不是研究結論。
 - E-146 至 E-150 僅為 Shadow review records；不得修改 Scoring、Strategy 或 Repository。
+- E-151 至 E-155 僅為 Provider/Shadow data infrastructure；尚未串接外部 API。
 - Learning 僅允許 Suggest，不得寫入 Repository。
 - N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 178 項自動測試通過。
+- 186 項自動測試通過。
 - 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-146 至 E-150。
+1. 小P驗收 E-151 至 E-155。
 2. 記錄 PASS 或修正要求。
 3. 未經另案授權，不得進入 N-series 或 Production Runtime。
 

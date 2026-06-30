@@ -10,8 +10,8 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Current Owner | 小C / Engineering |
-| Current Task | E-150 — Daily Reflection |
-| Status | E-146 through E-150 implemented; awaiting 小P architecture review |
+| Current Task | E-155 — Shadow Data Replay |
+| Status | E-151 through E-155 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
 This is the only Current Task.
@@ -22,7 +22,7 @@ Not assigned.
 
 Next step:
 
-1. 小P reviews E-146 through E-150.
+1. 小P reviews E-151 through E-155.
 2. Record PASS or required corrections.
 3. Keep N-001 through N-010 and Production Runtime blocked until separately authorized.
 

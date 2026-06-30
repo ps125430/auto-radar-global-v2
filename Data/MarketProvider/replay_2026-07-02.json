@@ -1,0 +1,181 @@
+{
+  "replay_id": "SHADOW-REPLAY-20260702",
+  "replay_date": "2026-07-02",
+  "as_of": "2026-07-02T21:00:00+00:00",
+  "engine_version": "1.0",
+  "repository_baseline": "ec19fe35b3eadedfae99565ffd126433cdcffd6f",
+  "status": "archived_provider_fixture",
+  "model_impact": "provider_data_only_not_production",
+  "shadow_input_ref": "Data/ShadowInput/replay_2026-07-02.json",
+  "outcome_ref": "Data/MarketProvider/manual_outcome_2026-07-02.json",
+  "providers": {
+    "taiwan": [
+      {
+        "record_id": "TW-TAIEX-20260702",
+        "provider": "taiwan",
+        "market": "TAIWAN",
+        "timestamp": "2026-07-02T05:30:00+00:00",
+        "category": "index_close",
+        "symbol": "TAIEX",
+        "value": 23540.2,
+        "unit": "points",
+        "source": "archived_replay_fixture",
+        "importance": 90,
+        "reliability": 95,
+        "reference": "provider://taiwan/TAIEX/2026-07-02",
+        "expected_min": 10000,
+        "expected_max": 40000
+      },
+      {
+        "record_id": "TW-AI-TURNOVER-20260702",
+        "provider": "taiwan",
+        "market": "TAIWAN",
+        "timestamp": "2026-07-02T05:31:00+00:00",
+        "category": "theme_turnover",
+        "symbol": "AI-SUPPLY-CHAIN",
+        "value": 168.4,
+        "unit": "billion_twd",
+        "source": "archived_replay_fixture",
+        "importance": 82,
+        "reliability": 88,
+        "reference": "provider://taiwan/theme/ai-supply-chain/2026-07-02",
+        "expected_min": 0,
+        "expected_max": 1000
+      }
+    ],
+    "us": [
+      {
+        "record_id": "US-SPX-20260702",
+        "provider": "us",
+        "market": "US",
+        "timestamp": "2026-07-02T20:00:00+00:00",
+        "category": "index_close",
+        "symbol": "SPX",
+        "value": 6320.4,
+        "unit": "points",
+        "source": "archived_replay_fixture",
+        "importance": 92,
+        "reliability": 96,
+        "reference": "provider://us/SPX/2026-07-02",
+        "expected_min": 1000,
+        "expected_max": 10000
+      },
+      {
+        "record_id": "US-SOX-20260702",
+        "provider": "us",
+        "market": "US",
+        "timestamp": "2026-07-02T20:01:00+00:00",
+        "category": "semiconductor_index",
+        "symbol": "SOX",
+        "value": 5688.1,
+        "unit": "points",
+        "source": "archived_replay_fixture",
+        "importance": 94,
+        "reliability": 94,
+        "reference": "provider://us/SOX/2026-07-02",
+        "expected_min": 500,
+        "expected_max": 10000
+      }
+    ],
+    "macro": [
+      {
+        "record_id": "MACRO-US10Y-20260702",
+        "provider": "macro",
+        "market": "MACRO",
+        "timestamp": "2026-07-02T20:05:00+00:00",
+        "category": "bond_yield",
+        "symbol": "US10Y",
+        "value": 4.24,
+        "unit": "percent",
+        "source": "archived_replay_fixture",
+        "importance": 88,
+        "reliability": 95,
+        "reference": "provider://macro/US10Y/2026-07-02",
+        "expected_min": 0,
+        "expected_max": 20
+      },
+      {
+        "record_id": "MACRO-DXY-20260702",
+        "provider": "macro",
+        "market": "MACRO",
+        "timestamp": "2026-07-02T20:06:00+00:00",
+        "category": "currency_index",
+        "symbol": "DXY",
+        "value": 98.7,
+        "unit": "index",
+        "source": "archived_replay_fixture",
+        "importance": 80,
+        "reliability": 93,
+        "reference": "provider://macro/DXY/2026-07-02",
+        "expected_min": 50,
+        "expected_max": 150
+      }
+    ],
+    "news": [
+      {
+        "record_id": "NEWS-AI-CAPEX-20260702",
+        "provider": "news",
+        "market": "GLOBAL",
+        "timestamp": "2026-07-02T18:30:00+00:00",
+        "category": "company_capex_context",
+        "symbol": "AI-INFRA",
+        "value": "Archived provider context: AI infrastructure capital expenditure remained the active narrative.",
+        "unit": "text",
+        "source": "archived_replay_fixture",
+        "importance": 75,
+        "reliability": 70,
+        "reference": "provider://news/ai-capex/2026-07-02"
+      }
+    ],
+    "etf": [
+      {
+        "record_id": "ETF-SMH-FLOW-20260702",
+        "provider": "etf",
+        "market": "US",
+        "timestamp": "2026-07-02T20:10:00+00:00",
+        "category": "etf_flow",
+        "symbol": "SMH",
+        "value": 184.0,
+        "unit": "million_usd",
+        "source": "archived_replay_fixture",
+        "importance": 78,
+        "reliability": 86,
+        "reference": "provider://etf/SMH/flow/2026-07-02",
+        "expected_min": -5000,
+        "expected_max": 5000
+      }
+    ],
+    "mock": [
+      {
+        "record_id": "MOCK-GLOBAL-RISK-20260702",
+        "provider": "mock",
+        "market": "GLOBAL",
+        "timestamp": "2026-07-02T20:15:00+00:00",
+        "category": "global_risk_context",
+        "symbol": "GLOBAL",
+        "value": "neutral_positive",
+        "unit": "state",
+        "source": "archived_replay_fixture",
+        "importance": 70,
+        "reliability": 60,
+        "reference": "provider://mock/global-risk/2026-07-02"
+      },
+      {
+        "record_id": "MOCK-BTC-20260702",
+        "provider": "mock",
+        "market": "CRYPTO",
+        "timestamp": "2026-07-02T20:16:00+00:00",
+        "category": "crypto_close",
+        "symbol": "BTC-USD",
+        "value": 108420.0,
+        "unit": "usd",
+        "source": "archived_replay_fixture",
+        "importance": 65,
+        "reliability": 60,
+        "reference": "provider://mock/BTC-USD/2026-07-02",
+        "expected_min": 0,
+        "expected_max": 1000000
+      }
+    ]
+  }
+}

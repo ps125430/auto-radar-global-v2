@@ -1,0 +1,59 @@
+{
+  "api_integration": false,
+  "engine_diagnostics": [
+    {
+      "engine": "capital_flow",
+      "impact": 8.0,
+      "notes": "Replay fixture 的資金方向大致一致。"
+    },
+    {
+      "engine": "evidence",
+      "impact": 4.0,
+      "notes": "Evidence 完整度足以追溯，但不代表即時研究已驗證。"
+    },
+    {
+      "engine": "timing",
+      "impact": 14.0,
+      "notes": "候選方向與收盤結果存在時間差。"
+    },
+    {
+      "engine": "regime",
+      "impact": 1.0,
+      "notes": "Replay fixture 未顯示重大 Regime 誤差。"
+    }
+  ],
+  "generated_at": "2026-07-02T21:00:00+00:00",
+  "items": [
+    {
+      "actual_stars": 4,
+      "notes": "Archived Replay manual outcome.",
+      "return_percent": 3.4,
+      "symbol": "散熱"
+    },
+    {
+      "actual_stars": 3,
+      "notes": "Archived Replay manual outcome.",
+      "return_percent": 1.8,
+      "symbol": "HBM"
+    },
+    {
+      "actual_stars": 2,
+      "notes": "Archived Replay manual outcome.",
+      "return_percent": -0.6,
+      "symbol": "CPO"
+    }
+  ],
+  "model_impact": "review_only_not_production",
+  "outcome_id": "SHADOW-OUTCOME-20260702",
+  "production_authorized": false,
+  "record_date": "2026-07-02",
+  "record_type": "outcome",
+  "reflection_context": {
+    "correction_candidate": "下一次 Replay 應比較盤中與收盤兩個 Outcome window。",
+    "hypothesis_candidate": "散熱與 HBM 的接力速度可能領先 CPO，需以多日 Snapshot 驗證。",
+    "stale_knowledge": "CPO 的商用導入時間假設需要更多 Outcome 驗證。"
+  },
+  "repository_write_authorized": false,
+  "source": "manual",
+  "status": "shadow_review_record"
+}
