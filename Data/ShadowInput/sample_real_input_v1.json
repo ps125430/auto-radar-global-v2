@@ -1,0 +1,131 @@
+{
+  "document_id": "AR-SHADOW-INPUT-20260630-001",
+  "version": "1.0",
+  "status": "shadow_input_candidate",
+  "model_impact": "shadow_only_not_production",
+  "as_of": "2026-06-30T08:20:00+08:00",
+  "north_star_input": {
+    "direction": "AI 基礎建設供應鏈",
+    "captain_mission": "聚焦 HBM 與散熱的資金接力，CPO 與電力題材維持觀察。",
+    "why_now": "半真實測試輸入顯示資金語境由 AI 晶片延伸至記憶體、散熱與電力基礎設施；所有內容仍待人工驗證。",
+    "window_days": 5
+  },
+  "timeline_input": {
+    "yesterday": "AI 晶片主線維持，資金開始尋找供應鏈延伸題材。",
+    "today": "HBM 與散熱成為主要接力候選，電力與 CPO 進入觀察。",
+    "tomorrow_projection": "觀察 HBM 與散熱是否維持接力，若 Evidence 未增加則不升級。"
+  },
+  "market_regime_input": {
+    "macro": "風險偏好中性偏多",
+    "sector": "AI 基礎建設維持主線",
+    "micro": "上游強勢，延伸題材分化"
+  },
+  "capital_flow_input": {
+    "source": "美國 AI 基礎建設",
+    "destination": "台灣 AI 供應鏈",
+    "path": [
+      "美國 AI 基礎建設",
+      "HBM",
+      "散熱",
+      "電力",
+      "CPO"
+    ],
+    "velocity": "moderate",
+    "tide": "rising"
+  },
+  "opportunity_input": [
+    {
+      "id": "SHADOW-OPP-001",
+      "theme": "HBM",
+      "display_score": 86,
+      "window_days": 5,
+      "why_now": "半真實輸入將 HBM 標記為 AI 基礎建設的第一層供應瓶頸候選。",
+      "risk": "市場已部分反映規格升級預期。",
+      "evidence_refs": [
+        "EV-101",
+        "EV-103"
+      ]
+    },
+    {
+      "id": "SHADOW-OPP-002",
+      "theme": "散熱",
+      "display_score": 82,
+      "window_days": 5,
+      "why_now": "半真實輸入將散熱標記為高功耗 AI 系統的接力候選。",
+      "risk": "題材擴散可能快於實際訂單驗證。",
+      "evidence_refs": [
+        "EV-102",
+        "EV-104"
+      ]
+    },
+    {
+      "id": "SHADOW-OPP-003",
+      "theme": "電力",
+      "display_score": 78,
+      "window_days": 10,
+      "why_now": "半真實輸入將資料中心供電需求列為較長觀察窗候選。",
+      "risk": "資本支出時程與政策落地仍有延遲風險。",
+      "evidence_refs": [
+        "EV-103",
+        "EV-105"
+      ]
+    },
+    {
+      "id": "SHADOW-OPP-004",
+      "theme": "CPO",
+      "display_score": 73,
+      "window_days": 10,
+      "why_now": "半真實輸入將高速傳輸需求列為下一階段擴散候選。",
+      "risk": "商用導入節奏與市場預期可能不一致。",
+      "evidence_refs": [
+        "EV-101"
+      ]
+    },
+    {
+      "id": "SHADOW-OPP-005",
+      "theme": "AI Infrastructure",
+      "display_score": 70,
+      "window_days": 5,
+      "why_now": "作為本次 Shadow 資料包的上位觀察主題，不代表正式策略。",
+      "risk": "主題範圍過廣，需拆解至可驗證子題材。",
+      "evidence_refs": [
+        "EV-102"
+      ]
+    }
+  ],
+  "risk_input": {
+    "summary": "本資料包為半真實 Shadow 測試語境，不得直接用於交易。",
+    "items": [
+      "題材價格可能已提前反映。",
+      "目前證據為 Sandbox 追溯資料，不代表市場事實已驗證。",
+      "Production Runtime 與交易指令仍未授權。"
+    ],
+    "forbidden_zones": [
+      "不追逐缺乏 Evidence reference 的題材。",
+      "不將 Shadow 顯示分數視為正式評分。",
+      "不依本資料包建立交易指令。"
+    ]
+  },
+  "evidence_reference_input": [
+    {
+      "evidence_id": "EV-101",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-101.md"
+    },
+    {
+      "evidence_id": "EV-102",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-102.md"
+    },
+    {
+      "evidence_id": "EV-103",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-103.md"
+    },
+    {
+      "evidence_id": "EV-104",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-104.md"
+    },
+    {
+      "evidence_id": "EV-105",
+      "repository_ref": "Sandbox/Ingestion/processed/EV-105.md"
+    }
+  ]
+}

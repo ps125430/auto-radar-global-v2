@@ -30,6 +30,10 @@ from Runtime.NorthStar import (
     SessionStatus,
     ShadowIntegrationError,
     ShadowRuntimeOrchestrator,
+    ShadowInputValidationError,
+    ShadowInputValidator,
+    ShadowOutputQualityError,
+    ShadowOutputQualityGate,
     build_shadow_dashboard_projection,
 )
 
@@ -566,9 +570,16 @@ class NorthStarRuntimeTests(unittest.TestCase):
                 "generated_at": datetime.now(timezone.utc).isoformat(),
                 "north_star_direction": "Shadow direction",
                 "captain_mission": "Shadow mission",
-                "top3_candidate": ["Cooling"],
+                "top3_candidate": ["Cooling", "HBM", "Power"],
+                "forbidden_zone": ["No production use"],
                 "risk": ["Manual review"],
                 "window": "shadow_only",
+                "why_now": "Input-only reason",
+                "timeline": {
+                    "yesterday": "Previous state",
+                    "today": "Current state",
+                    "tomorrow": "Projected state",
+                },
                 "decision_ref": "NSD-001",
                 "production_authorized": False,
                 "trading_signal": False,
@@ -593,6 +604,112 @@ class NorthStarRuntimeTests(unittest.TestCase):
         self.assertEqual(
             ["Knowledge/"], projection["explain"]["layers"]["repository"]
         )
+
+    def test_shadow_input_validator_accepts_sample_pack(self) -> None:
+        input_path = (
+            REPOSITORY_ROOT
+            / "Data/ShadowInput/sample_real_input_v1.json"
+        )
+        payload = json.loads(input_path.read_text(encoding="utf-8"))
+
+        validated = ShadowInputValidator.validate(
+            payload,
+            repository_root=REPOSITORY_ROOT,
+        )
+
+        self.assertEqual("shadow_input_candidate", validated["status"])
+        self.assertEqual(5, len(validated["opportunity_input"]))
+
+    def test_shadow_input_validator_fails_fast_on_quality_errors(self) -> None:
+        input_path = (
+            REPOSITORY_ROOT
+            / "Data/ShadowInput/sample_real_input_v1.json"
+        )
+        payload = json.loads(input_path.read_text(encoding="utf-8"))
+        payload["opportunity_input"][0]["display_score"] = 101
+
+        with self.assertRaisesRegex(
+            ShadowInputValidationError, "0 to 100"
+        ):
+            ShadowInputValidator.validate(payload)
+
+        payload = json.loads(input_path.read_text(encoding="utf-8"))
+        payload["opportunity_input"][0]["why_now"] = " "
+        with self.assertRaisesRegex(
+            ShadowInputValidationError, "must not be blank"
+        ):
+            ShadowInputValidator.validate(payload)
+
+        payload = json.loads(input_path.read_text(encoding="utf-8"))
+        payload["north_star_input"]["window_days"] = 0
+        with self.assertRaisesRegex(
+            ShadowInputValidationError, "integer from 1 to 30"
+        ):
+            ShadowInputValidator.validate(payload)
+
+        payload = json.loads(input_path.read_text(encoding="utf-8"))
+        payload["opportunity_input"][0]["evidence_refs"] = ["EV-MISSING"]
+        with self.assertRaisesRegex(
+            ShadowInputValidationError, "missing Evidence reference"
+        ):
+            ShadowInputValidator.validate(payload)
+
+    def test_shadow_output_quality_gate_requires_complete_output(self) -> None:
+        with self.assertRaisesRegex(
+            ShadowOutputQualityError, "exactly three"
+        ):
+            ShadowOutputQualityGate.validate(
+                shadow_output={
+                    "north_star_direction": "AI",
+                    "captain_mission": "Observe",
+                    "top3_candidate": ["HBM"],
+                    "forbidden_zone": ["No trading"],
+                    "risk": ["Manual review"],
+                    "window": "5 days",
+                    "why_now": "Input reason",
+                    "timeline": {
+                        "yesterday": "Previous",
+                        "today": "Current",
+                        "tomorrow": "Projected",
+                    },
+                    "production_authorized": False,
+                    "trading_signal": False,
+                },
+                explain_chain={
+                    "chain_id": "EXPLAIN-001",
+                    "nodes": [
+                        {"layer": "decision"},
+                        {"layer": "evidence"},
+                        {"layer": "repository"},
+                    ],
+                },
+            )
+
+        with self.assertRaisesRegex(
+            ShadowOutputQualityError, "missing layers"
+        ):
+            ShadowOutputQualityGate.validate(
+                shadow_output={
+                    "north_star_direction": "AI",
+                    "captain_mission": "Observe",
+                    "top3_candidate": ["HBM", "Cooling", "Power"],
+                    "forbidden_zone": ["No trading"],
+                    "risk": ["Manual review"],
+                    "window": "5 days",
+                    "why_now": "Input reason",
+                    "timeline": {
+                        "yesterday": "Previous",
+                        "today": "Current",
+                        "tomorrow": "Projected",
+                    },
+                    "production_authorized": False,
+                    "trading_signal": False,
+                },
+                explain_chain={
+                    "chain_id": "EXPLAIN-001",
+                    "nodes": [{"layer": "decision"}],
+                },
+            )
 
 
 if __name__ == "__main__":

@@ -85,6 +85,7 @@
     shadowToday.direction || strategy.name || waitingShadow;
   const strategyWindow = windowText(shadowToday.window || strategy.window);
   const strategyWhy =
+    shadowToday.why_now ||
     shadowToday.market_story ||
     strategy.why_now ||
     strategy.fallback ||
@@ -184,7 +185,7 @@
             <div class="opportunity-score-row">
               <div class="score-block">
                 <strong>${escapeHtml(score)}</strong>
-                <span>${score === "—" ? "尚未評分" : "機會分數"}</span>
+              <span>${score === "—" ? "尚未評分" : "Shadow 顯示分數"}</span>
               </div>
               <button
                 class="explain-button"
@@ -275,22 +276,28 @@
 
   function renderSeaState() {
     const hasFlow = Boolean(validatedRoute());
-    const graphNodeCount = Number(repository.graph_nodes || 0);
-    const graphEdgeCount = Number(repository.graph_edges || 0);
+    const graphNodeCount = Array.isArray(capitalFlow.nodes)
+      ? capitalFlow.nodes.length
+      : 0;
+    const graphEdgeCount = Array.isArray(capitalFlow.edges)
+      ? capitalFlow.edges.length
+      : 0;
     const warningCount = Array.isArray(repository.warnings)
       ? repository.warnings.length
       : 0;
 
     setText("current-score", hasFlow ? `${graphNodeCount} 節點` : "—");
-    setText("current-trend", hasFlow ? "已驗證" : "等待驗證");
+    setText("current-trend", hasFlow ? "Shadow 輸入" : "等待驗證");
     setText("current-window", strategyWindow);
     setText(
       "current-why",
-      capitalFlow.message || "目前尚無已驗證資金流資料。"
+      hasFlow
+        ? "顯示半真實 Shadow 輸入的資金傳導路徑。"
+        : capitalFlow.message || "目前尚無已驗證資金流資料。"
     );
     setText(
       "current-evidence",
-      hasFlow ? `圖譜邊 ${graphEdgeCount} 筆` : "知識圖譜待建立"
+      hasFlow ? `Shadow 路徑 ${graphEdgeCount} 段` : "知識圖譜待建立"
     );
 
     setText("tide-score", regime.dominant_narrative || "—");
@@ -364,20 +371,18 @@
     const crowdedAverage = averageNumber(
       opportunities.map((item) => item.crowded)
     );
-    const scoreAverage = averageNumber(
-      opportunities.map((item) => item.opportunity_score)
-    );
+    const leadDisplayScore = opportunities[0]?.opportunity_score;
 
-    setText("smart-score", hasFlow ? `${repository.graph_edges || 0}` : "—");
-    setText("smart-trend", hasFlow ? "資金鏈已建立" : "等待驗證");
+    setText("smart-score", hasFlow ? `${capitalFlow.edges.length}` : "—");
+    setText("smart-trend", hasFlow ? "Shadow 路徑" : "等待驗證");
     setText("smart-window", strategyWindow);
     setText(
       "smart-why",
       hasFlow
-        ? "顯示知識圖譜中的已驗證資金關聯。"
+        ? "顯示半真實 Shadow 輸入的資金關聯，不代表已驗證市場事實。"
         : "目前沒有可用的已驗證資金足跡。"
     );
-    setText("smart-evidence", hasFlow ? "知識圖譜" : "圖譜資料待建立");
+    setText("smart-evidence", hasFlow ? "Shadow Input Pack" : "圖譜資料待建立");
 
     setText(
       "density-score",
@@ -401,22 +406,22 @@
 
     setText(
       "energy-score",
-      scoreAverage === null ? "—" : `${Math.round(scoreAverage)}`
+      typeof leadDisplayScore === "number" ? `${Math.round(leadDisplayScore)}` : "—"
     );
     setText(
       "energy-trend",
-      scoreAverage === null ? "等待分析" : "候選能量已建立"
+      typeof leadDisplayScore === "number" ? "Shadow 輸入值" : "等待分析"
     );
     setText("energy-window", strategyWindow);
     setText(
       "energy-why",
-      scoreAverage === null
+      typeof leadDisplayScore !== "number"
         ? "目前沒有核准的機會分數可計算市場能量。"
-        : "依核准機會分數的平均值呈現。"
+        : "顯示第一候選的半真實測試輸入值，不是 Runtime 計算結果。"
     );
     setText(
       "energy-evidence",
-      scoreAverage === null ? missingEvidence : "機會候選快照"
+      typeof leadDisplayScore !== "number" ? missingEvidence : "Shadow Input Pack"
     );
 
     setText("velocity-score", "—");

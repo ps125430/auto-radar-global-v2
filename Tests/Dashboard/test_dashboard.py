@@ -12,6 +12,7 @@ from Scripts.Dashboard.build_dashboard_data import (
     DashboardDataBuilder,
     DashboardDataError,
 )
+from Scripts.Shadow.build_shadow_brief import render_shadow_brief
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
@@ -37,6 +38,7 @@ SOURCE_PATHS = (
     "Sandbox/Ingestion/processed/EV-105.md",
     "Data/KnowledgeGraph/NODES.json",
     "Data/KnowledgeGraph/EDGES.json",
+    "Data/ShadowInput/sample_real_input_v1.json",
 )
 
 
@@ -83,39 +85,37 @@ class DashboardDataTests(unittest.TestCase):
         ).build()
 
         self.assertEqual(
-            ["PC-001", "PC-002", "PC-003"],
+            ["SHADOW-OPP-001", "SHADOW-OPP-002", "SHADOW-OPP-003"],
             [item["id"] for item in payload["opportunities"]],
         )
 
-    def test_similarity_is_not_reused_as_opportunity_score(self) -> None:
+    def test_shadow_display_score_is_labeled_as_input_not_calculation(self) -> None:
         payload = DashboardDataBuilder(
             REPOSITORY_ROOT, generated_at=FIXED_TIME
         ).build()
 
+        self.assertEqual([86, 82, 78], [
+            item["opportunity_score"] for item in payload["opportunities"]
+        ])
         self.assertTrue(
             all(
-                item["opportunity_score"] is None
-                for item in payload["opportunities"]
-            )
-        )
-        self.assertTrue(
-            all(
-                "不會以相似度替代"
+                item["score_status"] == "sample_shadow_input"
+                and "不是 Runtime 計算結果"
                 in item["explainability"]["why_score"]
                 for item in payload["opportunities"]
             )
         )
 
-    def test_missing_strategy_and_regime_are_explicit(self) -> None:
+    def test_shadow_input_populates_strategy_and_regime(self) -> None:
         payload = DashboardDataBuilder(
             REPOSITORY_ROOT, generated_at=FIXED_TIME
         ).build()
 
-        self.assertIsNone(payload["strategy"]["name"])
+        self.assertEqual("AI 基礎建設供應鏈", payload["strategy"]["name"])
         self.assertIsNone(payload["strategy"]["confidence"])
-        self.assertIsNone(payload["regime"]["macro"])
-        self.assertIn("今日策略", payload["meta"]["data_gaps"])
-        self.assertIn("總經環境", payload["meta"]["data_gaps"])
+        self.assertEqual("風險偏好中性偏多", payload["regime"]["macro"])
+        self.assertNotIn("今日策略", payload["meta"]["data_gaps"])
+        self.assertNotIn("總經環境", payload["meta"]["data_gaps"])
 
     def test_pattern_case_evidence_traceability_is_projected(self) -> None:
         payload = DashboardDataBuilder(
@@ -123,22 +123,22 @@ class DashboardDataTests(unittest.TestCase):
         ).build()
         first = payload["opportunities"][0]
 
-        self.assertEqual(["VC-101", "VC-103"], first["source_cases"])
+        self.assertEqual([], first["source_cases"])
         self.assertEqual(["EV-101", "EV-103"], first["evidence_ids"])
 
-    def test_empty_graph_has_honest_capital_flow_state(self) -> None:
+    def test_shadow_input_populates_capital_flow_path(self) -> None:
         payload = DashboardDataBuilder(
             REPOSITORY_ROOT, generated_at=FIXED_TIME
         ).build()
 
         self.assertEqual(
-            "尚無資料", payload["capital_flow"]["status"]
+            "已有資料", payload["capital_flow"]["status"]
         )
-        self.assertEqual([], payload["capital_flow"]["nodes"])
-        self.assertIn(
-            "目前尚無已驗證資金流資料",
-            payload["capital_flow"]["message"],
+        self.assertEqual(
+            ["美國 AI 基礎建設", "HBM", "散熱", "電力", "CPO"],
+            [item["name"] for item in payload["capital_flow"]["nodes"]],
         )
+        self.assertEqual(4, len(payload["capital_flow"]["edges"]))
 
     def test_shadow_runtime_projection_drives_daily_dashboard_fields(self) -> None:
         payload = DashboardDataBuilder(
@@ -155,6 +155,7 @@ class DashboardDataTests(unittest.TestCase):
         self.assertTrue(shadow["today"]["market_story"])
         self.assertTrue(shadow["today"]["daily_brief"])
         self.assertTrue(shadow["today"]["risk_summary"])
+        self.assertTrue(shadow["today"]["why_now"])
         self.assertIn("yesterday", shadow["timeline"])
         self.assertIn("today", shadow["timeline"])
         self.assertIn("tomorrow", shadow["timeline"])
@@ -186,6 +187,47 @@ class DashboardDataTests(unittest.TestCase):
             self.assertIn(payload["opportunities"][0]["id"], content)
             self.assertTrue(content.endswith(";\n"))
 
+    def test_first_shadow_brief_contains_complete_data_flow(self) -> None:
+        payload = DashboardDataBuilder(
+            REPOSITORY_ROOT, generated_at=FIXED_TIME
+        ).build()
+        brief = render_shadow_brief(payload)
+
+        for section in (
+            "今日北極星",
+            "今日航向",
+            "Why Now",
+            "今日 Top3",
+            "今日禁航區",
+            "今日風險",
+            "Explain Chain",
+        ):
+            self.assertIn(section, brief)
+        self.assertIn("AI 基礎建設供應鏈", brief)
+        self.assertIn("EV-101", brief)
+        self.assertNotIn("Placeholder", brief)
+        self.assertNotIn("Not Available", brief)
+        self.assertNotIn("Awaiting", brief)
+
+    def test_shadow_input_schema_is_valid_json_schema_candidate(self) -> None:
+        schema = json.loads(
+            (
+                REPOSITORY_ROOT
+                / "Schemas/Runtime/shadow_input.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(
+            "https://json-schema.org/draft/2020-12/schema",
+            schema["$schema"],
+        )
+        self.assertEqual(
+            "shadow_input_candidate",
+            schema["properties"]["status"]["const"],
+        )
+        self.assertFalse(schema["x-runtime"]["algorithm"])
+        self.assertFalse(schema["x-runtime"]["production_authorized"])
+
     def test_missing_evidence_reference_fails_fast(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -193,7 +235,7 @@ class DashboardDataTests(unittest.TestCase):
             (root / "Sandbox/Ingestion/processed/EV-101.md").unlink()
 
             with self.assertRaisesRegex(
-                DashboardDataError, "Evidence reference is missing"
+                DashboardDataError, "Evidence reference does not exist"
             ):
                 DashboardDataBuilder(root, generated_at=FIXED_TIME).build()
 
@@ -225,7 +267,7 @@ class DashboardDataTests(unittest.TestCase):
             ).build()
 
             self.assertEqual(
-                "最新核准文字", payload["strategy"]["name"]
+                "AI 基礎建設供應鏈", payload["strategy"]["name"]
             )
 
     def test_static_dashboard_contains_required_modules(self) -> None:

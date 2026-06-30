@@ -10,6 +10,8 @@ from collections.abc import Mapping, Sequence
 from datetime import datetime, timezone
 from typing import Any
 
+from .shadow_quality import ShadowOutputQualityGate
+
 
 class DashboardBindingError(RuntimeError):
     """Raised when Shadow Dashboard data violates the approved boundary."""
@@ -33,6 +35,11 @@ def build_shadow_dashboard_projection(
         raise DashboardBindingError("Shadow Dashboard cannot show Production output")
     if output and output.get("trading_signal") is not False:
         raise DashboardBindingError("Shadow Dashboard cannot show trading signals")
+    if output:
+        ShadowOutputQualityGate.validate(
+            shadow_output=output,
+            explain_chain=chain,
+        )
 
     direction = _text(output.get("north_star_direction"))
     captain = _text(output.get("captain_mission"))
@@ -48,6 +55,8 @@ def build_shadow_dashboard_projection(
     status = "Healthy" if output else "Waiting"
     schema_status = "PASS" if output else "WAITING"
     story = _market_story(direction, top3, risk)
+    timeline = output.get("timeline")
+    timeline = dict(timeline) if isinstance(timeline, Mapping) else {}
 
     return {
         "contract_version": "1.0",
@@ -69,13 +78,18 @@ def build_shadow_dashboard_projection(
             "daily_brief": _daily_brief(direction, captain, top3, risk),
             "risk_summary": risk or [WAITING_FOR_SHADOW_RUN],
             "window": window or WAITING_FOR_SHADOW_RUN,
+            "why_now": _text(output.get("why_now")) or WAITING_FOR_SHADOW_RUN,
             "top3": top3,
             "forbidden_zone": forbidden_zone,
         },
         "timeline": {
-            "yesterday": "Waiting for previous shadow run...",
-            "today": direction or WAITING_FOR_SHADOW_RUN,
-            "tomorrow": "Waiting for next shadow projection...",
+            "yesterday": _text(timeline.get("yesterday"))
+            or WAITING_FOR_SHADOW_RUN,
+            "today": _text(timeline.get("today"))
+            or direction
+            or WAITING_FOR_SHADOW_RUN,
+            "tomorrow": _text(timeline.get("tomorrow"))
+            or WAITING_FOR_SHADOW_RUN,
         },
         "explain": {
             "chain_id": chain_id or WAITING_FOR_SHADOW_RUN,
@@ -93,7 +107,7 @@ def _market_story(direction: str | None, top3: list[str], risk: list[str]) -> st
     if not direction:
         return WAITING_FOR_SHADOW_RUN
     lead = top3[0] if top3 else "Shadow candidate"
-    risk_text = risk[0] if risk else "仍需人工驗證"
+    risk_text = _sentence_fragment(risk[0]) if risk else "仍需人工驗證"
     return f"今日 Shadow 方向為 {direction}；第一候選為 {lead}，主要風險是 {risk_text}。"
 
 
@@ -106,9 +120,17 @@ def _daily_brief(
     if not direction:
         return WAITING_FOR_SHADOW_RUN
     top3_text = ", ".join(top3) if top3 else "no Top3 candidate"
-    risk_text = "、".join(risk) if risk else "尚無核准風險摘要"
-    mission = captain or "尚無今日航向"
+    risk_text = (
+        "、".join(_sentence_fragment(item) for item in risk)
+        if risk
+        else "尚無核准風險摘要"
+    )
+    mission = _sentence_fragment(captain) if captain else "尚無今日航向"
     return f"今日北極星：{direction}。今日航向：{mission}。今日 Top3：{top3_text}。今日風險：{risk_text}。"
+
+
+def _sentence_fragment(value: str) -> str:
+    return value.rstrip("。！？.!? ")
 
 
 def _explain_layers(nodes: list[dict[str, Any]]) -> dict[str, list[str]]:

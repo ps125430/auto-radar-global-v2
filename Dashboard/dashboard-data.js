@@ -1,19 +1,12 @@
 window.AUTO_RADAR_DASHBOARD_DATA = {
   "meta": {
-    "generated_at": "2026-06-29T17:17:30.618811+00:00",
+    "generated_at": "2026-06-30T02:40:37.812779+00:00",
     "mode": "知識庫唯讀",
     "repository_status": "通過",
     "validation_errors": 0,
     "validation_warnings": 1,
     "data_gaps": [
-      "今日策略",
-      "策略信心度",
-      "預估有效天數",
-      "總經環境",
-      "產業狀態",
-      "市場情緒",
-      "資金流地圖",
-      "機會分數"
+      "策略信心度"
     ],
     "sources": [
       "每日預測草稿",
@@ -22,21 +15,22 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "驗證案例清冊",
       "證據沙盒",
       "知識圖譜",
-      "全域驗證報告"
+      "全域驗證報告",
+      "Shadow Runtime 半真實輸入包"
     ]
   },
   "strategy": {
-    "name": null,
+    "name": "AI 基礎建設供應鏈",
     "confidence": null,
-    "window": null,
-    "why_now": null,
+    "window": "5 天",
+    "why_now": "半真實測試輸入顯示資金語境由 AI 晶片延伸至記憶體、散熱與電力基礎設施；所有內容仍待人工驗證。",
     "status": "草稿",
     "fallback": "等待核准資料建立。"
   },
   "regime": {
-    "macro": null,
-    "sector": null,
-    "micro": null,
+    "macro": "風險偏好中性偏多",
+    "sector": "AI 基礎建設維持主線",
+    "micro": "上游強勢，延伸題材分化",
     "market_mood": null,
     "dominant_narrative": null,
     "status": "草稿",
@@ -44,112 +38,161 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
   },
   "opportunities": [
     {
-      "id": "PC-001",
-      "name": "公司公告訊號",
-      "opportunity_score": null,
-      "why_now": "公司申報與交易所公告案例符合既定標籤規則。",
-      "money_flow": null,
-      "window": null,
+      "id": "SHADOW-OPP-001",
+      "name": "HBM",
+      "opportunity_score": 86,
+      "score_status": "sample_shadow_input",
+      "window": "5 天",
+      "money_flow": "半真實 Shadow 輸入",
+      "risk": "市場已部分反映規格升級預期。",
       "crowded": null,
-      "risk": "模式候選資料，仍需人工審查。",
-      "status": "候選",
-      "source_cases": [
-        "VC-101",
-        "VC-103"
-      ],
+      "why_now": "半真實輸入將 HBM 標記為 AI 基礎建設的第一層供應瓶頸候選。",
+      "status": "Shadow 候選",
+      "source_cases": [],
       "evidence_ids": [
         "EV-101",
         "EV-103"
       ],
       "explainability": {
-        "why_score": "目前尚無核准的機會分數，且不會以相似度替代。",
+        "why_score": "顯示分數來自半真實測試輸入，不是 Runtime 計算結果。",
         "evidence": [
           "EV-101",
           "EV-103"
         ],
-        "money": "目前尚未連結已驗證的資金流紀錄。",
-        "history": [
-          "VC-101",
-          "VC-103"
-        ],
-        "risk": "目前仍為候選狀態，不供正式交易使用。"
+        "money": "資料流展示用途，尚待人工市場驗證。",
+        "history": [],
+        "risk": "市場已部分反映規格升級預期。"
       }
     },
     {
-      "id": "PC-002",
-      "name": "總經事件時程",
-      "opportunity_score": null,
-      "why_now": "總經事件與行事曆案例符合既定標籤規則。",
-      "money_flow": null,
-      "window": null,
+      "id": "SHADOW-OPP-002",
+      "name": "散熱",
+      "opportunity_score": 82,
+      "score_status": "sample_shadow_input",
+      "window": "5 天",
+      "money_flow": "半真實 Shadow 輸入",
+      "risk": "題材擴散可能快於實際訂單驗證。",
       "crowded": null,
-      "risk": "模式候選資料，仍需人工審查。",
-      "status": "候選",
-      "source_cases": [
-        "VC-102",
-        "VC-104"
-      ],
+      "why_now": "半真實輸入將散熱標記為高功耗 AI 系統的接力候選。",
+      "status": "Shadow 候選",
+      "source_cases": [],
       "evidence_ids": [
         "EV-102",
         "EV-104"
       ],
       "explainability": {
-        "why_score": "目前尚無核准的機會分數，且不會以相似度替代。",
+        "why_score": "顯示分數來自半真實測試輸入，不是 Runtime 計算結果。",
         "evidence": [
           "EV-102",
           "EV-104"
         ],
-        "money": "目前尚未連結已驗證的資金流紀錄。",
-        "history": [
-          "VC-102",
-          "VC-104"
-        ],
-        "risk": "目前仍為候選狀態，不供正式交易使用。"
+        "money": "資料流展示用途，尚待人工市場驗證。",
+        "history": [],
+        "risk": "題材擴散可能快於實際訂單驗證。"
       }
     },
     {
-      "id": "PC-003",
-      "name": "人工新聞樣本",
-      "opportunity_score": null,
-      "why_now": "人工彙整新聞案例符合既定標籤規則。",
-      "money_flow": null,
-      "window": null,
+      "id": "SHADOW-OPP-003",
+      "name": "電力",
+      "opportunity_score": 78,
+      "score_status": "sample_shadow_input",
+      "window": "10 天",
+      "money_flow": "半真實 Shadow 輸入",
+      "risk": "資本支出時程與政策落地仍有延遲風險。",
       "crowded": null,
-      "risk": "模式候選資料，仍需人工審查。",
-      "status": "候選",
-      "source_cases": [
-        "VC-105"
-      ],
+      "why_now": "半真實輸入將資料中心供電需求列為較長觀察窗候選。",
+      "status": "Shadow 候選",
+      "source_cases": [],
       "evidence_ids": [
+        "EV-103",
         "EV-105"
       ],
       "explainability": {
-        "why_score": "目前尚無核准的機會分數，且不會以相似度替代。",
+        "why_score": "顯示分數來自半真實測試輸入，不是 Runtime 計算結果。",
         "evidence": [
+          "EV-103",
           "EV-105"
         ],
-        "money": "目前尚未連結已驗證的資金流紀錄。",
-        "history": [
-          "VC-105"
-        ],
-        "risk": "目前仍為候選狀態，不供正式交易使用。"
+        "money": "資料流展示用途，尚待人工市場驗證。",
+        "history": [],
+        "risk": "資本支出時程與政策落地仍有延遲風險。"
       }
     }
   ],
   "capital_flow": {
-    "status": "尚無資料",
-    "nodes": [],
-    "edges": [],
-    "message": "目前尚無已驗證資金流資料。"
+    "status": "已有資料",
+    "nodes": [
+      {
+        "id": "SHADOW-FLOW-01",
+        "name": "美國 AI 基礎建設",
+        "category": "Shadow 資金路徑",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "id": "SHADOW-FLOW-02",
+        "name": "HBM",
+        "category": "Shadow 資金路徑",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "id": "SHADOW-FLOW-03",
+        "name": "散熱",
+        "category": "Shadow 資金路徑",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "id": "SHADOW-FLOW-04",
+        "name": "電力",
+        "category": "Shadow 資金路徑",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "id": "SHADOW-FLOW-05",
+        "name": "CPO",
+        "category": "Shadow 資金路徑",
+        "status": "shadow_input_candidate"
+      }
+    ],
+    "edges": [
+      {
+        "source": "SHADOW-FLOW-01",
+        "target": "SHADOW-FLOW-02",
+        "edge_type": "SHADOW_FLOWS_TO",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "source": "SHADOW-FLOW-02",
+        "target": "SHADOW-FLOW-03",
+        "edge_type": "SHADOW_FLOWS_TO",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "source": "SHADOW-FLOW-03",
+        "target": "SHADOW-FLOW-04",
+        "edge_type": "SHADOW_FLOWS_TO",
+        "status": "shadow_input_candidate"
+      },
+      {
+        "source": "SHADOW-FLOW-04",
+        "target": "SHADOW-FLOW-05",
+        "edge_type": "SHADOW_FLOWS_TO",
+        "status": "shadow_input_candidate"
+      }
+    ],
+    "message": null
   },
   "tactical": {
-    "strategy": null,
-    "risk": [],
-    "window": null,
+    "strategy": "AI 基礎建設供應鏈",
+    "risk": [
+      "題材價格可能已提前反映。",
+      "目前證據為 Sandbox 追溯資料，不代表市場事實已驗證。",
+      "Production Runtime 與交易指令仍未授權。"
+    ],
+    "window": "5 天",
     "watch": [
-      "PC-001 · 等待研究審查",
-      "PC-002 · 等待研究審查",
-      "PC-003 · 等待研究審查"
+      "SHADOW-OPP-001 · 等待研究審查",
+      "SHADOW-OPP-002 · 等待研究審查",
+      "SHADOW-OPP-003 · 等待研究審查"
     ],
     "avoid": [],
     "fallback": "等待核准資料建立。"
@@ -169,7 +212,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "status": "shadow_dashboard_projection",
     "model_impact": "shadow_candidate_not_production",
     "waiting_message": "Waiting for today's shadow run...",
-    "last_run": "2026-06-29T17:17:30.618811+00:00",
+    "last_run": "2026-06-30T02:40:37.812779+00:00",
     "mode": {
       "label": "Shadow Runtime",
       "status": "Healthy",
@@ -178,37 +221,42 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "production_authorized": false
     },
     "today": {
-      "direction": "公司公告訊號",
-      "captain_mission": "以 Shadow 模式觀察 公司公告訊號。",
-      "market_story": "今日 Shadow 方向為 公司公告訊號；第一候選為 公司公告訊號，主要風險是 Shadow 輸出僅供觀察，行動前必須人工審查。。",
-      "daily_brief": "今日北極星：公司公告訊號。今日航向：以 Shadow 模式觀察 公司公告訊號。。今日 Top3：公司公告訊號, 總經事件時程, 人工新聞樣本。今日風險：Shadow 輸出僅供觀察，行動前必須人工審查。。",
+      "direction": "AI 基礎建設供應鏈",
+      "captain_mission": "聚焦 HBM 與散熱的資金接力，CPO 與電力題材維持觀察。",
+      "market_story": "今日 Shadow 方向為 AI 基礎建設供應鏈；第一候選為 HBM，主要風險是 題材價格可能已提前反映。",
+      "daily_brief": "今日北極星：AI 基礎建設供應鏈。今日航向：聚焦 HBM 與散熱的資金接力，CPO 與電力題材維持觀察。今日 Top3：HBM, 散熱, 電力。今日風險：題材價格可能已提前反映、目前證據為 Sandbox 追溯資料，不代表市場事實已驗證、Production Runtime 與交易指令仍未授權。",
       "risk_summary": [
-        "Shadow 輸出僅供觀察，行動前必須人工審查。"
+        "題材價格可能已提前反映。",
+        "目前證據為 Sandbox 追溯資料，不代表市場事實已驗證。",
+        "Production Runtime 與交易指令仍未授權。"
       ],
-      "window": "Waiting for today's shadow run...",
+      "window": "5 天",
+      "why_now": "半真實測試輸入顯示資金語境由 AI 晶片延伸至記憶體、散熱與電力基礎設施；所有內容仍待人工驗證。",
       "top3": [
-        "公司公告訊號",
-        "總經事件時程",
-        "人工新聞樣本"
+        "HBM",
+        "散熱",
+        "電力"
       ],
       "forbidden_zone": [
-        "Shadow 輸出不得作為正式交易指令。"
+        "不追逐缺乏 Evidence reference 的題材。",
+        "不將 Shadow 顯示分數視為正式評分。",
+        "不依本資料包建立交易指令。"
       ]
     },
     "timeline": {
-      "yesterday": "Waiting for previous shadow run...",
-      "today": "公司公告訊號",
-      "tomorrow": "Waiting for next shadow projection..."
+      "yesterday": "AI 晶片主線維持，資金開始尋找供應鏈延伸題材。",
+      "today": "HBM 與散熱成為主要接力候選，電力與 CPO 進入觀察。",
+      "tomorrow": "觀察 HBM 與散熱是否維持接力，若 Evidence 未增加則不升級。"
     },
     "explain": {
-      "chain_id": "EXPLAIN-DASHBOARD-20260629",
-      "direction": "公司公告訊號",
-      "decision": "NSD-DASHBOARD-20260629",
+      "chain_id": "EXPLAIN-DASHBOARD-20260630",
+      "direction": "AI 基礎建設供應鏈",
+      "decision": "NSD-DASHBOARD-20260630",
       "nodes": [
         {
           "node_id": "decision:NSD-DASHBOARD",
           "layer": "decision",
-          "reference": "NSD-DASHBOARD-20260629",
+          "reference": "NSD-DASHBOARD-20260630",
           "available": true
         },
         {
@@ -218,15 +266,15 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
           "available": true
         },
         {
-          "node_id": "evidence:EV-103",
-          "layer": "evidence",
-          "reference": "EV-103",
-          "available": true
-        },
-        {
           "node_id": "evidence:EV-102",
           "layer": "evidence",
           "reference": "EV-102",
+          "available": true
+        },
+        {
+          "node_id": "evidence:EV-103",
+          "layer": "evidence",
+          "reference": "EV-103",
           "available": true
         },
         {
@@ -242,33 +290,51 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
           "available": true
         },
         {
-          "node_id": "pattern:VC-101",
+          "node_id": "pattern:market-regime:1",
           "layer": "pattern",
-          "reference": "VC-101",
+          "reference": "總經：風險偏好中性偏多",
           "available": true
         },
         {
-          "node_id": "pattern:VC-103",
+          "node_id": "pattern:market-regime:2",
           "layer": "pattern",
-          "reference": "VC-103",
+          "reference": "產業：AI 基礎建設維持主線",
           "available": true
         },
         {
-          "node_id": "pattern:VC-102",
+          "node_id": "pattern:market-regime:3",
           "layer": "pattern",
-          "reference": "VC-102",
+          "reference": "市場：上游強勢，延伸題材分化",
           "available": true
         },
         {
-          "node_id": "pattern:VC-104",
-          "layer": "pattern",
-          "reference": "VC-104",
+          "node_id": "experience:SHADOW-FLOW-01",
+          "layer": "experience",
+          "reference": "SHADOW-FLOW-01",
           "available": true
         },
         {
-          "node_id": "pattern:VC-105",
-          "layer": "pattern",
-          "reference": "VC-105",
+          "node_id": "experience:SHADOW-FLOW-02",
+          "layer": "experience",
+          "reference": "SHADOW-FLOW-02",
+          "available": true
+        },
+        {
+          "node_id": "experience:SHADOW-FLOW-03",
+          "layer": "experience",
+          "reference": "SHADOW-FLOW-03",
+          "available": true
+        },
+        {
+          "node_id": "experience:SHADOW-FLOW-04",
+          "layer": "experience",
+          "reference": "SHADOW-FLOW-04",
+          "available": true
+        },
+        {
+          "node_id": "experience:SHADOW-FLOW-05",
+          "layer": "experience",
+          "reference": "SHADOW-FLOW-05",
           "available": true
         },
         {
@@ -283,20 +349,24 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "layers": {
         "direction": [],
         "decision": [
-          "NSD-DASHBOARD-20260629"
+          "NSD-DASHBOARD-20260630"
         ],
         "regime": [
-          "VC-101",
-          "VC-103",
-          "VC-102",
-          "VC-104",
-          "VC-105"
+          "總經：風險偏好中性偏多",
+          "產業：AI 基礎建設維持主線",
+          "市場：上游強勢，延伸題材分化"
         ],
-        "capital_flow": [],
+        "capital_flow": [
+          "SHADOW-FLOW-01",
+          "SHADOW-FLOW-02",
+          "SHADOW-FLOW-03",
+          "SHADOW-FLOW-04",
+          "SHADOW-FLOW-05"
+        ],
         "evidence": [
           "EV-101",
-          "EV-103",
           "EV-102",
+          "EV-103",
           "EV-104",
           "EV-105"
         ],

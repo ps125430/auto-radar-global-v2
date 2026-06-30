@@ -21,6 +21,19 @@ or production decision logic.
 - `patch_queue.py`: in-memory review queue requiring Repository Manager approval.
 - `shadow.py`: orchestrates Shadow Run, Review, Patch Suggestion Flow, and
   Shadow Daily Brief in memory.
+- `shadow_quality.py`: validates authored Shadow inputs and blocks incomplete
+  Dashboard output before projection.
+
+## Shadow Data Quality
+
+E-136 至 E-140 新增：
+
+- `Schemas/Runtime/shadow_input.schema.json`：Shadow 輸入契約。
+- `ShadowInputValidator`：檢查必要欄位、分數範圍、觀察窗、Why Now 與 Evidence reference。
+- `ShadowOutputQualityGate`：在 Dashboard projection 前檢查北極星、航向、Top3、禁航區、風險、Why Now 與 Explain Chain。
+- `Data/ShadowInput/sample_real_input_v1.json`：半真實測試輸入，不是正式市場判斷。
+
+Quality Gate 只驗證資料完整性，不計算分數、不建立策略，也不授權 Production。
 
 ## Boundaries
 

@@ -13,7 +13,11 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 if str(REPOSITORY_ROOT) not in sys.path:
     sys.path.insert(0, str(REPOSITORY_ROOT))
 
-from Runtime.NorthStar import build_shadow_dashboard_projection
+from Runtime.NorthStar import (
+    ShadowInputValidationError,
+    ShadowInputValidator,
+    build_shadow_dashboard_projection,
+)
 
 
 class DashboardDataError(RuntimeError):
@@ -69,23 +73,43 @@ class DashboardDataBuilder:
         graph_edges = self._load_json(
             "Data/KnowledgeGraph/EDGES.json", "Knowledge Graph edges"
         )
+        try:
+            shadow_input = ShadowInputValidator.validate(
+                self._load_json(
+                    "Data/ShadowInput/sample_real_input_v1.json",
+                    "Shadow Runtime input",
+                ),
+                repository_root=self.repository_root,
+            )
+        except ShadowInputValidationError as exc:
+            raise DashboardDataError(
+                f"Shadow input validation failed: {exc}"
+            ) from exc
 
         verified_cases = self._load_verified_cases(review_registry)
-        opportunities = self._load_opportunities(
+        repository_opportunities = self._load_opportunities(
             pattern_registry, verified_cases
         )
-        nodes = self._object_array(graph_nodes, "nodes", "Knowledge Graph")
-        edges = self._object_array(graph_edges, "edges", "Knowledge Graph")
+        repository_nodes = self._object_array(
+            graph_nodes, "nodes", "Knowledge Graph"
+        )
+        repository_edges = self._object_array(
+            graph_edges, "edges", "Knowledge Graph"
+        )
+        opportunities = self._build_shadow_opportunities(shadow_input)
+        nodes, edges = self._build_shadow_capital_flow(shadow_input)
 
         unavailable = "等待核准資料建立。"
-        strategy_name = self._optional_text(prediction.get("expected_scenario"))
+        north_star_input = shadow_input["north_star_input"]
+        regime_input = shadow_input["market_regime_input"]
+        strategy_name = self._optional_text(north_star_input.get("direction"))
         confidence = prediction.get("prediction_probability")
         if isinstance(confidence, bool) or not isinstance(
             confidence, (int, float)
         ):
             confidence = None
-        window = self._optional_text(prediction.get("prediction_window"))
-        expected_risks = self._string_array(prediction.get("expected_risk"))
+        window = f"{north_star_input['window_days']} 天"
+        expected_risks = self._string_array(shadow_input["risk_input"]["items"])
 
         warnings = self._string_array(validation.get("warnings"))
         repository_status = {
@@ -101,9 +125,9 @@ class DashboardDataBuilder:
                 ("今日策略", strategy_name),
                 ("策略信心度", confidence),
                 ("預估有效天數", window),
-                ("總經環境", None),
-                ("產業狀態", None),
-                ("市場情緒", None),
+                ("總經環境", regime_input.get("macro")),
+                ("產業狀態", regime_input.get("sector")),
+                ("市場情緒", regime_input.get("micro")),
                 ("資金流地圖", nodes if nodes and edges else None),
                 (
                     "機會分數",
@@ -118,14 +142,11 @@ class DashboardDataBuilder:
         ]
 
         shadow_output = self._build_shadow_output(
-            strategy_name=strategy_name,
-            window=window,
-            opportunities=opportunities[:3],
-            risks=expected_risks,
+            shadow_input=shadow_input,
             generated_at=self.generated_at,
         )
         explain_chain = self._build_explain_chain(
-            opportunities=opportunities[:3],
+            shadow_input=shadow_input,
             nodes=nodes,
             generated_at=self.generated_at,
         )
@@ -155,13 +176,14 @@ class DashboardDataBuilder:
                     "證據沙盒",
                     "知識圖譜",
                     "全域驗證報告",
+                    "Shadow Runtime 半真實輸入包",
                 ],
             },
             "strategy": {
                 "name": strategy_name,
                 "confidence": confidence,
                 "window": window,
-                "why_now": self._optional_text(prediction.get("notes")),
+                "why_now": self._optional_text(north_star_input.get("why_now")),
                 "status": {
                     "draft": "草稿",
                     "candidate": "候選",
@@ -172,9 +194,9 @@ class DashboardDataBuilder:
                 "fallback": unavailable,
             },
             "regime": {
-                "macro": None,
-                "sector": None,
-                "micro": None,
+                "macro": self._optional_text(regime_input.get("macro")),
+                "sector": self._optional_text(regime_input.get("sector")),
+                "micro": self._optional_text(regime_input.get("micro")),
                 "market_mood": self._optional_text(
                     market_mind.get("market_mood")
                 ),
@@ -213,7 +235,7 @@ class DashboardDataBuilder:
                 "fallback": unavailable,
             },
             "repository": {
-                "pattern_candidates": len(opportunities),
+                "pattern_candidates": len(repository_opportunities),
                 "verified_cases": len(verified_cases),
                 "evidence_records": len(
                     {
@@ -222,8 +244,8 @@ class DashboardDataBuilder:
                         for evidence_id in [case["evidence_id"]]
                     }
                 ),
-                "graph_nodes": len(nodes),
-                "graph_edges": len(edges),
+                "graph_nodes": len(repository_nodes),
+                "graph_edges": len(repository_edges),
                 "warnings": [
                     "信心度知識庫尚未建立。"
                     if "Confidence Repository" in warning
@@ -398,36 +420,32 @@ class DashboardDataBuilder:
     def _build_shadow_output(
         self,
         *,
-        strategy_name: str | None,
-        window: str | None,
-        opportunities: list[dict[str, Any]],
-        risks: list[str],
+        shadow_input: dict[str, Any],
         generated_at: datetime,
     ) -> dict[str, Any]:
-        direction = strategy_name or (
-            opportunities[0]["name"] if opportunities else None
-        )
-        top3 = [item["name"] for item in opportunities if item.get("name")]
-        fallback_risk = [
-            "Shadow 輸出僅供觀察，行動前必須人工審查。"
+        north_star = shadow_input["north_star_input"]
+        timeline = shadow_input["timeline_input"]
+        risk = shadow_input["risk_input"]
+        top3 = [
+            item["theme"] for item in shadow_input["opportunity_input"][:3]
         ]
         return {
             "contract_version": "1.0",
             "shadow_run_id": f"SHADOW-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
             "generated_at": generated_at.isoformat(),
             "status": "shadow_output_only",
-            "north_star_direction": direction,
-            "captain_mission": (
-                f"以 Shadow 模式觀察 {direction}。"
-                if direction
-                else None
-            ),
+            "north_star_direction": north_star["direction"],
+            "captain_mission": north_star["captain_mission"],
             "top3_candidate": top3,
-            "forbidden_zone": [
-                "Shadow 輸出不得作為正式交易指令。"
-            ],
-            "risk": risks or fallback_risk,
-            "window": window,
+            "forbidden_zone": list(risk["forbidden_zones"]),
+            "risk": list(risk["items"]),
+            "window": f"{north_star['window_days']} 天",
+            "why_now": north_star["why_now"],
+            "timeline": {
+                "yesterday": timeline["yesterday"],
+                "today": timeline["today"],
+                "tomorrow": timeline["tomorrow_projection"],
+            },
             "decision_ref": f"NSD-DASHBOARD-{generated_at.strftime('%Y%m%d')}",
             "formal_decision": False,
             "trading_signal": False,
@@ -438,21 +456,13 @@ class DashboardDataBuilder:
     def _build_explain_chain(
         self,
         *,
-        opportunities: list[dict[str, Any]],
+        shadow_input: dict[str, Any],
         nodes: list[dict[str, Any]],
         generated_at: datetime,
     ) -> dict[str, Any]:
         evidence_refs = [
-            evidence_id
-            for item in opportunities
-            for evidence_id in item.get("evidence_ids", [])
-            if isinstance(evidence_id, str)
-        ]
-        case_refs = [
-            case_id
-            for item in opportunities
-            for case_id in item.get("source_cases", [])
-            if isinstance(case_id, str)
+            item["evidence_id"]
+            for item in shadow_input["evidence_reference_input"]
         ]
         graph_refs = [
             str(node.get("id") or node.get("name"))
@@ -478,12 +488,19 @@ class DashboardDataBuilder:
         )
         layer_nodes.extend(
             {
-                "node_id": f"pattern:{reference}",
+                "node_id": f"pattern:market-regime:{index}",
                 "layer": "pattern",
-                "reference": reference,
+                "reference": f"{label}：{reference}",
                 "available": True,
             }
-            for reference in case_refs
+            for index, (label, reference) in enumerate(
+                (
+                    ("總經", shadow_input["market_regime_input"]["macro"]),
+                    ("產業", shadow_input["market_regime_input"]["sector"]),
+                    ("市場", shadow_input["market_regime_input"]["micro"]),
+                ),
+                start=1,
+            )
         )
         layer_nodes.extend(
             {
@@ -517,6 +534,64 @@ class DashboardDataBuilder:
             "missing_layers": [],
             "missing_refs": [],
         }
+
+    def _build_shadow_opportunities(
+        self,
+        shadow_input: dict[str, Any],
+    ) -> list[dict[str, Any]]:
+        """Map authored Shadow inputs without calculating or sorting scores."""
+        return [
+            {
+                "id": item["id"],
+                "name": item["theme"],
+                "opportunity_score": item["display_score"],
+                "score_status": "sample_shadow_input",
+                "window": f"{item['window_days']} 天",
+                "money_flow": "半真實 Shadow 輸入",
+                "risk": item["risk"],
+                "crowded": None,
+                "why_now": item["why_now"],
+                "status": "Shadow 候選",
+                "source_cases": [],
+                "evidence_ids": list(item["evidence_refs"]),
+                "explainability": {
+                    "why_score": (
+                        "顯示分數來自半真實測試輸入，不是 Runtime 計算結果。"
+                    ),
+                    "evidence": list(item["evidence_refs"]),
+                    "money": "資料流展示用途，尚待人工市場驗證。",
+                    "history": [],
+                    "risk": item["risk"],
+                },
+            }
+            for item in shadow_input["opportunity_input"][:3]
+        ]
+
+    def _build_shadow_capital_flow(
+        self,
+        shadow_input: dict[str, Any],
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        """Map the authored flow path into display nodes and edges."""
+        flow = shadow_input["capital_flow_input"]
+        nodes = [
+            {
+                "id": f"SHADOW-FLOW-{index:02d}",
+                "name": name,
+                "category": "Shadow 資金路徑",
+                "status": "shadow_input_candidate",
+            }
+            for index, name in enumerate(flow["path"], start=1)
+        ]
+        edges = [
+            {
+                "source": nodes[index]["id"],
+                "target": nodes[index + 1]["id"],
+                "edge_type": "SHADOW_FLOWS_TO",
+                "status": "shadow_input_candidate",
+            }
+            for index in range(len(nodes) - 1)
+        ]
+        return nodes, edges
 
     def _load_json(self, relative_path: str, context: str) -> dict[str, Any]:
         path = self.repository_root / relative_path

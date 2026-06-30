@@ -51,6 +51,7 @@ Delivered:
 - Responsive desktop and mobile layout.
 - Full Traditional Chinese user interface.
 - Shadow Runtime projection bound to North Star, Captain, Story, Timeline, Risk, Daily Brief, and Explain Chain.
+- Gated Shadow test input bound to Dashboard with complete North Star, Top3, risk, capital-flow, and Explain data.
 
 Next improvement candidates require separate approved tasks:
 
@@ -75,6 +76,7 @@ Current gate:
 - E-121 through E-125 implemented and pushed to GitHub.
 - E-126 through E-130 implemented and pushed to GitHub.
 - E-131 through E-135 implemented for Architecture Review.
+- E-136 through E-140 implemented for Architecture Review.
 - N-001 through N-010 and Production Runtime remain blocked.
 
 Entry gate:

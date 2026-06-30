@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/runtime/shadow_input.schema.json",
+  "title": "North Star Shadow Runtime Input",
+  "description": "Input-only contract for Shadow Runtime. It contains authored test observations and no scoring or decision algorithm.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id",
+    "version",
+    "status",
+    "model_impact",
+    "as_of",
+    "north_star_input",
+    "timeline_input",
+    "market_regime_input",
+    "capital_flow_input",
+    "opportunity_input",
+    "risk_input",
+    "evidence_reference_input"
+  ],
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "pattern": "^AR-SHADOW-INPUT-[A-Za-z0-9-]+$"
+    },
+    "version": {
+      "const": "1.0"
+    },
+    "status": {
+      "const": "shadow_input_candidate"
+    },
+    "model_impact": {
+      "const": "shadow_only_not_production"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "north_star_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direction",
+        "captain_mission",
+        "why_now",
+        "window_days"
+      ],
+      "properties": {
+        "direction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "captain_mission": {
+          "type": "string",
+          "minLength": 1
+        },
+        "why_now": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        }
+      }
+    },
+    "timeline_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "yesterday",
+        "today",
+        "tomorrow_projection"
+      ],
+      "properties": {
+        "yesterday": {
+          "type": "string",
+          "minLength": 1
+        },
+        "today": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tomorrow_projection": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "market_regime_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "macro",
+        "sector",
+        "micro"
+      ],
+      "properties": {
+        "macro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "micro": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "capital_flow_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "destination",
+        "path",
+        "velocity",
+        "tide"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "velocity": {
+          "type": "string",
+          "enum": [
+            "slow",
+            "moderate",
+            "fast"
+          ]
+        },
+        "tide": {
+          "type": "string",
+          "enum": [
+            "rising",
+            "stable",
+            "receding"
+          ]
+        }
+      }
+    },
+    "opportunity_input": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "theme",
+          "display_score",
+          "window_days",
+          "why_now",
+          "risk",
+          "evidence_refs"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^SHADOW-OPP-[0-9]{3}$"
+          },
+          "theme": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "window_days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30
+          },
+          "why_now": {
+            "type": "string",
+            "minLength": 1
+          },
+          "risk": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "risk_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "items",
+        "forbidden_zones"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "forbidden_zones": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "evidence_reference_input": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "repository_ref"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "repository_ref": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "x-runtime": {
+    "authority": "shadow_input_only",
+    "algorithm": false,
+    "scoring_change": false,
+    "strategy_change": false,
+    "repository_write": false,
+    "production_authorized": false
+  }
+}

@@ -42,6 +42,12 @@ from .shadow import (
     ShadowRunResult,
     ShadowRuntimeOrchestrator,
 )
+from .shadow_quality import (
+    ShadowInputValidationError,
+    ShadowInputValidator,
+    ShadowOutputQualityError,
+    ShadowOutputQualityGate,
+)
 
 __all__ = [
     "DecisionRuntime",
@@ -75,6 +81,10 @@ __all__ = [
     "SessionEvent",
     "SessionStatus",
     "ShadowIntegrationError",
+    "ShadowInputValidationError",
+    "ShadowInputValidator",
+    "ShadowOutputQualityError",
+    "ShadowOutputQualityGate",
     "ShadowReviewPipeline",
     "ShadowRunResult",
     "ShadowRuntimeOrchestrator",

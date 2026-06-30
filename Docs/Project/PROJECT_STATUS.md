@@ -19,33 +19,33 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — North Star Shadow Dashboard Binding
+Engineering Phase — Shadow Data Quality and First Real Input
 
-Research Phase v1.0 已完成並封版。Repository Layer 與 North Star Dashboard v1 已完成第一階段建置。A-116 至 A-120 已獲 Architecture Review PASS，Runtime Gate 已開啟。E-121 至 E-125 Shadow Runtime infrastructure 已完成並推送 GitHub。E-126 至 E-130 Shadow Runtime Integration 已完成並推送 GitHub。E-131 至 E-135 Dashboard Shadow Binding 已完成工程實作並等待小P驗收；Production Runtime 仍未獲授權。
+Research Phase v1.0 已完成並封版。Runtime Gate 已開啟。E-121 至 E-135 已完成 Shadow Runtime infrastructure、integration 與 Dashboard binding。E-136 至 E-140 已建立 Shadow Input Schema、半真實輸入包、Input Validator、Output Quality Gate 與第一份 Shadow Brief，等待小P驗收；Production Runtime 仍未獲授權。
 
 ## Current Sprint
 
-Engineering Sprint 4 — Shadow Dashboard Binding
+Engineering Sprint 5 — Shadow Data Quality
 
 Sprint focus:
 
-- 將 Shadow Runtime projection 綁定 Dashboard。
-- 建立 Dashboard Live Context 與統一等待訊息。
-- 建立 North Star Timeline。
-- 建立 Today's Direction Runtime Explain Chain。
-- 建立 Shadow Dashboard Mode 狀態卡。
+- 定義 Shadow Runtime 輸入資料契約。
+- 建立半真實測試輸入包。
+- 建立 Input Quality Validator 與 Output Quality Gate。
+- 驗證 Input → Runtime Projection → Dashboard。
+- 產生第一份可閱讀 Shadow Brief。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-135 |
-| Task | Shadow Dashboard Mode |
+| Task ID | E-140 |
+| Task | First Real Shadow Brief |
 | Owner | 小C / Engineering |
-| Status | E-131 through E-135 implemented; awaiting 小P architecture review |
+| Status | E-136 through E-140 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
-E-131 至 E-135 已完成工程實作；Architecture Review 前不得擴充為 N-series 或 Production Runtime。
+E-136 至 E-140 已完成工程實作；半真實輸入只用於資料流驗證，不是正式市場研究或交易判斷。
 
 ## Completed
 
@@ -81,7 +81,12 @@ E-131 至 E-135 已完成工程實作；Architecture Review 前不得擴充為 N
 - E-133 North Star Timeline implemented.
 - E-134 Explain Data Binding implemented for Today's Direction.
 - E-135 Shadow Dashboard Mode implemented.
-- 166 automated tests passing after E-131 through E-135.
+- E-136 Shadow Input Schema implemented.
+- E-137 Sample Real Input Pack implemented for AI Infrastructure, HBM, Cooling, Power, and CPO.
+- E-138 Input Quality Validator implemented with fail-fast checks.
+- E-139 Shadow Output Quality Gate implemented before Dashboard projection.
+- E-140 First Real Shadow Brief generated.
+- 171 automated tests passing after E-136 through E-140.
 - 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
@@ -90,13 +95,13 @@ E-131 至 E-135 已完成工程實作；Architecture Review 前不得擴充為 N
 
 ## In Progress
 
-- E-131 through E-135 architecture review by 小P.
+- E-136 through E-140 architecture review by 小P.
 
 No Pipeline, Scoring, Strategy, trading, or Production work is in progress.
 
 ## Next Task
 
-Not assigned. E-131 through E-135 must pass Architecture Review before any additional Runtime or Dashboard task.
+Not assigned. E-136 through E-140 must pass Architecture Review before any additional Runtime or Dashboard task.
 
 ## Overall Progress
 
@@ -106,8 +111,8 @@ Milestone method: 3 of 7 product stages are complete.
 |---|---|
 | Research | Complete / Frozen |
 | Repository | Complete |
-| Dashboard | North Star v1 with Shadow Runtime binding implemented; awaiting acceptance |
-| Engine | Shadow Runtime infrastructure, integration, and dashboard projection implemented; Gate OPEN; Production blocked |
+| Dashboard | North Star v1 driven by gated Shadow test input; awaiting acceptance |
+| Engine | Shadow Runtime infrastructure, integration, data quality gates, and dashboard projection implemented; Gate OPEN; Production blocked |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |
