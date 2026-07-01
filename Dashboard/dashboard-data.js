@@ -1,6 +1,6 @@
 window.AUTO_RADAR_DASHBOARD_DATA = {
   "meta": {
-    "generated_at": "2026-07-01T02:43:43.584865+00:00",
+    "generated_at": "2026-07-01T08:29:59.246401+00:00",
     "mode": "知識庫唯讀",
     "repository_status": "通過",
     "validation_errors": 0,
@@ -216,7 +216,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "status": "shadow_dashboard_projection",
     "model_impact": "shadow_candidate_not_production",
     "waiting_message": "Waiting for today's shadow run...",
-    "last_run": "2026-07-01T02:43:43.584865+00:00",
+    "last_run": "2026-07-01T08:29:59.246401+00:00",
     "mode": {
       "label": "Shadow Runtime",
       "status": "Healthy",
@@ -381,48 +381,53 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     }
   },
   "living_ocean": {
-    "status": "waiting_for_first_real_ocean_run",
-    "snapshot_version": null,
-    "snapshot_hash": null,
-    "generated_at": null,
-    "overall_status": "unavailable",
-    "health_score": 0,
-    "evidence_coverage": 0,
+    "status": "shadow_real_ocean_monitor",
+    "snapshot_version": "2026-07-01-MANUAL",
+    "snapshot_hash": "7825a5dd78e42180a3064946a904ebf2318569b89f5cf3748a1c5c7ad409b29c",
+    "generated_at": "2026-07-01T16:29:22.628734+08:00",
+    "overall_status": "healthy",
+    "health_score": 100,
+    "evidence_coverage": 100,
     "sources": [
       {
-        "source_id": "TWSE",
-        "health_status": "unavailable",
-        "source_mode": "not_run",
-        "last_update": null,
-        "latency_ms": null
-      },
-      {
-        "source_id": "TPEX",
-        "health_status": "unavailable",
-        "source_mode": "not_run",
-        "last_update": null,
-        "latency_ms": null
-      },
-      {
-        "source_id": "MOPS",
-        "health_status": "unavailable",
-        "source_mode": "not_run",
-        "last_update": null,
-        "latency_ms": null
-      },
-      {
+        "error": null,
+        "health_status": "healthy",
+        "last_update": "2026-07-01T08:29:22.629732+00:00",
+        "latency_ms": 1679.86,
         "source_id": "FRED",
-        "health_status": "unavailable",
-        "source_mode": "not_run",
-        "last_update": null,
-        "latency_ms": null
+        "source_mode": "official"
       },
       {
+        "error": null,
+        "health_status": "healthy",
+        "last_update": "2026-07-01T08:29:24.309136+00:00",
+        "latency_ms": 410.61,
+        "source_id": "MOPS",
+        "source_mode": "official"
+      },
+      {
+        "error": null,
+        "health_status": "healthy",
+        "last_update": "2026-07-01T08:29:24.720187+00:00",
+        "latency_ms": 646.21,
         "source_id": "SEC_EDGAR",
-        "health_status": "unavailable",
-        "source_mode": "not_run",
-        "last_update": null,
-        "latency_ms": null
+        "source_mode": "official"
+      },
+      {
+        "error": null,
+        "health_status": "healthy",
+        "last_update": "2026-07-01T08:29:25.370284+00:00",
+        "latency_ms": 3536.19,
+        "source_id": "TPEX",
+        "source_mode": "official"
+      },
+      {
+        "error": null,
+        "health_status": "healthy",
+        "last_update": "2026-07-01T08:29:28.911121+00:00",
+        "latency_ms": 1397.52,
+        "source_id": "TWSE",
+        "source_mode": "official"
       }
     ],
     "formal_confidence_modified": false,

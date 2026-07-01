@@ -99,7 +99,7 @@ Auto Radar 不是：
 
 ### 目前狀態
 
-專案位於「工程階段：Sprint 11 Real Ocean」。五個 Official Provider、Scheduler、Snapshot v3、Health 與 Fallback 已完成工程實作，credentialed live smoke 尚待執行。選股、訂單、Strategy、Scoring 與 Production Runtime 仍未獲授權。
+專案位於「工程階段：Sprint 11 Real Ocean」。五個 Official Provider、Scheduler、Snapshot v3、Health、Fallback 與首次 credentialed live smoke 均已完成，正等待 Final Architecture Review。選股、訂單、Strategy、Scoring 與 Production Runtime 仍未獲授權。
 
 ### 已完成
 

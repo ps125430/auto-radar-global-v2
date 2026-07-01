@@ -75,6 +75,21 @@ class FailedTransport(FakeTransport):
         return super().get_json(url, **kwargs)
 
 
+class HeaderCaptureTransport(FakeTransport):
+    def __init__(self) -> None:
+        self.headers: list[Mapping[str, str]] = []
+
+    def get_json(
+        self,
+        url: str,
+        *,
+        params: Mapping[str, Any] | None = None,
+        headers: Mapping[str, str] | None = None,
+    ) -> tuple[Any, float]:
+        self.headers.append(dict(headers or {}))
+        return super().get_json(url, params=params, headers=headers)
+
+
 class FakeScheduler:
     def __init__(self) -> None:
         self.jobs: list[dict[str, Any]] = []
@@ -116,6 +131,20 @@ class RealOceanTests(unittest.TestCase):
         self.assertTrue(all(item.ok for item in fetches))
         self.assertTrue(all(item.source_hash for item in fetches))
         self.assertTrue(all(item.latency_ms for item in fetches))
+
+    def test_sec_requests_uncompressed_json_with_user_agent(self) -> None:
+        transport = HeaderCaptureTransport()
+        fetch = SECEdgarProvider(
+            transport,
+            user_agent="Auto Radar test@example.com",
+        ).fetch()
+
+        self.assertTrue(fetch.ok)
+        self.assertEqual(
+            "Auto Radar test@example.com",
+            transport.headers[0]["User-Agent"],
+        )
+        self.assertNotIn("Accept-Encoding", transport.headers[0])
 
     def test_registry_metadata_contains_no_url_or_secret(self) -> None:
         payload = json.loads(

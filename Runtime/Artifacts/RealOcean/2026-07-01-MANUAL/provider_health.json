@@ -1,0 +1,46 @@
+{
+  "last_update": "2026-07-01T16:29:22.628734+08:00",
+  "overall_status": "healthy",
+  "production_authorized": false,
+  "repository_write_authorized": false,
+  "snapshot_hash": "7825a5dd78e42180a3064946a904ebf2318569b89f5cf3748a1c5c7ad409b29c",
+  "snapshot_version": "2026-07-01-MANUAL",
+  "sources": [
+    {
+      "health_status": "healthy",
+      "last_update": "2026-07-01T08:29:22.629732+00:00",
+      "latency_ms": 1679.86,
+      "source_id": "FRED",
+      "source_mode": "official"
+    },
+    {
+      "health_status": "healthy",
+      "last_update": "2026-07-01T08:29:24.309136+00:00",
+      "latency_ms": 410.61,
+      "source_id": "MOPS",
+      "source_mode": "official"
+    },
+    {
+      "health_status": "healthy",
+      "last_update": "2026-07-01T08:29:24.720187+00:00",
+      "latency_ms": 646.21,
+      "source_id": "SEC_EDGAR",
+      "source_mode": "official"
+    },
+    {
+      "health_status": "healthy",
+      "last_update": "2026-07-01T08:29:25.370284+00:00",
+      "latency_ms": 3536.19,
+      "source_id": "TPEX",
+      "source_mode": "official"
+    },
+    {
+      "health_status": "healthy",
+      "last_update": "2026-07-01T08:29:28.911121+00:00",
+      "latency_ms": 1397.52,
+      "source_id": "TWSE",
+      "source_mode": "official"
+    }
+  ],
+  "status": "shadow_provider_health"
+}

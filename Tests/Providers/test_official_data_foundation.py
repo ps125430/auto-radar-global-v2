@@ -207,9 +207,11 @@ class OfficialDataFoundationTests(unittest.TestCase):
         ocean = payload["living_ocean"]
 
         self.assertEqual(
-            "waiting_for_first_real_ocean_run", ocean["status"]
+            "shadow_real_ocean_monitor", ocean["status"]
         )
-        self.assertIsNone(ocean["snapshot_version"])
+        self.assertEqual(
+            "2026-07-01-MANUAL", ocean["snapshot_version"]
+        )
         self.assertEqual(5, len(ocean["sources"]))
         self.assertFalse(ocean["formal_confidence_modified"])
         self.assertFalse(ocean["repository_write_authorized"])

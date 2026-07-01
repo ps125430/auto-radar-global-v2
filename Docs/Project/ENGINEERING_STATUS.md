@@ -10,12 +10,12 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Sprint | Engineering Sprint 11 — Real Ocean |
-| Current Owner | 小C / Engineering |
+| Current Owner | 小P / Architecture Review |
 | Current Module | Official live market data |
 | Current Task | Sprint 11 |
-| Progress | Implementation complete; live smoke pending |
-| Blocker | Environment denied network run; FRED/SEC configuration required |
-| ETA | Closes after credentialed live smoke and 小P review |
+| Progress | Implementation and credentialed live smoke complete |
+| Blocker | None |
+| ETA | Closes after 小P Final Architecture Review |
 
 ## Recently Completed
 
@@ -37,6 +37,7 @@ Project status authority: `PROJECT_STATUS.md`
 - E-156 through E-160: Official Provider Registry, Snapshot v2, Evidence Normalizer, Ocean Health, and Living Ocean Monitor.
 - E-161 through E-165: Captain Profile, Ship State, Budget boundary, one Active Mission, and Captain Brief.
 - Sprint 11: Official Providers, Scheduler, Snapshot v3, Health, and Fallback.
+- Sprint 11 Live Smoke: five official Providers healthy; Snapshot `2026-07-01-MANUAL`.
 
 ## Current Implementation
 
@@ -84,6 +85,6 @@ Validation baseline:
 
 ## Next Engineering Work
 
-Run credentialed live smoke, then submit Sprint 11 to Architecture Review.
+No engineering work is authorized. Submit Sprint 11 to Final Architecture Review.
 
 Engineering must not begin N-series or Production Runtime work until separately authorized.

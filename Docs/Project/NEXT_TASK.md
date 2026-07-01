@@ -9,9 +9,9 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Current Owner | 小C / Engineering |
-| Current Task | Sprint 11 — Real Ocean |
-| Status | Implemented; credentialed live smoke pending |
+| Current Owner | 小P / Architecture Review |
+| Current Task | Sprint 11 — Final Architecture Review |
+| Status | Ready for review |
 | Priority | P0 |
 
 This is the only Current Task.
@@ -22,11 +22,11 @@ Not assigned.
 
 Next step:
 
-1. Configure `FRED_API_KEY` and `SEC_USER_AGENT`.
-2. Run one official live smoke and record Provider Health.
-3. 小P reviews Sprint 11; Production Runtime remains blocked.
+1. Review Live Smoke Snapshot `2026-07-01-MANUAL`.
+2. Review five-Provider Health and validation evidence.
+3. Close Sprint 11 or return scoped findings to 小C.
 
-Current status: **WAITING FOR CREDENTIALED LIVE SMOKE**
+Current status: **READY FOR FINAL ARCHITECTURE REVIEW**
 
 ## Task Transition Rule
 

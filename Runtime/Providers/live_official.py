@@ -252,7 +252,6 @@ class SECEdgarProvider(OfficialLiveProvider):
             raise LiveProviderError("SEC_USER_AGENT is not configured")
         headers = {
             "User-Agent": self.user_agent,
-            "Accept-Encoding": "gzip, deflate",
         }
         if not self.ciks:
             payload, latency = self.transport.get_json(

@@ -35,15 +35,15 @@ Engineering Phase — Sprint 11 Real Ocean
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented with Shadow Runtime binding
-- Engine: E-121 through E-165 implemented; Sprint 11 Real Ocean framework implemented; live smoke pending
+- Engine: E-121 through E-165 implemented; Sprint 11 Real Ocean framework and live smoke complete
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
 - Task ID: Sprint 11
 - Task: Real Ocean
-- Owner: 小C / Engineering
-- Status: Implemented; credentialed live smoke pending
+- Owner: 小P / Architecture Review
+- Status: Live smoke complete; final architecture review pending
 - Impact: Official Shadow data ingestion only
 
 ## Completed Runtime Milestone
@@ -123,8 +123,8 @@ Engineering Phase — Sprint 11 Real Ocean
 
 ## Immediate Next Step
 
-1. 設定 FRED 與 SEC 環境參數並執行 live smoke。
-2. 小P驗收 Sprint 11。
+1. 小P驗收 Snapshot `2026-07-01-MANUAL` 與五個 Provider Health。
+2. 小P完成 Sprint 11 Final Architecture Review。
 3. 未經另案授權，不得進入 Production Runtime。
 
 不得自行從 Roadmap 選擇工作開工。

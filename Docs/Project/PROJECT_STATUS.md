@@ -21,7 +21,7 @@ Last Updated: 2026-07-01
 
 Engineering Phase — Sprint 11 Real Ocean
 
-E-121 至 E-165 已完成 Shadow Runtime、Living Ocean 與 Captain Intelligence。Sprint 11 已建立五個 Official Provider、四時段 Scheduler、Snapshot v3、Health 與 Fallback；live smoke 因環境網路限制尚未完成，FRED 與 SEC 仍需環境設定。
+E-121 至 E-165 已完成 Shadow Runtime、Living Ocean 與 Captain Intelligence。Sprint 11 已建立五個 Official Provider、四時段 Scheduler、Snapshot v3、Health 與 Fallback；首次 credentialed live smoke 已完成，五個 Provider 均以 official mode 產生 healthy Snapshot。
 
 ## Current Sprint
 
@@ -41,11 +41,11 @@ Sprint focus:
 |---|---|
 | Task ID | Sprint 11 |
 | Task | Real Ocean |
-| Owner | 小C / Engineering |
-| Status | Implemented; credentialed live smoke pending |
+| Owner | 小P / Architecture Review |
+| Status | Live smoke complete; final architecture review pending |
 | Priority | P0 |
 
-工程與 mocked official integration 已完成；首次 credentialed live run 前，Dashboard 顯示五個 Provider waiting 狀態，不使用 archived fixture 冒充即時資料。
+工程、mocked integration 與首次 credentialed live run 已完成；Dashboard 已讀取 `2026-07-01-MANUAL` 真實 Snapshot，不使用 archived fixture 冒充即時資料。
 
 ## Completed
 
@@ -112,7 +112,8 @@ Sprint focus:
 - E-165 Captain Brief Generator implemented with immutable Shadow artifacts.
 - 203 automated tests passing after E-161 through E-165.
 - Sprint 11 Official Providers, Scheduler, Snapshot v3, Provider Health, and Fallback Policy implemented.
-- 212 automated tests passing after Sprint 11.
+- Sprint 11 first official live Snapshot `2026-07-01-MANUAL` generated with five healthy Providers.
+- 213 automated tests passing after Sprint 11 Live Smoke.
 - 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
@@ -121,13 +122,13 @@ Sprint focus:
 
 ## In Progress
 
-- Sprint 11 credentialed live smoke and architecture review.
+- Sprint 11 final architecture review.
 
 No Pipeline, Scoring, Strategy, trading, or Production work is in progress.
 
 ## Next Task
 
-Configure FRED/SEC credentials, run one official live smoke, then submit Sprint 11 to 小P.
+小P performs Sprint 11 Final Architecture Review.
 
 ## Overall Progress
 
