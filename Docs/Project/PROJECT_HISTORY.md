@@ -147,6 +147,13 @@ Last Updated: 2026-06-29
 - 完成 E-165 Good Morning Captain Brief 與 deterministic artifacts。
 - 選股、標的部位配置、交易訊號、訂單、Strategy、Scoring 與 Production Runtime 仍未啟用。
 
+### 2026-07-01 — Sprint 11 Real Ocean
+
+- 建立 TWSE、TPEx、MOPS、FRED 與 SEC EDGAR Official Providers。
+- 建立四時段 Scheduler、Snapshot v3、Source/Snapshot Hash 與 Health。
+- Runtime fallback 使用 Official → Cached；Fixture 僅供 Replay/Test。
+- live smoke 因執行環境限制尚未完成；FRED/SEC 需環境設定。
+
 ## Current Direction
 
 ```text

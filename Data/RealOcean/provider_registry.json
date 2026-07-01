@@ -1,0 +1,40 @@
+{
+  "document_id": "AR-REAL-OCEAN-PROVIDER-REGISTRY-v1",
+  "version": "1.0",
+  "status": "shadow_live_registry",
+  "model_impact": "official_data_only_not_production",
+  "official_first": true,
+  "runtime_direct_api_access": false,
+  "providers": [
+    {
+      "source_id": "TWSE",
+      "authority": "official",
+      "credential": "none",
+      "update_frequency": "trading_day"
+    },
+    {
+      "source_id": "TPEX",
+      "authority": "official",
+      "credential": "none",
+      "update_frequency": "trading_day"
+    },
+    {
+      "source_id": "MOPS",
+      "authority": "official",
+      "credential": "none",
+      "update_frequency": "event_driven"
+    },
+    {
+      "source_id": "FRED",
+      "authority": "official",
+      "credential": "FRED_API_KEY",
+      "update_frequency": "daily_and_release"
+    },
+    {
+      "source_id": "SEC_EDGAR",
+      "authority": "official",
+      "credential": "SEC_USER_AGENT",
+      "update_frequency": "real_time"
+    }
+  ]
+}

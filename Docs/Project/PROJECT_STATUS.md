@@ -19,33 +19,33 @@ Last Updated: 2026-07-01
 
 ## Current Phase
 
-Engineering Phase — Sprint 10 Captain Intelligence
+Engineering Phase — Sprint 11 Real Ocean
 
-Research Phase v1.0 已完成並封版。Runtime Gate 已開啟。E-121 至 E-160 已完成 Shadow Runtime、Living Ocean 與官方資料基礎。E-161 至 E-165 已建立 Captain Profile、My Ship、Budget boundary、單一 Active Mission 與 Captain Brief，等待小P驗收；不包含選股、交易訊號、Strategy、Scoring 或訂單。
+E-121 至 E-165 已完成 Shadow Runtime、Living Ocean 與 Captain Intelligence。Sprint 11 已建立五個 Official Provider、四時段 Scheduler、Snapshot v3、Health 與 Fallback；live smoke 因環境網路限制尚未完成，FRED 與 SEC 仍需環境設定。
 
 ## Current Sprint
 
-Engineering Sprint 10 — Captain OS v1
+Engineering Sprint 11 — Real Ocean
 
 Sprint focus:
 
-- 建立 Captain Profile 並強制 Decision Runtime 讀取。
-- 建立可序列化 My Ship。
-- 依 Profile 計算 Shadow Budget boundary。
-- 每日只允許一個 Active Mission。
-- 產生 Good Morning Captain Brief。
+- 建立 TWSE、TPEx、MOPS、FRED 與 SEC EDGAR Provider。
+- 建立 06:00、07:00、08:30 與 15:10 Scheduler。
+- 建立 Snapshot v3、Source Hash 與 Snapshot Hash。
+- 建立 Provider Health 與 Dashboard 綁定。
+- 建立 Official → Cached fallback；Fixture 僅供 Replay/Test。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-165 |
-| Task | Captain Brief Generator |
+| Task ID | Sprint 11 |
+| Task | Real Ocean |
 | Owner | 小C / Engineering |
-| Status | E-161 through E-165 implemented; awaiting 小P architecture review |
+| Status | Implemented; credentialed live smoke pending |
 | Priority | P0 |
 
-E-161 至 E-165 已完成工程實作；Budget Engine 僅計算資金邊界，Mission 與 Brief 均為 Shadow context。
+工程與 mocked official integration 已完成；首次 credentialed live run 前，Dashboard 顯示五個 Provider waiting 狀態，不使用 archived fixture 冒充即時資料。
 
 ## Completed
 
@@ -111,6 +111,8 @@ E-161 至 E-165 已完成工程實作；Budget Engine 僅計算資金邊界，Mi
 - E-164 Mission Engine implemented with one Active Mission invariant.
 - E-165 Captain Brief Generator implemented with immutable Shadow artifacts.
 - 203 automated tests passing after E-161 through E-165.
+- Sprint 11 Official Providers, Scheduler, Snapshot v3, Provider Health, and Fallback Policy implemented.
+- 212 automated tests passing after Sprint 11.
 - 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
@@ -119,13 +121,13 @@ E-161 至 E-165 已完成工程實作；Budget Engine 僅計算資金邊界，Mi
 
 ## In Progress
 
-- E-161 through E-165 architecture review by 小P.
+- Sprint 11 credentialed live smoke and architecture review.
 
 No Pipeline, Scoring, Strategy, trading, or Production work is in progress.
 
 ## Next Task
 
-Not assigned. E-161 through E-165 must pass Architecture Review before Dashboard binding or additional Captain Runtime work.
+Configure FRED/SEC credentials, run one official live smoke, then submit Sprint 11 to 小P.
 
 ## Overall Progress
 

@@ -206,9 +206,11 @@ class OfficialDataFoundationTests(unittest.TestCase):
         payload = DashboardDataBuilder(REPOSITORY_ROOT).build()
         ocean = payload["living_ocean"]
 
-        self.assertEqual("shadow_data_monitor", ocean["status"])
-        self.assertEqual("2026-07-01-AM", ocean["snapshot_version"])
-        self.assertEqual(7, len(ocean["sources"]))
+        self.assertEqual(
+            "waiting_for_first_real_ocean_run", ocean["status"]
+        )
+        self.assertIsNone(ocean["snapshot_version"])
+        self.assertEqual(5, len(ocean["sources"]))
         self.assertFalse(ocean["formal_confidence_modified"])
         self.assertFalse(ocean["repository_write_authorized"])
 

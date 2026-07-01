@@ -627,6 +627,94 @@ class DashboardDataBuilder:
         return payload
 
     def _load_living_ocean(self) -> dict[str, Any]:
+        real_root = self.repository_root / "Runtime/Artifacts/RealOcean"
+        real_candidates = sorted(
+            real_root.glob("*/global_snapshot_v3.json")
+        )
+        if real_candidates:
+            path = real_candidates[-1]
+            snapshot = self._load_json(
+                path.relative_to(self.repository_root).as_posix(),
+                "Real Ocean Global Snapshot",
+            )
+            if snapshot.get("status") != "validated_shadow_snapshot_v3":
+                raise DashboardDataError(
+                    "Real Ocean snapshot is not validated"
+                )
+            health = snapshot.get("market_health")
+            if not isinstance(health, dict):
+                raise DashboardDataError(
+                    "Real Ocean snapshot is missing market health"
+                )
+            sources = health.get("sources")
+            if not isinstance(sources, list):
+                raise DashboardDataError(
+                    "Real Ocean health sources must be an array"
+                )
+            evidence = snapshot.get("evidence")
+            evidence_count = len(evidence) if isinstance(evidence, list) else 0
+            return {
+                "status": "shadow_real_ocean_monitor",
+                "snapshot_version": snapshot.get("version"),
+                "snapshot_hash": snapshot.get("snapshot_hash"),
+                "generated_at": snapshot.get("generated_time"),
+                "overall_status": health.get("overall_status"),
+                "health_score": round(
+                    100
+                    * sum(
+                        item.get("health_status") == "healthy"
+                        for item in sources
+                    )
+                    / len(sources)
+                )
+                if sources
+                else 0,
+                "evidence_coverage": round(
+                    100 * evidence_count / len(sources)
+                )
+                if sources
+                else 0,
+                "sources": sources,
+                "formal_confidence_modified": False,
+                "repository_write_authorized": False,
+            }
+
+        registry_path = (
+            self.repository_root / "Data/RealOcean/provider_registry.json"
+        )
+        if registry_path.is_file():
+            registry = self._load_json(
+                "Data/RealOcean/provider_registry.json",
+                "Real Ocean Provider Registry",
+            )
+            providers = registry.get("providers")
+            if not isinstance(providers, list):
+                raise DashboardDataError(
+                    "Real Ocean Provider Registry requires providers"
+                )
+            return {
+                "status": "waiting_for_first_real_ocean_run",
+                "snapshot_version": None,
+                "snapshot_hash": None,
+                "generated_at": None,
+                "overall_status": "unavailable",
+                "health_score": 0,
+                "evidence_coverage": 0,
+                "sources": [
+                    {
+                        "source_id": item.get("source_id"),
+                        "health_status": "unavailable",
+                        "source_mode": "not_run",
+                        "last_update": None,
+                        "latency_ms": None,
+                    }
+                    for item in providers
+                    if isinstance(item, dict)
+                ],
+                "formal_confidence_modified": False,
+                "repository_write_authorized": False,
+            }
+
         root = self.repository_root / "Runtime/Artifacts/OfficialData"
         candidates = sorted(root.glob("*/global_snapshot.json"))
         if not candidates:

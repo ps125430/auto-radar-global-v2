@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/global_snapshot_v3.schema.json",
+  "title": "Real Ocean Global Snapshot v3",
+  "type": "object",
+  "required": [
+    "document_id",
+    "version",
+    "timestamp",
+    "generated_time",
+    "global",
+    "us",
+    "taiwan",
+    "macro",
+    "evidence",
+    "source_hash",
+    "snapshot_hash",
+    "provider_payloads",
+    "market_health",
+    "status",
+    "model_impact",
+    "runtime_direct_api_access",
+    "repository_write_authorized",
+    "production_authorized"
+  ],
+  "properties": {
+    "document_id": {"type": "string", "minLength": 1},
+    "version": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}-(0600|0700|0830|1510|MANUAL)$"
+    },
+    "timestamp": {"type": "string", "format": "date-time"},
+    "generated_time": {"type": "string", "format": "date-time"},
+    "global": {"type": "object"},
+    "us": {"type": "object"},
+    "taiwan": {"type": "object"},
+    "macro": {"type": "object"},
+    "evidence": {"type": "array"},
+    "source_hash": {"type": "object"},
+    "snapshot_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "provider_payloads": {"type": "object"},
+    "market_health": {"type": "object"},
+    "status": {"const": "validated_shadow_snapshot_v3"},
+    "model_impact": {"const": "official_data_only_not_production"},
+    "runtime_direct_api_access": {"const": false},
+    "repository_write_authorized": {"const": false},
+    "production_authorized": {"const": false}
+  },
+  "x-runtime": {
+    "shadow_only": true,
+    "fixture_primary": false,
+    "trading_signal": false,
+    "stock_selection": false
+  }
+}

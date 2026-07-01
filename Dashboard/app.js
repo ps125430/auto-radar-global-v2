@@ -406,6 +406,8 @@
       MACRO: "總經",
       ETF: "ETF",
       NEWS: "新聞",
+      FRED: "FRED",
+      SEC_EDGAR: "SEC",
     };
     container.innerHTML = sources
       .map(
@@ -414,7 +416,11 @@
             <span class="health-dot health-${escapeHtml(source.health_status)}"></span>
             <div>
               <strong>${escapeHtml(displayNames[source.source_id] || source.source_id)}</strong>
-              <span>${escapeHtml(oceanHealthLabel(source.health_status))} · Evidence ${Number(source.evidence_count || 0)}</span>
+              <span>${escapeHtml(oceanHealthLabel(source.health_status))} · ${
+                typeof source.latency_ms === "number"
+                  ? `${Math.round(source.latency_ms)} ms`
+                  : `Evidence ${Number(source.evidence_count || 0)}`
+              }</span>
             </div>
           </div>
         `

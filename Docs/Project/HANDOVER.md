@@ -30,21 +30,21 @@ Last Updated: 2026-07-01
 
 ## Current Phase
 
-Engineering Phase — Sprint 10 Captain Intelligence
+Engineering Phase — Sprint 11 Real Ocean
 
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented with Shadow Runtime binding
-- Engine: E-121 through E-160 implemented; E-161 through E-165 Captain Intelligence implemented for review; Gate OPEN
+- Engine: E-121 through E-165 implemented; Sprint 11 Real Ocean framework implemented; live smoke pending
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-165
-- Task: Captain Brief Generator
+- Task ID: Sprint 11
+- Task: Real Ocean
 - Owner: 小C / Engineering
-- Status: E-161 through E-165 implemented; awaiting 小P architecture review
-- Impact: Captain Shadow context and budget boundary only
+- Status: Implemented; credentialed live smoke pending
+- Impact: Official Shadow data ingestion only
 
 ## Completed Runtime Milestone
 
@@ -118,13 +118,13 @@ Engineering Phase — Sprint 10 Captain Intelligence
 - E-161 至 E-165 僅為 Captain Shadow context；不選股、不產生訂單、不改 Strategy 或 Scoring。
 - Learning 僅允許 Suggest，不得寫入 Repository。
 - N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 203 項自動測試通過。
+- 212 項自動測試通過。
 - 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-161 至 E-165。
-2. 記錄 PASS 或修正要求。
-3. 未經另案授權，不得進入 N-series 或 Production Runtime。
+1. 設定 FRED 與 SEC 環境參數並執行 live smoke。
+2. 小P驗收 Sprint 11。
+3. 未經另案授權，不得進入 Production Runtime。
 
 不得自行從 Roadmap 選擇工作開工。

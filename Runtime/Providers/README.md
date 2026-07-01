@@ -4,6 +4,17 @@ Status: Shadow Real Data Foundation
 
 Model Impact: Provider data only, not production
 
+## Sprint 11 Real Ocean
+
+- `live_official.py`: Registry-only TWSE, TPEx, MOPS, FRED, and SEC EDGAR adapters.
+- `scheduler.py`: Asia/Taipei jobs at 06:00, 07:00, 08:30, and 15:10.
+- `snapshot_v3.py`: hash-addressed Global Snapshot v3 and fallback policy.
+- `real_ocean.py`: Fetch -> Validate -> Normalize -> Snapshot -> Dashboard.
+
+Official data is primary. Cached Snapshot is the Runtime fallback. Archived
+fixtures are accepted only for Replay and Test. FRED requires `FRED_API_KEY`;
+SEC requires `SEC_USER_AGENT`.
+
 ## Data Flow
 
 ```text

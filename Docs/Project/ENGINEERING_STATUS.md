@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 10 — Captain OS v1 |
+| Sprint | Engineering Sprint 11 — Real Ocean |
 | Current Owner | 小C / Engineering |
-| Current Module | Captain Intelligence |
-| Current Task | E-165 |
-| Progress | E-161 through E-165 implementation complete; awaiting Architecture review |
-| Blocker | None |
-| ETA | No committed date; closes when 小P reviews E-161 through E-165 |
+| Current Module | Official live market data |
+| Current Task | Sprint 11 |
+| Progress | Implementation complete; live smoke pending |
+| Blocker | Environment denied network run; FRED/SEC configuration required |
+| ETA | Closes after credentialed live smoke and 小P review |
 
 ## Recently Completed
 
@@ -36,6 +36,7 @@ Project status authority: `PROJECT_STATUS.md`
 - E-151 through E-155: Provider Layer, Market Snapshot, automatic Evidence, Data Quality, and deterministic Replay.
 - E-156 through E-160: Official Provider Registry, Snapshot v2, Evidence Normalizer, Ocean Health, and Living Ocean Monitor.
 - E-161 through E-165: Captain Profile, Ship State, Budget boundary, one Active Mission, and Captain Brief.
+- Sprint 11: Official Providers, Scheduler, Snapshot v3, Health, and Fallback.
 
 ## Current Implementation
 
@@ -54,7 +55,7 @@ Project status authority: `PROJECT_STATUS.md`
 
 Validation baseline:
 
-- Automated tests: 203 passing.
+- Automated tests: 212 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
 - GitHub baseline before Runtime Governance: `de7c69d`.
@@ -83,6 +84,6 @@ Validation baseline:
 
 ## Next Engineering Work
 
-Not assigned. E-161 through E-165 await Architecture Review.
+Run credentialed live smoke, then submit Sprint 11 to Architecture Review.
 
 Engineering must not begin N-series or Production Runtime work until separately authorized.

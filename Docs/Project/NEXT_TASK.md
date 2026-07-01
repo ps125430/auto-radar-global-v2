@@ -10,8 +10,8 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Current Owner | 小C / Engineering |
-| Current Task | E-165 — Captain Brief Generator |
-| Status | E-161 through E-165 implemented; awaiting 小P architecture review |
+| Current Task | Sprint 11 — Real Ocean |
+| Status | Implemented; credentialed live smoke pending |
 | Priority | P0 |
 
 This is the only Current Task.
@@ -22,11 +22,11 @@ Not assigned.
 
 Next step:
 
-1. 小P reviews E-161 through E-165.
-2. Record PASS or required corrections.
-3. Keep Dashboard binding, stock selection, orders, and Production Runtime blocked until separately authorized.
+1. Configure `FRED_API_KEY` and `SEC_USER_AGENT`.
+2. Run one official live smoke and record Provider Health.
+3. 小P reviews Sprint 11; Production Runtime remains blocked.
 
-Current status: **WAITING FOR ARCHITECTURE REVIEW**
+Current status: **WAITING FOR CREDENTIALED LIVE SMOKE**
 
 ## Task Transition Rule
 

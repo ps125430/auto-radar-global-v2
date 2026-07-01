@@ -67,6 +67,7 @@ class RealDataFoundationTests(unittest.TestCase):
         source = "\n".join(
             path.read_text(encoding="utf-8")
             for path in sorted((REPOSITORY_ROOT / "Runtime/Providers").glob("*.py"))
+            if path.name != "live_official.py"
         ).lower()
 
         for forbidden in (

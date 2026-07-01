@@ -1,6 +1,6 @@
 window.AUTO_RADAR_DASHBOARD_DATA = {
   "meta": {
-    "generated_at": "2026-06-30T07:41:51.834222+00:00",
+    "generated_at": "2026-07-01T02:43:43.584865+00:00",
     "mode": "知識庫唯讀",
     "repository_status": "通過",
     "validation_errors": 0,
@@ -216,7 +216,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     "status": "shadow_dashboard_projection",
     "model_impact": "shadow_candidate_not_production",
     "waiting_message": "Waiting for today's shadow run...",
-    "last_run": "2026-06-30T07:41:51.834222+00:00",
+    "last_run": "2026-07-01T02:43:43.584865+00:00",
     "mode": {
       "label": "Shadow Runtime",
       "status": "Healthy",
@@ -253,14 +253,14 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "tomorrow": "觀察 HBM 與散熱是否維持接力，若 Evidence 未增加則不升級。"
     },
     "explain": {
-      "chain_id": "EXPLAIN-DASHBOARD-20260630",
+      "chain_id": "EXPLAIN-DASHBOARD-20260701",
       "direction": "AI 基礎建設供應鏈",
-      "decision": "NSD-DASHBOARD-20260630",
+      "decision": "NSD-DASHBOARD-20260701",
       "nodes": [
         {
           "node_id": "decision:NSD-DASHBOARD",
           "layer": "decision",
-          "reference": "NSD-DASHBOARD-20260630",
+          "reference": "NSD-DASHBOARD-20260701",
           "available": true
         },
         {
@@ -353,7 +353,7 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
       "layers": {
         "direction": [],
         "decision": [
-          "NSD-DASHBOARD-20260630"
+          "NSD-DASHBOARD-20260701"
         ],
         "regime": [
           "總經：風險偏好中性偏多",
@@ -381,75 +381,48 @@ window.AUTO_RADAR_DASHBOARD_DATA = {
     }
   },
   "living_ocean": {
-    "status": "shadow_data_monitor",
-    "snapshot_version": "2026-07-01-AM",
-    "generated_at": "2026-07-01T01:01:00+00:00",
-    "overall_status": "healthy",
-    "health_score": 91,
-    "evidence_coverage": 100,
+    "status": "waiting_for_first_real_ocean_run",
+    "snapshot_version": null,
+    "snapshot_hash": null,
+    "generated_at": null,
+    "overall_status": "unavailable",
+    "health_score": 0,
+    "evidence_coverage": 0,
     "sources": [
       {
-        "evidence_count": 1,
-        "health_status": "healthy",
-        "last_failure": null,
-        "last_success": "2026-07-01T00:20:00+00:00",
-        "source_class": "official",
-        "source_id": "ETF",
-        "trust_score": 92
-      },
-      {
-        "evidence_count": 1,
-        "health_status": "healthy",
-        "last_failure": null,
-        "last_success": "2026-07-01T00:15:00+00:00",
-        "source_class": "official",
-        "source_id": "MACRO",
-        "trust_score": 97
-      },
-      {
-        "evidence_count": 1,
-        "health_status": "healthy",
-        "last_failure": null,
-        "last_success": "2026-07-01T05:40:00+00:00",
-        "source_class": "official",
-        "source_id": "MOPS",
-        "trust_score": 99
-      },
-      {
-        "evidence_count": 1,
-        "health_status": "warning",
-        "last_failure": "2026-06-30T23:40:00+00:00",
-        "last_success": "2026-07-01T00:22:00+00:00",
-        "source_class": "third_party",
-        "source_id": "NEWS",
-        "trust_score": 78
-      },
-      {
-        "evidence_count": 1,
-        "health_status": "healthy",
-        "last_failure": null,
-        "last_success": "2026-07-01T05:36:00+00:00",
-        "source_class": "official",
-        "source_id": "TPEX",
-        "trust_score": 98
-      },
-      {
-        "evidence_count": 1,
-        "health_status": "healthy",
-        "last_failure": null,
-        "last_success": "2026-07-01T05:35:00+00:00",
-        "source_class": "official",
         "source_id": "TWSE",
-        "trust_score": 98
+        "health_status": "unavailable",
+        "source_mode": "not_run",
+        "last_update": null,
+        "latency_ms": null
       },
       {
-        "evidence_count": 1,
-        "health_status": "healthy",
-        "last_failure": null,
-        "last_success": "2026-07-01T00:10:00+00:00",
-        "source_class": "official",
-        "source_id": "US_MARKET",
-        "trust_score": 96
+        "source_id": "TPEX",
+        "health_status": "unavailable",
+        "source_mode": "not_run",
+        "last_update": null,
+        "latency_ms": null
+      },
+      {
+        "source_id": "MOPS",
+        "health_status": "unavailable",
+        "source_mode": "not_run",
+        "last_update": null,
+        "latency_ms": null
+      },
+      {
+        "source_id": "FRED",
+        "health_status": "unavailable",
+        "source_mode": "not_run",
+        "last_update": null,
+        "latency_ms": null
+      },
+      {
+        "source_id": "SEC_EDGAR",
+        "health_status": "unavailable",
+        "source_mode": "not_run",
+        "last_update": null,
+        "latency_ms": null
       }
     ],
     "formal_confidence_modified": false,

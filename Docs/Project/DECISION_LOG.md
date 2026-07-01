@@ -25,6 +25,7 @@ Last Updated: 2026-06-30
 | DEC-018 | 2026-06-30 | Shadow Replay artifacts are immutable and source-hashed under Runtime/Artifacts | Reproducibility requires fixed input, engine source, Repository source, output hashes, and byte-identical reruns without modifying Dashboard or Knowledge | 小P / 小C | Pending Review |
 | DEC-019 | 2026-06-30 | Living Ocean uses official-first Registry metadata and versioned Snapshot v2; source failure creates a data-confidence adjustment candidate but does not modify formal Confidence | Data quality must remain visible and degradable without inventing Decision logic or allowing Runtime direct URL access | 小P / 小C | Pending Review |
 | DEC-020 | 2026-07-01 | Every Decision Runtime requires Captain Profile; budget allocation reads authored policy and only calculates deploy boundaries | Captain context must be explicit and serializable without hidden defaults, stock selection, Strategy changes, or order authority | 小P / 小C | Pending Review |
+| DEC-021 | 2026-07-01 | Real Ocean network access exists only inside Official Providers; Runtime consumes Snapshot v3 and Runtime purpose cannot use fixtures | Official data must be primary while Replay fixtures remain isolated | 小P / 小C | Pending Review |
 
 ## Decision Rule
 
