@@ -1,0 +1,12 @@
+{
+  "as_of": "2026-07-01T08:20:00+08:00",
+  "buying_power": 20000.0,
+  "cash": 20000.0,
+  "current_holdings": [],
+  "estimated_holding_days": 0,
+  "mission_status": "active",
+  "model_impact": "captain_context_only_not_production",
+  "risk_exposure": 0.0,
+  "ship_state_id": "SHIP-STATE-20260701-AM",
+  "status": "shadow_ship_state"
+}

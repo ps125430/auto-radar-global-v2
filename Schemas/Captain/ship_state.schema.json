@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/captain/ship_state.schema.json",
+  "title": "My Ship State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ship_state_id",
+    "as_of",
+    "cash",
+    "buying_power",
+    "current_holdings",
+    "risk_exposure",
+    "estimated_holding_days",
+    "mission_status",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "ship_state_id": {"type": "string", "minLength": 1},
+    "as_of": {"type": "string", "format": "date-time"},
+    "cash": {"type": "number", "minimum": 0},
+    "buying_power": {"type": "number", "minimum": 0},
+    "current_holdings": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "risk_exposure": {"type": "number", "minimum": 0, "maximum": 1},
+    "estimated_holding_days": {"type": "integer", "minimum": 0},
+    "mission_status": {
+      "enum": ["idle", "active", "completed", "expired", "cancelled"]
+    },
+    "status": {"const": "shadow_ship_state"},
+    "model_impact": {"const": "captain_context_only_not_production"}
+  }
+}

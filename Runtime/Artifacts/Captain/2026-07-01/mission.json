@@ -1,0 +1,14 @@
+{
+  "confidence_source": null,
+  "mission_confidence": null,
+  "mission_expiration": "2026-07-01T13:30:00+08:00",
+  "mission_id": "MISSION-20260701-001",
+  "mission_status": "active",
+  "mission_window": {
+    "ends_at": "2026-07-01T13:30:00+08:00",
+    "starts_at": "2026-07-01T08:20:00+08:00"
+  },
+  "model_impact": "mission_context_only_not_production",
+  "status": "shadow_mission",
+  "summary": "完成今日 Shadow 資料檢查並維持 Captain Profile 設定的資金邊界。"
+}

@@ -138,6 +138,15 @@ Last Updated: 2026-06-29
 - 完成 E-160 Dashboard Living Ocean Monitor。
 - 官方來源連線、Production Decision、Trading Signal、Strategy、Scoring 與 Repository auto-write 仍未啟用。
 
+### 2026-07-01 — Sprint 10 Captain Intelligence
+
+- 完成 E-161 Captain Profile Engine，Decision Runtime 強制讀取 Profile。
+- 完成 E-162 可序列化 My Ship State。
+- 完成 E-163 由 Profile 配置驅動的 Shadow Budget boundary。
+- 完成 E-164 每日唯一 Active Mission。
+- 完成 E-165 Good Morning Captain Brief 與 deterministic artifacts。
+- 選股、標的部位配置、交易訊號、訂單、Strategy、Scoring 與 Production Runtime 仍未啟用。
+
 ## Current Direction
 
 ```text
@@ -151,6 +160,7 @@ Research (Frozen)
   -> Daily Intelligence Loop (Implemented; Production blocked)
   -> Real Data Foundation (Archived fixtures; APIs blocked)
   -> Living Ocean (Official-first metadata and health; APIs blocked)
+  -> Captain Intelligence (Shadow context and budget boundary)
   -> Automation
   -> Beta
   -> v1.0

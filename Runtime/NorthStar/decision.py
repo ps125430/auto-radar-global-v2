@@ -6,6 +6,7 @@ from collections.abc import Mapping
 from datetime import datetime, timezone
 from typing import Any
 
+from .captain import CaptainProfileEngine
 from .context import RuntimeContext
 
 
@@ -29,6 +30,7 @@ class NorthStarDecisionValidator:
         "risk_factors",
         "invalidators",
         "input_refs",
+        "captain_context",
         "validation",
         "model_impact",
     }
@@ -92,6 +94,14 @@ class NorthStarDecisionValidator:
         if confidence.get("production_authorized") is not False:
             raise DecisionRuntimeError("confidence cannot authorize Production")
 
+        captain_context = decision["captain_context"]
+        if not isinstance(captain_context, Mapping):
+            raise DecisionRuntimeError("captain_context must be an object")
+        if not captain_context.get("profile_id"):
+            raise DecisionRuntimeError(
+                "Decision Runtime must identify Captain Profile"
+            )
+
         cls._reject_forbidden_keys(decision)
         return True
 
@@ -115,6 +125,7 @@ class DecisionRuntime:
 
     engine_id = "decision_runtime"
     INPUT_FIELDS = {
+        "captain_profile": "captain_profile_ref",
         "regime": "market_regime_ref",
         "flow": "capital_flow_ref",
         "repository": "repository_snapshot_ref",
@@ -124,6 +135,7 @@ class DecisionRuntime:
     def run(self, context: RuntimeContext) -> Mapping[str, Any]:
         payload = context.mutable_payload()
         input_refs: dict[str, str | None] = {
+            "captain_profile_ref": None,
             "market_regime_ref": None,
             "capital_flow_ref": None,
             "repository_snapshot_ref": None,
@@ -140,6 +152,15 @@ class DecisionRuntime:
                 )
             context.snapshot(reference)
             input_refs[output_name] = reference
+
+        profile_ref = input_refs["captain_profile_ref"]
+        if profile_ref is None:
+            raise DecisionRuntimeError(
+                "Decision Runtime requires Captain Profile"
+            )
+        profile = CaptainProfileEngine.load(
+            context.snapshot(profile_ref).to_dict()
+        )
 
         now = datetime.now(timezone.utc)
         decision = {
@@ -196,6 +217,13 @@ class DecisionRuntime:
             "risk_factors": [],
             "invalidators": [],
             "input_refs": input_refs,
+            "captain_context": {
+                "profile_id": profile.profile_id,
+                "market": list(profile.market),
+                "risk_profile": profile.risk_profile,
+                "holding_period": dict(profile.holding_period),
+                "compound_mode": profile.compound_mode,
+            },
             "validation": {
                 "status": "validated",
                 "errors": [],

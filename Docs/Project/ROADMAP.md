@@ -80,6 +80,7 @@ Current gate:
 - E-146 through E-150 Daily Intelligence Loop implemented for Architecture Review.
 - E-151 through E-155 Real Data Foundation implemented with archived fixtures for Architecture Review.
 - E-156 through E-160 Official Data Foundation and Living Ocean monitoring implemented for Architecture Review.
+- E-161 through E-165 Captain OS v1 implemented for Architecture Review.
 - N-001 through N-010 and Production Runtime remain blocked.
 
 Entry gate:

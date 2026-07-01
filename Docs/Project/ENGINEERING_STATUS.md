@@ -1,7 +1,7 @@
 # Engineering Status
 
 Status: Active
-Last Updated: 2026-06-30
+Last Updated: 2026-07-01
 
 Project status authority: `PROJECT_STATUS.md`
 
@@ -9,13 +9,13 @@ Project status authority: `PROJECT_STATUS.md`
 
 | Field | Value |
 |---|---|
-| Sprint | Engineering Sprint 8 — M-002 Living Ocean |
+| Sprint | Engineering Sprint 10 — Captain OS v1 |
 | Current Owner | 小C / Engineering |
-| Current Module | Official Data Foundation and Living Ocean Monitor |
-| Current Task | E-160 |
-| Progress | E-156 through E-160 implementation complete; awaiting Architecture review |
+| Current Module | Captain Intelligence |
+| Current Task | E-165 |
+| Progress | E-161 through E-165 implementation complete; awaiting Architecture review |
 | Blocker | None |
-| ETA | No committed date; closes when 小P reviews E-156 through E-160 |
+| ETA | No committed date; closes when 小P reviews E-161 through E-165 |
 
 ## Recently Completed
 
@@ -35,6 +35,7 @@ Project status authority: `PROJECT_STATUS.md`
 - E-146 through E-150: Decision Snapshot, Manual Outcome, Residual, Root Cause, and Suggest-only Reflection.
 - E-151 through E-155: Provider Layer, Market Snapshot, automatic Evidence, Data Quality, and deterministic Replay.
 - E-156 through E-160: Official Provider Registry, Snapshot v2, Evidence Normalizer, Ocean Health, and Living Ocean Monitor.
+- E-161 through E-165: Captain Profile, Ship State, Budget boundary, one Active Mission, and Captain Brief.
 
 ## Current Implementation
 
@@ -46,13 +47,14 @@ Project status authority: `PROJECT_STATUS.md`
 - E-146 through E-150: implemented.
 - E-151 through E-155: implemented.
 - E-156 through E-160: implemented.
+- E-161 through E-165: implemented.
 - Remaining step: 小P architecture review.
 
 ## Quality Status
 
 Validation baseline:
 
-- Automated tests: 194 passing.
+- Automated tests: 203 passing.
 - Global Repository Validator: PASS with 0 errors.
 - GitHub branch: `main`.
 - GitHub baseline before Runtime Governance: `de7c69d`.
@@ -67,19 +69,20 @@ Validation baseline:
 - Daily Intelligence Loop: implemented for Architecture Review.
 - Real Data Foundation: implemented with archived fixtures; external APIs remain unconnected.
 - Living Ocean: official-first metadata and health monitoring implemented; live provider connectivity remains unconnected.
+- Captain Intelligence: profile-driven and Shadow-only; no stock selection, orders, Strategy, or Scoring.
 - N-001 through N-010 and Production Runtime: BLOCKED.
 
 ## Engineering Boundaries
 
 - Production Runtime is blocked.
 - Decision Engine activation is blocked.
-- Position sizing and capital allocation are blocked.
+- Position sizing, symbol allocation, and order generation are blocked.
 - Real trading and execution APIs are blocked.
 - Dashboard remains read-only.
 - No Engineering task may invent strategy or research conclusions.
 
 ## Next Engineering Work
 
-Not assigned. E-156 through E-160 await Architecture Review.
+Not assigned. E-161 through E-165 await Architecture Review.
 
 Engineering must not begin N-series or Production Runtime work until separately authorized.

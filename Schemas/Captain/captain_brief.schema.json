@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/captain/captain_brief.schema.json",
+  "title": "Captain Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "brief_id",
+    "title",
+    "generated_at",
+    "ocean",
+    "north_star",
+    "mission",
+    "weather",
+    "budget",
+    "ship_status",
+    "confidence",
+    "trading_signal",
+    "order_generation",
+    "repository_write_authorized",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "brief_id": {"type": "string", "minLength": 1},
+    "title": {"const": "Good Morning Captain"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "ocean": {"type": "object"},
+    "north_star": {"type": "object"},
+    "mission": {"type": "object"},
+    "weather": {"type": "object"},
+    "budget": {"type": "object"},
+    "ship_status": {"type": "object"},
+    "confidence": {"type": "object"},
+    "trading_signal": {"const": false},
+    "order_generation": {"const": false},
+    "repository_write_authorized": {"const": false},
+    "status": {"const": "shadow_captain_brief"},
+    "model_impact": {"const": "captain_context_only_not_production"}
+  },
+  "x-runtime": {
+    "shadow_only": true,
+    "strategy_change": false,
+    "scoring_change": false,
+    "order_generation": false
+  }
+}

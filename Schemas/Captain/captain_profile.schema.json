@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/captain/captain_profile.schema.json",
+  "title": "Captain Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "market",
+    "budget",
+    "risk_profile",
+    "holding_period",
+    "compound_mode",
+    "cash_reserve",
+    "max_exposure",
+    "allocation_policy",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "profile_id": {"type": "string", "minLength": 1},
+    "market": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "budget": {"type": "number", "minimum": 0},
+    "risk_profile": {
+      "enum": ["conservative", "balanced", "growth", "custom"]
+    },
+    "holding_period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_days", "maximum_days"],
+      "properties": {
+        "minimum_days": {"type": "integer", "minimum": 1},
+        "maximum_days": {"type": "integer", "minimum": 1}
+      }
+    },
+    "compound_mode": {
+      "enum": ["off", "review_required", "reinvest_reviewed"]
+    },
+    "cash_reserve": {"type": "number", "minimum": 0, "maximum": 1},
+    "max_exposure": {"type": "number", "minimum": 0, "maximum": 1},
+    "allocation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position_budget_unit", "risk_budget_ratio"],
+      "properties": {
+        "position_budget_unit": {"type": "number", "exclusiveMinimum": 0},
+        "risk_budget_ratio": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "status": {"const": "shadow_profile"},
+    "model_impact": {"const": "captain_context_only_not_production"}
+  },
+  "x-runtime": {
+    "hardcoded_profile": false,
+    "production_authorized": false,
+    "repository_write": false
+  }
+}

@@ -7,6 +7,7 @@ This is a product-level changelog. It does not duplicate Git commit history.
 
 | Date | Feature | Impact Area | Owner |
 |---|---|---|---|
+| 2026-07-01 | Captain OS v1 added profile-driven Decision context, serializable Ship State, budget boundaries, one Active Mission, and a Shadow Captain Brief | Shadow Runtime / Captain Intelligence | 小C |
 | 2026-06-30 | Living Ocean added an official-first source registry, AM/PM snapshots, normalized Evidence, source health degradation, and Dashboard status monitoring | Shadow Data Health / Dashboard | 小C |
 | 2026-06-30 | Real Data Foundation added no-network Provider adapters, validated Market Snapshots, automatic Evidence, fail-fast data quality, and source-hashed Shadow Replay | Provider / Shadow Data Infrastructure | 小C |
 | 2026-06-30 | Daily Intelligence Loop added daily Snapshot, Manual Outcome, Review-only Residual, manual Root Cause attribution, and Suggest-only Reflection | Shadow Review Runtime | 小C |

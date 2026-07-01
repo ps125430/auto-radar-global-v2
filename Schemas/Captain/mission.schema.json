@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-radar.local/schemas/captain/mission.schema.json",
+  "title": "Today's Mission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mission_id",
+    "mission_status",
+    "mission_window",
+    "mission_confidence",
+    "confidence_source",
+    "mission_expiration",
+    "summary",
+    "status",
+    "model_impact"
+  ],
+  "properties": {
+    "mission_id": {"type": "string", "minLength": 1},
+    "mission_status": {
+      "enum": ["draft", "active", "completed", "expired", "cancelled"]
+    },
+    "mission_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["starts_at", "ends_at"],
+      "properties": {
+        "starts_at": {"type": "string", "format": "date-time"},
+        "ends_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "mission_confidence": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "confidence_source": {"type": ["string", "null"]},
+    "mission_expiration": {"type": "string", "format": "date-time"},
+    "summary": {"type": "string", "minLength": 1},
+    "status": {"const": "shadow_mission"},
+    "model_impact": {"const": "mission_context_only_not_production"}
+  }
+}

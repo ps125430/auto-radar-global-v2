@@ -5,6 +5,17 @@ execution, or direct Knowledge Repository write capability.
 """
 
 from .context import RuntimeContext, RuntimeContextError
+from .captain import (
+    BudgetAllocationEngine,
+    CaptainBriefGenerator,
+    CaptainProfile,
+    CaptainProfileEngine,
+    CaptainRuntimeError,
+    Mission,
+    MissionEngine,
+    ShipState,
+    ShipStateEngine,
+)
 from .decision import (
     DecisionRuntime,
     DecisionRuntimeError,
@@ -60,6 +71,11 @@ from .shadow_quality import (
 )
 
 __all__ = [
+    "BudgetAllocationEngine",
+    "CaptainBriefGenerator",
+    "CaptainProfile",
+    "CaptainProfileEngine",
+    "CaptainRuntimeError",
     "DecisionRuntime",
     "DecisionRuntimeError",
     "DashboardBindingError",
@@ -75,6 +91,8 @@ __all__ = [
     "LearningRuntimeError",
     "LoadedSnapshot",
     "MergeAuthorization",
+    "Mission",
+    "MissionEngine",
     "NorthStarDecisionValidator",
     "NorthStarShadowDailyBrief",
     "OutcomeCollector",
@@ -97,6 +115,8 @@ __all__ = [
     "RootCauseAnalyzer",
     "SessionEvent",
     "SessionStatus",
+    "ShipState",
+    "ShipStateEngine",
     "ShadowIntegrationError",
     "ShadowInputValidationError",
     "ShadowInputValidator",

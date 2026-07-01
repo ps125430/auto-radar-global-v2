@@ -1,0 +1,74 @@
+{
+  "brief_id": "CAPTAIN-BRIEF-MISSION-20260701-001",
+  "budget": {
+    "allocation_id": "ALLOCATION-CAPTAIN-GREEN-TEA-v1",
+    "budget": 20000.0,
+    "calculation_basis": {
+      "cash_reserve": 0.3,
+      "max_exposure": 0.7,
+      "position_budget_unit": 7000.0,
+      "risk_budget_ratio": 0.02
+    },
+    "deploy_budget": 14000.0,
+    "model_impact": "capital_boundary_only_not_production",
+    "order_generation": false,
+    "profile_ref": "CAPTAIN-GREEN-TEA-v1",
+    "reserve_budget": 6000.0,
+    "risk_budget": 400.0,
+    "selects_securities": false,
+    "ship_state_ref": "SHIP-STATE-20260701-AM",
+    "status": "shadow_budget_candidate",
+    "suggested_position_count": 2
+  },
+  "confidence": {
+    "source": "No approved Confidence methodology",
+    "status": "unavailable",
+    "value": null
+  },
+  "generated_at": "2026-07-01T08:20:00+08:00",
+  "mission": {
+    "confidence_source": null,
+    "mission_confidence": null,
+    "mission_expiration": "2026-07-01T13:30:00+08:00",
+    "mission_id": "MISSION-20260701-001",
+    "mission_status": "active",
+    "mission_window": {
+      "ends_at": "2026-07-01T13:30:00+08:00",
+      "starts_at": "2026-07-01T08:20:00+08:00"
+    },
+    "model_impact": "mission_context_only_not_production",
+    "status": "shadow_mission",
+    "summary": "完成今日 Shadow 資料檢查並維持 Captain Profile 設定的資金邊界。"
+  },
+  "model_impact": "captain_context_only_not_production",
+  "north_star": {
+    "direction": "AI 基礎建設供應鏈",
+    "source_ref": "Data/ShadowInput/sample_real_input_v1.json"
+  },
+  "ocean": {
+    "snapshot_ref": "2026-07-01-AM",
+    "status": "healthy",
+    "summary": "Ocean Health 91%; Evidence 100%."
+  },
+  "order_generation": false,
+  "repository_write_authorized": false,
+  "ship_status": {
+    "as_of": "2026-07-01T08:20:00+08:00",
+    "buying_power": 20000.0,
+    "cash": 20000.0,
+    "current_holdings": [],
+    "estimated_holding_days": 0,
+    "mission_status": "active",
+    "model_impact": "captain_context_only_not_production",
+    "risk_exposure": 0.0,
+    "ship_state_id": "SHIP-STATE-20260701-AM",
+    "status": "shadow_ship_state"
+  },
+  "status": "shadow_captain_brief",
+  "title": "Good Morning Captain",
+  "trading_signal": false,
+  "weather": {
+    "source_ref": "Data/ShadowInput/sample_real_input_v1.json",
+    "summary": "風險偏好中性偏多 · AI 基礎建設維持主線 · 上游強勢，延伸題材分化"
+  }
+}

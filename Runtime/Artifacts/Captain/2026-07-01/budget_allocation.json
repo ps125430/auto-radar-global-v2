@@ -1,0 +1,20 @@
+{
+  "allocation_id": "ALLOCATION-CAPTAIN-GREEN-TEA-v1",
+  "budget": 20000.0,
+  "calculation_basis": {
+    "cash_reserve": 0.3,
+    "max_exposure": 0.7,
+    "position_budget_unit": 7000.0,
+    "risk_budget_ratio": 0.02
+  },
+  "deploy_budget": 14000.0,
+  "model_impact": "capital_boundary_only_not_production",
+  "order_generation": false,
+  "profile_ref": "CAPTAIN-GREEN-TEA-v1",
+  "reserve_budget": 6000.0,
+  "risk_budget": 400.0,
+  "selects_securities": false,
+  "ship_state_ref": "SHIP-STATE-20260701-AM",
+  "status": "shadow_budget_candidate",
+  "suggested_position_count": 2
+}

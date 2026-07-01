@@ -5,7 +5,7 @@ Status: Active
 Authority: Single Source of Truth
 Owner: 綠茶 / Product Owner
 Maintainer: 小C / Engineering
-Last Updated: 2026-06-30
+Last Updated: 2026-07-01
 
 ---
 
@@ -19,33 +19,33 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — M-002 Living Ocean / Official Data Foundation
+Engineering Phase — Sprint 10 Captain Intelligence
 
-Research Phase v1.0 已完成並封版。Runtime Gate 已開啟。E-121 至 E-155 已完成 Shadow Runtime、Dashboard、Daily Intelligence 與 Real Data Foundation。E-156 至 E-160 已建立 Official Provider Registry、Global Snapshot v2、Evidence Normalizer、Ocean Health 與 Living Ocean Monitor，等待小P驗收；來源仍為 archived fixtures，尚未串接外部 API，Production Runtime 仍未獲授權。
+Research Phase v1.0 已完成並封版。Runtime Gate 已開啟。E-121 至 E-160 已完成 Shadow Runtime、Living Ocean 與官方資料基礎。E-161 至 E-165 已建立 Captain Profile、My Ship、Budget boundary、單一 Active Mission 與 Captain Brief，等待小P驗收；不包含選股、交易訊號、Strategy、Scoring 或訂單。
 
 ## Current Sprint
 
-Engineering Sprint 8 — M-002 Living Ocean
+Engineering Sprint 10 — Captain OS v1
 
 Sprint focus:
 
-- 建立六個統一 Provider adapters。
-- 建立 Runtime-only Market Snapshot gateway。
-- 自動由 validated provider records 產生 Evidence candidates。
-- 在 Snapshot 前執行 Missing、Duplicate、Invalid、Outlier 與 Timestamp validation。
-- 建立包含 input、source 與 output hashes 的 deterministic Replay。
+- 建立 Captain Profile 並強制 Decision Runtime 讀取。
+- 建立可序列化 My Ship。
+- 依 Profile 計算 Shadow Budget boundary。
+- 每日只允許一個 Active Mission。
+- 產生 Good Morning Captain Brief。
 
 ## Current Task
 
 | Field | Value |
 |---|---|
-| Task ID | E-160 |
-| Task | Living Ocean Monitor |
+| Task ID | E-165 |
+| Task | Captain Brief Generator |
 | Owner | 小C / Engineering |
-| Status | E-156 through E-160 implemented; awaiting 小P architecture review |
+| Status | E-161 through E-165 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
-E-156 至 E-160 已完成工程實作；Official Registry 不含網址，Runtime 無直接 API access，Ocean Health 不修改正式 Confidence。
+E-161 至 E-165 已完成工程實作；Budget Engine 僅計算資金邊界，Mission 與 Brief 均為 Shadow context。
 
 ## Completed
 
@@ -105,6 +105,12 @@ E-156 至 E-160 已完成工程實作；Official Registry 不含網址，Runtime
 - E-159 Ocean Health Engine implemented with data-confidence adjustment candidate only.
 - E-160 Living Ocean Monitor implemented in the read-only Dashboard.
 - 194 automated tests passing after E-156 through E-160.
+- E-161 Captain Profile Engine implemented; Decision Runtime now requires a validated profile reference.
+- E-162 serializable My Ship State Engine implemented.
+- E-163 profile-driven Budget Allocation Engine implemented without stock selection or orders.
+- E-164 Mission Engine implemented with one Active Mission invariant.
+- E-165 Captain Brief Generator implemented with immutable Shadow artifacts.
+- 203 automated tests passing after E-161 through E-165.
 - 162 automated tests passing after E-126 through E-130.
 - 157 automated tests passing after E-121 through E-125.
 - 144 automated tests passing after E-120.
@@ -113,13 +119,13 @@ E-156 至 E-160 已完成工程實作；Official Registry 不含網址，Runtime
 
 ## In Progress
 
-- E-156 through E-160 architecture review by 小P.
+- E-161 through E-165 architecture review by 小P.
 
 No Pipeline, Scoring, Strategy, trading, or Production work is in progress.
 
 ## Next Task
 
-Not assigned. E-156 through E-160 must pass Architecture Review before live provider connectivity or additional Living Ocean work.
+Not assigned. E-161 through E-165 must pass Architecture Review before Dashboard binding or additional Captain Runtime work.
 
 ## Overall Progress
 
@@ -130,7 +136,7 @@ Milestone method: 3 of 7 product stages are complete.
 | Research | Complete / Frozen |
 | Repository | Complete |
 | Dashboard | North Star v1 driven by gated Shadow test input; awaiting acceptance |
-| Engine | Shadow Runtime, Official Registry, Snapshot v2, Ocean Health, and deterministic Replay implemented; Gate OPEN; Production blocked |
+| Engine | Shadow Runtime, Living Ocean, Captain Profile, Ship State, Budget boundary, Mission, and Captain Brief implemented; Production blocked |
 | Automation | Planned |
 | Beta | Planned |
 | v1.0 | Planned |

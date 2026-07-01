@@ -1,0 +1,23 @@
+{
+  "document_id": "CAPTAIN-ARTIFACT-MANIFEST-20260701",
+  "generated_at": "2026-07-01T08:20:00+08:00",
+  "model_impact": "captain_context_only_not_production",
+  "output_hashes": {
+    "brief_json": "50beedf26b6a0c47a9729dcbd5165732f176ae8e66102712ef4de4999279042c",
+    "brief_markdown": "743a6ae29e436c2ebfddbccfb69d5534c6a5b1f1f583d81b2fec6a72148d8763",
+    "budget": "3da6974842257a2f7f5850e0fdaff1fc3f7edefa8b0b993604ea30639813eb1c",
+    "mission": "b71119c3ad3aa47279749814d0dd290b1730d3fc9db2c6d8743e8ae6dfd5a5ff",
+    "ship_state": "0a65c3a659f1779dec64284d81a37bf8fad5b0fa15a64665f18607b4ad2f7db9"
+  },
+  "repository_write_authorized": false,
+  "source_hashes": {
+    "Data/Captain/captain_profile.json": "61aef07c92cc505c9730b20e2af16368e831643ef17dc3a418f960c6ebb0419a",
+    "Data/Captain/mission_2026-07-01.json": "1614e46aaf8141a733c24589c6f0f7c7dbd46a523dcce434510e5ac5aadebe4c",
+    "Data/Captain/ship_state_2026-07-01.json": "b30585c8d8cbc4e57f355d6c8a690336db5d304c6ff93df71c2a134f3af0aef4",
+    "Data/ShadowInput/sample_real_input_v1.json": "cff4b4164773e6d95741421c024bc162dacd098f01030c49d08f210b46e75f4f",
+    "Runtime/Artifacts/OfficialData/2026-07-01-AM/ocean_health.json": "9330551c73447785a0267dbe12220990903d21f7b88d83fb618a9e1ffa8ac15c",
+    "Runtime/NorthStar/captain.py": "bd12bdab7288ffd0141a6cbd607db7d87c07dddaa53aa22483c3987b0e04ae1a",
+    "Scripts/NorthStar/build_captain_brief.py": "0103c9dd54c5909e5a7cb8a695ce32a637a922f537e159d72f04a9e6ae45bb5b"
+  },
+  "status": "shadow_captain_artifact"
+}

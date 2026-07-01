@@ -23,6 +23,22 @@ or production decision logic.
   Shadow Daily Brief in memory.
 - `shadow_quality.py`: validates authored Shadow inputs and blocks incomplete
   Dashboard output before projection.
+- `captain.py`: validates Captain Profile and Ship State, calculates authored
+  budget boundaries, enforces one Active Mission, and generates Captain Brief.
+
+## Captain Intelligence
+
+E-161 至 E-165 新增：
+
+- Captain Profile：市場、預算、風險、持有期、複利模式、現金保留與最大曝險。
+- My Ship：現金、購買力、持倉、風險曝險、預估持有天數與任務狀態。
+- Budget Allocation：只計算 Deploy、Reserve、Position Capacity 與 Risk Budget。
+- Mission Engine：每日最多一個 Active Mission。
+- Captain Brief：整合 Ocean、North Star、Mission、Weather、Budget、Ship 與 Confidence。
+
+Decision Runtime 必須讀取 Captain Profile。所有比例與單位都由 Profile JSON
+提供，程式不提供隱藏預設值。Budget Allocation 不選股、不建立訂單，也不授權
+正式資本配置。
 
 ## Shadow Data Quality
 
@@ -59,8 +75,8 @@ Accuracy 只屬 Review metric，不修改任何正式 Scoring。Daily Intelligen
 - Learning output is a suggestion, never a direct Repository update.
 - Patch approval produces merge authorization metadata only; this package has no
   merge or filesystem-write operation.
-- Production Runtime, trading, strategy, scoring, and capital allocation remain
-  blocked.
+- Production Runtime、交易、Strategy、Scoring、標的部位配置與訂單仍維持
+  blocked；E-163 僅授權 Shadow Budget boundary calculation。
 
 ## Governance
 

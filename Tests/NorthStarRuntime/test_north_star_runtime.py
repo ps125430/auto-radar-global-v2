@@ -63,8 +63,36 @@ def create_runtime_repository(root: Path) -> tuple[str, ...]:
         "Knowledge/runtime/pattern.json",
         "Knowledge/runtime/experience.json",
         "Knowledge/runtime/review.json",
+        "Data/Captain/captain_profile.json",
     )
     for reference in references:
+        if reference == "Data/Captain/captain_profile.json":
+            write_json(
+                root,
+                reference,
+                {
+                    "profile_id": "CAPTAIN-TEST-v1",
+                    "market": ["Test Market"],
+                    "budget": 20000,
+                    "risk_profile": "balanced",
+                    "holding_period": {
+                        "minimum_days": 3,
+                        "maximum_days": 10,
+                    },
+                    "compound_mode": "review_required",
+                    "cash_reserve": 0.3,
+                    "max_exposure": 0.7,
+                    "allocation_policy": {
+                        "position_budget_unit": 7000,
+                        "risk_budget_ratio": 0.02,
+                    },
+                    "status": "shadow_profile",
+                    "model_impact": (
+                        "captain_context_only_not_production"
+                    ),
+                },
+            )
+            continue
         write_json(
             root,
             reference,
@@ -195,8 +223,15 @@ class NorthStarRuntimeTests(unittest.TestCase):
 
             execution = framework.execute(
                 "decision_runtime",
-                source_refs=(regime, flow, repository, opportunity),
+                source_refs=(
+                    references[8],
+                    regime,
+                    flow,
+                    repository,
+                    opportunity,
+                ),
                 payload={
+                    "captain_profile": references[8],
                     "regime": regime,
                     "flow": flow,
                     "repository": repository,
@@ -214,6 +249,14 @@ class NorthStarRuntimeTests(unittest.TestCase):
             )
             self.assertIsNone(decision["confidence"]["value"])
             self.assertFalse(decision["confidence"]["production_authorized"])
+            self.assertEqual(
+                references[8],
+                decision["input_refs"]["captain_profile_ref"],
+            )
+            self.assertEqual(
+                "CAPTAIN-TEST-v1",
+                decision["captain_context"]["profile_id"],
+            )
             self.assertTrue(NorthStarDecisionValidator.validate(decision))
 
     def test_decision_validator_rejects_production_and_trading_fields(self) -> None:
@@ -224,8 +267,9 @@ class NorthStarRuntimeTests(unittest.TestCase):
             framework.register(DecisionRuntime())
             decision = framework.execute(
                 "decision_runtime",
-                source_refs=references[:4],
+                source_refs=(references[8], *references[:4]),
                 payload={
+                    "captain_profile": references[8],
                     "regime": references[0],
                     "flow": references[1],
                     "repository": references[2],
@@ -393,6 +437,7 @@ class NorthStarRuntimeTests(unittest.TestCase):
 
             result = orchestrator.run_daily_shadow_decision(
                 decision_refs={
+                    "captain_profile": references[8],
                     "regime": references[0],
                     "flow": references[1],
                     "repository": references[2],
@@ -434,6 +479,7 @@ class NorthStarRuntimeTests(unittest.TestCase):
             orchestrator = ShadowRuntimeOrchestrator(str(root))
             result = orchestrator.run_daily_shadow_decision(
                 decision_refs={
+                    "captain_profile": references[8],
                     "regime": references[0],
                     "flow": references[1],
                     "repository": references[2],
@@ -472,6 +518,7 @@ class NorthStarRuntimeTests(unittest.TestCase):
             orchestrator = ShadowRuntimeOrchestrator(str(root), patch_queue=queue)
             result = orchestrator.run_daily_shadow_decision(
                 decision_refs={
+                    "captain_profile": references[8],
                     "regime": references[0],
                     "flow": references[1],
                     "repository": references[2],
@@ -506,6 +553,7 @@ class NorthStarRuntimeTests(unittest.TestCase):
             orchestrator = ShadowRuntimeOrchestrator(str(root))
             result = orchestrator.run_daily_shadow_decision(
                 decision_refs={
+                    "captain_profile": references[8],
                     "regime": references[0],
                     "flow": references[1],
                     "repository": references[2],

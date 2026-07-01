@@ -1,0 +1,22 @@
+{
+  "profile_id": "CAPTAIN-GREEN-TEA-v1",
+  "market": [
+    "Taiwan",
+    "United States"
+  ],
+  "budget": 20000,
+  "risk_profile": "balanced",
+  "holding_period": {
+    "minimum_days": 3,
+    "maximum_days": 10
+  },
+  "compound_mode": "review_required",
+  "cash_reserve": 0.3,
+  "max_exposure": 0.7,
+  "allocation_policy": {
+    "position_budget_unit": 7000,
+    "risk_budget_ratio": 0.02
+  },
+  "status": "shadow_profile",
+  "model_impact": "captain_context_only_not_production"
+}

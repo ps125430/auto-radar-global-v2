@@ -1,7 +1,7 @@
 # Current and Next Task
 
 Status: Active
-Last Updated: 2026-06-30
+Last Updated: 2026-07-01
 
 Project status authority: `PROJECT_STATUS.md`
 
@@ -10,8 +10,8 @@ Project status authority: `PROJECT_STATUS.md`
 | Field | Value |
 |---|---|
 | Current Owner | 小C / Engineering |
-| Current Task | E-160 — Living Ocean Monitor |
-| Status | E-156 through E-160 implemented; awaiting 小P architecture review |
+| Current Task | E-165 — Captain Brief Generator |
+| Status | E-161 through E-165 implemented; awaiting 小P architecture review |
 | Priority | P0 |
 
 This is the only Current Task.
@@ -22,9 +22,9 @@ Not assigned.
 
 Next step:
 
-1. 小P reviews E-156 through E-160.
+1. 小P reviews E-161 through E-165.
 2. Record PASS or required corrections.
-3. Keep live provider connectivity and Production Runtime blocked until separately authorized.
+3. Keep Dashboard binding, stock selection, orders, and Production Runtime blocked until separately authorized.
 
 Current status: **WAITING FOR ARCHITECTURE REVIEW**
 

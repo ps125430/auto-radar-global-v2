@@ -3,7 +3,7 @@
 Document ID: AR-PROJECT-HANDOVER-v2
 Status: Active
 Authority: Current Handover Snapshot
-Last Updated: 2026-06-30
+Last Updated: 2026-07-01
 
 ## Startup Instruction
 
@@ -30,21 +30,21 @@ Last Updated: 2026-06-30
 
 ## Current Phase
 
-Engineering Phase — M-002 Living Ocean / Official Data Foundation
+Engineering Phase — Sprint 10 Captain Intelligence
 
 - Research: Complete / Frozen
 - Repository: Complete
 - Dashboard: North Star v1 implemented with Shadow Runtime binding
-- Engine: E-121 through E-155 implemented; E-156 through E-160 Official Data Foundation implemented for review; Gate OPEN
+- Engine: E-121 through E-160 implemented; E-161 through E-165 Captain Intelligence implemented for review; Gate OPEN
 - Automation, Beta, v1.0: Planned
 
 ## Current Task
 
-- Task ID: E-160
-- Task: Living Ocean Monitor
+- Task ID: E-165
+- Task: Captain Brief Generator
 - Owner: 小C / Engineering
-- Status: E-156 through E-160 implemented; awaiting 小P architecture review
-- Impact: Official-first Shadow data health and presentation only
+- Status: E-161 through E-165 implemented; awaiting 小P architecture review
+- Impact: Captain Shadow context and budget boundary only
 
 ## Completed Runtime Milestone
 
@@ -88,6 +88,11 @@ Engineering Phase — M-002 Living Ocean / Official Data Foundation
 - E-158 unified Evidence Normalizer。
 - E-159 Ocean Health 與未套用的資料信心調節候選。
 - E-160 Dashboard Living Ocean source monitor。
+- E-161 Captain Profile Engine 與強制 Decision Runtime profile reference。
+- E-162 serializable My Ship State。
+- E-163 profile-driven Shadow Budget boundary。
+- E-164 每日單一 Active Mission。
+- E-165 Good Morning Captain Brief 與 immutable artifacts。
 
 ## Active Boundaries
 
@@ -110,14 +115,15 @@ Engineering Phase — M-002 Living Ocean / Official Data Foundation
 - E-146 至 E-150 僅為 Shadow review records；不得修改 Scoring、Strategy 或 Repository。
 - E-151 至 E-155 僅為 Provider/Shadow data infrastructure。
 - E-156 至 E-160 僅為 official-first metadata、Snapshot、Evidence、Health 與 Dashboard monitor；尚未串接外部 API。
+- E-161 至 E-165 僅為 Captain Shadow context；不選股、不產生訂單、不改 Strategy 或 Scoring。
 - Learning 僅允許 Suggest，不得寫入 Repository。
 - N-001 至 N-010、Production Runtime 全部 BLOCKED。
-- 194 項自動測試通過。
+- 203 項自動測試通過。
 - 未修改 Pipeline、Dashboard、Scoring、Strategy 或 Production Rule。
 
 ## Immediate Next Step
 
-1. 小P驗收 E-156 至 E-160。
+1. 小P驗收 E-161 至 E-165。
 2. 記錄 PASS 或修正要求。
 3. 未經另案授權，不得進入 N-series 或 Production Runtime。
 

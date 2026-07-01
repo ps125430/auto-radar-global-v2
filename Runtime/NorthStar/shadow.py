@@ -61,7 +61,13 @@ class ShadowRuntimeOrchestrator:
     ) -> ShadowRunResult:
         """Run E-127 without converting Shadow output into a formal Decision."""
 
-        required_decision_refs = ("regime", "flow", "repository", "opportunity")
+        required_decision_refs = (
+            "captain_profile",
+            "regime",
+            "flow",
+            "repository",
+            "opportunity",
+        )
         missing = [
             key
             for key in required_decision_refs
